@@ -6,6 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
+pkg/
+build/
 
 # Compiled Java class files
 *.class
@@ -47,4 +49,8 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+.idea/workspace.xml
+junit.xml
+coverage/cobertura-coverage.xml
 
