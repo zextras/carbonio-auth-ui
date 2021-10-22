@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const { runCoffee } = require('./coffee');
 const { runBuild } = require('./build');
 const { runHelp } = require('./help');
+const { runWatch } = require('./watch');
 
 function parseArguments(rawArgs) {
 	const args = arg(
@@ -18,7 +19,7 @@ function parseArguments(rawArgs) {
 		showHelp: args['--help'] || false
 	};
 }
-const sdk = () => {
+const sdk = async () => {
 	const options = parseArguments(process.argv);
 	if (options.showHelp) {
 		runHelp();
@@ -33,18 +34,18 @@ const sdk = () => {
 			runBuild();
 			break;
 		}
-		/* case 'help': {
-				await runHelp(args);
+		case 'help': {
+				await runHelp();
 				break;
 			}
-			case 'init': {
+		/*	case 'init': {
 				await createProject(args);
 				break;
-			}
-			case 'watch': {
-				await runWatch(args);
-				break;
-			} */
+			}*/
+		case 'watch': {
+			await runWatch();
+			break;
+		}
 		default: {
 			console.error('%s Invalid command', chalk.red.bold('ERROR'));
 		}

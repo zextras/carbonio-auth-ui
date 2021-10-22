@@ -5,50 +5,31 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const semver = require('semver');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { createBabelConfig } = require('./babelrc.build.js');
 const { pkg } = require('../scripts/utils/pkg.js');
 
-exports.setupWebpackBuildConfig = (options, { basePath }) => {
-	const plugins = [
-		new webpack.ProvidePlugin({
-			process: 'process/browser'
-		}),
-		new webpack.DefinePlugin({
-			PACKAGE_VERSION: JSON.stringify(pkg.version),
-			ZIMBRA_PACKAGE_VERSION: semver.valid(semver.coerce(pkg.version)),
-			PACKAGE_NAME: JSON.stringify(pkg.zapp.name)
-		}),
-		new MiniCssExtractPlugin({
-			// Options similar to the same options in webpackOptions.output
-			// all options are optional
-			filename: 'style.[chunkhash:8].css',
-			chunkFilename: '[id].css',
-			ignoreOrder: false // Enable to remove warnings about conflicting order
-		})
-	];
-	if (options.analyzeBundle) {
-		plugins.push(new BundleAnalyzerPlugin());
-	}
-
-	plugins.push(
-		new CopyPlugin({
-			patterns: [
-				{ from: 'translations', to: 'i18n' },
-				{ from: 'CHANGELOG.md', to: '.', noErrorOnMissing: true }
-			]
-		})
-	);
-
-	const entry = {};
-	const alias = {};
-
-	entry.app = path.resolve(process.cwd(), 'sdk/scripts/utils/entry.js');
-	alias['app-entrypoint'] = path.resolve(process.cwd(), 'src/app.jsx');
-
+exports.setupWebpackWatchConfig = ( options, { basePath } ) => {
 	const defaultConfig = {
-		entry,
-		mode: 'production',
+		entry: {
+			app: path.resolve(process.cwd(), 'sdk/scripts/utils/entry.js')
+		},
+		mode: 'development',
+		devServer: {
+			hot: true,
+			port: 9000,
+			sockPort: 9000,
+			historyApiFallback: true,
+			https: true,
+			contentBase: path.resolve(
+				process.cwd(),
+				'node_modules',
+				'@zextras',
+				'zapp-shell',
+				'dist',
+				'public'
+			),
+			open: [basePath]
+		},
 		devtool: 'source-map',
 		target: 'web',
 		module: {
@@ -63,7 +44,10 @@ exports.setupWebpackBuildConfig = (options, { basePath }) => {
 					test: /\.(less|css)$/,
 					use: [
 						{
-							loader: MiniCssExtractPlugin.loader
+							loader: MiniCssExtractPlugin.loader,
+							options: {
+								hmr: true
+							}
 						},
 						{
 							loader: require.resolve('css-loader'),
@@ -119,16 +103,40 @@ exports.setupWebpackBuildConfig = (options, { basePath }) => {
 		},
 		resolve: {
 			extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
-			alias,
+			alias: {
+				'app-entrypoint': path.resolve(process.cwd(), 'src/app.jsx')
+			},
 			fallback: { path: require.resolve('path-browserify') }
 		},
 		output: {
 			path: path.resolve(process.cwd(), 'dist'),
-			filename: '[name].[fullhash].js',
-			chunkFilename: '[name].[chunkhash:8].chunk.js',
+			filename: '[name].bundle.js',
+			chunkFilename: '[name].chunk.js',
 			publicPath: basePath
 		},
-		plugins
+		plugins: [
+			new webpack.ProvidePlugin({
+				process: 'process/browser'
+			}),
+			new webpack.DefinePlugin({
+				PACKAGE_VERSION: JSON.stringify(pkg.version),
+				ZIMBRA_PACKAGE_VERSION: semver.valid(semver.coerce(pkg.version)),
+				PACKAGE_NAME: JSON.stringify(pkg.zapp.name)
+			}),
+			new MiniCssExtractPlugin({
+				// Options similar to the same options in webpackOptions.output
+				// all options are optional
+				filename: 'style.[chunkhash:8].css',
+				chunkFilename: '[id].css',
+				ignoreOrder: false // Enable to remove warnings about conflicting order
+			}),
+			new CopyPlugin({
+				patterns: [
+					{ from: 'translations', to: 'i18n' },
+					{ from: 'CHANGELOG.md', to: '.', noErrorOnMissing: true }
+				]
+			})
+		]
 	};
 
 	defaultConfig.externals = {
@@ -150,13 +158,9 @@ exports.setupWebpackBuildConfig = (options, { basePath }) => {
 	};
 
 	const confPath = path.resolve(process.cwd(), 'zapp.webpack.js');
-
 	if (!fs.existsSync(confPath)) {
 		return defaultConfig;
 	}
-
-	// eslint-disable-next-line max-len
-	// eslint-disable-next-line global-require,import/no-dynamic-require,@typescript-eslint/no-var-requires
 	const molder = require(confPath);
 	molder(defaultConfig, pkg, options);
 

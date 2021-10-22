@@ -4,12 +4,12 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const { setupBuild } = require('./utils/setup.js');
 const { pkg } = require('./utils/pkg.js');
-const { setupWebpackBuildConfig } = require('../configs/webpack.build.config.js');
+const { setupWebpackWatchConfig } = require('../configs/webpack.watch.config.js');
 
 function parseArguments() {
 	const args = arg(
 		{
-			'--host': Boolean,
+			'--host': Number,
 			'-h': '--host'
 		},
 		{
@@ -52,11 +52,13 @@ const logBuild = (err, stats) => {
 
 };
 
-exports.runBuild = () => {
+exports.runWatch = async () => {
 	const options = parseArguments();
 	const buildContext = setupBuild();
 	console.log('Building ', chalk.green(pkg.zapp.name));
 	console.log('Using base path ', chalk.green(buildContext.basePath));
-	const config = setupWebpackBuildConfig(options, buildContext);
-	webpack(config, logBuild);
+	const config = setupWebpackWatchConfig(options, buildContext);
+	const compiler = webpack( config );
+	const watching = compiler.watch( {}, logBuild );
+	console.log(chalk.green(''))
 };
