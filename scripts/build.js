@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const { setupBuild } = require('./utils/setup.js');
 const { pkg } = require('./utils/pkg.js');
-const { setupWebpackBuildConfig } = require('../configs/webpack.build.config.js');
+const { setupWebpackBuildConfig } = require('./configs/webpack.build.config.js');
 
 function parseArguments() {
 	const args = arg(

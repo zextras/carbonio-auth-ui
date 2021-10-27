@@ -12,13 +12,18 @@
 
 async function bootApp() {
 	const appEntrypoint = await import('app-entrypoint');
+	console.log('appEntrypoint');
 
 	const App = (appEntrypoint && appEntrypoint.default) || appEntrypoint;
 	window.__ZAPP_HMR_EXPORT__[PACKAGE_NAME](App);
 }
 
 bootApp();
+console.log('fuori dall\'if');
 
 if (module.hot) {
-	module.hot.accept('app-entrypoint', bootApp);
+	console.log('Accepting the updated module!');
+	module.hot.accept('app-entrypoint', bootApp, (e) => {
+		console.log('----------', e);
+	});
 }

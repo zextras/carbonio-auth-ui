@@ -7,7 +7,7 @@ const fs = require('fs');
 const semver = require('semver');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { createBabelConfig } = require('./babelrc.build.js');
-const { pkg } = require('../scripts/utils/pkg.js');
+const { pkg } = require('../utils/pkg.js');
 
 exports.setupWebpackBuildConfig = (options, { basePath }) => {
 	const plugins = [

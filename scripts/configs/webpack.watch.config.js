@@ -6,29 +6,100 @@ const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const semver = require('semver');
 const { createBabelConfig } = require('./babelrc.build.js');
-const { pkg } = require('../scripts/utils/pkg.js');
+const { pkg } = require('../utils/pkg.js');
 
-exports.setupWebpackWatchConfig = ( options, { basePath } ) => {
+exports.setupWebpackWatchConfig = ( options, { basePath, shellHash } ) => {
+	const server = `https://${options.host || '127.0.0.1:8443'}/`;
 	const defaultConfig = {
 		entry: {
 			app: path.resolve(process.cwd(), 'sdk/scripts/utils/entry.js')
 		},
 		mode: 'development',
 		devServer: {
+			// watchFiles: [
+			// 	path.resolve(process.cwd(), 'src/**/*'),
+			// 	path.resolve(process.cwd(), 'node_modules/@zextras/zapp-shell')
+			// ],
+			// liveReload: false,
 			hot: true,
 			port: 9000,
-			sockPort: 9000,
 			historyApiFallback: true,
 			https: true,
-			contentBase: path.resolve(
-				process.cwd(),
-				'node_modules',
-				'@zextras',
-				'zapp-shell',
-				'dist',
-				'public'
-			),
-			open: [basePath]
+			onBeforeSetupMiddleware (devServer) {
+				devServer.app.get( '/_cli', ( req, res ) => {
+					res.json({
+						isWatch: true,
+						isStandalone: !!options.standalone,
+						server: !!options.server,
+						hasHandlers: !!options.hasHandlers,
+						enableErrorReporter: !!options.enableErrorReporter,
+						app_package: {
+							package: pkg.zapp.name,
+							name: pkg.zapp.name,
+							label: pkg.zapp.display,
+							version: pkg.version,
+							description: pkg.description
+						}
+					});
+				});
+			},
+			static: {
+				directory: path.resolve(
+					process.cwd(),
+					'node_modules',
+					'@zextras',
+					'zapp-shell',
+					'dist'
+				),
+				publicPath: `/static/iris/carbonio-shell/${shellHash}`
+			},
+			open: [`/static/iris/carbonio-shell/${shellHash}`],
+			proxy: [
+				// {
+				// 	context: ['/static/iris/carbonio-shell/current/**'],
+				// 	secure: false,
+				// 	pathRewrite: { '^/current': `/${shellHash}`},
+				// },
+				{
+					context: [`!/static/iris/carbonio-shell/**/*`, `!${basePath}/**/*`, '!/static/iris/components.json'],
+					target: server,
+					secure: false,
+					logLevel: 'debug',
+					cookieDomainRewrite: {
+						'*': server,
+						[server]: 'localhost:9000'
+					}
+				},
+				{
+					context: [ '/static/iris/components.json' ],
+					target: server,
+					secure: false,
+					logLevel: 'debug',
+					cookieDomainRewrite: {
+						'*': server,
+						[ server ]: 'localhost:9000'
+					},
+					selfHandleResponse: true,
+					onProxyRes( proxyRes, req, res ) {
+						const bodyChunks = [];
+						proxyRes.on('data', (chunk) => {
+								bodyChunks.push(chunk);
+						});
+						proxyRes.on('end', () => {
+								const body = Buffer.concat(bodyChunks);
+								const original = JSON.parse( body.toString( 'utf-8' ) );
+								const components = original.components.reduce( ( acc, module ) => {
+										if ( module.name === pkg.zapp.name ) {
+											return [ ...acc, { ...module, 'js_entrypoint': `${basePath}app.bundle.js` } ];
+										}
+										if ( module.name === 'carbonio-error-reporter' ) return acc;
+										return [ ...acc, module ];
+								}, [] );
+								res.send(new Buffer.from(JSON.stringify({ components })));
+						});
+					}
+				}
+			]
 		},
 		devtool: 'source-map',
 		target: 'web',
@@ -38,7 +109,7 @@ exports.setupWebpackWatchConfig = ( options, { basePath } ) => {
 					test: /\.[jt]sx?$/,
 					exclude: /node_modules/,
 					loader: require.resolve('babel-loader'),
-					options: createBabelConfig(`babel.config.js`, options, pkg)
+					options: createBabelConfig(`babel.config.js`)
 				},
 				{
 					test: /\.(less|css)$/,
@@ -115,13 +186,14 @@ exports.setupWebpackWatchConfig = ( options, { basePath } ) => {
 			publicPath: basePath
 		},
 		plugins: [
+			// new webpack.HotModuleReplacementPlugin(),
 			new webpack.ProvidePlugin({
 				process: 'process/browser'
 			}),
 			new webpack.DefinePlugin({
 				PACKAGE_VERSION: JSON.stringify(pkg.version),
 				ZIMBRA_PACKAGE_VERSION: semver.valid(semver.coerce(pkg.version)),
-				PACKAGE_NAME: JSON.stringify(pkg.zapp.name)
+				PACKAGE_NAME: JSON.stringify(pkg.zapp.name),
 			}),
 			new MiniCssExtractPlugin({
 				// Options similar to the same options in webpackOptions.output
@@ -162,7 +234,7 @@ exports.setupWebpackWatchConfig = ( options, { basePath } ) => {
 		return defaultConfig;
 	}
 	const molder = require(confPath);
-	molder(defaultConfig, pkg, options);
+	molder( defaultConfig, pkg, options );
 
 	return defaultConfig;
 };
