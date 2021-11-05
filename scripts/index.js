@@ -2,6 +2,7 @@ const arg = require('arg');
 const chalk = require('chalk');
 const { runCoffee } = require('./coffee');
 const { runBuild } = require('./build');
+const { runDeploy } = require('./deploy');
 const { runHelp } = require('./help');
 const { runWatch } = require('./watch');
 
@@ -34,10 +35,14 @@ const sdk = async () => {
 			runBuild();
 			break;
 		}
+		case 'deploy': {
+			runDeploy();
+			break;
+		}
 		case 'help': {
-				await runHelp();
-				break;
-			}
+			runHelp();
+			break;
+		}
 		/*	case 'init': {
 				await createProject(args);
 				break;

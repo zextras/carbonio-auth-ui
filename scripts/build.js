@@ -52,11 +52,12 @@ const logBuild = (err, stats) => {
 
 };
 
-exports.runBuild = () => {
+exports.runBuild = async () => {
 	const options = parseArguments();
 	const buildContext = setupBuild();
 	console.log('Building ', chalk.green(pkg.zapp.name));
 	console.log('Using base path ', chalk.green(buildContext.basePath));
 	const config = setupWebpackBuildConfig(options, buildContext);
-	webpack(config, logBuild);
+	const compiler = webpack(config, logBuild);
+	console.log('done.');
 };

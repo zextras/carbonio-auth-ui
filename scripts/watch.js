@@ -58,7 +58,7 @@ exports.runWatch = async () => {
 	console.log('Building ', chalk.green(pkg.zapp.name));
 	console.log('Using base path ', chalk.green( buildContext.basePath ) );
 	const config = setupWebpackWatchConfig(options, buildContext);
-	const compiler = webpack( config );
+	const compiler = webpack(config);
 	// const watching = compiler.watch( {}, logBuild );
 	const server = new WebpackDevServer(config.devServer, compiler);
 	const runServer = async () => {
