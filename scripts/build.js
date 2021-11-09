@@ -33,7 +33,7 @@ const logBuild = (err, stats) => {
 
 	const info = stats.toJson();
 
-	if ( stats.hasWarnings() ) {
+	if (stats.hasWarnings()) {
 		chalk.bgRed.white.bold(`Webpack Compilations Warning${info.warnings.length > 0 ? 's' : ''}`);
 		console.warn(info.warnings);
 	}
@@ -44,12 +44,8 @@ const logBuild = (err, stats) => {
 		);
 		console.error(info.errors);
 	} else {
-		console.log(
-			chalk.bgBlue.white.bold( 'Compiled Successfully!' )
-		);
+		console.log(chalk.bgBlue.white.bold('Compiled Successfully!'));
 	}
-
-
 };
 
 exports.runBuild = async () => {
