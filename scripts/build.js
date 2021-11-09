@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const { setupBuild } = require('./utils/setup.js');
 const { pkg } = require('./utils/pkg.js');
-const { setupWebpackBuildConfig } = require('../configs/webpack.build.config.js');
+const { setupWebpackBuildConfig } = require('./configs/webpack.build.config.js');
 
 function parseArguments() {
 	const args = arg(
@@ -52,11 +52,11 @@ const logBuild = (err, stats) => {
 
 };
 
-exports.runBuild = () => {
+exports.runBuild = async () => {
 	const options = parseArguments();
 	const buildContext = setupBuild();
 	console.log('Building ', chalk.green(pkg.zapp.name));
 	console.log('Using base path ', chalk.green(buildContext.basePath));
 	const config = setupWebpackBuildConfig(options, buildContext);
-	webpack(config, logBuild);
+	const compiler = webpack(config, logBuild);
 };
