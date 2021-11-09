@@ -59,5 +59,4 @@ exports.runBuild = async () => {
 	console.log('Using base path ', chalk.green(buildContext.basePath));
 	const config = setupWebpackBuildConfig(options, buildContext);
 	const compiler = webpack(config, logBuild);
-	console.log('done.');
 };
