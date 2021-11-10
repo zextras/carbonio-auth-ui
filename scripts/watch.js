@@ -2,10 +2,11 @@
 const arg = require('arg');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const { setupBuild } = require('./utils/setup.js');
-const { pkg } = require('./utils/pkg.js');
-const { setupWebpackWatchConfig } = require('./configs/webpack.watch.config.js');
-const WebpackDevServer = require( 'webpack-dev-server' );
+const WebpackDevServer = require('webpack-dev-server');
+const { setupBuild } = require('./utils/setup');
+const { pkg } = require('./utils/pkg');
+const { setupWebpackWatchConfig } = require('./configs/webpack.watch.config');
+
 function parseArguments() {
 	const args = arg(
 		{
@@ -33,7 +34,7 @@ const logBuild = (err, stats) => {
 
 	const info = stats.toJson();
 
-	if ( stats.hasWarnings() ) {
+	if (stats.hasWarnings()) {
 		chalk.bgRed.white.bold(`Webpack Compilations Warning${info.warnings.length > 0 ? 's' : ''}`);
 		console.warn(info.warnings);
 	}
@@ -44,19 +45,15 @@ const logBuild = (err, stats) => {
 		);
 		console.error(info.errors);
 	} else {
-		console.log(
-			chalk.bgBlue.white.bold( 'Compiled Successfully!' )
-		);
+		console.log(chalk.bgBlue.white.bold('Compiled Successfully!'));
 	}
-
-
 };
 
 exports.runWatch = async () => {
 	const options = parseArguments();
 	const buildContext = setupBuild();
 	console.log('Building ', chalk.green(pkg.zapp.name));
-	console.log('Using base path ', chalk.green( buildContext.basePath ) );
+	console.log('Using base path ', chalk.green(buildContext.basePath));
 	const config = setupWebpackWatchConfig(options, buildContext);
 	const compiler = webpack(config);
 	// const watching = compiler.watch( {}, logBuild );

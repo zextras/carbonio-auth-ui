@@ -46,7 +46,7 @@ const sdk = async () => {
 		/*	case 'init': {
 				await createProject(args);
 				break;
-			}*/
+			} */
 		case 'watch': {
 			await runWatch();
 			break;
