@@ -5,28 +5,28 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const semver = require('semver');
+const modifyResponse = require('node-http-proxy-json');
 const { createBabelConfig } = require('./babelrc.build.js');
 const { pkg } = require('../utils/pkg.js');
 
-exports.setupWebpackWatchConfig = ( options, { basePath, shellHash } ) => {
-	const server = `https://${options.host || '127.0.0.1:8443'}/`;
+exports.setupWebpackWatchConfig = (options, { basePath, shellHash }) => {
+	const server = `https://${options.host || '127.0.0.1:4443'}/`;
 	const defaultConfig = {
 		entry: {
 			app: path.resolve(process.cwd(), 'sdk/scripts/utils/entry.js')
 		},
 		mode: 'development',
 		devServer: {
-			// watchFiles: [
-			// 	path.resolve(process.cwd(), 'src/**/*'),
-			// 	path.resolve(process.cwd(), 'node_modules/@zextras/zapp-shell')
-			// ],
-			// liveReload: false,
 			hot: true,
 			port: 9000,
-			historyApiFallback: true,
+			historyApiFallback: {
+				index: basePath,
+				rewrites: { from: '/static/iris/carbonio-shell/current', to: `${basePath}/index.html` }
+			},
 			https: true,
-			onBeforeSetupMiddleware (devServer) {
-				devServer.app.get( '/_cli', ( req, res ) => {
+			// http2: false,
+			onBeforeSetupMiddleware(devServer) {
+				devServer.app.get('/_cli', (req, res) => {
 					res.json({
 						isWatch: true,
 						isStandalone: !!options.standalone,
@@ -44,59 +44,74 @@ exports.setupWebpackWatchConfig = ( options, { basePath, shellHash } ) => {
 				});
 			},
 			static: {
-				directory: path.resolve(
-					process.cwd(),
-					'node_modules',
-					'@zextras',
-					'zapp-shell',
-					'dist'
-				),
+				directory: path.resolve(process.cwd(), 'node_modules', '@zextras', 'zapp-shell', 'dist'),
 				publicPath: `/static/iris/carbonio-shell/${shellHash}`
 			},
 			open: [`/static/iris/carbonio-shell/${shellHash}`],
 			proxy: [
 				// {
-				// 	context: ['/static/iris/carbonio-shell/current/**'],
+				// 	context: ['/static/iris/carbonio-shell/current'],
 				// 	secure: false,
-				// 	pathRewrite: { '^/current': `/${shellHash}`},
+				// 	target: 'https://localhost:9000',
+				// 	pathRewrite: { '^/current': `/${shellHash}` }
 				// },
 				{
-					context: [`!/static/iris/carbonio-shell/**/*`, `!${basePath}/**/*`, '!/static/iris/components.json'],
+					context: [
+						`!/static/iris/carbonio-shell/**/*`,
+						`!${basePath}/**/*`,
+						'!/static/iris/components.json'
+					],
 					target: server,
 					secure: false,
 					logLevel: 'debug',
+					ws: true,
 					cookieDomainRewrite: {
 						'*': server,
 						[server]: 'localhost:9000'
 					}
 				},
 				{
-					context: [ '/static/iris/components.json' ],
+					context: ['/static/iris/components.json'],
 					target: server,
 					secure: false,
 					logLevel: 'debug',
 					cookieDomainRewrite: {
 						'*': server,
-						[ server ]: 'localhost:9000'
+						[server]: 'localhost:9000'
 					},
-					selfHandleResponse: true,
-					onProxyRes( proxyRes, req, res ) {
-						const bodyChunks = [];
-						proxyRes.on('data', (chunk) => {
-								bodyChunks.push(chunk);
+					selfHandleResponse: false,
+					onProxyRes(proxyRes, req, res) {
+						modifyResponse(res, proxyRes, function (body) {
+							console.log('[Proxy] modifying components.json');
+							const components = body.components.reduce((acc, module) => {
+								if (module.name === pkg.zapp.name) {
+									return [...acc, { ...module, js_entrypoint: `${basePath}app.bundle.js` }];
+								}
+								if (module.name === 'carbonio-error-reporter') return acc;
+								return [...acc, module];
+							}, []);
+							// eslint-disable-next-line new-cap
+							return JSON.stringify({ components });
 						});
-						proxyRes.on('end', () => {
-								const body = Buffer.concat(bodyChunks);
-								const original = JSON.parse( body.toString( 'utf-8' ) );
-								const components = original.components.reduce( ( acc, module ) => {
-										if ( module.name === pkg.zapp.name ) {
-											return [ ...acc, { ...module, 'js_entrypoint': `${basePath}app.bundle.js` } ];
-										}
-										if ( module.name === 'carbonio-error-reporter' ) return acc;
-										return [ ...acc, module ];
-								}, [] );
-								res.send(new Buffer.from(JSON.stringify({ components })));
-						});
+						// const bodyChunks = [];
+						// proxyRes.on('data', (chunk) => {
+						// 	bodyChunks.push(chunk);
+						// 	console.log('data', chunk);
+						// });
+						// proxyRes.on('end', () => {
+						// 	const body = Buffer.concat(bodyChunks);
+						// 	// console.log(body.toJSON());
+						// 	const original = JSON.parse(body.toString());
+						// 	const components = original.components.reduce((acc, module) => {
+						// 		if (module.name === pkg.zapp.name) {
+						// 			return [...acc, { ...module, js_entrypoint: `${basePath}app.bundle.js` }];
+						// 		}
+						// 		if (module.name === 'carbonio-error-reporter') return acc;
+						// 		return [...acc, module];
+						// 	}, []);
+						// 	// eslint-disable-next-line new-cap
+						// 	res.send(new Buffer.from(JSON.stringify({ components })));
+						// });
 					}
 				}
 			]
@@ -157,11 +172,11 @@ exports.setupWebpackWatchConfig = ( options, { basePath, shellHash } ) => {
 					test: /\.hbs$/,
 					loader: require.resolve('handlebars-loader')
 				},
-				{
-					test: /\.(js|jsx)$/,
-					use: require.resolve('react-hot-loader/webpack'),
-					include: /node_modules/
-				},
+				// {
+				// 	test: /\.(js|jsx)$/,
+				// 	use: require.resolve('react-hot-loader/webpack'),
+				// 	include: /node_modules/
+				// },
 				{
 					test: /\.properties$/,
 					use: [
@@ -193,7 +208,7 @@ exports.setupWebpackWatchConfig = ( options, { basePath, shellHash } ) => {
 			new webpack.DefinePlugin({
 				PACKAGE_VERSION: JSON.stringify(pkg.version),
 				ZIMBRA_PACKAGE_VERSION: semver.valid(semver.coerce(pkg.version)),
-				PACKAGE_NAME: JSON.stringify(pkg.zapp.name),
+				PACKAGE_NAME: JSON.stringify(pkg.zapp.name)
 			}),
 			new MiniCssExtractPlugin({
 				// Options similar to the same options in webpackOptions.output
@@ -233,8 +248,9 @@ exports.setupWebpackWatchConfig = ( options, { basePath, shellHash } ) => {
 	if (!fs.existsSync(confPath)) {
 		return defaultConfig;
 	}
+	// eslint-disable-next-line global-require, import/no-dynamic-require
 	const molder = require(confPath);
-	molder( defaultConfig, pkg, options );
+	molder(defaultConfig, pkg, options);
 
 	return defaultConfig;
 };

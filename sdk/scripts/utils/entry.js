@@ -20,8 +20,5 @@ async function bootApp() {
 bootApp();
 
 if (module.hot) {
-	console.log('Accepting the updated module!');
-	module.hot.accept('app-entrypoint', bootApp, (e) => {
-		console.log('----------', e);
-	});
+	module.hot.accept('app-entrypoint', bootApp);
 }
