@@ -24,7 +24,7 @@ const SettingsView = (props) => (
 
 export default function App() {
 	console.log(
-		'%c Auth APP LOADED',
+		'%c AUTH APP LOADED',
 		'color: white; background: #8bc34a;padding: 4px 8px 2px 4px; font-family: sans-serif; border-radius: 12px; width: 100%'
 	);
 	useEffect(() => {

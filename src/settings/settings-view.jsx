@@ -1,9 +1,5 @@
 import React, { useState, useMemo, useCallback, useContext } from 'react';
-import {
-	useUserSettings,
-	useReplaceHistoryCallback,
-	useSaveSettingsCallback
-} from '@zextras/zapp-shell';
+import { useUserSettings, editSettings } from '@zextras/zapp-shell';
 import {
 	Container,
 	Padding,
@@ -23,13 +19,11 @@ export default function ContactSettingsView() {
 	const settings = useUserSettings()?.prefs;
 	const [settingsObj, setSettingsObj] = useState({ ...settings });
 	const [updatedSettings, setUpdatedSettings] = useState({});
-	const replaceHistory = useReplaceHistoryCallback();
-	const saveSettings = useSaveSettingsCallback();
 	const createSnackbar = useContext(SnackbarManagerContext);
 
 	const onClose = useCallback(() => {
-		replaceHistory(`/folder/7`);
-	}, [replaceHistory]);
+		console.log('cancel');
+	}, []);
 
 	const updateSettings = useCallback(
 		(e) => {
@@ -45,13 +39,13 @@ export default function ContactSettingsView() {
 	);
 
 	const saveChanges = useCallback(() => {
-		saveSettings({ prefs: updatedSettings }).then((res) => {
+		editSettings({ prefs: updatedSettings }).then((res) => {
 			if (res.type.includes('fulfilled')) {
 				createSnackbar({
 					key: `new`,
 					replace: true,
 					type: 'info',
-					label: t('message.snackbar.settings_saved'),
+					label: t('snackbar.settings_saved', 'Settings saved successfully'),
 					autoHideTimeout: 3000,
 					hideButton: true
 				});
@@ -66,7 +60,7 @@ export default function ContactSettingsView() {
 				});
 			}
 		});
-	}, [saveSettings, updatedSettings, createSnackbar, t]);
+	}, [updatedSettings, createSnackbar, t]);
 
 	return (
 		<Container
@@ -83,7 +77,7 @@ export default function ContactSettingsView() {
 					crossAlignment="flex-start"
 				>
 					<Text size="large" weight="regular">
-						{t('label.contact_setting')}
+						{t('label.auth_settings', 'Auth Settings')}
 					</Text>
 				</Row>
 				<Row
@@ -93,10 +87,10 @@ export default function ContactSettingsView() {
 					crossAlignment="flex-end"
 				>
 					<Padding right="small">
-						<Button label={t('label.cancel')} onClick={onClose} color="secondary" />
+						<Button label={t('label.cancel', 'Cancel')} onClick={onClose} color="secondary" />
 					</Padding>
 					<Button
-						label={t('label.save')}
+						label={t('label.save', 'Save')}
 						color="primary"
 						onClick={saveChanges}
 						disabled={Object.keys(settingsToUpdate).length < 1}

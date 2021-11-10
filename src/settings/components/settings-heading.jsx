@@ -1,5 +1,5 @@
 import React from 'react';
-import { Padding, Row, Text, Divider } from '@zextras/zapp-ui';
+import { Padding, Row, Text } from '@zextras/zapp-ui';
 
 export default function Heading({ title }) {
 	return (
@@ -14,7 +14,6 @@ export default function Heading({ title }) {
 					{title}
 				</Text>
 			</Row>
-			{/* <Divider /> */}
 			<Padding veritcal="small" />
 		</>
 	);

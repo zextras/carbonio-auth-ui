@@ -1,1 +1,12 @@
-{}
+{
+    "label": {
+        "auth_settings": "Auth Settings",
+        "cancel": "Cancel",
+        "save": "Save"
+    },
+    "options": "Options",
+    "snackbar": {
+        "error": "",
+        "settings_saved": "Settings saved successfully"
+    }
+}
