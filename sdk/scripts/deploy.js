@@ -50,6 +50,9 @@ exports.runDeploy = async () => {
 	if (!options.server) {
 		console.log('- Deploying to the carbonio podman container...');
 		execSync(
+			`podman exec carbonio mkdir -p /opt/zextras/web/iris/${pkg.zapp.name}/${buildSetup.commitHash}`
+		);
+		execSync(
 			`podman cp dist/. carbonio:opt/zextras/web/iris/${pkg.zapp.name}/${buildSetup.commitHash}`
 		);
 		console.log('- Updating components.json...');
