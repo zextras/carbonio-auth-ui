@@ -1,8 +1,8 @@
 library(
-	identifier: 'zapp-jenkins-lib@v0.0.27',
+	identifier: 'zapp-jenkins-lib@v0.0.38',
 	retriever: modernSCM([
 		$class: 'GitSCMSource',
-   		remote: 'git@bitbucket.org:zextras/zapp-jenkins-lib.git',
+		remote: 'git@bitbucket.org:zextras/zapp-jenkins-lib.git',
 		credentialsId: 'tarsier_bot-ssh-key'
 	])
 )

@@ -8,29 +8,33 @@
  * http://www.zextras.com/zextras-eula.html
  * *** END LICENSE BLOCK *****
  */
-import React, { useEffect, lazy, Suspense } from 'react';
 
-import { registerAppData } from '@zextras/zapp-shell';
+import React, { lazy, useEffect, Suspense } from 'react';
+import { registerAppData, Spinner } from '@zextras/zapp-shell';
 
-const LazySettings = lazy(() => import('./settings'));
+const LazySettingsView = lazy(() =>
+	import(/* webpackChunkName: "settings-view" */ './settings/settings-view')
+);
 
-const Settings = () => (
-	<Suspense fallback={null}>
-		<LazySettings />
+const SettingsView = (props) => (
+	<Suspense fallback={<Spinner />}>
+		<LazySettingsView {...props} />
 	</Suspense>
 );
+
 export default function App() {
 	console.log(
-		'%c AUTH LOADED',
+		'%c Auth APP LOADED',
 		'color: white; background: #8bc34a;padding: 4px 8px 2px 4px; font-family: sans-serif; border-radius: 12px; width: 100%'
 	);
 	useEffect(() => {
 		registerAppData({
+			icon: 'AuthOutline',
 			views: {
-				settings: Settings
-			}
+				settings: SettingsView
+			},
+			context: {}
 		});
 	}, []);
-
 	return null;
 }
