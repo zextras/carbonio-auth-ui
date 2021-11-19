@@ -6,10 +6,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const semver = require('semver');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { createBabelConfig } = require('./babelrc.build.js');
 const { pkg } = require('../utils/pkg.js');
 
-exports.setupWebpackBuildConfig = (options, { basePath }) => {
+exports.setupWebpackBuildConfig = (options, { basePath, commitHash }) => {
 	const plugins = [
 		new webpack.ProvidePlugin({
 			process: 'process/browser'
@@ -25,6 +26,18 @@ exports.setupWebpackBuildConfig = (options, { basePath }) => {
 			filename: 'style.[chunkhash:8].css',
 			chunkFilename: '[id].css',
 			ignoreOrder: false // Enable to remove warnings about conflicting order
+		}),
+		new HtmlWebpackPlugin({
+			inject: false,
+			template: path.resolve(process.cwd(), 'sdk/scripts/configs/component.template'),
+			filename: 'component.json',
+			name: pkg.zapp.name,
+			description: pkg.description,
+			display: pkg.zapp.display,
+			version: pkg.version,
+			commit: commitHash,
+			priority: pkg.zapp.priority,
+			route: pkg.zapp.route
 		})
 	];
 	if (options.analyzeBundle) {
@@ -90,7 +103,7 @@ exports.setupWebpackBuildConfig = (options, { basePath }) => {
 					]
 				},
 				{
-					test: /\.(png|jpg|gif|woff2?|svg|eot|ttf|ogg|mp3)$/,
+					test: /\.(png|jpg|gif|woff2?|svg|eot|ttf|ogg|mp3|json)$/,
 					use: [
 						{
 							loader: require.resolve('file-loader'),

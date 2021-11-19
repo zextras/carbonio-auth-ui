@@ -1,5 +1,14 @@
 const arg = require('arg');
+const fs = require('fs');
 const chalk = require('chalk');
+const { execSync } = require('child_process');
+const path = require('path');
+
+if (!fs.existsSync(path.resolve(process.cwd(), 'sdk/node_modules'))) {
+	console.log('ERROR: node_modules not found, running install script.');
+	execSync('cd sdk && npm i', { stdio: 'inherit' });
+	return;
+}
 const { runCoffee } = require('./coffee');
 const { runBuild } = require('./build');
 const { runDeploy } = require('./deploy');
@@ -46,7 +55,7 @@ const sdk = async () => {
 		/*	case 'init': {
 				await createProject(args);
 				break;
-			}*/
+			} */
 		case 'watch': {
 			await runWatch();
 			break;
