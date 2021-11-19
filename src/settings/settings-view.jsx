@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { differenceObject } from './components/utils';
 import OptionsSettingsView from './options-settings-view';
 
-export default function ContactSettingsView() {
+export default function SettingsView() {
 	const [t] = useTranslation();
 	const settings = useUserSettings()?.prefs;
 	const [settingsObj, setSettingsObj] = useState({ ...settings });
