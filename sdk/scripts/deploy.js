@@ -24,8 +24,9 @@ function parseArguments() {
 }
 
 const updateJson = (jsonObject, stats) => {
-	const index = jsonObject.components.findIndex((component) => component.name === pkg.zapp.name);
-	const newEntry = {
+	const components = jsonObject.components.filter((component) => component.name !== pkg.zapp.name);
+
+	components.push({
 		name: pkg.zapp.name,
 		commit: buildSetup.commitHash,
 		display: pkg.zapp.display,
@@ -35,14 +36,8 @@ const updateJson = (jsonObject, stats) => {
 		priority: pkg.zapp.priority,
 		js_entrypoint:
 			buildSetup.basePath + Object.keys(stats.compilation.assets).find((p) => ENTRY_REGEX.test(p))
-	};
-	if (index >= 0) {
-		// eslint-disable-next-line no-param-reassign
-		jsonObject.components[index] = newEntry;
-	} else {
-		jsonObject.components.push(newEntry);
-	}
-	return jsonObject;
+	});
+	return { components };
 };
 exports.runDeploy = async () => {
 	const options = parseArguments();
