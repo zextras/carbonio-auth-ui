@@ -12,13 +12,11 @@
 import React, { lazy, useEffect, Suspense } from 'react';
 import { registerAppData, Spinner } from '@zextras/zapp-shell';
 
-const LazySettingsView = lazy(() =>
-	import(/* webpackChunkName: "settings-view" */ './settings/settings-view')
-);
+const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
-const SettingsView = (props) => (
+const Auth = (props) => (
 	<Suspense fallback={<Spinner />}>
-		<LazySettingsView {...props} />
+		<LazyAuth {...props} />
 	</Suspense>
 );
 
@@ -31,7 +29,7 @@ export default function App() {
 		registerAppData({
 			icon: 'AuthOutline',
 			views: {
-				settings: SettingsView
+				settings: Auth
 			},
 			context: {}
 		});

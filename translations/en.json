@@ -1,10 +1,89 @@
 {
+    "appMobile": {
+        "label": "Mobile Applications",
+        "title": "Mobile Apps"
+    },
+    "buttons": {
+        "cancel": "Cancel",
+        "click": "Click here",
+        "close": "Close",
+        "done": "Done",
+        "yes": "Yes"
+    },
+    "changePassword": {
+        "confirmNew": "Confirm New Password",
+        "digitSpecial": "a number (123) and special character (!/@)",
+        "formatNotValid": "Password must contain at least one uppercase, lowercase character, digit, special character",
+        "instruction": "Please create a new password and re-enter it in the confirmation field",
+        "lowerUpper": "an uppercase (ABC) and a lowercase (abc) character",
+        "mustContain": "The new password should have from 6 to 20 characters and must contain:",
+        "mustMatch": "Passwords must match. Please re-type...",
+        "oldPassword": "Old Password",
+        "passwordChanged": "Your password has been changed.",
+        "title": "Change Password"
+    },
+    "common": {
+        "copyPassword": "Copy password",
+        "createPassword": "Create password",
+        "delete": "Delete",
+        "disabled": "Disabled",
+        "enabled": "Enabled",
+        "newAuthentication": "New authentication"
+    },
+    "deleteOtp": {
+        "description": "All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set."
+    },
+    "deletePassword": {
+        "title": "Are you sure you want to delete this password?"
+    },
+    "easAuth": {
+        "empty": "The Exchange ActiveSync list is empty.",
+        "helpRemember": "Description will help you remember where this Exchange ActiveSync Authentication is used.",
+        "label": "Exchange ActiveSync",
+        "new": "Exchange ActiveSync | New Authentication",
+        "success": "New Exchange ActiveSync password enabled successfully. Passwords list has been updated."
+    },
+    "error": {
+        "alreadyInUse": "Already in use. Please choose another description.",
+        "maximumLength": "Maximum length is 20 characters.",
+        "minimumLength": "Minimum length is 6 characters.",
+        "somethingWrong": "Something went wrong."
+    },
+    "instruction": {
+        "changePassword": "Here you can change your password.",
+        "eas": "Here you can manage your Exchange ActiveSync password.",
+        "mobile": "Here you can manage Mobile App password.",
+        "otp": "Here you can manage the OTP Authentication."
+    },
+    "instructions": {
+        "needInfo": "Do you need more information?"
+    },
     "label": {
         "auth_settings": "Auth Settings",
         "cancel": "Cancel",
         "save": "Save"
     },
+    "newPassword": "New password",
     "options": "Options",
+    "passwordListLabel": {
+        "created": "Created",
+        "label": "Description",
+        "service": "Service",
+        "status": "Status"
+    },
+    "setNewOtpLabel": {
+        "title": "OTP Authentication"
+    },
+    "setNewPassword": {
+        "EASPasswordCopied": "EAS Password copied",
+        "authenticationDescription": "Authentication description",
+        "successfully": "Password generated successfully",
+        "textDescription": "Use this code to authenticate your Zimbra account on Exchange ActiveSync services",
+        "warningJustOnce": "Warning: you’ll be able to see this code just once"
+    },
+    "setNewQRCode": {
+        "successfully": "QR Authentication generated successfully"
+    },
     "snackbar": {
         "error": "",
         "settings_saved": "Settings saved successfully"
