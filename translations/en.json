@@ -1,6 +1,9 @@
 {
     "appMobile": {
+        "empty": "The Mobile Apps list is empty.",
         "label": "Mobile Applications",
+        "new": "Mobile Apps | New Authentication",
+        "success": "New Mobile App password enabled successfully. Passwords list has been updated.",
         "title": "Mobile Apps"
     },
     "buttons": {
@@ -8,6 +11,7 @@
         "click": "Click here",
         "close": "Close",
         "done": "Done",
+        "next": "Next",
         "yes": "Yes"
     },
     "changePassword": {
@@ -23,7 +27,9 @@
         "title": "Change Password"
     },
     "common": {
+        "codeCopied": "Code copied successfully",
         "copyPassword": "Copy password",
+        "copyQrCode": "Copy QR Code",
         "createPassword": "Create password",
         "delete": "Delete",
         "disabled": "Disabled",
@@ -47,7 +53,8 @@
         "alreadyInUse": "Already in use. Please choose another description.",
         "maximumLength": "Maximum length is 20 characters.",
         "minimumLength": "Minimum length is 6 characters.",
-        "somethingWrong": "Something went wrong."
+        "somethingWrong": "Something went wrong.",
+        "specialChars": "Special characters are not allowed."
     },
     "instruction": {
         "changePassword": "Here you can change your password.",
@@ -63,15 +70,35 @@
         "cancel": "Cancel",
         "save": "Save"
     },
+    "newOtp": {
+        "label": "New OTP",
+        "printPinCodes": "Print PIN codes",
+        "save_pin": "We suggest to print and keep the PIN codes since they could be asked to authenticate; each PIN code can be used just once.",
+        "scan_qr": "Scan this QR code through one of the supported apps.",
+        "warning": "Warning: you'll be able to see these codes just once."
+    },
     "newPassword": "New password",
     "options": "Options",
+    "otpListLabel": {
+        "failed_attempts": "Failed Attempts"
+    },
     "passwordListLabel": {
         "created": "Created",
+        "disabled": "Disabled",
+        "enabled": "Enabled",
         "label": "Description",
         "service": "Service",
         "status": "Status"
     },
     "setNewOtpLabel": {
+        "allowedCharacters": "Underscore and dash are allowed.",
+        "empty": "The OTP Authentication list is empty.",
+        "inputLabel": "OTP Label",
+        "labelPurpose": "The label will help you remember where the OTP is used.",
+        "maxLength": "The label maximum length is {{maxLength}} characters.",
+        "new": "OTP Authentication | New Authentication",
+        "prohibitedCharacters": "Don't use any special characters, accented characters nor spaces.",
+        "success": "New OTP Authentication enabled successfully.",
         "title": "OTP Authentication"
     },
     "setNewPassword": {

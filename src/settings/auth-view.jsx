@@ -12,7 +12,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getUserAccount, getUserSettings, soapFetch } from '@zextras/zapp-shell';
 import { Divider, Link, Padding, Row, Text } from '@zextras/zapp-ui';
 import { orderBy } from 'lodash';
 
@@ -21,15 +20,10 @@ import { Shell, ColumnFull, ColumnLeft, ColumnRight } from './components/shared/
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
-// import { AppMobile } from './operations/AppMobile';
-// import { OTPAuthentication } from './operations/OTPAuthentication';
-// import { AuthOutline } from './assets/icons/AuthOutline';
+import { AppMobile } from './components/operations/app-mobile';
+import { OTPAuthentication } from './components/operations/otp-authentication';
 import { PoweredByZextras } from './assets/icons/powered-by-zextras';
 import { AuthOutline } from './assets/icons/auth-outline';
-// import { , setLocale } from './interop/i18n';
-// import { CenteredText } from './components/shared/CenteredText';
-// import getAccount from './interop/zimbraClassic/getAccount';
-// import { getLocale } from './utils/getLocale';
 
 function Instruction({ instruction, link }) {
 	const { t } = useTranslation();
@@ -74,14 +68,14 @@ function SideBar({ activeTab, setActiveTab }) {
 		{
 			name: 'mobile',
 			label: t('appMobile.title'),
-			view: () => <div />,
+			view: AppMobile,
 			instruction: t('instruction.mobile'),
 			link: 'https://docs.zextras.com/zextras-suite-documentation/latest/auth.html#_create_new_credentials_qr_code'
 		},
 		{
 			name: 'otp',
 			label: t('setNewOtpLabel.title'),
-			view: () => <div />,
+			view: OTPAuthentication,
 			instruction: t('instruction.otp'),
 			link: 'https://docs.zextras.com/zextras-suite-documentation/latest/auth.html#zimlet-create-otp'
 		}

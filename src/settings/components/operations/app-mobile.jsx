@@ -10,15 +10,15 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/zapp-ui';
+import QRCode from 'qrcode.react';
+import { orderBy, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { isEmpty, orderBy } from 'lodash';
-import { fetchSoapZx } from '../../network/fetchSoapZx';
 
 import { BigIcon } from '../shared/big-icon';
-import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-import { formatDate, copyToClipboard } from '../utils';
+import { copyToClipboard, formatDate } from '../utils';
+import { fetchSoapZx } from '../../network/fetchSoapZx';
+import { ErrorMessage } from '../shared/error-message';
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import { EmptyState } from '../../assets/icons/empty-state';
 
@@ -26,22 +26,16 @@ import { EmptyState } from '../../assets/icons/empty-state';
 
 const stepsNames = {
 	set_label: 'set_label',
-	generate_password: 'generate_password',
+	generate_qrcode: 'generate_qrcode',
 	delete_password: 'delete_password'
 };
 
-const TextPasswordContainer = styled(Row)`
-	font-family: monospace;
-	font-size: 20px;
-	background-color: ${({ theme }) => theme.palette.gray5.regular};
-`;
-
-export function ExchangeActiveSync({ passwords, setPasswords }) {
-	const [authDescription, setAuthDescription] = useState('');
-	const [newPasswordResponse, setNewPasswordResponse] = useState();
-	const [selectedPassword, setSelectedPassword] = useState();
+export function AppMobile({ passwords, setPasswords }) {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
+	const [authDescription, setAuthDescription] = useState('');
+	const [newQrCodeResponse, setNewQrCodeResponse] = useState();
+	const [selectedPassword, setSelectedPassword] = useState();
 	const createSnackbar = useSnackbar();
 
 	const { t } = useTranslation();
@@ -73,12 +67,12 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 		/* eslint-disable react-hooks/exhaustive-deps */
 		() =>
 			passwords.reduce((acc, p) => {
-				p.services[0].service === 'EAS' &&
+				p.services[0].service === 'MobileApp' &&
 					acc.push({
 						id: p.id,
 						columns: [
 							p.label,
-							p.enabled ? t('common.enabled', 'Enabled') : t('common.disabled', 'Disabled'),
+							p.enabled ? t('common.enabled') : t('common.disabled'),
 							p.services[0].service === 'EAS' ? t('easAuth.label') : t('appMobile.label'),
 							formatDate(p.created)
 						],
@@ -97,14 +91,14 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 				setPasswords(orderBy((res.value && res.value.list) || res.values, ['created'], ['desc']));
 		});
 
-	const handleOnGeneratePassword = () =>
+	const handleOnGenerateQrcode = () =>
 		fetchSoapZx('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
-			qrcode: false
+			qrcode: true
 		}).then((res) => {
 			if (res.ok) {
-				setNewPasswordResponse(res.value || res.response);
+				setNewQrCodeResponse(res.value || res.response);
 				updatePasswords();
 			}
 		});
@@ -119,13 +113,13 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 
 	const handleOnClose = (showSnackbar = false) => {
 		setShowModal(false);
-		setAuthDescription('');
 		setStep(stepsNames.set_label);
+		setAuthDescription('');
 		showSnackbar &&
 			createSnackbar({
 				key: 1,
 				type: 'success',
-				label: t('easAuth.success')
+				label: t('appMobile.success')
 			});
 	};
 
@@ -144,13 +138,13 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 					label={t('common.createPassword')}
 					disabled={authDescription === ''}
 					onClick={() => {
-						setStep(stepsNames.generate_password);
-						handleOnGeneratePassword();
+						setStep(stepsNames.generate_qrcode);
+						handleOnGenerateQrcode();
 					}}
 				/>
 			);
 		}
-		if (step === stepsNames.generate_password) {
+		if (step === stepsNames.generate_qrcode) {
 			return (
 				<Button
 					label={t('buttons.done')}
@@ -176,7 +170,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 
 	return (
 		<>
-			<Section title={t('easAuth.label')} divider>
+			<Section title={t('appMobile.title')} divider>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button
@@ -186,8 +180,8 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 							icon="CloseOutline"
 							disabled={!selectedPassword || tableRows.length === 0}
 							onClick={() => {
-								setShowModal(true);
 								setStep(stepsNames.delete_password);
+								setShowModal(true);
 							}}
 						/>
 						<Padding left="large">
@@ -199,29 +193,27 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 							/>
 						</Padding>
 					</Row>
-					{tableRows && (
-						<Padding width="100%" vertical="large">
-							<Table
-								rows={tableRows}
-								headers={tableHeaders}
-								showCheckbox={false}
-								multiSelect={false}
-								onSelectionChange={(selected) => setSelectedPassword(selected[0])}
-							/>
-							{isEmpty(tableRows) && (
-								<Container padding="64px 0 0">
-									<EmptyState />
-									<Padding top="large">
-										<Text color="secondary">{t('easAuth.empty')}</Text>
-									</Padding>
-								</Container>
-							)}
-						</Padding>
-					)}
+					<Padding width="100%" vertical="large">
+						<Table
+							rows={tableRows}
+							headers={tableHeaders}
+							showCheckbox={false}
+							multiSelect={false}
+							onSelectionChange={(selected) => setSelectedPassword(selected[0])}
+						/>
+						{isEmpty(tableRows) && (
+							<Container padding="64px 0 0">
+								<EmptyState />
+								<Padding top="large">
+									<Text color="secondary">{t('appMobile.empty')}</Text>
+								</Padding>
+							</Container>
+						)}
+					</Padding>
 				</Container>
 			</Section>
 			<Modal
-				title={t('easAuth.new')}
+				title={t('appMobile.new')}
 				open={showModal}
 				customFooter={
 					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
@@ -258,45 +250,39 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 							</Padding>
 						</Container>
 					)}
-					{step === stepsNames.generate_password && (
+					{step === stepsNames.generate_qrcode && newQrCodeResponse && (
 						<Container>
-							<Text>{t('setNewPassword.successfully')}</Text>
-							<Row
-								width="100%"
-								orientation="horizontal"
-								mainAlignment="center"
-								crossAlignment="stretch"
-								padding={{ vertical: 'large' }}
-							>
-								<TextPasswordContainer
-									padding={{ horizontal: 'large' }}
+							<Text>{t('setNewQRCode.successfully')}</Text>
+							<Padding vertical="large">
+								<Row
 									width="fit"
-									height="auto"
-									orientation="horizontal"
+									orientation="vertical"
+									background="gray5"
+									padding={{ all: 'large' }}
 								>
-									{newPasswordResponse && newPasswordResponse.text_data.password}
-								</TextPasswordContainer>
-								<Padding left="large">
-									<Button
-										label={t('common.copyPassword')}
-										type="outlined"
-										onClick={() => {
-											copyToClipboard(
-												newPasswordResponse && newPasswordResponse.text_data.password
-											);
-											createSnackbar({
-												key: 1,
-												type: 'info',
-												label: t('setNewPassword.EASPasswordCopied')
-											});
-										}}
+									<QRCode
+										data-testid="qrcode-password"
+										size={143}
+										bgColor="transparent"
+										value={JSON.stringify(newQrCodeResponse.qrcode_data)}
 									/>
-								</Padding>
-							</Row>
-							<Text weight="bold">{t('setNewPassword.warningJustOnce')}</Text>
-							<Text style={{ textAlign: 'center' }} overflow="break-word">
-								{t('setNewPassword.textDescription')}
-							</Text>
+									<Padding top="large">
+										<Button
+											label={t('common.copyQrCode')}
+											type="outlined"
+											onClick={() => {
+												copyToClipboard(newQrCodeResponse.qrcode_data.auth_payload.password);
+												createSnackbar({
+													key: 2,
+													label: t('common.codeCopied')
+												});
+											}}
+										/>
+									</Padding>
+								</Row>
+							</Padding>
+							<Text weight="bold">{t('newOtp.warning')}</Text>
+							<Text>{t('newOtp.scan_qr')}</Text>
 						</Container>
 					)}
 					{step === stepsNames.delete_password && (
