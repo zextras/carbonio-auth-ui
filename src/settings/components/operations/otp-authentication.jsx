@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
 	Button,
 	Container,
@@ -23,6 +23,13 @@ import { formatDate, copyToClipboard } from '../utils';
 import { ErrorMessage } from '../shared/error-message';
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import { EmptyState } from '../../assets/icons/empty-state';
+import {
+	zextrasLogo,
+	otpCodesLoginPage,
+	otpCodesTypePin,
+	otpCodesQrCodePin,
+	poweredByZextras
+} from '../../assets/icons/svgAssets';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -57,6 +64,8 @@ export function OTPAuthentication() {
 	const [qrData, setQrData] = useState();
 	const [errorLabel, setErrorLabel] = useState('');
 	const [pinCodes, setPinCodes] = useState([]);
+
+	const userMail = useRef();
 
 	const { t } = useTranslation();
 	const createSnackbar = useSnackbar();
@@ -126,9 +135,13 @@ export function OTPAuthentication() {
 			labelPrefix: otpLabel
 		}).then((res) => {
 			if (res.ok) {
-				setQrData(res.value.URI);
+				const uri = res.value.URI;
+				setQrData(uri);
 				setPinCodes(res.value.static_otp_codes);
 				setModalStep(stepsNames.generate_otp);
+				userMail.current = uri
+					? decodeURIComponent(uri.substring(uri.indexOf('-') + 1, uri.indexOf('?')))
+					: '';
 			} else {
 				setErrorLabel(t('error.alreadyInUse'));
 			}
@@ -208,38 +221,200 @@ export function OTPAuthentication() {
 		}
 	}
 
-	function printCodes(codes) {
+	function printCodes(codes, labelsObj) {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 
-		const codesHtml = `
-		<html>
-			<head>
-				<title>OTP codes</title>
+		const currentDate = new Date();
+		const formattedDate = formatDate(currentDate);
+
+		const htmlCode = `
+			<!DOCTYPE html>
+			<html lang="en">
+				<head>
 				<style>
+					body {
+						font-family: roboto, arial, sans-serif;
+					}
+				
+					.page {
+						background: #FFF;
+						padding: 32px;
+					}
+				
+					@page {
+						size: A4;
+						margin: 0;
+					}
+				
+					@media print {
+						.page {
+						border: initial;
+						width: initial;
+						min-height: initial;
+						background: initial;
+						page-break-after: right;
+						}
+					}
+			
+					.center {
+						margin: auto;
+					}
+			
+					h1.guide {
+						text-align: center;
+						color: #2B73D2;
+						padding-top: 16px;
+					}
+					
+					h2 {
+						font-weight: normal;
+						font-size: 18px;
+					}
+					
+					.header {
+						padding: 16px;
+						margin-top: 16px;
+					}
+			
+					.header .title {
+						font-size: 16px;
+						font-weight: 700;
+					}
+					
+					.main-content {
+						padding: 16px;
+					}
+					
+					.columns {
+						column-count: 3;
+						align-items: center;
+					}
+		
+					.codes {
+						font-family: PTMono, monospace;
+					}
+					
+					.container {
+						width: 90%;
+						margin: auto;
+					}
+					
+					.container-guide {
+						width: 90%;
+						background-color: #F5F6F8;
+						border-radius: 4px;
+						margin: auto;
+					}
+			
+					.footer {
+						position: fixed;
+						bottom: 0;
+						width: 94%;
+						padding: 16px;
+						height: 48px;
+						color: #CFD5DC;
+						margin-bottom: 16px;
+					}
+			
+					.flex-container {
+						display: flex;
+						justify-content: center;
+						align-content: center;
+					}
 					.codes-container{
 						position: relative;
 						width: 100%;
-						column-count: 2;
+						column-count: 3;
 						padding: 16px;
-						background-color: #d5e3f6;
+						max-width: 90%;
+						text-align: center;
 					}
-					label {
-						display: block;
-						padding: 8px;
+					
+					.flex-container > div {
+						text-align: center;
+					}
+					
+					.margins {
+						margin: 32px;
+					}
+					
+					.oval {
+						max-width: 32px;
+						max-height: 32px;
+						padding: 16px 10px;
+						border-radius: 50%;
+						background-color: #D5E3F6;
+						font-size: 16px;
+						text-align: center;
+						align-items: center;
+						margin:0 auto 32px auto;
+					}
+					
+					hr.solid {
+						border-top: 1px; color: #E6E9ED;
+						margin: 16px 0;
 					}
 				</style>
-			</head>
-			<body>
-				<div class="codes-container">
-					${reduce(codes, (a, v) => `${a}<label>${v.code}</label>`, '')}
-				</div>
-			</body>
-		</html>
-	`;
+				<title>Static OTP codes</title>
+				</head>
+				<body>
+					<div class="header">
+						<span class="title">${
+							labelsObj.title
+						}</span><span style="max-width: 118px; float: right; vertical-align: bottom;">${zextrasLogo}</span>
+						<hr class="solid">
+					</div>
+					<div class="container">
+						<p style="color: #828282;">OTP</p>
+						<h2>${otpLabel}${userMail.current ? `-${userMail.current}` : ''}</h2>
+						<hr class="solid">
+					</div>
+					<p style="width:90%; margin:auto;">
+						${labelsObj.whenToUse}<br/>
+						${labelsObj.useOnce}</br>
+						${labelsObj.keepInSafePlace}
+					</p>
+					<div class="flex-container">
+						<div class="codes-container codes" style="margin: 16px;">
+							${reduce(codes, (a, v) => `${a}<label>${v.code}</label><br/>`, '')}
+						</div>
+					</div>
+					<div class="container-guide">
+						<h1 class="guide">${labelsObj.howToUse}</h1>
+						<div class="flex-container" style="max-height: 50%;">
+							<div class="margins">
+								<div class="oval">1</div>
+								<span style="max-height: 100%">${otpCodesLoginPage}</span>
+								<p style="text-align:center">${labelsObj.login}</p>
+							</div>
+							<div class="margins">
+								<div class="oval">2</div>
+								<span style="max-height: 100%">${otpCodesTypePin}</span>
+								<p style="text-align:center">${labelsObj.typePin}</p>
+							</div>
+							<div class="margins">
+								<div class="oval">3</div>
+								<span style="max-height: 100%">${otpCodesQrCodePin}</span>
+								<p style="text-align:center">${labelsObj.eraseUsedPin}</p>
+							</div>
+						</div>
+					</div>
+					<div class="footer">
+						<hr class="solid">
+						<div style="float:left">
+							${poweredByZextras}
+						</div>
+						<div style="float:right">
+							<span>${formattedDate}</span>
+						</div>
+					</div>
+				</body>
+			</html>
+		`;
 
 		iframe.contentWindow.document.open('text/html', 'replace');
-		iframe.contentWindow.document.write(codesHtml);
+		iframe.contentWindow.document.write(htmlCode);
 		iframe.contentWindow.document.close();
 
 		iframe.contentWindow.print();
@@ -396,7 +571,18 @@ export function OTPAuthentication() {
 											<Button
 												type="outlined"
 												label={t('newOtp.printPinCodes')}
-												onClick={() => printCodes(pinCodes)}
+												onClick={() =>
+													printCodes(pinCodes, {
+														title: t('staticOTPCodes.print.title'),
+														whenToUse: t('staticOTPCodes.print.whenToUse'),
+														useOnce: t('staticOTPCodes.print.useOnce'),
+														keepInSafePlace: t('staticOTPCodes.print.keepInSafePlace'),
+														howToUse: t('staticOTPCodes.print.howToUse'),
+														login: t('staticOTPCodes.print.login'),
+														typePin: t('staticOTPCodes.print.typePin'),
+														eraseUsedPin: t('staticOTPCodes.print.eraseUsedPin')
+													})
+												}
 											/>
 										</Padding>
 									</StaticCodesContainer>

@@ -114,5 +114,17 @@
     "snackbar": {
         "error": "",
         "settings_saved": "Settings saved successfully"
+    },
+    "staticOTPCodes": {
+        "print": {
+            "eraseUsedPin": "Erase the used PIN from the list",
+            "howToUse": "How to use your PINs",
+            "keepInSafePlace": "We recommend you keep the codes in a safe place.",
+            "login": "Log in using your password",
+            "title": "OTP Codes",
+            "typePin": "Insert one of the PIN codes listed above",
+            "useOnce": "Keep in mind that each code can be used just once, so we suggest erasing it from the list once it is used. Whenever you’ll use a code, you are going to receive a notification e-mail.",
+            "whenToUse": "These are your static codes. You will have to use one of the codes in case you won't have your mobile device to proceed with the authentication."
+        }
     }
 }
