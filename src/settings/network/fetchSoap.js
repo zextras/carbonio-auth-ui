@@ -1,4 +1,4 @@
-export const fetchSoapZx = (api, body) =>
+export const fetchSoap = (api, body) =>
 	fetch(`/service/soap/${api}`, {
 		method: 'POST',
 		headers: {
@@ -14,7 +14,6 @@ export const fetchSoapZx = (api, body) =>
 				}
 			}
 		})
-	}) // TODO proper error handling
+	})
 		.then((res) => res?.json())
-		.then((res) => res.Body.response)
-		.catch((e) => console.log(e));
+		.then((res) => res.Body);

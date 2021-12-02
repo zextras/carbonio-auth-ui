@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import { BigIcon } from '../shared/big-icon';
 import { Section } from '../shared/section';
-import { fetchSoapZx } from '../../network/fetchSoapZx';
+import { fetchSoap } from '../../network/fetchSoap';
 
 import { formatDate, copyToClipboard } from '../utils';
 import { ErrorMessage } from '../shared/error-message';
@@ -129,15 +129,15 @@ export function OTPAuthentication() {
 	);
 
 	const handleOnGenerateOTP = () =>
-		fetchSoapZx('GenerateOTPRequest', {
+		fetchSoap('GenerateOTPRequest', {
 			_jsns: 'urn:zextrasClient',
 			humanReadable: false,
 			labelPrefix: otpLabel
 		}).then((res) => {
-			if (res.ok) {
-				const uri = res.value.URI;
+			if (res.response.ok) {
+				const uri = res.response.value.URI;
 				setQrData(uri);
-				setPinCodes(res.value.static_otp_codes);
+				setPinCodes(res.response.value.static_otp_codes);
 				setModalStep(stepsNames.generate_otp);
 				userMail.current = uri
 					? decodeURIComponent(uri.substring(uri.indexOf('-') + 1, uri.indexOf('?')))
@@ -148,18 +148,18 @@ export function OTPAuthentication() {
 		});
 
 	const updateOTPList = () =>
-		fetchSoapZx('ListOTPRequest', {
+		fetchSoap('ListOTPRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
-			res.ok && setOTPList(orderBy(res.value.list, ['created'], ['desc']));
+			res.response.ok && setOTPList(orderBy(res.response.value.list, ['created'], ['desc']));
 		});
 
 	const handleOnDeleteOTP = () =>
-		fetchSoapZx('DeleteOTPRequest', {
+		fetchSoap('DeleteOTPRequest', {
 			_jsns: 'urn:zextrasClient',
 			id: selectedOTP
 		}).then((res) => {
-			res.ok && updateOTPList();
+			res.response.ok && updateOTPList();
 		});
 
 	const handleOnClose = (showSnackbar = false) => {

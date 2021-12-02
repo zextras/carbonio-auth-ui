@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { isEmpty, orderBy } from 'lodash';
-import { fetchSoapZx } from '../../network/fetchSoapZx';
+import { fetchSoap } from '../../network/fetchSoap';
 
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
@@ -90,31 +90,37 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 	);
 
 	const updatePasswords = () =>
-		fetchSoapZx('ListCredentialsRequest', {
+		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
-			res.ok &&
-				setPasswords(orderBy((res.value && res.value.list) || res.values, ['created'], ['desc']));
+			res.response.ok &&
+				setPasswords(
+					orderBy(
+						(res.response.value && res.response.value.list) || res.response.values,
+						['created'],
+						['desc']
+					)
+				);
 		});
 
 	const handleOnGeneratePassword = () =>
-		fetchSoapZx('AddCredentialRequest', {
+		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: false
 		}).then((res) => {
-			if (res.ok) {
-				setNewPasswordResponse(res.value || res.response);
+			if (res.response.ok) {
+				setNewPasswordResponse(res.response.value || res.response.response);
 				updatePasswords();
 			}
 		});
 
 	const handleOnDeletePassword = () =>
-		fetchSoapZx('RemoveCredentialRequest', {
+		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
 		}).then((res) => {
-			res.ok && updatePasswords();
+			res.response.ok && updatePasswords();
 		});
 
 	const handleOnClose = (showSnackbar = false) => {

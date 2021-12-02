@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { Divider, Link, Padding, Row, Text } from '@zextras/zapp-ui';
 import { orderBy } from 'lodash';
 
-import { fetchSoapZx } from './network/fetchSoapZx';
+import { fetchSoap } from './network/fetchSoap';
 import { Shell, ColumnFull, ColumnLeft, ColumnRight } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { ChangePassword } from './components/operations/change-password';
@@ -116,11 +116,17 @@ function ActiveTab({ activeTab }) {
 	const [passwords, setPasswords] = useState([]);
 
 	useEffect(() => {
-		fetchSoapZx('ListCredentialsRequest', {
+		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
-			res.ok &&
-				setPasswords(orderBy((res.value && res.value.list) || res.values, ['created'], ['desc']));
+			res.response.ok &&
+				setPasswords(
+					orderBy(
+						(res.response.value && res.response.value.list) || res.response.values,
+						['created'],
+						['desc']
+					)
+				);
 		});
 	}, []);
 

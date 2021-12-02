@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { BigIcon } from '../shared/big-icon';
 import { Section } from '../shared/section';
 import { copyToClipboard, formatDate } from '../utils';
-import { fetchSoapZx } from '../../network/fetchSoapZx';
+import { fetchSoap } from '../../network/fetchSoap';
 import { ErrorMessage } from '../shared/error-message';
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import { EmptyState } from '../../assets/icons/empty-state';
@@ -84,31 +84,37 @@ export function AppMobile({ passwords, setPasswords }) {
 	);
 
 	const updatePasswords = () =>
-		fetchSoapZx('ListCredentialsRequest', {
+		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
-			res.ok &&
-				setPasswords(orderBy((res.value && res.value.list) || res.values, ['created'], ['desc']));
+			res.response.ok &&
+				setPasswords(
+					orderBy(
+						(res.response.value && res.response.value.list) || res.response.values,
+						['created'],
+						['desc']
+					)
+				);
 		});
 
 	const handleOnGenerateQrcode = () =>
-		fetchSoapZx('AddCredentialRequest', {
+		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: true
 		}).then((res) => {
-			if (res.ok) {
-				setNewQrCodeResponse(res.value || res.response);
+			if (res.response.ok) {
+				setNewQrCodeResponse(res.response.value || res.response.response);
 				updatePasswords();
 			}
 		});
 
 	const handleOnDeletePassword = () =>
-		fetchSoapZx('RemoveCredentialRequest', {
+		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
 		}).then((res) => {
-			res.ok && updatePasswords();
+			res.response.ok && updatePasswords();
 		});
 
 	const handleOnClose = (showSnackbar = false) => {
