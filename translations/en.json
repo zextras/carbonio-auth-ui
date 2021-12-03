@@ -18,13 +18,21 @@
         "confirmNew": "Confirm New Password",
         "digitSpecial": "a number (123) and special character (!/@)",
         "formatNotValid": "Password must contain at least one uppercase, lowercase character, digit, special character",
+        "incorrectPassword": "Incorrect password.",
         "instruction": "Please create a new password and re-enter it in the confirmation field",
         "lowerUpper": "an uppercase (ABC) and a lowercase (abc) character",
         "mustContain": "The new password should have from 6 to 20 characters and must contain:",
-        "mustMatch": "Passwords must match. Please re-type...",
+        "mustMatch": "Passwords must match.",
         "oldPassword": "Old Password",
         "passwordChanged": "Your password has been changed.",
-        "title": "Change Password"
+        "sameOldPassword": "Your password cannot be the same as the old one.",
+        "title": "Change Password",
+        "zimbraPasswordMaxLength": "Maximum length is {{num}} characters.",
+        "zimbraPasswordMinLength": "Minimum length is {{num}} characters.",
+        "zimbraPasswordMinLowerCaseChars": "Minimum amount of lower case characters is {{num}}.",
+        "zimbraPasswordMinNumericChars": "Minimum amount of numeric characters is {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Minimum amount of special characters is {{num}}",
+        "zimbraPasswordMinUpperCaseChars": "Minimum amount of amount of upper case characters is {{num}}"
     },
     "common": {
         "codeCopied": "Code copied successfully",

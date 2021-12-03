@@ -18,11 +18,34 @@ export function ChangePassword() {
 	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [errorLabelOldPassword, setErrorLabelOldPassword] = useState('');
+	const [errorLabelNewPassword, setErrorLabelNewPassword] = useState('');
 	const [errorLabelConfirmPassword, setErrorLabelConfirmPassword] = useState('');
+	const [correctOldPassword, setCorrectOldPassword] = useState('');
+	const [oldPasswordWrongAttempts, setOldPasswordWrongAttempts] = useState([]);
 
 	const { t } = useTranslation();
 
 	const createSnackbar = useSnackbar();
+
+	function formatPasswordError(type, num) {
+		switch (type) {
+			case 'zimbraPasswordMinLength':
+				return t('changePassword.zimbraPasswordMinLength', { num });
+			case 'zimbraPasswordMaxLength':
+				return t('changePassword.zimbraPasswordMaxLength', { num });
+			case 'zimbraPasswordMinUpperCaseChars':
+				return t('changePassword.zimbraPasswordMinUpperCaseChars', { num });
+			case 'zimbraPasswordMinLowerCaseChars':
+				return t('changePassword.zimbraPasswordMinLowerCaseChars', { num });
+			case 'zimbraPasswordMinPunctuationChars':
+				return t('changePassword.zimbraPasswordMinPunctuationChars', { num });
+			case 'zimbraPasswordMinNumericChars':
+				return t('changePassword.zimbraPasswordMinNumericChars', { num });
+			default:
+				return t('error.somethingWrong');
+		}
+	}
 
 	const changePasswordSoap = () => {
 		fetchSoap('ChangePasswordRequest', {
@@ -41,12 +64,19 @@ export function ChangePassword() {
 					label: t('changePassword.passwordChanged'),
 					actionLabel: t('buttons.close')
 				});
+			} else if (res.Fault.Detail.Error.Code === 'account.AUTH_FAILED') {
+				setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
+				setOldPasswordWrongAttempts((prev) => [...prev, oldPassword]);
+			} else if ('a' in res.Fault.Detail.Error) {
+				const { n: type, _content: num } = res.Fault.Detail.Error.a[0];
+				const errorMessage = formatPasswordError(type, num);
+				setErrorLabelNewPassword(errorMessage);
+				setCorrectOldPassword(oldPassword);
 			} else {
-				const errorMessage = `${t('error.somethingWrong')} [ ${res.Fault?.Reason?.Text} ]`;
 				createSnackbar({
 					key: 2,
 					type: 'error',
-					label: errorMessage,
+					label: t('error.somethingWrong'),
 					actionLabel: t('buttons.close')
 				});
 			}
@@ -55,6 +85,22 @@ export function ChangePassword() {
 
 	useEffect(() => {
 		/* eslint-disable react-hooks/exhaustive-deps */
+		if (oldPasswordWrongAttempts.includes(oldPassword)) {
+			setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
+		} else {
+			setErrorLabelOldPassword('');
+		}
+	}, [oldPassword]);
+
+	useEffect(() => {
+		if (correctOldPassword && newPassword === correctOldPassword) {
+			setErrorLabelNewPassword(t('changePassword.sameOldPassword'));
+		} else {
+			setErrorLabelNewPassword('');
+		}
+	}, [newPassword]);
+
+	useEffect(() => {
 		if (confirmPassword !== newPassword && confirmPassword !== '') {
 			setErrorLabelConfirmPassword(t('changePassword.mustMatch'));
 		} else {
@@ -77,7 +123,9 @@ export function ChangePassword() {
 						backgroundColor="gray5"
 						value={oldPassword}
 						onChange={(e) => setOldPassword(e.target.value)}
+						hasError={errorLabelOldPassword}
 					/>
+					{errorLabelOldPassword && <ErrorMessage error={errorLabelOldPassword} />}
 				</Row>
 				<Row padding={{ bottom: 'large' }} width="fill">
 					<PasswordInput
@@ -85,7 +133,9 @@ export function ChangePassword() {
 						backgroundColor="gray5"
 						value={newPassword}
 						onChange={(e) => setNewPassword(e.target.value)}
+						hasError={errorLabelNewPassword}
 					/>
+					{errorLabelNewPassword && <ErrorMessage error={errorLabelNewPassword} />}
 				</Row>
 				<Row padding={{ bottom: 'large' }} width="fill">
 					<PasswordInput
@@ -101,7 +151,14 @@ export function ChangePassword() {
 					label={t('changePassword.title')}
 					type="outlined"
 					size="fill"
-					disabled={!oldPassword || !newPassword || !confirmPassword || errorLabelConfirmPassword}
+					disabled={
+						!oldPassword ||
+						!newPassword ||
+						!confirmPassword ||
+						errorLabelOldPassword ||
+						errorLabelNewPassword ||
+						errorLabelConfirmPassword
+					}
 					onClick={changePasswordSoap}
 				/>
 			</Container>
