@@ -25,6 +25,7 @@
         "mustMatch": "Passwords must match.",
         "oldPassword": "Old Password",
         "passwordChanged": "Your password has been changed.",
+        "recentlyUsedPassword": "This password was recently used.",
         "sameOldPassword": "Your password cannot be the same as the old one.",
         "title": "Change Password",
         "zimbraPasswordMaxLength": "Maximum length is {{num}} characters.",

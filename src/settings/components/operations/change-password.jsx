@@ -22,13 +22,12 @@ export function ChangePassword() {
 	const [errorLabelNewPassword, setErrorLabelNewPassword] = useState('');
 	const [errorLabelConfirmPassword, setErrorLabelConfirmPassword] = useState('');
 	const [correctOldPassword, setCorrectOldPassword] = useState('');
-	const [oldPasswordWrongAttempts, setOldPasswordWrongAttempts] = useState([]);
 
 	const { t } = useTranslation();
 
 	const createSnackbar = useSnackbar();
 
-	function formatPasswordError(type, num) {
+	function formatPasswordRule(type, num) {
 		switch (type) {
 			case 'zimbraPasswordMinLength':
 				return t('changePassword.zimbraPasswordMinLength', { num });
@@ -44,6 +43,24 @@ export function ChangePassword() {
 				return t('changePassword.zimbraPasswordMinNumericChars', { num });
 			default:
 				return t('error.somethingWrong');
+		}
+	}
+
+	function formatPasswordCode(code) {
+		switch (code) {
+			case 'account.AUTH_FAILED':
+				setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
+				break;
+			case 'account.PASSWORD_RECENTLY_USED':
+				setErrorLabelNewPassword(t('changePassword.recentlyUsedPassword'));
+				break;
+			default:
+				createSnackbar({
+					key: 2,
+					type: 'error',
+					label: t('error.somethingWrong'),
+					actionLabel: t('buttons.close')
+				});
 		}
 	}
 
@@ -64,14 +81,14 @@ export function ChangePassword() {
 					label: t('changePassword.passwordChanged'),
 					actionLabel: t('buttons.close')
 				});
-			} else if (res.Fault.Detail.Error.Code === 'account.AUTH_FAILED') {
-				setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
-				setOldPasswordWrongAttempts((prev) => [...prev, oldPassword]);
 			} else if ('a' in res.Fault.Detail.Error) {
 				const { n: type, _content: num } = res.Fault.Detail.Error.a[0];
-				const errorMessage = formatPasswordError(type, num);
+				const errorMessage = formatPasswordRule(type, num);
 				setErrorLabelNewPassword(errorMessage);
 				setCorrectOldPassword(oldPassword);
+			} else if (res.Fault.Detail.Error.Code) {
+				const code = res.Fault.Detail.Error.Code;
+				formatPasswordCode(code);
 			} else {
 				createSnackbar({
 					key: 2,
@@ -85,11 +102,7 @@ export function ChangePassword() {
 
 	useEffect(() => {
 		/* eslint-disable react-hooks/exhaustive-deps */
-		if (oldPasswordWrongAttempts.includes(oldPassword)) {
-			setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
-		} else {
-			setErrorLabelOldPassword('');
-		}
+		setErrorLabelOldPassword('');
 	}, [oldPassword]);
 
 	useEffect(() => {
