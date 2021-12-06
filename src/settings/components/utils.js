@@ -1,0 +1,39 @@
+import { isEqual, transform, isObject, filter } from 'lodash';
+
+export const differenceObject = (object, base) => {
+	// eslint-disable-next-line no-shadow
+	function changes(object, base) {
+		return transform(object, (result, value, key) => {
+			if (!isEqual(value, base[key])) {
+				// eslint-disable-next-line no-param-reassign
+				result[key] = isObject(value) && isObject(base[key]) ? changes(value, base[key]) : value;
+			}
+		});
+	}
+	return changes(object, base);
+};
+
+export const findLabel = (list, value) => filter(list, (item) => item.value === value)[0].label;
+
+export const formatDate = (date) => {
+	if (!date) return '/';
+	return (
+		// eslint-disable-next-line prefer-template
+		new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) +
+		' | ' +
+		new Date(date).toLocaleTimeString('en-US')
+	);
+};
+
+export const copyToClipboard = (text) => {
+	if (/Firefox\//i.test(navigator.userAgent)) {
+		navigator.clipboard.writeText(text).then();
+	} else {
+		const password = document.createElement('textarea');
+		document.body.appendChild(password);
+		password.value = text;
+		password.select();
+		document.execCommand('copy');
+		document.body.removeChild(password);
+	}
+};
