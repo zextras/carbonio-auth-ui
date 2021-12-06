@@ -56,28 +56,28 @@ function SideBar({ activeTab, setActiveTab }) {
 			label: t('changePassword.title'),
 			view: ChangePassword,
 			instruction: t('instruction.changePassword'),
-			link: 'https://docs.zextras.com/zextras-suite-documentation/latest/auth.html#_change_password'
+			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
 		},
 		{
 			name: 'activesync',
 			label: t('easAuth.label'),
 			view: ExchangeActiveSync,
 			instruction: t('instruction.eas'),
-			link: 'https://docs.zextras.com/zextras-suite-documentation/latest/auth.html#zimlet-create-mobile'
+			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-text-code'
 		},
 		{
 			name: 'mobile',
 			label: t('appMobile.title'),
 			view: AppMobile,
 			instruction: t('instruction.mobile'),
-			link: 'https://docs.zextras.com/zextras-suite-documentation/latest/auth.html#_create_new_credentials_qr_code'
+			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-qr-code'
 		},
 		{
 			name: 'otp',
 			label: t('setNewOtpLabel.title'),
 			view: OTPAuthentication,
 			instruction: t('instruction.otp'),
-			link: 'https://docs.zextras.com/zextras-suite-documentation/latest/auth.html#zimlet-create-otp'
+			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-otp'
 		}
 	];
 
