@@ -1,5 +1,5 @@
 {
-	"name": "carbonio-zapp-auth",
+	"name": "carbonio-auth-ui",
 	"version": "0.1.0",
 	"description": "Auth web module for Zextras Carbonio",
 	"main": "src/app.jsx",
@@ -64,7 +64,7 @@
 	],
 	"zapp": {
 		"translations_repository": "git@bitbucket.org:zextras/com_zextras_zapp_auth.git",
-		"name": "carbonio-auth",
+		"name": "carbonio-auth-ui",
 		"display": "Auth",
 		"route": "auth",
 		"priority": 10
