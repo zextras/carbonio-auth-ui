@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-rc.1](https://bitbucket.org/zextras/zapp-auth/compare/v0.1.1-rc.0...v0.1.1-rc.1) (2021-12-21)
+
+
+### Features
+
+* updated shell and ui ([483b62c](https://bitbucket.org/zextras/zapp-auth/commit/483b62c3bd4fb1c7f0c207bf1fe44fd311977649))
+
 ### 0.1.1-rc.0 (2021-12-21)
 
 
