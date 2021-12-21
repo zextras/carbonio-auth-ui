@@ -1,13 +1,13 @@
 {
 	"name": "carbonio-auth-ui",
-	"version": "0.1.0",
+	"version": "0.1.1-rc.0",
 	"description": "Auth web module for Zextras Carbonio",
 	"main": "src/app.jsx",
 	"scripts": {
 		"build": "node sdk build",
 		"start": "node sdk watch",
 		"deploy": "node sdk deploy",
-		"_postinstall": "is-ci || husky install",
+		"postinstall": "is-ci || husky install",
 		"prepublish": "pinst --disable",
 		"postpublish": "pinst --enable",
 		"type-check": "tsc --noEmit",
