@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-rc.2](https://bitbucket.org/zextras/zapp-auth/compare/v0.1.1-rc.1...v0.1.1-rc.2) (2022-01-03)
+
+
+### Features
+
+* check is zextras is present, only show change password if isn't ([236b7fe](https://bitbucket.org/zextras/zapp-auth/commit/236b7fec6c247c7e9991e947eacfbefb6a9bc74e))
+
+
+### Bug Fixes
+
+* updated deploy function to works with ssh ([76a8f86](https://bitbucket.org/zextras/zapp-auth/commit/76a8f862492333a51ba4ad3cd3e760a52fd5352a))
+
 ### [0.1.1-rc.1](https://bitbucket.org/zextras/zapp-auth/compare/v0.1.1-rc.0...v0.1.1-rc.1) (2021-12-21)
 
 
