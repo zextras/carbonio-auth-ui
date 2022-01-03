@@ -10,12 +10,13 @@
  * **** END LICENSE BLOCK *****
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Link, Padding, Row, Text } from '@zextras/zapp-ui';
 import { orderBy } from 'lodash';
 
 import { fetchSoap } from './network/fetchSoap';
+import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { Shell, ColumnFull, ColumnLeft, ColumnRight } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { ChangePassword } from './components/operations/change-password';
@@ -48,8 +49,17 @@ function Instruction({ instruction, link }) {
 	);
 }
 
-function SideBar({ activeTab, setActiveTab }) {
+function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	const { t } = useTranslation();
+	const linksWithoutZextras = [
+		{
+			name: 'changepassword',
+			label: t('changePassword.title'),
+			view: ChangePassword,
+			instruction: t('instruction.changePassword'),
+			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
+		}
+	];
 	const links = [
 		{
 			name: 'changepassword',
@@ -101,7 +111,11 @@ function SideBar({ activeTab, setActiveTab }) {
 					<Text>AUTH</Text>
 				</Row>
 				{activeTab && (
-					<SidebarNavigation links={links} activeTab={activeTab} setActiveTab={setActiveTab} />
+					<SidebarNavigation
+						links={hasZextras ? links : linksWithoutZextras}
+						activeTab={activeTab}
+						setActiveTab={setActiveTab}
+					/>
 				)}
 			</Row>
 			<Row width="100%" mainAlignment="flex-start">
@@ -135,10 +149,20 @@ function ActiveTab({ activeTab }) {
 
 export default function App() {
 	const [activeTab, setActiveTab] = useState();
+	const [hasZextras, setHasZextras] = useState(false);
+
+	const checkHasZextras = useCallback(async () => {
+		const response = await checkSupportedZextras();
+		setHasZextras(response.hasZextras);
+	}, []);
+
+	useEffect(() => {
+		checkHasZextras();
+	}, [checkHasZextras]);
 
 	return (
 		<Shell>
-			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} />
+			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
 			<ColumnFull mainAlignment="space-between" takeAvailableSpace>
 				<ColumnLeft
 					width="calc(60% - 100px)"
