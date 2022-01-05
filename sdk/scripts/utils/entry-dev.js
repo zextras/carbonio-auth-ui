@@ -1,18 +1,13 @@
 /*
- * *** BEGIN LICENSE BLOCK *****
- * Copyright (C) 2011-2021 Zextras
+ * SPDX-FileCopyrightText: 2021 2021 Zextras <https://www.zextras.com>
  *
- * The contents of this file are subject to the ZeXtras EULA;
- * you may not use this file except in compliance with the EULA.
- * You may obtain a copy of the EULA at
- * http://www.zextras.com/zextras-eula.html
- * *** END LICENSE BLOCK *****
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 function bootHandlers() {
 	const handlersEntrypoint = require('app-handlers');
 
-	const handlers = handlersEntrypoint && handlersEntrypoint.default || handlersEntrypoint;
+	const handlers = (handlersEntrypoint && handlersEntrypoint.default) || handlersEntrypoint;
 	window.__ZAPP_HMR_HANDLERS__[PACKAGE_NAME](handlers);
 }
 

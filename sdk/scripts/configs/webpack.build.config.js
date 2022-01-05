@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2021 2021 Zextras <https://www.zextras.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 /* eslint-disable import/extensions */
 const path = require('path');
 const webpack = require('webpack');
@@ -12,9 +18,9 @@ const { pkg } = require('../utils/pkg.js');
 
 exports.setupWebpackBuildConfig = (options, { basePath, commitHash }) => {
 	const plugins = [
-		new webpack.ProvidePlugin({
-			process: 'process/browser'
-		}),
+		// new webpack.ProvidePlugin({
+		// 	process: 'process/browser'
+		// }),
 		new webpack.DefinePlugin({
 			PACKAGE_VERSION: JSON.stringify(pkg.version),
 			ZIMBRA_PACKAGE_VERSION: semver.valid(semver.coerce(pkg.version)),
@@ -103,7 +109,7 @@ exports.setupWebpackBuildConfig = (options, { basePath, commitHash }) => {
 					]
 				},
 				{
-					test: /\.(png|jpg|gif|woff2?|svg|eot|ttf|ogg|mp3|json)$/,
+					test: /\.(png|jpg|gif|woff2?|svg|eot|ttf|ogg|mp3)$/,
 					use: [
 						{
 							loader: require.resolve('file-loader'),
