@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2021 2021 Zextras <https://www.zextras.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 /* eslint-disable import/extensions */
 const path = require('path');
 const webpack = require('webpack');
@@ -6,11 +12,12 @@ const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const semver = require('semver');
 const modifyResponse = require('node-http-proxy-json');
+const chalk = require('chalk');
 const { createBabelConfig } = require('./babelrc.build.js');
 const { pkg } = require('../utils/pkg.js');
 
 exports.setupWebpackWatchConfig = (options, { basePath, shellHash }) => {
-	const server = `https://${options.host || '127.0.0.1:4443'}/`;
+	const server = `https://${options.host}/`;
 	const defaultConfig = {
 		entry: {
 			app: path.resolve(process.cwd(), 'sdk/scripts/utils/entry.js')
@@ -21,10 +28,10 @@ exports.setupWebpackWatchConfig = (options, { basePath, shellHash }) => {
 			port: 9000,
 			historyApiFallback: {
 				index: basePath,
-				rewrites: { from: '/static/iris/carbonio-shell/current', to: `${basePath}/index.html` }
+				// TODO: remove once confirmed that it is not needed
+				// rewrites: { from: '/static/iris/carbonio-shell-ui/current', to: `${basePath}/index.html` }
 			},
-			https: true,
-			// http2: false,
+			server: 'https',
 			onBeforeSetupMiddleware(devServer) {
 				devServer.app.get('/_cli', (req, res) => {
 					res.json({
@@ -43,24 +50,10 @@ exports.setupWebpackWatchConfig = (options, { basePath, shellHash }) => {
 					});
 				});
 			},
-			static: {
-				directory: path.resolve(process.cwd(), 'node_modules', '@zextras', 'zapp-shell', 'dist'),
-				publicPath: `/static/iris/carbonio-shell/${shellHash}`
-			},
-			open: [`/static/iris/carbonio-shell/${shellHash}`],
+			open: ['/carbonio/'],
 			proxy: [
-				// {
-				// 	context: ['/static/iris/carbonio-shell/current'],
-				// 	secure: false,
-				// 	target: 'https://localhost:9000',
-				// 	pathRewrite: { '^/current': `/${shellHash}` }
-				// },
 				{
-					context: [
-						`!/static/iris/carbonio-shell/**/*`,
-						`!${basePath}/**/*`,
-						'!/static/iris/components.json'
-					],
+					context: [`!${basePath}/**/*`, '!/static/iris/components.json'],
 					target: server,
 					secure: false,
 					logLevel: 'debug',
@@ -82,36 +75,24 @@ exports.setupWebpackWatchConfig = (options, { basePath, shellHash }) => {
 					selfHandleResponse: false,
 					onProxyRes(proxyRes, req, res) {
 						modifyResponse(res, proxyRes, function (body) {
-							console.log('[Proxy] modifying components.json');
-							const components = body.components.reduce((acc, module) => {
-								if (module.name === pkg.zapp.name) {
-									return [...acc, { ...module, js_entrypoint: `${basePath}app.bundle.js` }];
-								}
-								if (module.name === 'carbonio-error-reporter') return acc;
-								return [...acc, module];
-							}, []);
-							// eslint-disable-next-line new-cap
-							return JSON.stringify({ components });
+							if (body?.components) {
+								console.log(chalk.green.bold('[Proxy] modifying components.json'));
+								const components = body.components.reduce((acc, module) => {
+									if (module.name === pkg.zapp.name) {
+										return [...acc, { ...module, js_entrypoint: `${basePath}app.bundle.js` }];
+									}
+									if (
+										options.standalone ||
+										(!options.errorReporter && module.name === 'carbonio-error-reporter-ui')
+									)
+										return acc;
+									return [...acc, module];
+								}, []);
+								return JSON.stringify({ components });
+							}
+							console.log(chalk.green.bold('[Proxy] components.json: no content'));
+							return body;
 						});
-						// const bodyChunks = [];
-						// proxyRes.on('data', (chunk) => {
-						// 	bodyChunks.push(chunk);
-						// 	console.log('data', chunk);
-						// });
-						// proxyRes.on('end', () => {
-						// 	const body = Buffer.concat(bodyChunks);
-						// 	// console.log(body.toJSON());
-						// 	const original = JSON.parse(body.toString());
-						// 	const components = original.components.reduce((acc, module) => {
-						// 		if (module.name === pkg.zapp.name) {
-						// 			return [...acc, { ...module, js_entrypoint: `${basePath}app.bundle.js` }];
-						// 		}
-						// 		if (module.name === 'carbonio-error-reporter') return acc;
-						// 		return [...acc, module];
-						// 	}, []);
-						// 	// eslint-disable-next-line new-cap
-						// 	res.send(new Buffer.from(JSON.stringify({ components })));
-						// });
 					}
 				}
 			]
@@ -202,9 +183,9 @@ exports.setupWebpackWatchConfig = (options, { basePath, shellHash }) => {
 		},
 		plugins: [
 			// new webpack.HotModuleReplacementPlugin(),
-			new webpack.ProvidePlugin({
-				process: 'process/browser'
-			}),
+			// new webpack.ProvidePlugin({
+			// 	process: 'process/browser'
+			// }),
 			new webpack.DefinePlugin({
 				PACKAGE_VERSION: JSON.stringify(pkg.version),
 				ZIMBRA_PACKAGE_VERSION: semver.valid(semver.coerce(pkg.version)),
