@@ -58,3 +58,5 @@ Thumbs.db
 junit.xml
 coverage/cobertura-coverage.xml
 
+.reuse/*
+LICENSES/*
