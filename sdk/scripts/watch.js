@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2021 2021 Zextras <https://www.zextras.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 /* eslint-disable no-console */
 const arg = require('arg');
 const chalk = require('chalk');
@@ -10,8 +16,12 @@ const { setupWebpackWatchConfig } = require('./configs/webpack.watch.config');
 function parseArguments() {
 	const args = arg(
 		{
-			'--host': Number,
-			'-h': '--host'
+			'--host': String,
+			'-h': '--host',
+			'--standalone': Boolean,
+			'-s': '--standalone',
+			'--error-reporter': Boolean,
+			'-e': '--error-reporter'
 		},
 		{
 			argv: process.argv.slice(2),
@@ -19,46 +29,24 @@ function parseArguments() {
 		}
 	);
 	return {
-		analyzeBundle: args['--host'] || false
+		host: args['--host'] || 'localhost:4443',
+		standalone: args['--standalone'] || false,
+		errorReporter: args['--error-reporter'] || false
 	};
 }
-
-const logBuild = (err, stats) => {
-	if (err) {
-		console.log(chalk.bgRed.white.bold('Webpack Runtime Error'));
-		console.error(err.stack || err);
-		if (err.details) {
-			console.error(err.details);
-		}
-	}
-
-	const info = stats.toJson();
-
-	if (stats.hasWarnings()) {
-		chalk.bgRed.white.bold(`Webpack Compilations Warning${info.warnings.length > 0 ? 's' : ''}`);
-		console.warn(info.warnings);
-	}
-
-	if (stats.hasErrors()) {
-		console.log(
-			chalk.bgRed.white.bold(`Webpack Compilations Error${info.errors.length > 0 ? 's' : ''}`)
-		);
-		console.error(info.errors);
-	} else {
-		console.log(chalk.bgBlue.white.bold('Compiled Successfully!'));
-	}
-};
 
 exports.runWatch = async () => {
 	const options = parseArguments();
 	console.log('Building ', chalk.green(pkg.zapp.name));
 	console.log('Using base path ', chalk.green(buildSetup.basePath));
+	console.log('Paramenters:');
+	Object.keys(options).forEach((key) => console.log(chalk.green(`${key}: `), options[key]));
 	const config = setupWebpackWatchConfig(options, buildSetup);
 	const compiler = webpack(config);
 	// const watching = compiler.watch( {}, logBuild );
 	const server = new WebpackDevServer(config.devServer, compiler);
 	const runServer = async () => {
-		console.log('Starting server...');
+		console.log(chalk.bgBlue.whiteBright.bold('Starting server...'));
 		await server.start();
 	};
 	runServer();
