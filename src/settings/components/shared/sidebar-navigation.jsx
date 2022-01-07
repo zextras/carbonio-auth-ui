@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 import { Container, Divider, Icon, Padding, Row, Text } from '@zextras/zapp-ui';
