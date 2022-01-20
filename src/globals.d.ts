@@ -5,4 +5,4 @@
 //  */
 
 declare module '*.properties';
-declare module '@zextras/zapp-ui';
+declare module '@zextras/carbonio-design-system';

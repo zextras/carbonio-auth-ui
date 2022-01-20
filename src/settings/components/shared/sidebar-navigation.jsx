@@ -6,7 +6,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Divider, Icon, Padding, Row, Text } from '@zextras/zapp-ui';
+import { Container, Divider, Icon, Padding, Row, Text } from '@zextras/carbonio-design-system';
 
 const LinkText = styled(Text)`
 	user-select: none;

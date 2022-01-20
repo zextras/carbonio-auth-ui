@@ -6,7 +6,7 @@
  */
 
 import React, { lazy, useEffect, Suspense } from 'react';
-import { registerAppData, Spinner } from '@zextras/zapp-shell';
+import { registerAppData, Spinner } from '@zextras/carbonio-shell-ui';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 

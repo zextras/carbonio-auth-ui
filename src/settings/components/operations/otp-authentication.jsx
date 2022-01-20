@@ -15,7 +15,7 @@ import {
 	Table,
 	Text,
 	useSnackbar
-} from '@zextras/zapp-ui';
+} from '@zextras/carbonio-design-system';
 import QRCode from 'qrcode.react';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
 import styled from 'styled-components';
