@@ -13,8 +13,8 @@ import {
 	Row,
 	useSnackbar,
 	Text
-} from '@zextras/zapp-ui';
-import { getUserAccount } from '@zextras/zapp-shell';
+} from '@zextras/carbonio-design-system';
+import { getUserAccount } from '@zextras/carbonio-shell-ui';
 import { useTranslation } from 'react-i18next';
 import { Section } from '../shared/section';
 import { ErrorMessage } from '../shared/error-message';

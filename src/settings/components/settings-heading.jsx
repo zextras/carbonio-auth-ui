@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Padding, Row, Text } from '@zextras/zapp-ui';
+import { Padding, Row, Text } from '@zextras/carbonio-design-system';
 
 export default function Heading({ title }) {
 	return (

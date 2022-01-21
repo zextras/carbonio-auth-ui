@@ -9,7 +9,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Divider, Link, Padding, Row, Text } from '@zextras/zapp-ui';
+import { Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { orderBy } from 'lodash';
 
 import { fetchSoap } from './network/fetchSoap';

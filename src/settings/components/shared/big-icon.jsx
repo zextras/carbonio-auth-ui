@@ -5,7 +5,7 @@
  */
 
 import styled from 'styled-components';
-import { Icon } from '@zextras/zapp-ui';
+import { Icon } from '@zextras/carbonio-design-system';
 
 export const BigIcon = styled(Icon)`
 	width: 50px;

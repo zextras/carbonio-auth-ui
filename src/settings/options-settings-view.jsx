@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { FormSubSection } from '@zextras/zapp-ui';
+import { FormSubSection } from '@zextras/carbonio-design-system';
 
 export default function OptionsSettingsView({ t }) {
 	return <FormSubSection label={t('options', 'Options')}></FormSubSection>;
