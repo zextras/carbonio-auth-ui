@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { orderBy } from 'lodash';
@@ -157,23 +157,26 @@ export default function App() {
 		checkHasZextras();
 	}, [checkHasZextras]);
 
+	const occupyFull = useMemo(() => window.innerWidth <= 1800, [window.innerWidth]);
 	return (
 		<Shell>
 			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
 			<ColumnFull mainAlignment="space-between" takeAvailableSpace>
 				<ColumnLeft
-					width="calc(60% - 100px)"
+					width={`${occupyFull ? '100%' : 'calc(60% - 100px)'} `}
 					mainAlignment="flex-start"
 					crossAlignment="flex-start"
 				>
 					{activeTab && <ActiveTab activeTab={activeTab} />}
 				</ColumnLeft>
-				<ColumnRight width="calc(40% + 100px)">
-					<Instruction
-						instruction={activeTab && activeTab.instruction}
-						link={activeTab && activeTab.link}
-					/>
-				</ColumnRight>
+				{!occupyFull && (
+					<ColumnRight width="calc(40% + 100px)">
+						<Instruction
+							instruction={activeTab && activeTab.instruction}
+							link={activeTab && activeTab.link}
+						/>
+					</ColumnRight>
+				)}
 			</ColumnFull>
 		</Shell>
 	);
