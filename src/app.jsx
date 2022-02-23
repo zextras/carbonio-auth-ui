@@ -6,7 +6,8 @@
  */
 
 import React, { lazy, useEffect, Suspense } from 'react';
-import { registerAppData, Spinner } from '@zextras/carbonio-shell-ui';
+import { addSettingsView, Spinner } from '@zextras/carbonio-shell-ui';
+import { useTranslation } from 'react-i18next';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
@@ -17,18 +18,14 @@ const Auth = (props) => (
 );
 
 export default function App() {
-	console.log(
-		'%c AUTH APP LOADED',
-		'color: white; background: #8bc34a;padding: 4px 8px 2px 4px; font-family: sans-serif; border-radius: 12px; width: 100%'
-	);
+	const [t] = useTranslation();
+
 	useEffect(() => {
-		registerAppData({
-			icon: 'AuthOutline',
-			views: {
-				settings: Auth
-			},
-			context: {}
+		addSettingsView({
+			route: 'auth',
+			label: t('label.app_name', 'Auth'),
+			component: Auth
 		});
-	}, []);
+	}, [t]);
 	return null;
 }
