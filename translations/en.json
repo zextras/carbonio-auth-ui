@@ -28,6 +28,7 @@
         "recentlyUsedPassword": "This password was recently used.",
         "sameOldPassword": "Your password cannot be the same as the old one.",
         "title": "Change Password",
+        "zimbraPasswordLocked": "The change password is disabled, please contact your system administrator for further support.",
         "zimbraPasswordMaxLength": "Maximum length is {{num}} characters.",
         "zimbraPasswordMinLength": "Minimum length is {{num}} characters.",
         "zimbraPasswordMinLowerCaseChars": "Minimum amount of lower case characters is {{num}}.",
