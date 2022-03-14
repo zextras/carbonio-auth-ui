@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -12,9 +13,11 @@ import {
 	PasswordInput,
 	Row,
 	useSnackbar,
-	Text
+	Text,
+	Icon
 } from '@zextras/carbonio-design-system';
-import { getUserAccount } from '@zextras/carbonio-shell-ui';
+
+import { getUserAccount, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { useTranslation } from 'react-i18next';
 import { Section } from '../shared/section';
 import { ErrorMessage } from '../shared/error-message';
@@ -28,8 +31,15 @@ export function ChangePassword() {
 	const [errorLabelNewPassword, setErrorLabelNewPassword] = useState('');
 	const [errorLabelConfirmPassword, setErrorLabelConfirmPassword] = useState('');
 	const [correctOldPassword, setCorrectOldPassword] = useState('');
+	const [isLocked, setIsLocked] = useState();
+	const settings = useUserSettings();
 
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		if (settings?.attrs?.zimbraFeatureChangePasswordEnabled === 'TRUE') setIsLocked(false);
+		else setIsLocked(true);
+	}, [settings?.attrs?.zimbraFeatureChangePasswordEnabled]);
 
 	const createSnackbar = useSnackbar();
 
@@ -128,59 +138,92 @@ export function ChangePassword() {
 	}, [confirmPassword, newPassword]);
 
 	return (
-		<Section title={t('changePassword.title')} divider>
-			<Container maxWidth="480px">
-				<Row padding="64px 0 32px">
-					<Text overflow="break-word" size="large" style={{ textAlign: 'center' }}>
-						{t('changePassword.instruction')}
-					</Text>
-				</Row>
-				<Divider />
-				<Row padding="32px 0 16px" width="fill">
-					<PasswordInput
-						label={t('changePassword.oldPassword')}
-						backgroundColor="gray5"
-						value={oldPassword}
-						onChange={(e) => setOldPassword(e.target.value)}
-						hasError={errorLabelOldPassword}
+		<>
+			<Section title={t('changePassword.title')} divider isDisabled>
+				{isLocked && (
+					<Container
+						padding={{ vertical: 'medium', horizontal: 'small' }}
+						background="highlight"
+						height="20%"
+						width="fill"
+						mainAlignment="flex-start"
+						crossAlignment="flex-start"
+					>
+						<Row>
+							<Row width="10%">
+								<Icon icon="AlertCircleOutline" size="large" color="#2196d3" />
+							</Row>
+
+							<Row takeAvailableSpace>
+								<Text overflow="break-word" size="large" style={{ textAlign: 'center' }}>
+									{t('changePassword.zimbraPasswordLocked')}
+								</Text>
+							</Row>
+						</Row>
+					</Container>
+				)}
+				<Container maxWidth="480px">
+					<Row padding="64px 0 32px">
+						<Text
+							overflow="break-word"
+							size="large"
+							color={isLocked ? 'gray1' : 'regular'}
+							style={{ textAlign: 'center' }}
+						>
+							{t('changePassword.instruction')}
+						</Text>
+					</Row>
+					<Divider />
+					<Row padding="32px 0 16px" width="fill">
+						<PasswordInput
+							label={t('changePassword.oldPassword')}
+							backgroundColor="gray5"
+							value={oldPassword}
+							onChange={(e) => setOldPassword(e.target.value)}
+							hasError={errorLabelOldPassword}
+							disabled={isLocked}
+						/>
+						{errorLabelOldPassword && <ErrorMessage error={errorLabelOldPassword} />}
+					</Row>
+					<Row padding={{ bottom: 'large' }} width="fill">
+						<PasswordInput
+							label={t('newPassword')}
+							backgroundColor="gray5"
+							value={newPassword}
+							onChange={(e) => setNewPassword(e.target.value)}
+							hasError={errorLabelNewPassword}
+							disabled={isLocked}
+						/>
+						{errorLabelNewPassword && <ErrorMessage error={errorLabelNewPassword} />}
+					</Row>
+					<Row padding={{ bottom: 'large' }} width="fill">
+						<PasswordInput
+							label={t('changePassword.confirmNew')}
+							backgroundColor="gray5"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							hasError={errorLabelConfirmPassword}
+							disabled={isLocked}
+						/>
+						{errorLabelConfirmPassword && <ErrorMessage error={errorLabelConfirmPassword} />}
+					</Row>
+					<Button
+						label={t('changePassword.title')}
+						type="outlined"
+						size="fill"
+						disabled={
+							!oldPassword ||
+							!newPassword ||
+							!confirmPassword ||
+							errorLabelOldPassword ||
+							errorLabelNewPassword ||
+							errorLabelConfirmPassword ||
+							isLocked
+						}
+						onClick={changePasswordSoap}
 					/>
-					{errorLabelOldPassword && <ErrorMessage error={errorLabelOldPassword} />}
-				</Row>
-				<Row padding={{ bottom: 'large' }} width="fill">
-					<PasswordInput
-						label={t('newPassword')}
-						backgroundColor="gray5"
-						value={newPassword}
-						onChange={(e) => setNewPassword(e.target.value)}
-						hasError={errorLabelNewPassword}
-					/>
-					{errorLabelNewPassword && <ErrorMessage error={errorLabelNewPassword} />}
-				</Row>
-				<Row padding={{ bottom: 'large' }} width="fill">
-					<PasswordInput
-						label={t('changePassword.confirmNew')}
-						backgroundColor="gray5"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						hasError={errorLabelConfirmPassword}
-					/>
-					{errorLabelConfirmPassword && <ErrorMessage error={errorLabelConfirmPassword} />}
-				</Row>
-				<Button
-					label={t('changePassword.title')}
-					type="outlined"
-					size="fill"
-					disabled={
-						!oldPassword ||
-						!newPassword ||
-						!confirmPassword ||
-						errorLabelOldPassword ||
-						errorLabelNewPassword ||
-						errorLabelConfirmPassword
-					}
-					onClick={changePasswordSoap}
-				/>
-			</Container>
-		</Section>
+				</Container>
+			</Section>
+		</>
 	);
 }
