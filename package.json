@@ -67,6 +67,8 @@
 		"translations_repository": "git@bitbucket.org:zextras/com_zextras_zapp_auth.git",
 		"name": "carbonio-auth-ui",
 		"priority": 10,
-		"type": "app"
+		"display": "Auth",
+		"icon": "AuthModOutline",
+		"type": "carbonio"
 	}
 }
