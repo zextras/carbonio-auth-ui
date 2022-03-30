@@ -68,7 +68,7 @@
 		"name": "carbonio-auth-ui",
 		"priority": 10,
 		"display": "Auth",
-		"icon": "AuthModOutline",
+		"icon": "AuthOutline",
 		"type": "carbonio"
 	}
 }
