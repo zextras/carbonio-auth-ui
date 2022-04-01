@@ -70,14 +70,14 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			label: t('easAuth.label'),
 			view: ExchangeActiveSync,
 			instruction: t('instruction.eas'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-text-code'
+			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
 		},
 		{
 			name: 'mobile',
 			label: t('appMobile.title'),
 			view: AppMobile,
 			instruction: t('instruction.mobile'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-qr-code'
+			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
 		{
 			name: 'otp',
