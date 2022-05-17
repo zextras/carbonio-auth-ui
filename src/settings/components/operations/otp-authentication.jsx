@@ -18,7 +18,7 @@ import {
 } from '@zextras/carbonio-design-system';
 import QRCode from 'qrcode.react';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { BigIcon } from '../shared/big-icon';
@@ -61,7 +61,13 @@ const StaticCode = styled.label`
 	padding: 4.95px 0;
 `;
 
+const QRCodeRow = styled(Row)`
+	border-radius: ${({ theme }) => theme.borderRadius};
+`;
+
 export function OTPAuthentication() {
+	const theme = useTheme();
+
 	const [otpList, setOTPList] = useState([]);
 	const [selectedOTP, setSelectedOTP] = useState();
 	const [showModal, setShowModal] = useState(false);
@@ -531,16 +537,17 @@ export function OTPAuthentication() {
 						<Container>
 							<Text>{t('setNewQRCode.successfully')}</Text>
 							<Padding vertical="large">
-								<Row
+								<QRCodeRow
 									width="fit"
+									background={theme.palette.gray5.regular}
 									orientation="vertical"
-									background="gray5"
 									padding={{ all: 'large' }}
 								>
 									<QRCode
+										includeMargin={true}
 										data-testid="qrcode-password"
-										size={143}
-										bgColor="transparent"
+										size={150}
+										bgColor={theme.palette.gray5.regular}
 										value={qrData}
 									/>
 									<Padding top="large">
@@ -556,7 +563,7 @@ export function OTPAuthentication() {
 											}}
 										/>
 									</Padding>
-								</Row>
+								</QRCodeRow>
 							</Padding>
 							<Text weight="bold">{t('setNewPassword.warningJustOnce')}</Text>
 							<Text>{t('newOtp.scan_qr')}</Text>
