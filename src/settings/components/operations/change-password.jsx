@@ -210,7 +210,7 @@ export function ChangePassword() {
 					<Button
 						label={t('changePassword.title')}
 						type="outlined"
-						size="fill"
+						width="fill"
 						disabled={
 							!oldPassword ||
 							!newPassword ||
