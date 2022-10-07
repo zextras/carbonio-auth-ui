@@ -495,6 +495,7 @@ export function OTPAuthentication() {
 			<Modal
 				title={t('setNewOtpLabel.new')}
 				open={showModal}
+				onClose={() => handleOnClose(false)}
 				customFooter={
 					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
 						<PoweredByZextras />
