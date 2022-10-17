@@ -9,7 +9,7 @@ import { Container, Padding, Row } from '@zextras/carbonio-design-system';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled(Row)`
-	border-bottom: 1px solid ${({ theme }) => theme.palette.gray2.regular};
+	border-bottom: 0.0625rem solid ${({ theme }) => theme.palette.gray2.regular};
 `;
 const ShellRightWrapper = styled(Row)`
 	width: ${({ theme, width }) => `calc(${width} - ${theme.sizes.padding.large})`};
