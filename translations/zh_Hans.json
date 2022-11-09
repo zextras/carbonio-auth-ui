@@ -1,0 +1,129 @@
+{
+    "staticOTPCodes": {
+        "print": {
+            "whenToUse": "这些是你的静态代码。在您无法使用移动设备继续身份验证时，您就必须使用这些代码之一。",
+            "useOnce": "请记住，每个代码只能使用一次，因此我们建议在使用后将其从列表中删除。每次使用代码时，您都会收到通知邮件。",
+            "typePin": "插入上方列出的 PIN 码之一",
+            "title": "OTP 代码",
+            "login": "使用密码登录",
+            "keepInSafePlace": "我们建议您将代码保存在安全的位置。",
+            "howToUse": "如何使用您的 PIN 码",
+            "eraseUsedPin": "从列表中清除已使用的 PIN 码"
+        }
+    },
+    "setNewQRCode": {
+        "successfully": "二维码认证生成成功"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "警告，您将只能看到此代码一次",
+        "textDescription": "使用此代码对您在Exchange ActiveSync上的Zimbra账户进行认证",
+        "successfully": "密码生成成功",
+        "authenticationDescription": "认证描述",
+        "EASPasswordCopied": "EAS密码已复制"
+    },
+    "setNewOtpLabel": {
+        "title": "OTP认证",
+        "success": "新OTP认证已启用成功。",
+        "prohibitedCharacters": "不要使用任何特殊字符、强音符符或空格。",
+        "new": "OTP认证|新认证",
+        "maxLength": "标签最大长度为{{maxLength}}个字符。",
+        "labelPurpose": "标签将帮助您记住使用了OTP的位置。",
+        "inputLabel": "OTP标签",
+        "empty": "OTP认证列表为空。",
+        "allowedCharacters": "可使用下划线和短横线。"
+    },
+    "passwordListLabel": {
+        "status": "状态",
+        "service": "服务",
+        "label": "描述",
+        "enabled": "已启用",
+        "disabled": "已禁用",
+        "created": "已创建"
+    },
+    "otpListLabel": {
+        "failed_attempts": "失败尝试"
+    },
+    "options": "选项",
+    "newPassword": "新密码",
+    "newOtp": {
+        "warning": "警告：您将只能看到这些代码一次。",
+        "scan_qr": "使用某一支持的应用扫描此二维码。",
+        "save_pin": "我们建议打印并保留PIN码，因为在进行认证时可能会要求您提供；每个PIN码只能使用一次。",
+        "printPinCodes": "打印PIN码",
+        "label": "新OTP"
+    },
+    "label": {
+        "save": "保存",
+        "cancel": "取消",
+        "app_name": "认证"
+    },
+    "instructions": {
+        "needInfo": "是否需要更多信息？"
+    },
+    "instruction": {
+        "otp": "您可在此处管理自己的OTP认证。",
+        "mobile": "您可在此处管理自己的Mobile App密码。",
+        "eas": "您可在此处管理自己的Exchange ActiveSync密码。",
+        "changePassword": "您可在这里更改密码。"
+    },
+    "error": {
+        "specialChars": "不允许使用特殊字符。",
+        "somethingWrong": "出了一些问题。",
+        "minimumLength": "最小长度为 6 个字符。",
+        "maximumLength": "最大长度为20个字符。",
+        "alreadyInUse": "已在使用中。请选择另一个描述。"
+    },
+    "easAuth": {
+        "success": "新Exchange ActiveSync密码已成功启用。密码列表已更新。",
+        "new": "Exchange ActiveSync | 新认证",
+        "label": "Exchange ActiveSync",
+        "helpRemember": "描述将帮助您记住使用此Exchange ActiveSync认证的位置。",
+        "empty": "Exchange ActiveSync列表为空。"
+    },
+    "deletePassword": {
+        "title": "确定要删除该密码？"
+    },
+    "deleteOtp": {
+        "description": "使用此密码的所有设备都将断开连接，并且在您提供新的凭据之前将无法进行身份验证。"
+    },
+    "common": {
+        "newAuthentication": "新认证",
+        "enabled": "已启用",
+        "disabled": "已禁用",
+        "delete": "删除",
+        "createPassword": "创建密码",
+        "copyQrCode": "复制二维码",
+        "copyPassword": "复制密码",
+        "codeCopied": "代码复制成功"
+    },
+    "changePassword": {
+        "zimbraPasswordMinNumericChars": "最少数字字符数为 {{num}}。",
+        "zimbraPasswordMinLength": "最小长度为 {{num}} 个字符。",
+        "zimbraPasswordMaxLength": "最大长度为{{num}}个字符。",
+        "title": "更改密码",
+        "sameOldPassword": "您的密码不能与旧密码相同。",
+        "recentlyUsedPassword": "此密码最近使用过。",
+        "passwordChanged": "您的密码已更改。",
+        "oldPassword": "旧密码",
+        "mustMatch": "密码必须匹配。",
+        "lowerUpper": "一个大写字符（ABC）和一个小写字符（abc）",
+        "incorrectPassword": "密码不正确。",
+        "digitSpecial": "一个数字（123）和特殊字符（!/@）",
+        "confirmNew": "确认新密码"
+    },
+    "buttons": {
+        "yes": "是",
+        "next": "下一个",
+        "done": "完成",
+        "close": "关闭",
+        "click": "点击此处",
+        "cancel": "取消"
+    },
+    "appMobile": {
+        "title": "移动端应用",
+        "success": "新Mobile App 密码已成功启用。密码列表已更新。",
+        "new": "Mobile Apps| 新认证",
+        "label": "移动应用程序",
+        "empty": "Mobile App列表为空。"
+    }
+}

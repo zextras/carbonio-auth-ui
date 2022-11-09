@@ -1,0 +1,52 @@
+{
+    "setNewQRCode": {
+        "successfully": "Autenticação QR gerada com sucesso"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "Atenção: poderá ver este código apenas uma vez",
+        "textDescription": "Utilize este código para autenticar a sua conta Zimbra em dispositivos e clientes que aceitam Exchange ActiveSync",
+        "successfully": "Palavra-passe gerada com sucesso",
+        "authenticationDescription": "Descrição da autenticação",
+        "EASPasswordCopied": "Palavra-passe EAS copiada"
+    },
+    "passwordListLabel": {
+        "status": "Status",
+        "service": "Serviço",
+        "label": "Descrição",
+        "enabled": "Ativada",
+        "disabled": "Desativado",
+        "created": "Criado"
+    },
+    "otpListLabel": {
+        "failed_attempts": "Tentativas falhadas"
+    },
+    "options": "Opções",
+    "newPassword": "Nova palavra-passe",
+    "newOtp": {
+        "warning": "Atenção: poderá ver estes códigos apenas uma vez.",
+        "scan_qr": "Leia este código QR através de uma das aplicações suportadas."
+    },
+    "label": {
+        "save": "Salvar",
+        "cancel": "Cancelar"
+    },
+    "deletePassword": {
+        "title": "Tem a certeza de que quer apagar esta palavra-passe?"
+    },
+    "deleteOtp": {
+        "description": "Todos os dispositivos que estão a utilizar esta palavra-passe serão desligados e não poderão autenticar-se até que o utilizador forneça as novas credenciais."
+    },
+    "common": {
+        "newAuthentication": "Nova autenticação",
+        "enabled": "Ativada",
+        "disabled": "Desativado",
+        "delete": "Apagar"
+    },
+    "buttons": {
+        "yes": "Sim",
+        "next": "Próximo",
+        "done": "Concluído",
+        "close": "Fechar",
+        "cancel": "Cancelar"
+    }
+}
