@@ -1,0 +1,140 @@
+{
+    "staticOTPCodes": {
+        "print": {
+            "whenToUse": "Bunlar statik kodlarınızdır. Mobil cihazınız yanınızda olmadığında kimlik doğrulama yapmak için bu kodlardan birini kullanmanız gerekir.",
+            "useOnce": "Unutmayın, her kod sadece bir kez kullanılabilir, bu nedenle kullandıktan sonra kodu listeden silmeniz önerilir. Kodu her kullandığınızda, bir e-posta bildirimi gönderilir.",
+            "typePin": "Yukarıda listelenen PIN kodlarından birini girin",
+            "title": "Tek Kullanımlık Parola Kodları",
+            "login": "Parolanız ile giriş yapın",
+            "keepInSafePlace": "Bu kodları güvenli bir yerde saklamanızı öneririz.",
+            "howToUse": "PIN'ler nasıl kullanılır",
+            "eraseUsedPin": "Kullanılmış PIN'i listeden sil"
+        }
+    },
+    "setNewQRCode": {
+        "successfully": "QR Kimlik doğrulama başarıyla oluşturuldu"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "Uyarı: bu kodu sadece bir kere görebileceksiniz",
+        "textDescription": "Zimbra hesabınızı Exchange ActiveSync servislerine kimlik doğrulama için bu kodu kullanın",
+        "successfully": "Parola başarıyla oluşturuldu",
+        "authenticationDescription": "Kimlik doğrulama açıklaması",
+        "EASPasswordCopied": "EAS Parolası kopyalandı"
+    },
+    "setNewOtpLabel": {
+        "title": "Tek Kullanımlık Parola Kimlik Doğrulaması",
+        "success": "Yeni Tek Kullanımlık Parola Kimlik Doğrulaması başarıyla etkinleştirildi.",
+        "prohibitedCharacters": "Özel karakterler, aksan karakterler veya boşluk kullanmayınız.",
+        "new": "Tek Kullanımlık Parola Kimlik Doğrulaması | Yeni Kimlik Doğrulaması",
+        "maxLength": "Etiketin maksimum uzunluğu {{maxLength}} karakterdir.",
+        "labelPurpose": "Etiket, Tek Kullanımlık Parolanın nerede kullanıldığını hatırlamanıza yardımcı olur.",
+        "inputLabel": "Tek Kullanımlık Parola Etiketi",
+        "empty": "Tek Kullanımlık Parola Kimlik Doğrulama listesi boş.",
+        "allowedCharacters": "Alt tire veya tire kullanılabilir."
+    },
+    "passwordListLabel": {
+        "status": "Durum",
+        "service": "Servis",
+        "label": "Açıklama",
+        "enabled": "Kullanıma açık",
+        "disabled": "Kullanıma kapalı",
+        "created": "Oluşturuldu"
+    },
+    "otpListLabel": {
+        "failed_attempts": "Başarısız Girişimler"
+    },
+    "options": "Seçenekler",
+    "newPassword": "Yeni parola",
+    "newOtp": {
+        "warning": "Uyarı: bu kod bilgilerini sadece bir kere görebileceksiniz.",
+        "scan_qr": "Bu QR kodunu destekleyen uygulamalardan birisini kullanarak tarayın.",
+        "save_pin": "PIN kodlarını yazdırıp saklamanızı öneririz çünkü yetkilendirme işlemi için gerekebilir; her PIN kodu sadece bir kere kullanılabilir.",
+        "printPinCodes": "PIN kodları yazdır",
+        "label": "Yeni Tek Kullanımlık Parola"
+    },
+    "label": {
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "app_name": "Kimlik Doğrulaması",
+        "auth_settings": "Auth Ayarları"
+    },
+    "instructions": {
+        "needInfo": "Daha fazla bilgi ister misiniz?"
+    },
+    "instruction": {
+        "otp": "Tek Kullanımlık Parola Kimlik Doğrulamasını buradan yönetebilirsiniz.",
+        "mobile": "Mobile App parolanızı buradan yönetebilirsiniz.",
+        "eas": "Exchange ActiveSync parolanızı buradan yönetebilirsiniz.",
+        "changePassword": "Parolanızı buradan değiştirebilirsiniz."
+    },
+    "error": {
+        "specialChars": "Özel karakterler kullanılamaz.",
+        "somethingWrong": "Bir hata oluştu.",
+        "minimumLength": "En az 6 karakter kullanılabilir.",
+        "maximumLength": "En fazla 20 karakter kullanılabilir.",
+        "alreadyInUse": "Önceden kullanılmış. Lütfen başka bir tanım seçin."
+    },
+    "easAuth": {
+        "success": "Yeni Exchange ActiveSync parolası başarıyla etkinleştirildi. Parola listesi güncellendi.",
+        "new": "Exchange ActiveSync | Yeni Kimlik Doğrulaması",
+        "label": "Exchange ActiveSync",
+        "helpRemember": "Tanım, Exchange ActiveSync Kimlik Doğrulamasının nerede kullanıldığını hatırlamanıza yardımcı olur.",
+        "empty": "Exchange ActiveSync listesi boş."
+    },
+    "deletePassword": {
+        "title": "Bu parolayı silmek istediğinizden emin misiniz?"
+    },
+    "deleteOtp": {
+        "description": "Bu parolayı kullanan tüm cihazlarla bağlantı kesilecek ve yeni giriş bilgileri sağlanana kadar yetkilendirme yapılamayacak."
+    },
+    "common": {
+        "newAuthentication": "Yeni kimlik doğrulaması",
+        "enabled": "Kullanıma açık",
+        "disabled": "Kullanıma kapalı",
+        "delete": "Sil",
+        "createPassword": "Parola oluştur",
+        "copyQrCode": "QR Kodu kopyala",
+        "copyPassword": "Parolayı kopyala",
+        "codeCopied": "Kod başarıyla kopyalandı"
+    },
+    "changePassword": {
+        "zimbraPasswordMinNumericChars": "Nümerik karakter sayısı en az {{num}} olmalıdır.",
+        "zimbraPasswordMinLength": "En az {{num}} karakter kullanılabilir.",
+        "zimbraPasswordMaxLength": "En fazla {{num}} karakter kullanılabilir.",
+        "title": "Parolayı Değiştir",
+        "sameOldPassword": "Parolanız eski parolanız ile aynı olamaz.",
+        "recentlyUsedPassword": "Bu parola yakın zamanda kullanılmış.",
+        "passwordChanged": "Parolanız değiştirildi.",
+        "oldPassword": "Eski Parola",
+        "mustMatch": "Parolalar aynı olmalı.",
+        "lowerUpper": "bir büyük harf (ABC gibi) ve bir küçük harf (abc gibi)",
+        "incorrectPassword": "Hatalı parola.",
+        "digitSpecial": "bir rakam(123 gibi) ve özel karakter( !/@ gibi)",
+        "confirmNew": "Yeni Parolayı Onayla",
+        "zimbraPasswordLocked": "Parola değiştirme özelliği kapalı, destek için lütfen sistem yöneticinizle görüşün.",
+        "zimbraPasswordMinUpperCaseChars": "Büyük harf sayısı en az {{num}} karakter olmalıdır",
+        "zimbraPasswordMinPunctuationChars": "Özel karakter sayısı en az {{num}} olmalıdır",
+        "zimbraPasswordMinLowerCaseChars": "Küçük harf sayısı en az {{num}} karakter olmalıdır.",
+        "mustContain": "Yeni parola 6 - 20 karakter arasında olmalı ve şunlar bulunmalıdır:",
+        "instruction": "Lütfen yeni parola oluşturup onay alanına tekrar yazın",
+        "formatNotValid": "Parolada en az bir büyükharf, küçükharf, rakam ve özel karakter olmalıdır"
+    },
+    "buttons": {
+        "yes": "Evet",
+        "next": "Sonraki",
+        "done": "Tamamlandı",
+        "close": "Kapat",
+        "click": "Buraya tıklayın",
+        "cancel": "İptal"
+    },
+    "appMobile": {
+        "title": "Mobile Apps",
+        "success": "Yeni Mobile App parolası başarıyla etkinleştirildi. Parola listesi güncellendi.",
+        "new": "Mobile Apps | Yeni Kimlik Doğrulaması",
+        "label": "Mobil Uygulamalar",
+        "empty": "Mobile App listesi boş."
+    },
+    "snackbar": {
+        "settings_saved": "Ayarlar başarıyla kaydedildi"
+    }
+}

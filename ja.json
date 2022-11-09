@@ -1,0 +1,129 @@
+{
+    "staticOTPCodes": {
+        "print": {
+            "whenToUse": "これらは静的コードです。認証を続行するためのモバイルデバイスがない場合に備えて、いずれかのコードを使用してください。",
+            "useOnce": "各コードは1回しか使用できないため、使用後はリストから削除することをお勧めします。コードを使用すると常に通知メールが届きます。",
+            "typePin": "上記のPINコードのいずれかを入力します",
+            "title": "OTPコード",
+            "login": "パスワードを使用してログインします",
+            "keepInSafePlace": "コードは安全な場所に保管することをお勧めします。",
+            "howToUse": "PINの使用方法",
+            "eraseUsedPin": "リストから使用済みのPINを消去します"
+        }
+    },
+    "setNewQRCode": {
+        "successfully": "QR認証が生成されました"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "警告：このコードは1度のみ表示されます",
+        "textDescription": "このコードを使用して、ExchangeActiveSyncサービスでZimbraアカウントを認証します",
+        "successfully": "パスワードが生成されました",
+        "authenticationDescription": "認証の説明",
+        "EASPasswordCopied": "EASパスワードがコピーされました"
+    },
+    "setNewOtpLabel": {
+        "title": "OTP認証",
+        "success": "新しいOTP認証が有効になりました。",
+        "prohibitedCharacters": "特殊文字、アクセント、スペースは使用しないでください。",
+        "new": "OTP認証 | 新しい認証",
+        "maxLength": "ラベルは最大{{maxLength}}文字です。",
+        "labelPurpose": "ラベルは、OTPが使用されている場所を思い出すのに役立ちます。",
+        "inputLabel": "OTPラベル",
+        "empty": "OTP認証リストは空です。",
+        "allowedCharacters": "アンダースコアとダッシュは使用できます。"
+    },
+    "passwordListLabel": {
+        "status": "ステータス",
+        "service": "サービス",
+        "label": "説明",
+        "enabled": "有効",
+        "disabled": "無効",
+        "created": "作成されました"
+    },
+    "otpListLabel": {
+        "failed_attempts": "失敗した試み"
+    },
+    "options": "オプション",
+    "newPassword": "新しいパスワード",
+    "newOtp": {
+        "warning": "警告：これらのコードは1度のみ表示されます。",
+        "scan_qr": "サポートされているアプリの1つを介してこのQRコードをスキャンします。",
+        "save_pin": "PINコードは、認証を求められるため印刷して保管することをお勧めします。各PINコードは1度のみ使用できます。",
+        "printPinCodes": "PINコードを印刷する",
+        "label": "新しいOTP"
+    },
+    "label": {
+        "save": "保存する",
+        "cancel": "キャンセル",
+        "app_name": "認証"
+    },
+    "instructions": {
+        "needInfo": "さらに情報が必要ですか？"
+    },
+    "instruction": {
+        "otp": "ここで、OTP認証を管理できます。",
+        "mobile": "ここで、モバイルアプリのパスワードを管理できます。",
+        "eas": "ここで、Exchange ActiveSyncパスワードを管理できます。",
+        "changePassword": "ここでパスワードを変更できます。"
+    },
+    "error": {
+        "specialChars": "特殊文字は使用できません。",
+        "somethingWrong": "エラーが発生しました。",
+        "minimumLength": "最低6文字なければなりません。",
+        "maximumLength": "最大20文字でなければなりません。",
+        "alreadyInUse": "すでに使用されています。 別の説明を選択してください。"
+    },
+    "easAuth": {
+        "success": "新しいExchange ActiveSyncパスワードが有効になりました。パスワードリストが更新されました。",
+        "new": "Exchange ActiveSync | 新しい認証",
+        "label": "Exchange ActiveSync",
+        "helpRemember": "説明は、このExchange ActiveSync認証が使用されている場所を思い出すのに役立ちます。",
+        "empty": "Exchange ActiveSyncリストは空です。"
+    },
+    "deletePassword": {
+        "title": "本当にこのパスワードを削除しますか？"
+    },
+    "deleteOtp": {
+        "description": "このパスワードを使用しているデバイスがすべて切断され、新しい資格情報セットを提供するまで認証できません。"
+    },
+    "common": {
+        "newAuthentication": "新しい認証",
+        "enabled": "有効",
+        "disabled": "無効",
+        "delete": "削除する",
+        "createPassword": "パスワードを作成する",
+        "copyQrCode": "QRコードをコピーする",
+        "copyPassword": "パスワードをコピーする",
+        "codeCopied": "コードが正常にコピーされました"
+    },
+    "changePassword": {
+        "zimbraPasswordMinNumericChars": "数字は最低{{num}}個なければなりません。",
+        "zimbraPasswordMinLength": "最低{{num}}文字です。",
+        "zimbraPasswordMaxLength": "最大{{num}}文字です。",
+        "title": "パスワードを変更する",
+        "sameOldPassword": "古いパスワードと同じではいけません。",
+        "recentlyUsedPassword": "このパスワードは最近使用されました。",
+        "passwordChanged": "パスワードが変更されました。",
+        "oldPassword": "古いパスワード",
+        "mustMatch": "パスワードは一致しなければなりません。",
+        "lowerUpper": "大文字（ABC）と小文字（abc）",
+        "incorrectPassword": "パスワードに誤りがあります。",
+        "digitSpecial": "数字（123）と特殊文字（！/ @）",
+        "confirmNew": "新しいパスワードを確認する"
+    },
+    "buttons": {
+        "yes": "はい",
+        "next": "次へ",
+        "done": "完了",
+        "close": "閉じる",
+        "click": "こちらをクリックしてください",
+        "cancel": "キャンセル"
+    },
+    "appMobile": {
+        "title": "モバイルアプリ",
+        "success": "新しいモバイルアプリのパスワードが有効になりました。 パスワードリストが更新されました。",
+        "new": "モバイルアプリ | 新しい認証",
+        "label": "モバイルアプリケーション",
+        "empty": "モバイルアプリのリストは空です。"
+    }
+}
