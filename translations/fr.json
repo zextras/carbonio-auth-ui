@@ -1,0 +1,129 @@
+{
+    "staticOTPCodes": {
+        "print": {
+            "whenToUse": "Voici vos codes statiques. Vous devrez utiliser l'un de ces codes au cas où vous ne disposeriez pas de votre appareil mobile pour procéder à l'authentification.",
+            "useOnce": "Gardez à l'esprit que chaque code ne peut être utilisé qu'une seule fois, nous vous suggérons donc de l'effacer de la liste une fois qu'il a été utilisé. Chaque fois que vous utiliserez un code, vous recevrez un e-mail de notification.",
+            "typePin": "Insérez l'un des codes PIN énumérés ci-dessus",
+            "title": "Codes OTP",
+            "login": "Connectez-vous en utilisant votre mot de passe",
+            "keepInSafePlace": "Nous vous recommandons de conserver les codes dans un endroit sûr.",
+            "howToUse": "Comment utiliser vos codes PIN",
+            "eraseUsedPin": "Effacer le code PIN utilisé de la liste"
+        }
+    },
+    "setNewQRCode": {
+        "successfully": "Authentification QR générée avec succès"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "Attention : vous ne pourrez voir ce code qu'une seule fois",
+        "textDescription": "Utilisez ce code pour authentifier votre compte Zimbra sur les services Exchange ActiveSync",
+        "successfully": "Mot de passe généré avec succès",
+        "authenticationDescription": "Description de l'authentification",
+        "EASPasswordCopied": "Mot de passe EAS copié"
+    },
+    "setNewOtpLabel": {
+        "title": "Authentification OTP",
+        "success": "Nouvelle authentification OTP activée avec succès.",
+        "prohibitedCharacters": "N'utilisez pas de caractères spéciaux, de caractères accentués ou d'espaces.",
+        "new": "Authentification OTP | Nouvelle authentification",
+        "maxLength": "La longueur maximale de l'étiquette est de {{maxLength}} caractères.",
+        "labelPurpose": "L'étiquette vous aidera à vous souvenir de l'endroit où l'OTP est utilisé.",
+        "inputLabel": "Etiquette OTP",
+        "empty": "La liste d'authentification OTP est vide.",
+        "allowedCharacters": "Le trait de soulignement et le tiret sont autorisés."
+    },
+    "passwordListLabel": {
+        "status": "Statut",
+        "service": "Service",
+        "label": "Description",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "created": "Créé"
+    },
+    "otpListLabel": {
+        "failed_attempts": "Tentatives échouées"
+    },
+    "options": "Options",
+    "newPassword": "Nouveau mot de passe",
+    "newOtp": {
+        "warning": "Attention : vous ne pourrez voir ces codes qu'une seule fois.",
+        "scan_qr": "Scannez ce code QR à l'aide de l'une des applications prises en charge.",
+        "save_pin": "Nous vous conseillons d'imprimer et de conserver les codes PIN car ils pourraient vous être demandés pour vous authentifier ; chaque code PIN ne peut être utilisé qu'une seule fois.",
+        "printPinCodes": "Imprimer les codes PIN",
+        "label": "Nouvel OTP"
+    },
+    "label": {
+        "save": "Sauvegarder",
+        "cancel": "Annuler",
+        "app_name": "Authentification"
+    },
+    "instructions": {
+        "needInfo": "Avez-vous besoin de plus d'informations ?"
+    },
+    "instruction": {
+        "otp": "Ici vous pouvez gérer l'authentification OTP.",
+        "mobile": "Ici, vous pouvez gérer le mot de passe de l'application mobile.",
+        "eas": "Ici, vous pouvez gérer votre mot de passe Exchange ActiveSync.",
+        "changePassword": "Ici, vous pouvez changer votre mot de passe."
+    },
+    "error": {
+        "specialChars": "Les caractères spéciaux ne sont pas autorisés.",
+        "somethingWrong": "Quelque chose s'est mal passé.",
+        "minimumLength": "La longueur minimale est de 6 caractères.",
+        "maximumLength": "La longueur maximale est de 20 caractères.",
+        "alreadyInUse": "Déjà utilisé. Veuillez choisir une autre description."
+    },
+    "easAuth": {
+        "success": "Nouveau mot de passe Exchange ActiveSync activé avec succès. La liste des mots de passe a été mise à jour.",
+        "new": "Exchange ActiveSync | Nouvelle authentification",
+        "label": "Exchange ActiveSync",
+        "helpRemember": "La description vous aidera à vous rappeler où cette authentification Exchange ActiveSync est utilisée.",
+        "empty": "La liste Exchange ActiveSync est vide."
+    },
+    "deletePassword": {
+        "title": "Etes-vous certain de vouloir effacer ce mot de passe ?"
+    },
+    "deleteOtp": {
+        "description": "Tous les appareils qui utilisent ce mot de passe seront déconnectés et ne pourront pas s'authentifier jusqu'à ce que vous fournissiez un nouvel ensemble d'informations d'identification."
+    },
+    "common": {
+        "newAuthentication": "Nouvelle authentification",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "delete": "Effacer",
+        "createPassword": "Créer le mot de passe",
+        "copyQrCode": "Copie du QR code",
+        "copyPassword": "Copier le mot de passe",
+        "codeCopied": "Code copié avec succès"
+    },
+    "changePassword": {
+        "zimbraPasswordMinNumericChars": "La quantité minimale de caractères numériques est {{num}}.",
+        "zimbraPasswordMinLength": "La longueur minimale est de {{nombre}} caractères.",
+        "zimbraPasswordMaxLength": "La longueur maximale est de {{num}} caractères.",
+        "title": "Changer le mot de passe",
+        "sameOldPassword": "Votre mot de passe ne peut pas être le même que l'ancien.",
+        "recentlyUsedPassword": "Ce mot de passe a été utilisé récemment.",
+        "passwordChanged": "Votre mot de passe a été modifié.",
+        "oldPassword": "Ancien mot de passe",
+        "mustMatch": "Les mots de passe doivent correspondre.",
+        "lowerUpper": "un caractère majuscule (ABC) et un caractère minuscule (abc)",
+        "incorrectPassword": "Mot de passe incorrect.",
+        "digitSpecial": "un chiffre (123) et un caractère spécial (!/@)",
+        "confirmNew": "Confirmer le nouveau mot de passe"
+    },
+    "buttons": {
+        "yes": "Oui",
+        "next": "Prochain",
+        "done": "Terminé",
+        "close": "Fermer",
+        "click": "Cliquer ici",
+        "cancel": "Annuler"
+    },
+    "appMobile": {
+        "title": "Apps mobiles",
+        "success": "Le nouveau mot de passe de l'application mobile a été activé avec succès. La liste des mots de passe a été mise à jour.",
+        "new": "Apps mobiles | Nouvelle authentification",
+        "label": "Applications mobiles",
+        "empty": "La liste des applications mobiles est vide."
+    }
+}

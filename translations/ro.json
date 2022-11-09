@@ -1,0 +1,24 @@
+{
+    "passwordListLabel": {
+        "status": "Stare",
+        "label": "Descriere",
+        "enabled": "Activat",
+        "disabled": "Dezactivat"
+    },
+    "options": "Optiuni",
+    "label": {
+        "save": "Salvare",
+        "cancel": "Anulare"
+    },
+    "common": {
+        "enabled": "Activat",
+        "disabled": "Dezactivat",
+        "delete": "Ştergere"
+    },
+    "buttons": {
+        "yes": "Da",
+        "done": "Realizat",
+        "close": "Inchide",
+        "cancel": "Anulare"
+    }
+}
