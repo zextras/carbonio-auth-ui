@@ -1,0 +1,129 @@
+{
+    "staticOTPCodes": {
+        "print": {
+            "whenToUse": "Estes são seus códigos estáticos. Você terá que utilizar um dos códigos caso não tenha o seu dispositivo móvel para realizar a autenticação.",
+            "useOnce": "Tenha em mente que cada código pode ser usado apenas uma vez, então sugerimos que apague-o da sua lista após o uso. Sempre que usar um código, você receberá uma notificação por e-mail.",
+            "typePin": "Insira um dos códigos PIN listados acima",
+            "title": "Códigos OTP",
+            "login": "Acesse usando sua senha",
+            "keepInSafePlace": "Recomendamos que você guarde os códigos em um local seguro.",
+            "howToUse": "Como usar seus PINs",
+            "eraseUsedPin": "Apague o código PIN usado da lista"
+        }
+    },
+    "setNewQRCode": {
+        "successfully": "Autenticação QR gerada com sucesso"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "Atenção: você poderá ver este código apenas uma vez",
+        "textDescription": "Use este código para autenticar sua conta Zimbra nos clientes e dispositivos que permitem Exchange ActiveSync",
+        "successfully": "Senha criada com sucesso",
+        "authenticationDescription": "Descrição da autenticação",
+        "EASPasswordCopied": "Senha EAS copiada"
+    },
+    "setNewOtpLabel": {
+        "title": "Autenticação de OTP",
+        "success": "Nova Autenticação de OTP feita com sucesso.",
+        "prohibitedCharacters": "Não use nenhum caractere especial, acentos ou espaços.",
+        "new": "Autenticação de OTP | Nova Autenticação",
+        "maxLength": "O tamanho máximo da etiqueta é {{maxLength}} caracteres.",
+        "labelPurpose": "Esta etiqueta irá te ajudar a lembrar onde a OTP é utilizada.",
+        "inputLabel": "Etiqueta OTP",
+        "empty": "A lista de Autenticação de OTP está vazia.",
+        "allowedCharacters": "O uso de underline e hífen é permitido."
+    },
+    "passwordListLabel": {
+        "status": "Status",
+        "service": "Serviço",
+        "label": "Descrição",
+        "enabled": "Habilitado",
+        "disabled": "Desabilitado",
+        "created": "Criada"
+    },
+    "otpListLabel": {
+        "failed_attempts": "Tentativas falhadas"
+    },
+    "options": "Opções",
+    "newPassword": "Nova senha",
+    "newOtp": {
+        "warning": "Atenção: você poderá ver estes códigos apenas uma vez.",
+        "scan_qr": "Digitalize este código QR através de um dos aplicativos suportados.",
+        "save_pin": "Sugerimos imprimir e manter os códigos PIN seguros, pois eles serão solicitados ao autenticar; cada código PIN pode ser usado apenas uma vez.",
+        "printPinCodes": "Imprimir códigos PIN",
+        "label": "Nova OTP"
+    },
+    "label": {
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "app_name": "Auth"
+    },
+    "instructions": {
+        "needInfo": "Precisa de mais informações?"
+    },
+    "instruction": {
+        "otp": "Aqui você pode gerenciar sua Autenticação de OTP.",
+        "mobile": "Aqui você pode gerenciar sua senha do App Móvel.",
+        "eas": "Aqui você pode gerenciar sua senha do Exchange ActiveSync.",
+        "changePassword": "Aqui você pode alterar sua senha."
+    },
+    "error": {
+        "specialChars": "Não são permitidos caracteres especiais.",
+        "somethingWrong": "Algo deu errado.",
+        "minimumLength": "O tamanho mínimo é de 6 caracteres.",
+        "maximumLength": "Comprimento máximo de 20 caracteres.",
+        "alreadyInUse": "Já em uso. Escolha outra descrição."
+    },
+    "easAuth": {
+        "success": "Nova senha do Exchange ActiveSync ativada com sucesso. A lista de senhas foi atualizada.",
+        "new": "Exchange ActiveSync | Nova Autenticação",
+        "label": "Exchange ActiveSync",
+        "helpRemember": "A descrição vai te ajudar a lembrar onde foi usada a Autenticação do Exchange ActiveSync.",
+        "empty": "A lista do Exchange ActiveSync está vazia."
+    },
+    "deletePassword": {
+        "title": "Tem certeza que deseja excluir esta senha?"
+    },
+    "deleteOtp": {
+        "description": "Todos os dispositivos que estão usando esta senha serão desconectados e não poderão autenticar até que você forneça novas credenciais de acesso."
+    },
+    "common": {
+        "newAuthentication": "Nova autenticação",
+        "enabled": "Habilitado",
+        "disabled": "Desabilitado",
+        "delete": "Apagar",
+        "createPassword": "Criar senha",
+        "copyQrCode": "Copiar Código QR",
+        "copyPassword": "Copiar senha",
+        "codeCopied": "Código copiado com sucesso"
+    },
+    "changePassword": {
+        "zimbraPasswordMinNumericChars": "Deve conter ao menos {{num}} números.",
+        "zimbraPasswordMinLength": "O tamanho mínimo é de {{num}} caracteres.",
+        "zimbraPasswordMaxLength": "Comprimento máximo de {{num}} caracteres.",
+        "title": "Alterar Senha",
+        "sameOldPassword": "Sua senha não pode ser igual a antiga.",
+        "recentlyUsedPassword": "Esta senha foi usada recentemente.",
+        "passwordChanged": "Sua senha foi alterada.",
+        "oldPassword": "Senha Antiga",
+        "mustMatch": "As senhas devem coincidir.",
+        "lowerUpper": "um caractere maiúsculo (ABC) e um caractere minúsculo (abc)",
+        "incorrectPassword": "Senha incorreta.",
+        "digitSpecial": "um número (123) e um caractere especial (!/@)",
+        "confirmNew": "Confirmar Nova Senha"
+    },
+    "buttons": {
+        "yes": "Sim",
+        "next": "Próximo",
+        "done": "Concluído",
+        "close": "Fechar",
+        "click": "Clique aqui",
+        "cancel": "Cancelar"
+    },
+    "appMobile": {
+        "title": "App Móvel",
+        "success": "Nova senha do App Móvel ativada com sucesso. Lista de senhas atualizada.",
+        "new": "App Móvel | Nova Autenticação",
+        "label": "Aplicativos Móveis",
+        "empty": "A lista do App Móvel está vazia."
+    }
+}
