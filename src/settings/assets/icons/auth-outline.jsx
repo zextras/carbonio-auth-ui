@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-export function AuthOutline({ size = 64 }) {
+export function AuthOutline({ size = '4rem' }) {
 	return (
 		<svg
 			width={size}

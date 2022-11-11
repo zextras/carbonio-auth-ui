@@ -38,7 +38,7 @@ const stepsNames = {
 
 const TextPasswordContainer = styled(Row)`
 	font-family: monospace;
-	font-size: 20px;
+	font-size: 1.25rem;
 	background-color: ${({ theme }) => theme.palette.gray5.regular};
 `;
 
@@ -221,7 +221,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 								onSelectionChange={(selected) => setSelectedPassword(selected[0])}
 							/>
 							{isEmpty(tableRows) && (
-								<Container padding="64px 0 0">
+								<Container padding="4rem 0 0">
 									<EmptyState />
 									<Padding top="large">
 										<Text color="secondary">{t('easAuth.empty')}</Text>
@@ -254,9 +254,9 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 					</Row>
 				}
 			>
-				<Container padding="32px">
+				<Container padding="2rem">
 					{step === stepsNames.set_label && (
-						<Container padding="32px 0 0">
+						<Container padding="2rem 0 0">
 							<Input
 								label={t('setNewPassword.authenticationDescription')}
 								value={authDescription}

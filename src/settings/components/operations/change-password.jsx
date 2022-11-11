@@ -162,8 +162,8 @@ export function ChangePassword() {
 						</Row>
 					</Container>
 				)}
-				<Container maxWidth="480px">
-					<Row padding="64px 0 32px">
+				<Container maxWidth="30rem">
+					<Row padding="4rem 0 2rem">
 						<Text
 							overflow="break-word"
 							size="large"
@@ -174,7 +174,7 @@ export function ChangePassword() {
 						</Text>
 					</Row>
 					<Divider />
-					<Row padding="32px 0 16px" width="fill">
+					<Row padding="2rem 0 1rem" width="fill">
 						<PasswordInput
 							label={t('changePassword.oldPassword')}
 							backgroundColor="gray5"

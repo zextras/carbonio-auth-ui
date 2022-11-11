@@ -214,7 +214,7 @@ export function AppMobile({ passwords, setPasswords }) {
 							onSelectionChange={(selected) => setSelectedPassword(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
-							<Container padding="64px 0 0">
+							<Container padding="4rem 0 0">
 								<EmptyState />
 								<Padding top="large">
 									<Text color="secondary">{t('appMobile.empty')}</Text>
@@ -246,9 +246,9 @@ export function AppMobile({ passwords, setPasswords }) {
 					</Row>
 				}
 			>
-				<Container padding="32px">
+				<Container padding="2rem">
 					{step === stepsNames.set_label && (
-						<Container padding="32px 0 0">
+						<Container padding="2rem 0 0">
 							<Input
 								label={t('setNewPassword.authenticationDescription')}
 								value={authDescription}
@@ -275,7 +275,7 @@ export function AppMobile({ passwords, setPasswords }) {
 								>
 									<QRCode
 										data-testid="qrcode-password"
-										size={143}
+										size="8.9375rem"
 										bgColor="transparent"
 										value={JSON.stringify(newQrCodeResponse.qrcode_data)}
 									/>
