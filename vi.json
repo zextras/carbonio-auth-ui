@@ -1,0 +1,129 @@
+{
+    "staticOTPCodes": {
+        "print": {
+            "whenToUse": "Đây là những mã tĩnh của bạn. Bạn sẽ phải sử dụng một trong các mã trong trường hợp bạn không có thiết bị di động của mình để tiến hành xác thực.",
+            "useOnce": "Hãy nhớ rằng mỗi mã chỉ có thể được sử dụng một lần, vì vậy chúng tôi khuyên bạn nên xóa mã đó khỏi danh sách sau khi được sử dụng. Bất cứ khi nào bạn sử dụng mã, bạn sẽ nhận được một thư thông báo.",
+            "typePin": "Chèn một trong những mã PIN được liệt kê dưới đây",
+            "title": "Mã Mật khẩu dùng một lần",
+            "login": "Đăng nhập sử dụng Mật khẩu của bạn",
+            "keepInSafePlace": "Chúng tôi khuyên bạn nên giữ các mã ở một nơi an toàn.",
+            "howToUse": "Cách sử dụng mã PIN của bạn",
+            "eraseUsedPin": "Xoá PIN đã sử dụng từ danh sách"
+        }
+    },
+    "setNewQRCode": {
+        "successfully": "Đã tạo xác thực QR thành công"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "Cảnh báo: Bạn sẽ chỉ nhìn thấy mã này một lần",
+        "textDescription": "Sử dụng mã này để xác thực Tài khoản Zimbra trên dịch vụ Exchange AciveSync",
+        "successfully": "Mật khẩu đã tạo thành công",
+        "authenticationDescription": "Mô tả xác thực",
+        "EASPasswordCopied": "Đã sao chép mật khẩu EAS"
+    },
+    "setNewOtpLabel": {
+        "title": "Xác thực Mật khẩu dùng một lần",
+        "success": "Xác thực Mật khẩu dùng một lần mới đã kích hoạt thành công.",
+        "prohibitedCharacters": "Không sử dụng bất kỳ ký tự đặc biệt, ký tự có dấu hoặc dấu cách nào.",
+        "new": "Xác thực Mật khẩu dùng một lần | Xác thực mới",
+        "maxLength": "Độ dài tối đa của nhãn là {{maxLength}} ký tự.",
+        "labelPurpose": "Nhãn sẽ giúp bạn nhớ nơi mà Mật khẩu dùng một lần đã sử dụng.",
+        "inputLabel": "Nhãn Mật khẩu dùng một lần",
+        "empty": "Danh sách xác thực Mật khẩu dùng một lần rỗng.",
+        "allowedCharacters": "Cho phép sử dụng Dấu gạch dưới và Dấu gạch ngang."
+    },
+    "passwordListLabel": {
+        "status": "Trạng thái",
+        "service": "Dịch vụ",
+        "label": "Mô tả",
+        "enabled": "Đã bật",
+        "disabled": "Đã tắt",
+        "created": "Đã tạo"
+    },
+    "otpListLabel": {
+        "failed_attempts": "Nỗ lực không thành"
+    },
+    "options": "Tuỳ chọn",
+    "newPassword": "Mật khẩu mới",
+    "newOtp": {
+        "warning": "Cảnh báo: bạn sẽ có thể thấy mã này chỉ một lần.",
+        "scan_qr": "Quét mã QR này thông qua một ứng dụng hỗ trợ.",
+        "save_pin": "Chúng tôi khuyến cáo bạn nên in và giữ mã PIN vì chúng có thể được yêu cầu xác thực; mỗi mã PIN chỉ có thể được sử dụng một lần.",
+        "printPinCodes": "In mã PIN",
+        "label": "Mật khẩu dùng một lần mới"
+    },
+    "label": {
+        "save": "Lưu",
+        "cancel": "Huỷ",
+        "app_name": "Tác giả"
+    },
+    "instructions": {
+        "needInfo": "Bạn có cần thêm thông tin?"
+    },
+    "instruction": {
+        "otp": "Bạn có thể quản lý xác thực Mật khẩu dùng một lần tại đây.",
+        "mobile": "Bạn có thể quản lý Mật khẩu di động tại đây.",
+        "eas": "Bản có thể quản lý mật khẩu Exchange ActiveSync của bạn tại đây.",
+        "changePassword": "Bạn có thể thay đổi Mật khẩu của bạn ở đây."
+    },
+    "error": {
+        "specialChars": "Không được phép sử dụng ký tự đặc biệt.",
+        "somethingWrong": "Có một số lỗi.",
+        "minimumLength": "Độ dài tối thiểu là 6 ký tự.",
+        "maximumLength": "Độ dài tối đa là 20 ký tự.",
+        "alreadyInUse": "Đã sử dụng. Vui lòng chọn mô tả khác."
+    },
+    "easAuth": {
+        "success": "Đã bật mật khẩu Exchange ActiveSync thành công. Danh sách mật khẩu đã được cập nhập.",
+        "new": "Exchange ActiveSync | Xác thực mới",
+        "label": "Exchange ActiveSync",
+        "helpRemember": "Mô tả sẽ giúp bạn nhớ nơi mà Exchange ActiveSync Authentication này đã sử dụng.",
+        "empty": "Danh sách Exchage ActiveSync rỗng."
+    },
+    "deletePassword": {
+        "title": "Bạn có chắc chắn muốn xoá mật khẩu này?"
+    },
+    "deleteOtp": {
+        "description": "Tất cả các thiết bị đang sử dụng mật khẩu này sẽ bị ngắt kết nối và chúng sẽ không thể xác thực cho đến khi bạn cung cấp một bộ thông tin xác thực mới."
+    },
+    "common": {
+        "newAuthentication": "Xác thực mới",
+        "enabled": "Đã bật",
+        "disabled": "Đã tắt",
+        "delete": "Xoá",
+        "createPassword": "Tạo mật khẩu",
+        "copyQrCode": "Sao chép mã QR",
+        "copyPassword": "Sao chép mật khẩu",
+        "codeCopied": "Đã sao chép mã thành công"
+    },
+    "changePassword": {
+        "zimbraPasswordMinNumericChars": "Số tối thiểu ký tự số là {{num}}.",
+        "zimbraPasswordMinLength": "Số ký tự tối thiểu là {{num}}.",
+        "zimbraPasswordMaxLength": "Độ dài tối đa là {{num}} ký tự.",
+        "title": "Thay đổi Mật khẩu",
+        "sameOldPassword": "Mật khẩu bạn không thể giống một mật khẩu cũ.",
+        "recentlyUsedPassword": "Mật khẩu đã sẵn sàng để sử dụng.",
+        "passwordChanged": "Mật khẩu của bạn đã thay đổi.",
+        "oldPassword": "Mật khẩu Cũ",
+        "mustMatch": "Mật khẩu không đúng.",
+        "lowerUpper": "một chữ thường và một chữ hoa",
+        "incorrectPassword": "Mật khẩu không đúng.",
+        "digitSpecial": "một số và một ký tự đặc biệt",
+        "confirmNew": "Xác nhận Mật khẩu mới"
+    },
+    "buttons": {
+        "yes": "Có",
+        "next": "Tiếp theo",
+        "done": "Hoàn thành",
+        "close": "Đóng",
+        "click": "Bấm vào đây",
+        "cancel": "Huỷ"
+    },
+    "appMobile": {
+        "title": "Các Ứng dụng di động",
+        "success": "Đã bật mật khẩu Ứng dụng di động thành công. Danh sách mật khẩu đã được cập nhập.",
+        "new": "Các ứng dụng di động | Xác thực mới",
+        "label": "Các Ứng dụng di động",
+        "empty": "Danh sách Ứng dụng di động rỗng."
+    }
+}
