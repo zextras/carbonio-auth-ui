@@ -47,18 +47,18 @@ const stepsNames = {
 };
 
 const StaticCodesContainer = styled(Row)`
-	max-width: 350px;
+	max-width: 21.875rem;
 `;
 const StaticCodesWrapper = styled.div`
 	position: relative;
 	width: 100%;
 	column-count: 2;
-	padding: 16px;
+	padding: 1rem;
 `;
 const StaticCode = styled.label`
 	display: block;
 	font-family: monospace;
-	padding: 4.95px 0;
+	padding: 0.3125rem 0;
 `;
 
 const QRCodeRow = styled(Row)`
@@ -251,7 +251,7 @@ export function OTPAuthentication() {
 				
 					.page {
 						background: #FFF;
-						padding: 32px;
+						padding: 2rem;
 					}
 				
 					@page {
@@ -276,26 +276,26 @@ export function OTPAuthentication() {
 					h1.guide {
 						text-align: center;
 						color: #2B73D2;
-						padding-top: 16px;
+						padding-top: 1rem;
 					}
 					
 					h2 {
 						font-weight: normal;
-						font-size: 18px;
+						font-size: 1.125rem;
 					}
 					
 					.header {
-						padding: 16px;
-						margin-top: 16px;
+						padding: 1rem;
+						margin-top: 1rem;
 					}
 			
 					.header .title {
-						font-size: 16px;
+						font-size: 1rem;
 						font-weight: 700;
 					}
 					
 					.main-content {
-						padding: 16px;
+						padding: 1rem;
 					}
 					
 					.columns {
@@ -315,7 +315,7 @@ export function OTPAuthentication() {
 					.container-guide {
 						width: 90%;
 						background-color: #F5F6F8;
-						border-radius: 4px;
+						border-radius: 0.25rem;
 						margin: auto;
 					}
 			
@@ -323,10 +323,10 @@ export function OTPAuthentication() {
 						position: fixed;
 						bottom: 0;
 						width: 94%;
-						padding: 16px;
-						height: 48px;
+						padding: 1rem;
+						height: 3rem;
 						color: #CFD5DC;
-						margin-bottom: 16px;
+						margin-bottom: 1rem;
 					}
 			
 					.flex-container {
@@ -338,7 +338,7 @@ export function OTPAuthentication() {
 						position: relative;
 						width: 100%;
 						column-count: 3;
-						padding: 16px;
+						padding: 1rem;
 						max-width: 90%;
 						text-align: center;
 					}
@@ -348,24 +348,24 @@ export function OTPAuthentication() {
 					}
 					
 					.margins {
-						margin: 32px;
+						margin: 2rem;
 					}
 					
 					.oval {
-						max-width: 32px;
-						max-height: 32px;
-						padding: 16px 10px;
+						max-width: 2rem;
+						max-height: 2rem;
+						padding: 1rem 0.625rem;
 						border-radius: 50%;
 						background-color: #D5E3F6;
-						font-size: 16px;
+						font-size: 1rem;
 						text-align: center;
 						align-items: center;
-						margin:0 auto 32px auto;
+						margin:0 auto 2rem auto;
 					}
 					
 					hr.solid {
-						border-top: 1px; color: #E6E9ED;
-						margin: 16px 0;
+						border-top: 0.0625rem; color: #E6E9ED;
+						margin: 1rem 0;
 					}
 				</style>
 				<title>Static OTP codes</title>
@@ -374,7 +374,7 @@ export function OTPAuthentication() {
 					<div class="header">
 						<span class="title">${
 							labelsObj.title
-						}</span><span style="max-width: 118px; float: right; vertical-align: bottom;">${zextrasLogo}</span>
+						}</span><span style="max-width: 7.375rem; float: right; vertical-align: bottom;">${zextrasLogo}</span>
 						<hr class="solid">
 					</div>
 					<div class="container">
@@ -388,7 +388,7 @@ export function OTPAuthentication() {
 						${labelsObj.keepInSafePlace}
 					</p>
 					<div class="flex-container">
-						<div class="codes-container codes" style="margin: 16px;">
+						<div class="codes-container codes" style="margin: 1rem;">
 							${reduce(codes, (a, v) => `${a}<label>${v.code}</label><br/>`, '')}
 						</div>
 					</div>
@@ -482,7 +482,7 @@ export function OTPAuthentication() {
 							onSelectionChange={(selected) => setSelectedOTP(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
-							<Container padding="64px 0 0">
+							<Container padding="4rem 0 0">
 								<EmptyState />
 								<Padding top="large">
 									<Text color="secondary">{t('setNewOtpLabel.empty')}</Text>
@@ -516,9 +516,9 @@ export function OTPAuthentication() {
 					</Row>
 				}
 			>
-				<Container padding="32px">
+				<Container padding="2rem">
 					{modalStep === stepsNames.set_label && (
-						<Container padding="32px 0 0">
+						<Container padding="2rem 0 0">
 							<Input
 								label={t('setNewOtpLabel.inputLabel')}
 								value={otpLabel}
@@ -547,7 +547,7 @@ export function OTPAuthentication() {
 									<QRCode
 										includeMargin={true}
 										data-testid="qrcode-password"
-										size={150}
+										size="9.375rem"
 										bgColor={theme.palette.gray5.regular}
 										value={qrData}
 									/>

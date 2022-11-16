@@ -109,7 +109,10 @@
         "lowerUpper": "una letra mayúscula y una minúscula",
         "incorrectPassword": "Contraseña incorrecta.",
         "digitSpecial": "un número y un caracter especial (!/@)",
-        "confirmNew": "Confirme la nueva contraseña"
+        "confirmNew": "Confirme la nueva contraseña",
+        "mustContain": "La nueva contraseña debe contener entre 6 y 20 caracteres e incluir:",
+        "instruction": "Por favor cree una nueva contraseña e ingrésela en el campo de confirmación",
+        "formatNotValid": "La contraseña debe contener por lo menos una mayúscula, una minúscula, un número, un caracter especial"
     },
     "buttons": {
         "yes": "Sí",

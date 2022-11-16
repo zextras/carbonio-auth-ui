@@ -55,7 +55,8 @@
     "label": {
         "save": "Sauvegarder",
         "cancel": "Annuler",
-        "app_name": "Authentification"
+        "app_name": "Authentification",
+        "auth_settings": "Paramètres d'authentification"
     },
     "instructions": {
         "needInfo": "Avez-vous besoin de plus d'informations ?"
@@ -109,7 +110,14 @@
         "lowerUpper": "un caractère majuscule (ABC) et un caractère minuscule (abc)",
         "incorrectPassword": "Mot de passe incorrect.",
         "digitSpecial": "un chiffre (123) et un caractère spécial (!/@)",
-        "confirmNew": "Confirmer le nouveau mot de passe"
+        "confirmNew": "Confirmer le nouveau mot de passe",
+        "zimbraPasswordMinUpperCaseChars": "Le nombre minimum de caractères en majuscule est {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Le nombre minimum de caractères spéciaux est {{num}}.",
+        "zimbraPasswordMinLowerCaseChars": "Le nombre minimum de caractères en minuscule est {{num}}.",
+        "zimbraPasswordLocked": "Le changement de mot de passe est désactivé, merci de prendre contact avec votre administrateur pour plus d'informations.",
+        "mustContain": "Le nouveau mot de passe doit avoir entre 6 et 20 caractères et doit contenir :",
+        "instruction": "Merci de créer un nouveau mot de passe et de le saisir également dans le champ de confirmation",
+        "formatNotValid": "Le mot de passe doit contenir au moins un caractère de chaque type : majuscule, minuscule, nombre et spécial"
     },
     "buttons": {
         "yes": "Oui",
@@ -125,5 +133,8 @@
         "new": "Apps mobiles | Nouvelle authentification",
         "label": "Applications mobiles",
         "empty": "La liste des applications mobiles est vide."
+    },
+    "snackbar": {
+        "settings_saved": "Les paramètres ont été sauvegardés avec succès"
     }
 }

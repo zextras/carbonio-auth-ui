@@ -33,8 +33,8 @@
         "zimbraPasswordMinLength": "Minimum length is {{num}} characters.",
         "zimbraPasswordMinLowerCaseChars": "Minimum amount of lower case characters is {{num}}.",
         "zimbraPasswordMinNumericChars": "Minimum amount of numeric characters is {{num}}.",
-        "zimbraPasswordMinPunctuationChars": "Minimum amount of special characters is {{num}}",
-        "zimbraPasswordMinUpperCaseChars": "Minimum amount of upper case characters is {{num}}"
+        "zimbraPasswordMinPunctuationChars": "Minimum amount of special characters is {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "Minimum amount of upper case characters is {{num}}."
     },
     "common": {
         "codeCopied": "Code copied successfully",

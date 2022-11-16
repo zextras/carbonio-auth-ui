@@ -8,6 +8,6 @@ import styled from 'styled-components';
 import { Icon } from '@zextras/carbonio-design-system';
 
 export const BigIcon = styled(Icon)`
-	width: 50px;
-	height: 50px;
+	width: 3.125rem;
+	height: 3.125rem;
 `;

@@ -103,7 +103,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			<Row>
 				<Row width="100%" mainAlignment="flex=start" padding={{ all: 'small' }}>
 					<Padding right="small">
-						<AuthOutline size={24} />
+						<AuthOutline size="1.5rem" />
 					</Padding>
 					<Text>AUTH</Text>
 				</Row>
@@ -163,14 +163,14 @@ export default function App() {
 			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
 			<ColumnFull mainAlignment="space-between" takeAvailableSpace>
 				<ColumnLeft
-					width={`${occupyFull ? '100%' : 'calc(60% - 100px)'} `}
+					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
 					mainAlignment="flex-start"
 					crossAlignment="flex-start"
 				>
 					{activeTab && <ActiveTab activeTab={activeTab} />}
 				</ColumnLeft>
 				{!occupyFull && (
-					<ColumnRight width="calc(40% + 100px)">
+					<ColumnRight width="calc(40% + 6.25rem)">
 						<Instruction
 							instruction={activeTab && activeTab.instruction}
 							link={activeTab && activeTab.link}
