@@ -275,7 +275,7 @@ export function AppMobile({ passwords, setPasswords }) {
 								>
 									<QRCode
 										data-testid="qrcode-password"
-										size="8.9375rem"
+										size={143}
 										bgColor="transparent"
 										value={JSON.stringify(newQrCodeResponse.qrcode_data)}
 									/>
