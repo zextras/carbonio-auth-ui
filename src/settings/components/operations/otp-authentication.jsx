@@ -547,7 +547,7 @@ export function OTPAuthentication() {
 									<QRCode
 										includeMargin={true}
 										data-testid="qrcode-password"
-										size="9.375rem"
+										size={150}
 										bgColor={theme.palette.gray5.regular}
 										value={qrData}
 									/>
