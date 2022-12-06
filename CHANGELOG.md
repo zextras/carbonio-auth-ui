@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/zextras/carbonio-auth-ui/compare/v0.1.10...v0.1.11) (2022-11-25)
+
+
+### Bug Fixes
+
+* revert size for QRCode which requires a number to be rendered ([bcb050b](https://github.com/zextras/carbonio-auth-ui/commit/bcb050b991707f6dd9b8975bed4bc2936b32009a))
+
 ### [0.1.10](https://github.com/zextras/carbonio-auth-ui/compare/v0.1.9...v0.1.10) (2022-11-16)
 
 
