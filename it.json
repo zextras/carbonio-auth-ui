@@ -115,8 +115,8 @@
         "zimbraPasswordMinPunctuationChars": "La quantità minima di caratteri speciali è {{num}}.",
         "zimbraPasswordMinLowerCaseChars": "La quantità minima di caratteri minuscoli è {{num}}.",
         "zimbraPasswordLocked": "La modifica della password è disabilitata, contatta l'amministratore di sistema per ulteriore supporto.",
-        "mustContain": "La nuova password deve contenere da 6 a 20 caratteri e deve contenere:",
-        "instruction": "Si prega di creare una nuova password e reinserirla nel campo di conferma",
+        "mustContain": "La nuova password deve essere lunga da 6 a 20 caratteri e deve contenere:",
+        "instruction": "Crea una nuova password e inseriscila nel campo di conferma",
         "formatNotValid": "La password deve contenere almeno un carattere maiuscolo, minuscolo, cifra, carattere speciale"
     },
     "buttons": {

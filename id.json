@@ -48,7 +48,14 @@
         "lowerUpper": "huruf besar (ABC) dan huruf kecil (abc)",
         "incorrectPassword": "Kata sandi salah.",
         "digitSpecial": "angka (123) dan karakter khusus (!/@)",
-        "confirmNew": "Konfirmasi Kata Sandi Baru"
+        "confirmNew": "Konfirmasi Kata Sandi Baru",
+        "formatNotValid": "Kata sandi harus terdiri dari minimal satu huruf besar, huruf kecil, angka, dan karakter khusus",
+        "instruction": "Buat kata sandi baru dan masukkan ke kolom konfirmasi",
+        "mustContain": "Kata sandi baru harus terdiri dari 6 hingga 20 karakter dan harus berisi:",
+        "zimbraPasswordMinLowerCaseChars": "Jumlah minimum karakter huruf kecil adalah {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Jumlah minimum karakter khusus adalah {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "Jumlah minimum karakter huruf besar adalah {{num}}.",
+        "zimbraPasswordLocked": "Perubahan kata sandi dinonaktifkan. Hubungi administrator sistem Anda untuk dukungan lebih lanjut."
     },
     "buttons": {
         "yes": "Ya",
@@ -121,9 +128,13 @@
     "label": {
         "save": "Simpan",
         "cancel": "Batal",
-        "app_name": "Autentikasi"
+        "app_name": "Autentikasi",
+        "auth_settings": "Pengaturan Autentikasi"
     },
     "instructions": {
         "needInfo": "Anda membutuhkan informasi lainnya?"
+    },
+    "snackbar": {
+        "settings_saved": "Pengaturan berhasil disimpan"
     }
 }

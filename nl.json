@@ -36,7 +36,7 @@
         "status": "Status",
         "service": "Service",
         "label": "Omschrijving",
-        "enabled": "Ingeschakeld",
+        "enabled": "Geactiveerd",
         "disabled": "Uitgeschakeld",
         "created": "Gecreëerd"
     },
@@ -54,8 +54,9 @@
     },
     "label": {
         "save": "Opslaan",
-        "cancel": "Annuleren",
-        "app_name": "Auth"
+        "cancel": "Abbrechen",
+        "app_name": "Auth",
+        "auth_settings": "Auth Instellingen"
     },
     "instructions": {
         "needInfo": "Heeft u meer informatie nodig?"
@@ -88,7 +89,7 @@
     },
     "common": {
         "newAuthentication": "Nieuwe authenticatie",
-        "enabled": "Ingeschakeld",
+        "enabled": "Geactiveerd",
         "disabled": "Uitgeschakeld",
         "delete": "Verwijderen",
         "createPassword": "Wachtwoord creëren",
@@ -109,7 +110,14 @@
         "lowerUpper": "een hoofdletter (ABC) en een kleine letter (abc)",
         "incorrectPassword": "Onjuist wachtwoord.",
         "digitSpecial": "een cijfer (123) en een speciaal teken (!/@)",
-        "confirmNew": "Bevestig nieuw wachtwoord"
+        "confirmNew": "Bevestig nieuw wachtwoord",
+        "formatNotValid": "Het wachtwoord moet ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten",
+        "instruction": "Creëer een nieuw wachtwoord en voer het in het bevestigingsveld in",
+        "mustContain": "Het nieuwe wachtwoord moet 6 tot 20 tekens lang zijn en moet het volgende bevatten:",
+        "zimbraPasswordMinLowerCaseChars": "Minimum aantal kleine letters is {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Minimum aantal speciale tekens is {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "Minimum aantal hoofdletters is {{num}}.",
+        "zimbraPasswordLocked": "De wachtwoordwijziging is uitgeschakeld, neem contact op met uw systeembeheerder voor verdere ondersteuning."
     },
     "buttons": {
         "yes": "Ja",
@@ -117,7 +125,7 @@
         "done": "Gedaan",
         "close": "Sluiten",
         "click": "Hier klikken",
-        "cancel": "Annuleren"
+        "cancel": "Abbrechen"
     },
     "appMobile": {
         "title": "Mobiele apps",
@@ -125,5 +133,8 @@
         "new": "Mobiele apps | Nieuwe Authenticatie",
         "label": "Mobiele toepassingen",
         "empty": "De lijst met Mobiele Apps is leeg."
+    },
+    "snackbar": {
+        "settings_saved": "Instellingen net succes opgeslagen"
     }
 }
