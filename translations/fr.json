@@ -113,11 +113,11 @@
         "confirmNew": "Confirmer le nouveau mot de passe",
         "zimbraPasswordMinUpperCaseChars": "Le nombre minimum de caractères en majuscule est {{num}}.",
         "zimbraPasswordMinPunctuationChars": "Le nombre minimum de caractères spéciaux est {{num}}.",
-        "zimbraPasswordMinLowerCaseChars": "Le nombre minimum de caractères en minuscule est {{num}}.",
+        "zimbraPasswordMinLowerCaseChars": "Le nombre minimum de caractères en minuscule est de {{num}}.",
         "zimbraPasswordLocked": "Le changement de mot de passe est désactivé, merci de prendre contact avec votre administrateur pour plus d'informations.",
         "mustContain": "Le nouveau mot de passe doit avoir entre 6 et 20 caractères et doit contenir :",
         "instruction": "Merci de créer un nouveau mot de passe et de le saisir également dans le champ de confirmation",
-        "formatNotValid": "Le mot de passe doit contenir au moins un caractère de chaque type : majuscule, minuscule, nombre et spécial"
+        "formatNotValid": "Le mot de passe doit contenir au moins un caractère majuscule, un minuscule, un nombre ainsi qu'un caractère spécial"
     },
     "buttons": {
         "yes": "Oui",

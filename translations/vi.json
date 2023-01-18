@@ -109,7 +109,13 @@
         "lowerUpper": "một chữ thường và một chữ hoa",
         "incorrectPassword": "Mật khẩu không đúng.",
         "digitSpecial": "một số và một ký tự đặc biệt",
-        "confirmNew": "Xác nhận Mật khẩu mới"
+        "confirmNew": "Xác nhận Mật khẩu mới",
+        "formatNotValid": "Mật khẩu phải chứa ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt`",
+        "instruction": "Vui lòng tạo mật khẩu mới và nhập nó vào trong trường xác nhận",
+        "mustContain": "Mật khẩu mới phải bao gồm từ 6 đến 20 ký tự:",
+        "zimbraPasswordMinPunctuationChars": "Số tối thiểu ký tự đặc biệt là {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "Số tối thiểu ký tự Hoa là {{num}}.",
+        "zimbraPasswordMinLowerCaseChars": "Số tối thiểu ký tự thường là {{num}}."
     },
     "buttons": {
         "yes": "Có",

@@ -36,7 +36,7 @@
         "status": "Estado",
         "service": "Servicio",
         "label": "Descripción",
-        "enabled": "Activado",
+        "enabled": "Habiliado",
         "disabled": "Desactivado",
         "created": "Creado"
     },
@@ -55,7 +55,8 @@
     "label": {
         "save": "Guardar",
         "cancel": "Cancelar",
-        "app_name": "Auth"
+        "app_name": "Auth",
+        "auth_settings": "Ajustes de autentificación"
     },
     "instructions": {
         "needInfo": "¿Necesita más información?"
@@ -88,7 +89,7 @@
     },
     "common": {
         "newAuthentication": "Nueva autenticación",
-        "enabled": "Activado",
+        "enabled": "Habiliado",
         "disabled": "Desactivado",
         "delete": "Eliminar",
         "createPassword": "Crear contraseña",
@@ -112,7 +113,11 @@
         "confirmNew": "Confirme la nueva contraseña",
         "mustContain": "La nueva contraseña debe contener entre 6 y 20 caracteres e incluir:",
         "instruction": "Por favor cree una nueva contraseña e ingrésela en el campo de confirmación",
-        "formatNotValid": "La contraseña debe contener por lo menos una mayúscula, una minúscula, un número, un caracter especial"
+        "formatNotValid": "La contraseña debe contener por lo menos una mayúscula, una minúscula, un número, un caracter especial",
+        "zimbraPasswordMinLowerCaseChars": "Debe contener por lo menos {{num}} minúscula.",
+        "zimbraPasswordMinPunctuationChars": "Debe contener por lo menos {{num}} caracter especial.",
+        "zimbraPasswordMinUpperCaseChars": "Debe contener por lo menos {{num}} mayúscula.",
+        "zimbraPasswordLocked": "El cambio de contraseña está deshabilitado, por favor, contacta con el administrador de tu sistema para recibir asistencia adicional."
     },
     "buttons": {
         "yes": "Sí",
@@ -127,6 +132,9 @@
         "success": "La nueva contraseña para la aplicación móvil se activó con éxito. La lista de contraseñas ha sido actualizada.",
         "new": "Aplicaciones móviles | Nueva autenticación",
         "label": "Aplicaciones móviles",
-        "empty": "La lista de las aplicaciones móviles está vacía."
+        "empty": "La lista de aplicaciones móviles está vacía."
+    },
+    "snackbar": {
+        "settings_saved": "Ajustes guardados correctamente"
     }
 }
