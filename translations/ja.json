@@ -33,7 +33,7 @@
         "allowedCharacters": "アンダースコアとダッシュは使用できます。"
     },
     "passwordListLabel": {
-        "status": "ステータス",
+        "status": "状態",
         "service": "サービス",
         "label": "説明",
         "enabled": "有効",
@@ -55,7 +55,8 @@
     "label": {
         "save": "保存する",
         "cancel": "キャンセル",
-        "app_name": "認証"
+        "app_name": "認証",
+        "auth_settings": "認証設定"
     },
     "instructions": {
         "needInfo": "さらに情報が必要ですか？"
@@ -109,7 +110,14 @@
         "lowerUpper": "大文字（ABC）と小文字（abc）",
         "incorrectPassword": "パスワードに誤りがあります。",
         "digitSpecial": "数字（123）と特殊文字（！/ @）",
-        "confirmNew": "新しいパスワードを確認する"
+        "confirmNew": "新しいパスワードを確認する",
+        "formatNotValid": "パスワードには、少なくとも1つの大文字、小文字、数字、特殊文字が含まれなければなりません",
+        "instruction": "新しいパスワードを作成し、確認フィールドに入力してください",
+        "mustContain": "新しいパスワードは6〜20文字で、以下が含まれていなければなりません:",
+        "zimbraPasswordMinLowerCaseChars": "小文字は最低{{num}}文字なければなりません。",
+        "zimbraPasswordMinPunctuationChars": "特殊文字は最低{{num}}文字なければなりません。",
+        "zimbraPasswordMinUpperCaseChars": "大文字は最低{{num}}文字なければなりません。",
+        "zimbraPasswordLocked": "パスワードの変更が無効になっています。詳細なサポートについては、システム管理者にお問い合わせください。"
     },
     "buttons": {
         "yes": "はい",
@@ -125,5 +133,8 @@
         "new": "モバイルアプリ | 新しい認証",
         "label": "モバイルアプリケーション",
         "empty": "モバイルアプリのリストは空です。"
+    },
+    "snackbar": {
+        "settings_saved": "設定が保存されました"
     }
 }

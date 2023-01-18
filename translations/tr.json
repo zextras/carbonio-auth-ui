@@ -112,11 +112,11 @@
         "digitSpecial": "bir rakam(123 gibi) ve özel karakter( !/@ gibi)",
         "confirmNew": "Yeni Parolayı Onayla",
         "zimbraPasswordLocked": "Parola değiştirme özelliği kapalı, destek için lütfen sistem yöneticinizle görüşün.",
-        "zimbraPasswordMinUpperCaseChars": "Büyük harf sayısı en az {{num}} karakter olmalıdır",
-        "zimbraPasswordMinPunctuationChars": "Özel karakter sayısı en az {{num}} olmalıdır",
+        "zimbraPasswordMinUpperCaseChars": "Büyük harf sayısı en az {{num}} karakter olmalıdır.",
+        "zimbraPasswordMinPunctuationChars": "Özel karakter sayısı en az {{num}} olmalıdır.",
         "zimbraPasswordMinLowerCaseChars": "Küçük harf sayısı en az {{num}} karakter olmalıdır.",
         "mustContain": "Yeni parola 6 - 20 karakter arasında olmalı ve şunlar bulunmalıdır:",
-        "instruction": "Lütfen yeni parola oluşturup onay alanına tekrar yazın",
+        "instruction": "Lütfen yeni parola oluşturup onay alanına yazın",
         "formatNotValid": "Parolada en az bir büyükharf, küçükharf, rakam ve özel karakter olmalıdır"
     },
     "buttons": {

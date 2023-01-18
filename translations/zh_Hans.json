@@ -55,7 +55,8 @@
     "label": {
         "save": "保存",
         "cancel": "取消",
-        "app_name": "认证"
+        "app_name": "认证",
+        "auth_settings": "认证设置"
     },
     "instructions": {
         "needInfo": "是否需要更多信息？"
@@ -109,7 +110,14 @@
         "lowerUpper": "一个大写字符（ABC）和一个小写字符（abc）",
         "incorrectPassword": "密码不正确。",
         "digitSpecial": "一个数字（123）和特殊字符（!/@）",
-        "confirmNew": "确认新密码"
+        "confirmNew": "确认新密码",
+        "formatNotValid": "密码必须包含至少一个大写字符、一个小写字符、一个数字和一个特殊字符",
+        "instruction": "请创建一个新密码并在确认字段中输入",
+        "mustContain": "新密码应为 6 至 20 个字符，并且必须包含：",
+        "zimbraPasswordMinPunctuationChars": "最少特殊字符数为 {{num}}。",
+        "zimbraPasswordMinLowerCaseChars": "最少小写字符数为 {{num}}。",
+        "zimbraPasswordMinUpperCaseChars": "最少大写字符数为 {{num}}。",
+        "zimbraPasswordLocked": "密码变更已被禁用，请联系您的系统管理员以获得进一步支持。"
     },
     "buttons": {
         "yes": "是",
@@ -125,5 +133,8 @@
         "new": "Mobile Apps| 新认证",
         "label": "移动应用程序",
         "empty": "Mobile App列表为空。"
+    },
+    "snackbar": {
+        "settings_saved": "设置保存成功"
     }
 }
