@@ -89,7 +89,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "Peringatan: Anda hanya dapat melihat kode ini sekali",
-        "textDescription": "Gunakan kode ini untuk mengautentikasi akun Zimbra Anda di layanan Exchange ActiveSync",
+        "textDescription": "Gunakan kode ini untuk mengautentikasi akun Anda di layanan Exchange ActiveSync",
         "successfully": "Kata sandi berhasil dibuat",
         "authenticationDescription": "Deskripsi autentikasi",
         "EASPasswordCopied": "Kata Sandi EAS disalin"

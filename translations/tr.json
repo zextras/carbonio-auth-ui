@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "Uyarı: bu kodu sadece bir kere görebileceksiniz",
-        "textDescription": "Zimbra hesabınızı Exchange ActiveSync servislerine kimlik doğrulama için bu kodu kullanın",
+        "textDescription": "hesabınızı Exchange ActiveSync servislerine kimlik doğrulama için bu kodu kullanın",
         "successfully": "Parola başarıyla oluşturuldu",
         "authenticationDescription": "Kimlik doğrulama açıklaması",
         "EASPasswordCopied": "EAS Parolası kopyalandı"

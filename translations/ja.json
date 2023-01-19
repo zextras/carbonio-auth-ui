@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "警告：このコードは1度のみ表示されます",
-        "textDescription": "このコードを使用して、ExchangeActiveSyncサービスでZimbraアカウントを認証します",
+        "textDescription": "このコードを使用して、ExchangeActiveSyncサービスでアカウントを認証します",
         "successfully": "パスワードが生成されました",
         "authenticationDescription": "認証の説明",
         "EASPasswordCopied": "EASパスワードがコピーされました"
