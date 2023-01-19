@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "警告，您将只能看到此代码一次",
-        "textDescription": "使用此代码对您在Exchange ActiveSync上的Zimbra账户进行认证",
+        "textDescription": "使用此代码对您在Exchange ActiveSync上的账户进行认证",
         "successfully": "密码生成成功",
         "authenticationDescription": "认证描述",
         "EASPasswordCopied": "EAS密码已复制"
