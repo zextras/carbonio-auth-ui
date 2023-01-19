@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "คำเตือน: คุณจะเห็นรหัสนี้เพียงครั้งเดียว",
-        "textDescription": "ใช้รหัสนี้เพื่อตรวจสอบบัญชี Zimbra ของคุณบนบริการ Exchange ActiveSync",
+        "textDescription": "ใช้รหัสนี้เพื่อตรวจสอบบัญชี ของคุณบนบริการ Exchange ActiveSync",
         "successfully": "สร้างรหัสผ่านสำเร็จแล้ว",
         "authenticationDescription": "คำอธิบายการตรวจสอบ",
         "EASPasswordCopied": "คัดลอกรหัสผ่าน EAS แล้ว"

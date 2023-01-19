@@ -4,7 +4,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "Atenção: poderá ver este código apenas uma vez",
-        "textDescription": "Utilize este código para autenticar a sua conta Zimbra em dispositivos e clientes que aceitam Exchange ActiveSync",
+        "textDescription": "Utilize este código para autenticar a sua conta em dispositivos e clientes que aceitam Exchange ActiveSync",
         "successfully": "Palavra-passe gerada com sucesso",
         "authenticationDescription": "Descrição da autenticação",
         "EASPasswordCopied": "Palavra-passe EAS copiada"
