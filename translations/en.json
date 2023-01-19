@@ -116,7 +116,7 @@
         "EASPasswordCopied": "EAS Password copied",
         "authenticationDescription": "Authentication description",
         "successfully": "Password generated successfully",
-        "textDescription": "Use this code to authenticate your Zimbra account on Exchange ActiveSync services",
+        "textDescription": "Use this code to authenticate your account on Exchange ActiveSync services",
         "warningJustOnce": "Warning: you’ll be able to see this code just once"
     },
     "setNewQRCode": {

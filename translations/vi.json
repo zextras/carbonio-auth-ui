@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "Cảnh báo: Bạn sẽ chỉ nhìn thấy mã này một lần",
-        "textDescription": "Sử dụng mã này để xác thực Tài khoản Zimbra trên dịch vụ Exchange AciveSync",
+        "textDescription": "Sử dụng mã này để xác thực Tài khoản trên dịch vụ Exchange AciveSync",
         "successfully": "Mật khẩu đã tạo thành công",
         "authenticationDescription": "Mô tả xác thực",
         "EASPasswordCopied": "Đã sao chép mật khẩu EAS"

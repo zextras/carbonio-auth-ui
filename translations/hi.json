@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "चेतावनी: आप इस कोड को बस एक बार देख सकोगे",
-        "textDescription": "इस कोड का इस्तेमाल करके Exchange ActiveSync services पर अपने Zimbra अकाउंट को ऑथेंटिकेट करें",
+        "textDescription": "इस कोड का इस्तेमाल करके Exchange ActiveSync services पर अपने अकाउंट को ऑथेंटिकेट करें",
         "successfully": "पासवर्ड जनरेट हो गया",
         "authenticationDescription": "ऑथेंटिकेशन विवरण",
         "EASPasswordCopied": "EAS पासवर्ड कॉपी कर लिया गया"

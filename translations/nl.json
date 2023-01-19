@@ -16,7 +16,7 @@
     },
     "setNewPassword": {
         "warningJustOnce": "Waarschuwing: u zult deze code maar één keer te zien krijgen",
-        "textDescription": "Gebruik deze code om uw Zimbra-account te authenticeren op Exchange ActiveSync services",
+        "textDescription": "Gebruik deze code om uw account te authenticeren op Exchange ActiveSync services",
         "successfully": "Wachtwoord met succes gegenereerd",
         "authenticationDescription": "Authenticatiebeschrijving",
         "EASPasswordCopied": "EAS Wachtwoord gekopiëerd"
