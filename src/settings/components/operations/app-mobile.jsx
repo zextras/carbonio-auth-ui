@@ -258,7 +258,7 @@ export function AppMobile({ passwords, setPasswords }) {
 							{formatError && <ErrorMessage error={formatError} />}
 							<Padding vertical="medium">
 								<Text style={{ textAlign: 'center' }} overflow="break-word">
-									{t('easAuth.helpRemember')}
+									{t('appMobile.descriptionHelp')}
 								</Text>
 							</Padding>
 						</Container>
