@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/zextras/carbonio-auth-ui/compare/v1.0.1...v1.0.2) (2023-02-02)
+
+
+### Bug Fixes
+
+* mobile apps authentication description help ([#29](https://github.com/zextras/carbonio-auth-ui/issues/29)) ([b2178cf](https://github.com/zextras/carbonio-auth-ui/commit/b2178cff8f6f446ba74c0015fd09da020ba7c86c))
+
 ### [1.0.1](https://github.com/zextras/carbonio-auth-ui/compare/v1.0.0...v1.0.1) (2023-01-19)
 
 ## [1.0.0](https://github.com/zextras/carbonio-auth-ui/compare/v0.1.11...v1.0.0) (2023-01-18)
