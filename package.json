@@ -1,7 +1,7 @@
 {
 	"name": "carbonio-auth-ui",
 	"version": "1.0.2",
-	"description": "Auth web module for Zextras Carbonio",
+	"description": "Auth web module",
 	"main": "src/app.jsx",
 	"scripts": {
 		"build": "sdk build",
