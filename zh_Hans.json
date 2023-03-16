@@ -132,7 +132,8 @@
         "success": "新Mobile App 密码已成功启用。密码列表已更新。",
         "new": "Mobile Apps| 新认证",
         "label": "移动应用程序",
-        "empty": "Mobile App列表为空。"
+        "empty": "Mobile App列表为空。",
+        "descriptionHelp": "描述将帮助您记住使用此Mobile Apps认证的位置。"
     },
     "snackbar": {
         "settings_saved": "设置保存成功"

@@ -1,5 +1,6 @@
 {
     "appMobile": {
+        "descriptionHelp": "Description will help you remember where this Mobile Apps Authentication is used.",
         "empty": "The Mobile Apps list is empty.",
         "label": "Mobile Applications",
         "new": "Mobile Apps | New Authentication",
