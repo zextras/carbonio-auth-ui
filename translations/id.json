@@ -70,7 +70,8 @@
         "success": "Kata sandi Aplikasi Seluler baru berhasil diaktifkan. Daftar kata sandi telah diperbarui.",
         "new": "Aplikasi Seluler | Autentikasi Baru",
         "label": "Aplikasi Seluler",
-        "empty": "Daftar Aplikasi Seluler kosong."
+        "empty": "Daftar Aplikasi Seluler kosong.",
+        "descriptionHelp": "Deskripsi akan membantu Anda mengingat di mana Autentikasi Mail Apps digunakan."
     },
     "staticOTPCodes": {
         "print": {

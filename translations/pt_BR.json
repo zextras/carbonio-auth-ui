@@ -132,7 +132,8 @@
         "success": "Nova senha do App Móvel ativada com sucesso. Lista de senhas atualizada.",
         "new": "App Móvel | Nova Autenticação",
         "label": "Aplicativos Móveis",
-        "empty": "A lista do App Móvel está vazia."
+        "empty": "A lista do App Móvel está vazia.",
+        "descriptionHelp": "A descrição vai te ajudar a lembrar onde foi usada a Autenticação do Mobile App."
     },
     "snackbar": {
         "settings_saved": "Configurações salvas com sucesso"
