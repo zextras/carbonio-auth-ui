@@ -132,7 +132,8 @@
         "success": "Yeni Mobile App parolası başarıyla etkinleştirildi. Parola listesi güncellendi.",
         "new": "Mobile Apps | Yeni Kimlik Doğrulaması",
         "label": "Mobil Uygulamalar",
-        "empty": "Mobile App listesi boş."
+        "empty": "Mobile App listesi boş.",
+        "descriptionHelp": "Tanım, Mobil Uygulamalar Kimlik Doğrulamasının nerede kullanıldığını hatırlamanıza yardımcı olur."
     },
     "snackbar": {
         "settings_saved": "Ayarlar başarıyla kaydedildi"
