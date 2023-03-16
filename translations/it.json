@@ -132,7 +132,8 @@
         "success": "Nuova password App Mobile abilitata correttamente. La lista delle password è stata aggiornata.",
         "new": "App dispositivi mobili | Nuova Autenticazione",
         "label": "Applicazioni Mobile",
-        "empty": "La lista delle password delle applicazioni è vuota."
+        "empty": "La lista delle password delle applicazioni è vuota.",
+        "descriptionHelp": "La descrizione sarà utile per indicare dove questa Autenticazione App Mobile è utilizzata."
     },
     "snackbar": {
         "settings_saved": "Impostazioni salvate con successo"

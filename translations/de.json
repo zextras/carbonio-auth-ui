@@ -132,7 +132,8 @@
         "success": "Neues Mobile App Passwort erfolgreich aktiviert. Die Passwortliste wurde aktualisiert.",
         "new": "Mobile Apps | Neue Authentifizierung",
         "label": "Mobile Applikationen",
-        "empty": "Die Mobile App Liste ist leer."
+        "empty": "Die Mobile App Liste ist leer.",
+        "descriptionHelp": "Die Beschreibung wird Ihnen helfen, sich zu erinnern, wo diese Mobile App Authentifizierung verwendet wird."
     },
     "snackbar": {
         "settings_saved": "Einstellungen erfolgreich gespeichert"

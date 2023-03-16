@@ -132,7 +132,8 @@
         "success": "Nieuwe Mobiele App wachtwoord met succes geactiveerd. Wachtwoordenlijst is bijgewerkt.",
         "new": "Mobiele apps | Nieuwe Authenticatie",
         "label": "Mobiele toepassingen",
-        "empty": "De lijst met Mobiele Apps is leeg."
+        "empty": "De lijst met Mobiele Apps is leeg.",
+        "descriptionHelp": "Beschrijving helpt u herinneren waar deze Mobile Apps Authenticatie wordt gebruikt."
     },
     "snackbar": {
         "settings_saved": "Instellingen net succes opgeslagen"

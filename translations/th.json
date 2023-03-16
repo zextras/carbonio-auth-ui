@@ -132,7 +132,8 @@
         "success": "เปิดใช้งานรหัสผ่าน Mobile App ใหม่เรียบร้อยแล้ว อัปเดตรายการรหัสผ่านแล้ว",
         "new": "Mobile Apps | การรับรองความถูกต้องใหม่",
         "label": "แอปพลิเคชั่นมือถือ",
-        "empty": "รายการ Mobile App ว่างเปล่า"
+        "empty": "รายการ Mobile App ว่างเปล่า",
+        "descriptionHelp": "คำอธิบายจะช่วยให้คุณจำได้ว่าใช้ Mobile Apps Authentication ถูกใช้งานที่ใด."
     },
     "snackbar": {
         "settings_saved": "บันทึกการตั้งค่าเรียบร้อยแล้ว"
