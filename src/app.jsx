@@ -17,6 +17,7 @@ const Auth = (props) => (
 	</Suspense>
 );
 
+
 export default function App() {
 	const [t] = useTranslation();
 
