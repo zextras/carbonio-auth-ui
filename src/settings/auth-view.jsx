@@ -19,6 +19,7 @@ import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
 import { AppMobile } from './components/operations/app-mobile';
+import { AppDesktop } from './components/operations/app-desktop';
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { PoweredByZextras } from './assets/icons/powered-by-zextras';
 import { AuthOutline } from './assets/icons/auth-outline';
@@ -77,6 +78,13 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			label: t('appMobile.title'),
 			view: AppMobile,
 			instruction: t('instruction.mobile'),
+			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
+		},
+		{
+			name: 'desktop',
+			label: t('appDesktop.title'),
+			view: AppDesktop,
+			instruction: t('instruction.desktop'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
 		{

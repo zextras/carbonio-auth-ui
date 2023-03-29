@@ -32,15 +32,15 @@ import { EmptyState } from '../../assets/icons/empty-state';
 
 const stepsNames = {
 	set_label: 'set_label',
-	generate_qrcode: 'generate_qrcode',
+	generate_password: 'generate_password',
 	delete_password: 'delete_password'
 };
 
-export function AppMobile({ passwords, setPasswords }) {
+export function AppDesktop({ passwords, setPasswords }) {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
-	const [newQrCodeResp, setnewQrCodeResp] = useState();
+	const [newPasswordResp, setNewPasswordResp] = useState();
 	const [selectedPassword, setSelectedPassword] = useState();
 	const createSnackbar = useSnackbar();
 
@@ -73,13 +73,13 @@ export function AppMobile({ passwords, setPasswords }) {
 		/* eslint-disable react-hooks/exhaustive-deps */
 		() =>
 			passwords.reduce((acc, p) => {
-				p.services[0].service === 'MobileApp' &&
+				p.services[0].service === 'DesktopApp' &&
 					acc.push({
 						id: p.id,
 						columns: [
 							p.label,
 							p.enabled ? t('common.enabled') : t('common.disabled'),
-							p.services[0].service === 'EAS' ? t('easAuth.label') : t('appMobile.label'),
+							p.services[0].service === 'EAS' ? t('easAuth.label') : t('appDesktop.label'),
 							formatDate(p.created)
 						],
 						clickable: true
@@ -107,10 +107,11 @@ export function AppMobile({ passwords, setPasswords }) {
 		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
-			qrcode: true
+			qrcode: true,
+			service: 'DesktopApp'
 		}).then((res) => {
 			if (res.response.ok) {
-				setnewQrCodeResp(res.response.value || res.response.response);
+				setNewPasswordResp(res.response.value || res.response.response);
 				updatePasswords();
 			}
 		});
@@ -131,7 +132,7 @@ export function AppMobile({ passwords, setPasswords }) {
 			createSnackbar({
 				key: 1,
 				type: 'success',
-				label: t('appMobile.success')
+				label: t('appDesktop.success')
 			});
 	};
 
@@ -150,13 +151,13 @@ export function AppMobile({ passwords, setPasswords }) {
 					label={t('common.createPassword')}
 					disabled={authDescription === ''}
 					onClick={() => {
-						setStep(stepsNames.generate_qrcode);
+						setStep(stepsNames.generate_password);
 						handleOnGenerateQrcode();
 					}}
 				/>
 			);
 		}
-		if (step === stepsNames.generate_qrcode) {
+		if (step === stepsNames.generate_password) {
 			return (
 				<Button
 					label={t('buttons.done')}
@@ -182,7 +183,7 @@ export function AppMobile({ passwords, setPasswords }) {
 
 	return (
 		<>
-			<Section title={t('appMobile.title')} divider>
+			<Section title={t('appDesktop.title')} divider>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button
@@ -217,7 +218,7 @@ export function AppMobile({ passwords, setPasswords }) {
 							<Container padding="4rem 0 0">
 								<EmptyState />
 								<Padding top="large">
-									<Text color="secondary">{t('appMobile.empty')}</Text>
+									<Text color="secondary">{t('appDesktop.empty')}</Text>
 								</Padding>
 							</Container>
 						)}
@@ -225,7 +226,7 @@ export function AppMobile({ passwords, setPasswords }) {
 				</Container>
 			</Section>
 			<Modal
-				title={t('appMobile.new')}
+				title={t('appDesktop.new')}
 				open={showModal}
 				onClose={() => handleOnClose(false)}
 				customFooter={
@@ -258,14 +259,14 @@ export function AppMobile({ passwords, setPasswords }) {
 							{formatError && <ErrorMessage error={formatError} />}
 							<Padding vertical="medium">
 								<Text style={{ textAlign: 'center' }} overflow="break-word">
-									{t('appMobile.descriptionHelp')}
+									{t('appDesktop.descriptionHelp')}
 								</Text>
 							</Padding>
 						</Container>
 					)}
-					{step === stepsNames.generate_qrcode && newQrCodeResp && (
+					{step === stepsNames.generate_password && newPasswordResp && (
 						<Container>
-							<Text>{t('setNewQRCode.successfully')}</Text>
+							<Text>{t('setNewPassword.successfully')}</Text>
 							<Padding vertical="large">
 								<Row
 									width="fit"
@@ -273,23 +274,16 @@ export function AppMobile({ passwords, setPasswords }) {
 									background="gray5"
 									padding={{ all: 'large' }}
 								>
-									<QRCode
-										data-testid="qrcode-password"
-										size={143}
-										bgColor="transparent"
-										value={Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data)).toString(
-											'base64'
-										)}
-									/>
 									<Padding top="large">
 										<Button
-											label={t('common.copyQrCode')}
+											label={t('common.copyPassword')}
 											type="outlined"
 											onClick={() => {
-												copyToClipboard(JSON.stringify(newQrCodeResp.qrcode_data.auth_payload));
+												// eslint-disable-next-line max-len
+												copyToClipboard(JSON.stringify(newPasswordResp.qrcode_data.auth_payload));
 												createSnackbar({
 													key: 2,
-													label: t('common.codeCopied')
+													label: t('common.passwordCopied')
 												});
 											}}
 										/>

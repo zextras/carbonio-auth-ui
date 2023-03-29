@@ -1,4 +1,12 @@
 {
+    "appDesktop": {
+        "descriptionHelp": "Description will help you remember where this Desktop Apps Authentication is used.",
+        "empty": "The Desktop Apps list is empty.",
+        "label": "Desktop Applications",
+        "new": "Desktop Apps | New Authentication",
+        "success": "New Desktop App password enabled successfully. Passwords list has been updated.",
+        "title": "Desktop Apps"
+    },
     "appMobile": {
         "descriptionHelp": "Description will help you remember where this Mobile Apps Authentication is used.",
         "empty": "The Mobile Apps list is empty.",
@@ -45,7 +53,8 @@
         "delete": "Delete",
         "disabled": "Disabled",
         "enabled": "Enabled",
-        "newAuthentication": "New authentication"
+        "newAuthentication": "New authentication",
+        "passwordCopied": ""
     },
     "deleteOtp": {
         "description": "All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set."
@@ -69,6 +78,7 @@
     },
     "instruction": {
         "changePassword": "Here you can change your password.",
+        "desktop": "Here you can manage Desktop App password.",
         "eas": "Here you can manage your Exchange ActiveSync password.",
         "mobile": "Here you can manage Mobile App password.",
         "otp": "Here you can manage the OTP Authentication."
