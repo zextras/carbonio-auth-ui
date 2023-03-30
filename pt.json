@@ -24,11 +24,16 @@
     "newPassword": "Nova palavra-passe",
     "newOtp": {
         "warning": "Atenção: poderá ver estes códigos apenas uma vez.",
-        "scan_qr": "Leia este código QR através de uma das aplicações suportadas."
+        "scan_qr": "Leia este código QR através de uma das aplicações suportadas.",
+        "save_pin": "Sugere-se imprimir e guardar os códigos PIN, pois podem ser necessários para a autenticação. Cada código PIN é apenas de uso único.",
+        "label": "Nova OTP",
+        "printPinCodes": "Imprimir códigos PIN"
     },
     "label": {
         "save": "Salvar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "auth_settings": "Definições de Auth",
+        "app_name": "Auth"
     },
     "deletePassword": {
         "title": "Tem a certeza de que quer apagar esta palavra-passe?"
@@ -40,13 +45,97 @@
         "newAuthentication": "Nova autenticação",
         "enabled": "Ativada",
         "disabled": "Desativado",
-        "delete": "Apagar"
+        "delete": "Apagar",
+        "codeCopied": "Código copiado com sucesso",
+        "copyPassword": "Copiar palavra-passe",
+        "copyQrCode": "Copiar código QR",
+        "createPassword": "Criar palavra-passe"
     },
     "buttons": {
         "yes": "Sim",
         "next": "Próximo",
         "done": "Concluído",
         "close": "Fechar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "click": "Clique aqui"
+    },
+    "appMobile": {
+        "success": "A nova palavra-passe foi activada com sucesso. A lista de palavras-passe foi actualizada.",
+        "new": "Aplicações Móveis | Nova Autenticação",
+        "descriptionHelp": "A descrição irá ajudá-lo a lembrar-se onde esta autenticação é utilizada.",
+        "label": "Aplicações Móveis",
+        "title": "Aplicações móveis",
+        "empty": "A lista de aplicações móveis está vazia."
+    },
+    "changePassword": {
+        "formatNotValid": "A palavra-passe deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um carácter especial",
+        "instruction": "Crie uma nova palavra-passe e introduza-a no campo de confirmação",
+        "mustContain": "A nova palavra-passe deve ter de 6 a 20 caracteres e deve conter:",
+        "passwordChanged": "A sua palavra-passe foi alterada.",
+        "recentlyUsedPassword": "Esta palavra-passe foi recentemente utilizada.",
+        "zimbraPasswordLocked": "A alteração da palavra-passe está desativada. Contacte o administrador do seu sistema para mais informação.",
+        "zimbraPasswordMinLowerCaseChars": "Deve conter pelo menos {{num}} letra(s) minúscula(s).",
+        "zimbraPasswordMinNumericChars": "Deve conter ao menos {{num}} números.",
+        "confirmNew": "Confirmar a nova palavra-passe",
+        "digitSpecial": "um número (123) e um carácter especial (!/@)",
+        "incorrectPassword": "Palavra-passe incorrecta.",
+        "zimbraPasswordMinLength": "O comprimento mínimo é de {{num}} caracteres.",
+        "lowerUpper": "uma letra maiúscula (ABC) e uma letra minúscula (abc)",
+        "mustMatch": "As palavras-passe devem corresponder.",
+        "oldPassword": "Palavra-passe antiga",
+        "sameOldPassword": "A sua palavra-passe não pode ser a mesma que a antiga.",
+        "title": "Alterar Palavra-passe",
+        "zimbraPasswordMaxLength": "O comprimento máximo é de {{num}} caracteres.",
+        "zimbraPasswordMinPunctuationChars": "Deve conter ao menos {{num}} caracteres especiais.",
+        "zimbraPasswordMinUpperCaseChars": "Deve conter ao menos {{num}} caracteres maiúsculos."
+    },
+    "easAuth": {
+        "helpRemember": "A descrição vai ajudá-lo a lembrar-se onde esta autenticação Exchange ActiveSync é utilizada.",
+        "empty": "A lista do Exchange ActiveSync está vazia.",
+        "label": "Exchange ActiveSync",
+        "new": "Exchange ActiveSync | Nova Autenticação",
+        "success": "Nova palavra-passe Exchange ActiveSync gerada com sucesso. A lista de palavras-passe foi actualizada."
+    },
+    "error": {
+        "specialChars": "Não são permitidos caracteres especiais.",
+        "maximumLength": "O comprimento máximo é de 20 caracteres.",
+        "minimumLength": "O comprimento mínimo é de 6 caracteres.",
+        "somethingWrong": "Algo correu mal.",
+        "alreadyInUse": "Já em uso. Por favor, escolha outra descrição."
+    },
+    "instruction": {
+        "eas": "Aqui pode gerir a sua palavra-passe do Exchange ActiveSync.",
+        "mobile": "Aqui pode gerir a palavra-passe da aplicação móvel.",
+        "changePassword": "Aqui pode alterar a sua palavra-passe.",
+        "otp": "Aqui pode gerir a autenticação OTP."
+    },
+    "setNewOtpLabel": {
+        "maxLength": "O tamanho máximo do rótulo é {{maxLength}} caracteres.",
+        "title": "Autenticação OTP",
+        "empty": "A lista de autenticação de OTP está vazia.",
+        "inputLabel": "Etiqueta OTP",
+        "labelPurpose": "O rótulo irá ajudá-lo a lembrar-se onde a OTP é utilizada.",
+        "new": "Autenticação de OTP | Nova Autenticação",
+        "prohibitedCharacters": "Não são permitidos caracteres especiais, caracteres acentuados ou espaços.",
+        "success": "Nova Autenticação OTP activada com sucesso.",
+        "allowedCharacters": "O uso de traço baixo e hífen é permitido."
+    },
+    "staticOTPCodes": {
+        "print": {
+            "useOnce": "Tenha em mente que cada código pode ser usado apenas uma vez, por isso sugerimos que seja apagado da lista assim que for utilizado. Sempre que utilizar um código, receberá um e-mail de notificação.",
+            "whenToUse": "Estes são os seus códigos estáticos. Terá de utilizar um dos códigos caso não tenha o seu dispositivo móvel para proceder à autenticação.",
+            "eraseUsedPin": "Apague o PIN usado da lista",
+            "howToUse": "Como utilizar os códigos PIN",
+            "keepInSafePlace": "Recomendamos que mantenha os códigos num local seguro.",
+            "login": "Inicie sessão utilizando a sua palavra-passe",
+            "title": "Códigos OTP",
+            "typePin": "Insira um dos códigos PIN listados acima"
+        }
+    },
+    "instructions": {
+        "needInfo": "Precisa de mais informações?"
+    },
+    "snackbar": {
+        "settings_saved": "Definições guardadas com sucesso"
     }
 }

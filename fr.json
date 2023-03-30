@@ -99,7 +99,7 @@
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "La quantité minimale de caractères numériques est {{num}}.",
-        "zimbraPasswordMinLength": "La longueur minimale est de {{nombre}} caractères.",
+        "zimbraPasswordMinLength": "La longueur minimale est de {{num}} caractères.",
         "zimbraPasswordMaxLength": "La longueur maximale est de {{num}} caractères.",
         "title": "Changer le mot de passe",
         "sameOldPassword": "Votre mot de passe ne peut pas être le même que l'ancien.",
@@ -132,7 +132,8 @@
         "success": "Le nouveau mot de passe de l'application mobile a été activé avec succès. La liste des mots de passe a été mise à jour.",
         "new": "Apps mobiles | Nouvelle authentification",
         "label": "Applications mobiles",
-        "empty": "La liste des applications mobiles est vide."
+        "empty": "La liste des applications mobiles est vide.",
+        "descriptionHelp": "La description vous aidera à vous rappeler où cette application d'authentification mobile est utilisée."
     },
     "snackbar": {
         "settings_saved": "Les paramètres ont été sauvegardés avec succès"
