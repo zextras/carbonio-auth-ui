@@ -5,23 +5,21 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState, useEffect } from 'react';
 import {
 	Button,
 	Container,
 	Divider,
+	Icon,
 	PasswordInput,
 	Row,
-	useSnackbar,
 	Text,
-	Icon
+	useSnackbar
 } from '@zextras/carbonio-design-system';
-
-import { getUserAccount, useUserSettings } from '@zextras/carbonio-shell-ui';
-import { useTranslation } from 'react-i18next';
-import { Section } from '../shared/section';
-import { ErrorMessage } from '../shared/error-message';
+import { getUserAccount, t, useUserSettings } from '@zextras/carbonio-shell-ui';
+import React, { useEffect, useState } from 'react';
 import { fetchSoap } from '../../network/fetchSoap';
+import { ErrorMessage } from '../shared/error-message';
+import { Section } from '../shared/section';
 
 export function ChangePassword() {
 	const [oldPassword, setOldPassword] = useState('');
@@ -33,8 +31,6 @@ export function ChangePassword() {
 	const [correctOldPassword, setCorrectOldPassword] = useState('');
 	const [isLocked, setIsLocked] = useState();
 	const settings = useUserSettings();
-
-	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (settings?.attrs?.zimbraFeatureChangePasswordEnabled === 'TRUE') setIsLocked(false);
