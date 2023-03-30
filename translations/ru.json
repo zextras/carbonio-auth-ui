@@ -98,7 +98,7 @@
         "codeCopied": "Код успешно скопирован"
     },
     "changePassword": {
-        "zimbraPasswordMinNumericChars": "Минимальное количество цифр: {{num}.",
+        "zimbraPasswordMinNumericChars": "Минимальное количество цифр: {{num}}.",
         "zimbraPasswordMinLength": "Минимальная длина - {{num}} символов.",
         "zimbraPasswordMaxLength": "Максимальная длина - {{num}} символов.",
         "title": "Изменить пароль",

@@ -1,33 +1,33 @@
 {
     "staticOTPCodes": {
         "print": {
-            "whenToUse": "Estos son sus códigos PIN estáticos. Deberá utilizarlos en caso de no tener su dispositivo móvil a mano para identificarse.",
-            "useOnce": "Tenga presente que cada código puede usarse sólo una vez. Se sugiere tacharlo de la lista una vez utilizado. Cada vez que utilice un código recibirá un mensaje por correo eletrónico.",
-            "typePin": "Ingrese alguno de los códigos PIN listados arriba",
+            "whenToUse": "Estos son tus códigos PIN estáticos. Deberás utilizarlos en caso de no tener el dispositivo móvil a mano para identificarte.",
+            "useOnce": "Ten presente que cada código puede usarse sólo una vez. Se sugiere tacharlo de la lista una vez utilizado. Cada vez que utilices un código recibirás una notificación por correo eletrónico.",
+            "typePin": "Ingresa alguno de los códigos PIN listados arriba",
             "title": "Códigos OTP",
-            "login": "Autentíquese con su contraseña",
+            "login": "Autenticarse utilizando contraseña",
             "keepInSafePlace": "Se recomienda guardar los códigos en un lugar seguro.",
-            "howToUse": "Cómo utilizar los PIN:",
-            "eraseUsedPin": "Tache o marque el PIN utilizado"
+            "howToUse": "Cómo utilizar los códigos PIN:",
+            "eraseUsedPin": "Tache o borre el PIN utilizado"
         }
     },
     "setNewQRCode": {
-        "successfully": "Autenticación con código QR"
+        "successfully": "Autenticación QR generada correctamente"
     },
     "setNewPassword": {
-        "warningJustOnce": "Atención: podrá ver esta contraseña una sola vez",
-        "textDescription": "Utilice este código para autenticar su cuenta en clientes Exchange ActiveSync",
+        "warningJustOnce": "Atención: podrás ver esta contraseña una sola vez",
+        "textDescription": "Utiliza este código para autenticar tu cuenta en clientes que admiten Exchange ActiveSync",
         "successfully": "Contraseña generada correctamente",
         "authenticationDescription": "Descripción de la autenticación",
-        "EASPasswordCopied": "¡Contraseña EAS copiada!"
+        "EASPasswordCopied": "Contraseña EAS copiada"
     },
     "setNewOtpLabel": {
         "title": "Autenticación OTP",
         "success": "Nueva autenticación OTP activada correctamente.",
-        "prohibitedCharacters": "No se permiten caracteres especiales, acentuados o espacios.",
+        "prohibitedCharacters": "No se permiten los caracteres especiales, acentuados o espacios.",
         "new": "Autenticación OTP | Nueva autenticación",
         "maxLength": "La longitud máxima es de {{maxLength}} caracteres.",
-        "labelPurpose": "La etiqueta le permitirá recordar en dónde se utiliza la OTP.",
+        "labelPurpose": "La etiqueta te permitirá recordar en dónde se utiliza la OTP.",
         "inputLabel": "Etiqueta OTP",
         "empty": "La lista de autenticaciones OTP está vacía.",
         "allowedCharacters": "El guión bajo y el guión están permitidos."
@@ -46,9 +46,9 @@
     "options": "Opciones",
     "newPassword": "Nueva contraseña",
     "newOtp": {
-        "warning": "Atención: podrá ver estos códigos solo esta única vez.",
-        "scan_qr": "Escanee el código QR con alguna de las Apps de Zextras.",
-        "save_pin": "Se sugiere imprimir y guardar los códigos PIN ya que le podrán ser requeridos para autenticarse. Cada código PIN es de un único uso.",
+        "warning": "Atención: podrás ver estos códigos solo esta única vez.",
+        "scan_qr": "Escanea el código QR utilizando alguna de las aplicaciones soportadas.",
+        "save_pin": "Se sugiere imprimir y guardar los códigos PIN ya que podrán ser requeridos para autenticarse. Cada código PIN es de un solo uso.",
         "printPinCodes": "Imprimir códigos PIN",
         "label": "Nueva contraseña de un solo uso (OTP)"
     },
@@ -59,33 +59,33 @@
         "auth_settings": "Ajustes de autenticación"
     },
     "instructions": {
-        "needInfo": "¿Necesita más información?"
+        "needInfo": "¿Necesits más información?"
     },
     "instruction": {
-        "otp": "Aquí puede administrar la autenticación OTP.",
-        "mobile": "Aquí puede administrar la contraseña de la aplicación móvil.",
-        "eas": "Aquí puede administrar su contraseña Exchange ActiveSync.",
-        "changePassword": "Aquí puede cambiar su contraseña."
+        "otp": "Aquí puedes administrar la autenticación OTP.",
+        "mobile": "Aquí puedes administrar la contraseña de la aplicación móvil.",
+        "eas": "Aquí puedes administrar tu contraseña de Exchange ActiveSync.",
+        "changePassword": "Aquí puedes cambiar tu contraseña."
     },
     "error": {
         "specialChars": "Los caracteres especiales no están permitidos.",
-        "somethingWrong": "Algo ha salido mal.",
+        "somethingWrong": "Algo salió mal.",
         "minimumLength": "La longitud mínima es de 6 caracteres.",
         "maximumLength": "La longitud máxima es de 20 caracteres.",
-        "alreadyInUse": "Ya está en uso. Por favor, elija otra descripción."
+        "alreadyInUse": "Ya está en uso. Por favor, elige otra descripción."
     },
     "easAuth": {
         "success": "Nueva contraseña Exchange ActiveSync generada correctamente. La lista de contraseñas ha sido actualizada.",
         "new": "Exchange ActiveSync | Nueva autenticación",
         "label": "Exchange ActiveSync",
-        "helpRemember": "La descripción le ayudará a recordar en dónde se utiliza esta autenticación Exchange ActiveSync.",
+        "helpRemember": "La descripción te ayudará a recordar en dónde se utiliza esta autenticación Exchange ActiveSync.",
         "empty": "La lista de contraseñas está vacía."
     },
     "deletePassword": {
-        "title": "¿Está seguro que quiere eliminar esta contraseña?"
+        "title": "¿Seguro que quieres eliminar esta contraseña?"
     },
     "deleteOtp": {
-        "description": "Todos los dispositivos que utilicen esta contraseña serán desconectados y no podrán autenticarse hasta que proporcione nuevas credenciales de acceso."
+        "description": "Todos los dispositivos que utilicen esta contraseña serán desconectados y no podrán autenticarse hasta que proporciones nuevas credenciales de acceso."
     },
     "common": {
         "newAuthentication": "Nueva autenticación",
@@ -95,16 +95,16 @@
         "createPassword": "Crear contraseña",
         "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar contraseña",
-        "codeCopied": "El código ha sido copiado"
+        "codeCopied": "Se ha copiado el código"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Debe contener por lo menos {{num}} número(s).",
         "zimbraPasswordMinLength": "La longitud mínima es de {{num }} caracteres.",
         "zimbraPasswordMaxLength": "La longitud máxima es de {{num}} caracteres.",
         "title": "Cambiar contraseña",
-        "sameOldPassword": "Elija una contraseña que no haya utilizado antes.",
-        "recentlyUsedPassword": "Esta contraseña ha sido usada recientemente.",
-        "passwordChanged": "Su contraseña ha sido cambiada.",
+        "sameOldPassword": "Elige una contraseña que no hayas utilizado antes.",
+        "recentlyUsedPassword": "Esta contraseña ya ha sido usada recientemente.",
+        "passwordChanged": "La contraseña ha sido cambiada.",
         "oldPassword": "Contraseña antigua",
         "mustMatch": "Las contraseñas deben coincidir.",
         "lowerUpper": "una letra mayúscula y una minúscula",
@@ -112,17 +112,17 @@
         "digitSpecial": "un número y un caracter especial (!/@)",
         "confirmNew": "Confirmar la nueva contraseña",
         "mustContain": "La nueva contraseña debe contener entre 6 y 20 caracteres e incluir:",
-        "instruction": "Cree una nueva contraseña e ingrésela en el campo de confirmación",
+        "instruction": "Crea una nueva contraseña y escríbela en el campo de confirmación",
         "formatNotValid": "La contraseña debe contener al menos una mayúscula, una minúscula, un número y un caracter especial",
         "zimbraPasswordMinLowerCaseChars": "Debe contener por lo menos {{num}} minúscula(s).",
         "zimbraPasswordMinPunctuationChars": "Debe contener por lo menos {{num}} caracter(es) especial(es).",
-        "zimbraPasswordMinUpperCaseChars": "Debe contener por lo menos {{num}} mayúscula.",
-        "zimbraPasswordLocked": "El cambio de contraseñas no está permitido. Contacte con el administrador del servicio para más información."
+        "zimbraPasswordMinUpperCaseChars": "Debe contener por lo menos {{num}} mayúscula(s).",
+        "zimbraPasswordLocked": "El cambio de contraseñas no está permitido. Contacta con el administrador para más información."
     },
     "buttons": {
         "yes": "Sí",
         "next": "Siguiente",
-        "done": "Hecho",
+        "done": "Concluido",
         "close": "Cerrar",
         "click": "Clic aquí",
         "cancel": "Cancelar"
@@ -133,9 +133,9 @@
         "new": "Aplicaciones móviles | Nueva autenticación",
         "label": "Aplicaciones móviles",
         "empty": "La lista de aplicaciones móviles está vacía.",
-        "descriptionHelp": "La descripción le ayudará a recordar en dónde se utiliza esta autenticación."
+        "descriptionHelp": "La descripción te ayudará a recordar en dónde se utiliza esta autenticación."
     },
     "snackbar": {
-        "settings_saved": "Ajustes guardados correctamente"
+        "settings_saved": "Se han guardado los ajustes"
     }
 }
