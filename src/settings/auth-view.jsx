@@ -7,25 +7,22 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
+import { t } from '@zextras/carbonio-shell-ui';
 import { orderBy } from 'lodash';
-
-import { fetchSoap } from './network/fetchSoap';
-import { checkSupportedZextras } from './network/checkSupportedZextras';
-import { Shell, ColumnFull, ColumnLeft, ColumnRight } from './components/shared/shell';
-import { SidebarNavigation } from './components/shared/sidebar-navigation';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { AuthOutline } from './assets/icons/auth-outline';
+import { PoweredByZextras } from './assets/icons/powered-by-zextras';
+import { AppMobile } from './components/operations/app-mobile';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
-import { AppMobile } from './components/operations/app-mobile';
 import { OTPAuthentication } from './components/operations/otp-authentication';
-import { PoweredByZextras } from './assets/icons/powered-by-zextras';
-import { AuthOutline } from './assets/icons/auth-outline';
+import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
+import { SidebarNavigation } from './components/shared/sidebar-navigation';
+import { checkSupportedZextras } from './network/checkSupportedZextras';
+import { fetchSoap } from './network/fetchSoap';
 
 function Instruction({ instruction, link }) {
-	const { t } = useTranslation();
-
 	return (
 		<Row orientation="vertical">
 			<Padding bottom="medium">
@@ -47,7 +44,6 @@ function Instruction({ instruction, link }) {
 }
 
 function SideBar({ activeTab, setActiveTab, hasZextras }) {
-	const { t } = useTranslation();
 	const linksWithoutZextras = [
 		{
 			name: 'changepassword',
