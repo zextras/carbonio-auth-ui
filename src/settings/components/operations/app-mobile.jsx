@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState, useMemo } from 'react';
 import {
 	Button,
 	Container,
@@ -16,17 +15,17 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
+import { t } from '@zextras/carbonio-shell-ui';
+import { isEmpty, orderBy } from 'lodash';
 import QRCode from 'qrcode.react';
-import { orderBy, isEmpty } from 'lodash';
-import { useTranslation } from 'react-i18next';
-
+import React, { useMemo, useState } from 'react';
+import { EmptyState } from '../../assets/icons/empty-state';
+import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
+import { fetchSoap } from '../../network/fetchSoap';
 import { BigIcon } from '../shared/big-icon';
+import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
 import { copyToClipboard, formatDate } from '../utils';
-import { fetchSoap } from '../../network/fetchSoap';
-import { ErrorMessage } from '../shared/error-message';
-import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
-import { EmptyState } from '../../assets/icons/empty-state';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -43,8 +42,6 @@ export function AppMobile({ passwords, setPasswords }) {
 	const [newQrCodeResp, setnewQrCodeResp] = useState();
 	const [selectedPassword, setSelectedPassword] = useState();
 	const createSnackbar = useSnackbar();
-
-	const { t } = useTranslation();
 
 	const tableHeaders = [
 		{

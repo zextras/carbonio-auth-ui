@@ -5,9 +5,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { lazy, useEffect, Suspense } from 'react';
-import { addSettingsView, Spinner } from '@zextras/carbonio-shell-ui';
-import { useTranslation } from 'react-i18next';
+import { Spinner, addSettingsView, t } from '@zextras/carbonio-shell-ui';
+import React, { Suspense, lazy, useEffect } from 'react';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
@@ -18,14 +17,12 @@ const Auth = (props) => (
 );
 
 export default function App() {
-	const [t] = useTranslation();
-
 	useEffect(() => {
 		addSettingsView({
 			route: 'auth',
 			label: t('label.app_name', 'Auth'),
 			component: Auth
 		});
-	}, [t]);
+	}, []);
 	return null;
 }

@@ -16,7 +16,7 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { useTranslation } from 'react-i18next';
+import { t } from '@zextras/carbonio-shell-ui';
 import styled from 'styled-components';
 import { isEmpty, orderBy } from 'lodash';
 import { fetchSoap } from '../../network/fetchSoap';
@@ -49,8 +49,6 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const createSnackbar = useSnackbar();
-
-	const { t } = useTranslation();
 
 	const tableHeaders = [
 		{
