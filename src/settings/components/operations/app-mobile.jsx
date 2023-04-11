@@ -229,20 +229,15 @@ export function AppMobile({ passwords, setPasswords }) {
 				open={showModal}
 				onClose={() => handleOnClose(false)}
 				customFooter={
-					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
-						<PoweredByZextras />
-						<Row>
-							<Button
-								label={
-									step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')
-								}
-								onClick={() => handleOnClose()}
-								color="secondary"
-							/>
-							<Padding left="small">
-								<ActionButton />
-							</Padding>
-						</Row>
+					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
+						<Button
+							label={step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')}
+							onClick={() => handleOnClose()}
+							color="secondary"
+						/>
+						<Padding left="small">
+							<ActionButton />
+						</Padding>
 					</Row>
 				}
 			>

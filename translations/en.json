@@ -49,12 +49,15 @@
         "codeCopied": "Code copied successfully",
         "copyPassword": "Copy password",
         "copyQrCode": "Copy QR Code",
+        "copyToken": "copy Token",
         "createPassword": "Create password",
+        "createToken": "Create token",
         "delete": "Delete",
         "disabled": "Disabled",
         "enabled": "Enabled",
         "newAuthentication": "New authentication",
-        "passwordCopied": ""
+        "passwordCopied": "",
+        "tokenCopied": "Token copied successfully"
     },
     "deleteOtp": {
         "description": "All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set."
@@ -132,6 +135,10 @@
     },
     "setNewQRCode": {
         "successfully": "QR Authentication generated successfully"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Authentication description",
+        "successfully": "Token generated successfully"
     },
     "snackbar": {
         "error": "",

@@ -16,7 +16,6 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import QRCode from 'qrcode.react';
 import { orderBy, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -108,7 +107,7 @@ export function AppDesktop({ passwords, setPasswords }) {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: true,
-			service: 'DesktopApp'
+			services: 'DesktopApp'
 		}).then((res) => {
 			if (res.response.ok) {
 				setNewPasswordResp(res.response.value || res.response.response);
@@ -148,7 +147,7 @@ export function AppDesktop({ passwords, setPasswords }) {
 		if (step === stepsNames.set_label) {
 			return (
 				<Button
-					label={t('common.createPassword')}
+					label={t('common.createToken')}
 					disabled={authDescription === ''}
 					onClick={() => {
 						setStep(stepsNames.generate_password);
@@ -226,24 +225,20 @@ export function AppDesktop({ passwords, setPasswords }) {
 				</Container>
 			</Section>
 			<Modal
+				size="medium"
 				title={t('appDesktop.new')}
 				open={showModal}
 				onClose={() => handleOnClose(false)}
 				customFooter={
-					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
-						<PoweredByZextras />
-						<Row>
-							<Button
-								label={
-									step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')
-								}
-								onClick={() => handleOnClose()}
-								color="secondary"
-							/>
-							<Padding left="small">
-								<ActionButton />
-							</Padding>
-						</Row>
+					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
+						<Button
+							label={step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')}
+							onClick={() => handleOnClose()}
+							color="secondary"
+						/>
+						<Padding left="small">
+							<ActionButton />
+						</Padding>
 					</Row>
 				}
 			>
@@ -251,7 +246,7 @@ export function AppDesktop({ passwords, setPasswords }) {
 					{step === stepsNames.set_label && (
 						<Container padding="2rem 0 0">
 							<Input
-								label={t('setNewPassword.authenticationDescription')}
+								label={t('setNewToken.authenticationDescription')}
 								value={authDescription}
 								onChange={(e) => setAuthDescription(e.target.value)}
 								backgroundColor="gray5"
@@ -266,28 +261,34 @@ export function AppDesktop({ passwords, setPasswords }) {
 					)}
 					{step === stepsNames.generate_password && newPasswordResp && (
 						<Container>
-							<Text>{t('setNewPassword.successfully')}</Text>
+							<Text>{t('setNewToken.successfully')}</Text>
 							<Padding vertical="large">
 								<Row
 									width="fit"
-									orientation="vertical"
-									background="gray5"
 									padding={{ all: 'large' }}
+									mainAlignment="center"
+									crossAlignment="center"
 								>
-									<Padding top="large">
-										<Button
-											label={t('common.copyPassword')}
-											type="outlined"
-											onClick={() => {
-												// eslint-disable-next-line max-len
-												copyToClipboard(JSON.stringify(newPasswordResp.qrcode_data.auth_payload));
-												createSnackbar({
-													key: 2,
-													label: t('common.passwordCopied')
-												});
-											}}
+									<Row width="fit" padding={{ right: 'small' }}>
+										<Input
+											value={newPasswordResp.qrcode_data.auth_payload.password}
+											backgroundColor="gray5"
+											width="fit"
+											borderColor="gray5"
 										/>
-									</Padding>
+									</Row>
+									<Button
+										label={t('common.copyToken')}
+										type="outlined"
+										onClick={() => {
+											// eslint-disable-next-line max-len
+											copyToClipboard(JSON.stringify(newPasswordResp.qrcode_data.auth_payload));
+											createSnackbar({
+												key: 2,
+												label: t('common.tokenCopied')
+											});
+										}}
+									/>
 								</Row>
 							</Padding>
 							<Text weight="bold">{t('newOtp.warning')}</Text>
