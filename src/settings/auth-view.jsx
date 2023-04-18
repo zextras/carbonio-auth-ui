@@ -12,8 +12,6 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { orderBy } from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AuthOutline } from './assets/icons/auth-outline';
-import { PoweredByZextras } from './assets/icons/powered-by-zextras';
-import { AppMobile } from './components/operations/app-mobile';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
 import { AppMobile } from './components/operations/app-mobile';
@@ -49,46 +47,46 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	const linksWithoutZextras = [
 		{
 			name: 'changepassword',
-			label: t('changePassword.title'),
+			label: t('changePassword.title', 'Change Password'),
 			view: ChangePassword,
-			instruction: t('instruction.changePassword'),
+			instruction: t('instruction.changePassword', 'Here you can change your password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
 		}
 	];
 	const links = [
 		{
 			name: 'changepassword',
-			label: t('changePassword.title'),
+			label: t('changePassword.title', 'Change Password'),
 			view: ChangePassword,
-			instruction: t('instruction.changePassword'),
+			instruction: t('instruction.changePassword', 'Here you can change your password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
 		},
 		{
 			name: 'activesync',
-			label: t('easAuth.label'),
+			label: t('easAuth.label', 'Exchange ActiveSync'),
 			view: ExchangeActiveSync,
-			instruction: t('instruction.eas'),
+			instruction: t('instruction.eas', 'Here you can manage your Exchange ActiveSync password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
 		},
 		{
 			name: 'mobile',
-			label: t('appMobile.title'),
+			label: t('appMobile.title', 'Mobile Apps'),
 			view: AppMobile,
-			instruction: t('instruction.mobile'),
+			instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
 		{
 			name: 'desktop',
 			label: t('appDesktop.title', 'Desktop Apps'),
 			view: AppDesktop,
-			instruction: t('instruction.desktop'),
+			instruction: t('instruction.desktop', 'Here you can manage Desktop App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
 		{
 			name: 'otp',
-			label: t('setNewOtpLabel.title'),
+			label: t('setNewOtpLabel.title', 'OTP Authentication'),
 			view: OTPAuthentication,
-			instruction: t('instruction.otp'),
+			instruction: t('instruction.otp', 'Here you can manage the OTP Authentication.  '),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-otp'
 		}
 	];
@@ -122,7 +120,6 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			</Row>
 			<Row width="100%" mainAlignment="flex-start">
 				<Divider color="gray3" />
-				<PoweredByZextras />
 			</Row>
 		</Row>
 	);

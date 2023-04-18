@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable camelcase */
+/* disabled camelcase for QrCodeProps */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -17,14 +20,20 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
+// @ts-ignore
 import QRCode from 'qrcode.react';
-import React, { useMemo, useState } from 'react';
+import React, { ReactElement, useMemo, useState } from 'react';
+// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
-import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
+// @ts-ignore
 import { fetchSoap } from '../../network/fetchSoap';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
+// @ts-ignore
 import { ErrorMessage } from '../shared/error-message';
+// @ts-ignore
 import { Section } from '../shared/section';
+// @ts-ignore
 import { copyToClipboard, formatDate } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
@@ -35,11 +44,60 @@ const stepsNames = {
 	delete_password: 'delete_password'
 };
 
-export function AppMobile({ passwords, setPasswords }) {
+type PasswordProps = {
+	generated: number;
+	created: Date;
+	label: string;
+	id: string;
+	services: [
+		{
+			service: string;
+		}
+	];
+	hash: string;
+	enabled: boolean;
+	algorithm: string;
+};
+
+type AppMobileProps = {
+	passwords: Array<PasswordProps>;
+	setPasswords: (arg: Array<PasswordProps>) => void;
+};
+
+type QrCodeProps = {
+	qrcode_data: {
+		auth_method: string;
+		auth_payload: {
+			password: string;
+			user: string;
+		};
+		auth_endpoint: [
+			{
+				url: string;
+			}
+		];
+	};
+	list: {
+		generated: string;
+		created: string;
+		label: string;
+		id: string;
+		services: [
+			{
+				service: string;
+			}
+		];
+		hash: string;
+		enabled: boolean;
+		algorithm: string;
+	};
+};
+
+export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
-	const [newQrCodeResp, setnewQrCodeResp] = useState();
+	const [newQrCodeResp, setnewQrCodeResp] = useState<QrCodeProps | undefined>();
 	const [selectedPassword, setSelectedPassword] = useState();
 	const createSnackbar = useSnackbar();
 
@@ -69,14 +127,16 @@ export function AppMobile({ passwords, setPasswords }) {
 	const tableRows = useMemo(
 		/* eslint-disable react-hooks/exhaustive-deps */
 		() =>
-			passwords.reduce((acc, p) => {
+			passwords.reduce((acc: any, p: any) => {
 				p.services[0].service === 'MobileApp' &&
 					acc.push({
 						id: p.id,
 						columns: [
 							p.label,
-							p.enabled ? t('common.enabled') : t('common.disabled'),
-							p.services[0].service === 'EAS' ? t('easAuth.label') : t('appMobile.label'),
+							p.enabled ? t('common.enabled', 'Enabled') : t('common.disabled', 'Disabled'),
+							p.services[0].service === 'EAS'
+								? t('easAuth.label', 'Exchange ActiveSync')
+								: t('appMobile.label', 'Mobile Applications'),
 							formatDate(p.created)
 						],
 						clickable: true
@@ -86,41 +146,49 @@ export function AppMobile({ passwords, setPasswords }) {
 		[passwords]
 	);
 
-	const updatePasswords = () =>
+	const updatePasswords = (): void =>
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
-		}).then((res) => {
-			res.response.ok &&
-				setPasswords(
-					orderBy(
-						(res.response.value && res.response.value.list) || res.response.values,
-						['created'],
-						['desc']
-					)
-				);
-		});
+		}).then(
+			(res: {
+				response: {
+					ok: boolean;
+					value?: { list?: { created: number } };
+					values?: [{ created: number }];
+				};
+			}) => {
+				res.response.ok &&
+					setPasswords(
+						orderBy(
+							res?.response?.value?.list ?? res?.response?.values ?? [],
+							['created'],
+							['desc']
+						)
+					);
+			}
+		);
 
-	const handleOnGenerateQrcode = () =>
+	const handleOnGenerateQrcode = (): void =>
 		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: true
-		}).then((res) => {
+		}).then((res: { response: { ok: boolean; response?: QrCodeProps; value?: QrCodeProps } }) => {
 			if (res.response.ok) {
 				setnewQrCodeResp(res.response.value || res.response.response);
 				updatePasswords();
 			}
 		});
 
-	const handleOnDeletePassword = () =>
+	const handleOnDeletePassword = (): void =>
 		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
-		}).then((res) => {
+		}).then((res: { response: { ok: string } }) => {
 			res.response.ok && updatePasswords();
 		});
 
-	const handleOnClose = (showSnackbar = false) => {
+	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
 		setStep(stepsNames.set_label);
 		setAuthDescription('');
@@ -128,25 +196,28 @@ export function AppMobile({ passwords, setPasswords }) {
 			createSnackbar({
 				key: 1,
 				type: 'success',
-				label: t('appMobile.success')
+				label: t(
+					'appMobile.success',
+					'New Mobile App password enabled successfully. Passwords list has been updated.'
+				)
 			});
 	};
 
 	const formatError = useMemo(() => {
 		/* eslint-disable react-hooks/exhaustive-deps */
 		if (passwords.map((p) => p.label).includes(authDescription)) {
-			return t('error.alreadyInUse');
+			return t('error.alreadyInUse', 'Already in use. Please choose another description.');
 		}
 		return '';
 	}, [authDescription]);
 
-	function ActionButton() {
+	function ActionButton(): ReactElement | null {
 		if (step === stepsNames.set_label) {
 			return (
 				<Button
-					label={t('common.createPassword')}
+					label={t('common.createPassword', 'Create password')}
 					disabled={authDescription === ''}
-					onClick={() => {
+					onClick={(): void => {
 						setStep(stepsNames.generate_qrcode);
 						handleOnGenerateQrcode();
 					}}
@@ -156,8 +227,8 @@ export function AppMobile({ passwords, setPasswords }) {
 		if (step === stepsNames.generate_qrcode) {
 			return (
 				<Button
-					label={t('buttons.done')}
-					onClick={() => {
+					label={t('buttons.done', 'Done')}
+					onClick={(): void => {
 						handleOnClose(true);
 					}}
 				/>
@@ -166,39 +237,40 @@ export function AppMobile({ passwords, setPasswords }) {
 		if (step === stepsNames.delete_password) {
 			return (
 				<Button
-					label={t('buttons.yes')}
+					label={t('buttons.yes', 'Yes')}
 					color="error"
-					onClick={() => {
+					onClick={(): void => {
 						handleOnDeletePassword();
 						handleOnClose();
 					}}
 				/>
 			);
 		}
+		return null;
 	}
 
 	return (
 		<>
-			<Section title={t('appMobile.title')} divider>
+			<Section title={t('appMobile.title', 'Mobile Apps')} divider>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button
-							label={t('common.delete')}
+							label={t('common.delete', 'Delete')}
 							type="outlined"
 							color="error"
 							icon="CloseOutline"
 							disabled={!selectedPassword || tableRows.length === 0}
-							onClick={() => {
+							onClick={(): void => {
 								setStep(stepsNames.delete_password);
 								setShowModal(true);
 							}}
 						/>
 						<Padding left="large">
 							<Button
-								label={t('common.newAuthentication')}
+								label={t('common.newAuthentication', 'New authentication')}
 								type="outlined"
 								icon="Plus"
-								onClick={() => setShowModal(true)}
+								onClick={(): void => setShowModal(true)}
 							/>
 						</Padding>
 					</Row>
@@ -208,13 +280,15 @@ export function AppMobile({ passwords, setPasswords }) {
 							headers={tableHeaders}
 							showCheckbox={false}
 							multiSelect={false}
-							onSelectionChange={(selected) => setSelectedPassword(selected[0])}
+							onSelectionChange={(selected: any): void => setSelectedPassword(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
 							<Container padding="4rem 0 0">
 								<EmptyState />
 								<Padding top="large">
-									<Text color="secondary">{t('appMobile.empty')}</Text>
+									<Text color="secondary">
+										{t('appMobile.empty', 'The Mobile Apps list is empty.')}
+									</Text>
 								</Padding>
 							</Container>
 						)}
@@ -222,14 +296,18 @@ export function AppMobile({ passwords, setPasswords }) {
 				</Container>
 			</Section>
 			<Modal
-				title={t('appMobile.new')}
+				title={t('appMobile.new', 'Mobile Apps | New Authentication')}
 				open={showModal}
-				onClose={() => handleOnClose(false)}
+				onClose={(): void => handleOnClose(false)}
 				customFooter={
 					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
 						<Button
-							label={step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')}
-							onClick={() => handleOnClose()}
+							label={
+								step === stepsNames.delete_password
+									? t('buttons.cancel', 'Cancel')
+									: t('buttons.close', 'Close')
+							}
+							onClick={(): void => handleOnClose()}
 							color="secondary"
 						/>
 						<Padding left="small">
@@ -242,22 +320,29 @@ export function AppMobile({ passwords, setPasswords }) {
 					{step === stepsNames.set_label && (
 						<Container padding="2rem 0 0">
 							<Input
-								label={t('setNewPassword.authenticationDescription')}
+								label={t('setNewPassword.authenticationDescription', 'Authentication description')}
 								value={authDescription}
-								onChange={(e) => setAuthDescription(e.target.value)}
+								onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+									setAuthDescription(e.target.value)
+								}
 								backgroundColor="gray5"
 							/>
 							{formatError && <ErrorMessage error={formatError} />}
 							<Padding vertical="medium">
 								<Text style={{ textAlign: 'center' }} overflow="break-word">
-									{t('appMobile.descriptionHelp')}
+									{t(
+										'appMobile.descriptionHelp',
+										'Description will help you remember where this Mobile Apps Authentication is used.'
+									)}
 								</Text>
 							</Padding>
 						</Container>
 					)}
 					{step === stepsNames.generate_qrcode && newQrCodeResp && (
 						<Container>
-							<Text>{t('setNewQRCode.successfully')}</Text>
+							<Text>
+								{t('setNewQRCode.successfully', 'QR Authentication generated successfully')}
+							</Text>
 							<Padding vertical="large">
 								<Row
 									width="fit"
@@ -275,31 +360,40 @@ export function AppMobile({ passwords, setPasswords }) {
 									/>
 									<Padding top="large">
 										<Button
-											label={t('common.copyQrCode')}
+											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
-											onClick={() => {
+											onClick={(): void => {
 												copyToClipboard(JSON.stringify(newQrCodeResp.qrcode_data.auth_payload));
 												createSnackbar({
 													key: 2,
-													label: t('common.codeCopied')
+													label: t('common.codeCopied', 'Code copied successfully')
 												});
 											}}
 										/>
 									</Padding>
 								</Row>
 							</Padding>
-							<Text weight="bold">{t('newOtp.warning')}</Text>
-							<Text>{t('newOtp.scan_qr')}</Text>
+							<Text weight="bold">
+								{t('newOtp.warning', "Warning: you'll be able to copy this token just once.")}
+							</Text>
+							<Text>
+								{t('newOtp.scan_qr', 'Scan this QR code through one of the supported apps.')}
+							</Text>
 						</Container>
 					)}
 					{step === stepsNames.delete_password && (
 						<Container>
-							<Text overflow="break-word">{t('deletePassword.title')}</Text>
+							<Text overflow="break-word">
+								{t('deletePassword.title', 'Are you sure you want to delete this password?')}
+							</Text>
 							<Padding vertical="large">
 								<BigIcon icon="AlertTriangleOutline" />
 							</Padding>
 							<Text style={{ textAlign: 'center' }} weight="bold" overflow="break-word">
-								{t('deleteOtp.description')}
+								{t(
+									'deleteOtp.description',
+									'All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set.'
+								)}
 							</Text>
 						</Container>
 					)}
