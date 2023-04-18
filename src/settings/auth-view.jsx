@@ -82,7 +82,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 		},
 		{
 			name: 'desktop',
-			label: t('appDesktop.title'),
+			label: t('appDesktop.title', 'Desktop Apps'),
 			view: AppDesktop,
 			instruction: t('instruction.desktop'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'

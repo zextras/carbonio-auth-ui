@@ -96,11 +96,12 @@
         "save": "Save"
     },
     "newOtp": {
+        "copy_token": "Use this token to authenticate your Desktop Sync account.",
         "label": "New OTP",
         "printPinCodes": "Print PIN codes",
         "save_pin": "We suggest to print and keep the PIN codes since they could be asked to authenticate; each PIN code can be used just once.",
         "scan_qr": "Scan this QR code through one of the supported apps.",
-        "warning": "Warning: you'll be able to see these codes just once."
+        "warning": "Warning: you'll be able to copy this token just once."
     },
     "newPassword": "New password",
     "options": "Options",
@@ -138,7 +139,7 @@
     },
     "setNewToken": {
         "authenticationDescription": "Authentication description",
-        "successfully": "Token generated successfully"
+        "successfully": "Token generated successfully."
     },
     "snackbar": {
         "error": "",

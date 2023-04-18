@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable camelcase */
+/* disabled camelcase for QrCodeProps */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { ReactElement, useState, useMemo } from 'react';
 import {
 	Button,
 	Container,
@@ -17,17 +20,17 @@ import {
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { orderBy, isEmpty } from 'lodash';
-import { useTranslation } from 'react-i18next';
-
+import { t } from '@zextras/carbonio-shell-ui';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
+// @ts-ignore
 import { Section } from '../shared/section';
+// @ts-ignore
 import { copyToClipboard, formatDate } from '../utils';
+// @ts-ignore
 import { fetchSoap } from '../../network/fetchSoap';
+// @ts-ignore
 import { ErrorMessage } from '../shared/error-message';
-import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
-import { EmptyState } from '../../assets/icons/empty-state';
-
-/* eslint-disable react/jsx-no-bind */
 
 const stepsNames = {
 	set_label: 'set_label',
@@ -35,16 +38,62 @@ const stepsNames = {
 	delete_password: 'delete_password'
 };
 
-export function AppDesktop({ passwords, setPasswords }) {
+type PasswordProps = {
+	generated: number;
+	created: Date;
+	label: string;
+	id: string;
+	services: [
+		{
+			service: string;
+		}
+	];
+	hash: string;
+	enabled: boolean;
+	algorithm: string;
+};
+
+type AppDesktopProps = {
+	passwords: Array<PasswordProps>;
+	setPasswords: (arg: Array<PasswordProps>) => void;
+};
+
+type QrCodeProps = {
+	qrcode_data: {
+		auth_method: string;
+		auth_payload: {
+			password: string;
+			user: string;
+		};
+		auth_endpoint: [
+			{
+				url: string;
+			}
+		];
+	};
+	list: {
+		generated: string;
+		created: string;
+		label: string;
+		id: string;
+		services: [
+			{
+				service: string;
+			}
+		];
+		hash: string;
+		enabled: boolean;
+		algorithm: string;
+	};
+};
+
+export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
-	const [newPasswordResp, setNewPasswordResp] = useState();
+	const [newPasswordResp, setNewPasswordResp] = useState<QrCodeProps | undefined>();
 	const [selectedPassword, setSelectedPassword] = useState();
 	const createSnackbar = useSnackbar();
-
-	const { t } = useTranslation();
-
 	const tableHeaders = [
 		{
 			id: 'code',
@@ -69,9 +118,8 @@ export function AppDesktop({ passwords, setPasswords }) {
 	];
 
 	const tableRows = useMemo(
-		/* eslint-disable react-hooks/exhaustive-deps */
 		() =>
-			passwords.reduce((acc, p) => {
+			passwords.reduce((acc: any, p: any) => {
 				p.services[0].service === 'DesktopApp' &&
 					acc.push({
 						id: p.id,
@@ -88,42 +136,50 @@ export function AppDesktop({ passwords, setPasswords }) {
 		[passwords]
 	);
 
-	const updatePasswords = () =>
+	const updatePasswords = (): void =>
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
-		}).then((res) => {
-			res.response.ok &&
-				setPasswords(
-					orderBy(
-						(res.response.value && res.response.value.list) || res.response.values,
-						['created'],
-						['desc']
-					)
-				);
-		});
+		}).then(
+			(res: {
+				response: {
+					ok: boolean;
+					value?: { list?: { created: number } };
+					values?: [{ created: number }];
+				};
+			}) => {
+				res.response.ok &&
+					setPasswords(
+						orderBy(
+							res?.response?.value?.list ?? res?.response?.values ?? [],
+							['created'],
+							['desc']
+						)
+					);
+			}
+		);
 
-	const handleOnGenerateQrcode = () =>
+	const handleOnGenerateQrcode = (): void =>
 		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: true,
 			services: 'DesktopApp'
-		}).then((res) => {
+		}).then((res: { response: { ok: boolean; response?: QrCodeProps; value?: QrCodeProps } }) => {
 			if (res.response.ok) {
 				setNewPasswordResp(res.response.value || res.response.response);
 				updatePasswords();
 			}
 		});
 
-	const handleOnDeletePassword = () =>
+	const handleOnDeletePassword = (): void =>
 		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
-		}).then((res) => {
+		}).then((res: { response: { ok: string } }) => {
 			res.response.ok && updatePasswords();
 		});
 
-	const handleOnClose = (showSnackbar = false) => {
+	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
 		setStep(stepsNames.set_label);
 		setAuthDescription('');
@@ -143,13 +199,13 @@ export function AppDesktop({ passwords, setPasswords }) {
 		return '';
 	}, [authDescription]);
 
-	function ActionButton() {
+	function ActionButton(): ReactElement | null {
 		if (step === stepsNames.set_label) {
 			return (
 				<Button
-					label={t('common.createToken')}
+					label={t('common.createToken', 'createToken')}
 					disabled={authDescription === ''}
-					onClick={() => {
+					onClick={(): void => {
 						setStep(stepsNames.generate_password);
 						handleOnGenerateQrcode();
 					}}
@@ -159,8 +215,8 @@ export function AppDesktop({ passwords, setPasswords }) {
 		if (step === stepsNames.generate_password) {
 			return (
 				<Button
-					label={t('buttons.done')}
-					onClick={() => {
+					label={t('buttons.done', 'Close')}
+					onClick={(): void => {
 						handleOnClose(true);
 					}}
 				/>
@@ -169,39 +225,40 @@ export function AppDesktop({ passwords, setPasswords }) {
 		if (step === stepsNames.delete_password) {
 			return (
 				<Button
-					label={t('buttons.yes')}
+					label={t('buttons.yes', 'Yes')}
 					color="error"
-					onClick={() => {
+					onClick={(): void => {
 						handleOnDeletePassword();
 						handleOnClose();
 					}}
 				/>
 			);
 		}
+		return null;
 	}
 
 	return (
 		<>
-			<Section title={t('appDesktop.title')} divider>
+			<Section title={t('appDesktop.title', 'Desktop Apps')} divider>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button
-							label={t('common.delete')}
+							label={t('common.delete', 'Delete')}
 							type="outlined"
 							color="error"
 							icon="CloseOutline"
 							disabled={!selectedPassword || tableRows.length === 0}
-							onClick={() => {
+							onClick={(): void => {
 								setStep(stepsNames.delete_password);
 								setShowModal(true);
 							}}
 						/>
 						<Padding left="large">
 							<Button
-								label={t('common.newAuthentication')}
+								label={t('common.newAuthentication', 'New authentication')}
 								type="outlined"
 								icon="Plus"
-								onClick={() => setShowModal(true)}
+								onClick={(): void => setShowModal(true)}
 							/>
 						</Padding>
 					</Row>
@@ -211,13 +268,14 @@ export function AppDesktop({ passwords, setPasswords }) {
 							headers={tableHeaders}
 							showCheckbox={false}
 							multiSelect={false}
-							onSelectionChange={(selected) => setSelectedPassword(selected[0])}
+							onSelectionChange={(selected: any): void => setSelectedPassword(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
 							<Container padding="4rem 0 0">
-								<EmptyState />
 								<Padding top="large">
-									<Text color="secondary">{t('appDesktop.empty')}</Text>
+									<Text color="secondary">
+										{t('appDesktop.empty', 'The Desktop Apps list is empty.')}
+									</Text>
 								</Padding>
 							</Container>
 						)}
@@ -226,14 +284,18 @@ export function AppDesktop({ passwords, setPasswords }) {
 			</Section>
 			<Modal
 				size="medium"
-				title={t('appDesktop.new')}
+				title={t('appDesktop.new', 'Desktop Apps | New Authentication')}
 				open={showModal}
-				onClose={() => handleOnClose(false)}
+				onClose={(): void => handleOnClose(false)}
 				customFooter={
 					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
 						<Button
-							label={step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')}
-							onClick={() => handleOnClose()}
+							label={
+								step === stepsNames.delete_password
+									? t('buttons.cancel', 'Cancel')
+									: t('buttons.close', 'Close')
+							}
+							onClick={(): void => handleOnClose()}
 							color="secondary"
 						/>
 						<Padding left="small">
@@ -246,22 +308,27 @@ export function AppDesktop({ passwords, setPasswords }) {
 					{step === stepsNames.set_label && (
 						<Container padding="2rem 0 0">
 							<Input
-								label={t('setNewToken.authenticationDescription')}
+								label={t('setNewToken.authenticationDescription', 'Authentication description')}
 								value={authDescription}
-								onChange={(e) => setAuthDescription(e.target.value)}
+								onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+									setAuthDescription(e.target.value)
+								}
 								backgroundColor="gray5"
 							/>
 							{formatError && <ErrorMessage error={formatError} />}
 							<Padding vertical="medium">
 								<Text style={{ textAlign: 'center' }} overflow="break-word">
-									{t('appDesktop.descriptionHelp')}
+									{t(
+										'appDesktop.descriptionHelp',
+										'Description will help you remember where this Desktop Apps Authentication is used.'
+									)}
 								</Text>
 							</Padding>
 						</Container>
 					)}
 					{step === stepsNames.generate_password && newPasswordResp && (
 						<Container>
-							<Text>{t('setNewToken.successfully')}</Text>
+							<Text>{t('setNewToken.successfully', 'Token generated successfully.')}</Text>
 							<Padding vertical="large">
 								<Row
 									width="fit"
@@ -278,31 +345,43 @@ export function AppDesktop({ passwords, setPasswords }) {
 										/>
 									</Row>
 									<Button
-										label={t('common.copyToken')}
+										label={t('common.copyToken', 'copy Token')}
 										type="outlined"
-										onClick={() => {
+										onClick={(): void => {
 											// eslint-disable-next-line max-len
 											copyToClipboard(JSON.stringify(newPasswordResp.qrcode_data.auth_payload));
 											createSnackbar({
 												key: 2,
-												label: t('common.tokenCopied')
+												label: t('common.tokenCopied', 'Token copied successfully')
 											});
 										}}
 									/>
 								</Row>
 							</Padding>
-							<Text weight="bold">{t('newOtp.warning')}</Text>
-							<Text>{t('newOtp.scan_qr')}</Text>
+							<Text weight="bold">
+								{t('newOtp.warning', "Warning: you'll be able to copy this token just once.")}
+							</Text>
+							<Text>
+								{t(
+									'newOtp.copy_token',
+									'Use this token to authenticate your Desktop Sync account.'
+								)}
+							</Text>
 						</Container>
 					)}
 					{step === stepsNames.delete_password && (
 						<Container>
-							<Text overflow="break-word">{t('deletePassword.title')}</Text>
+							<Text overflow="break-word">
+								{t('deletePassword.title', 'Are you sure you want to delete this password?')}
+							</Text>
 							<Padding vertical="large">
 								<BigIcon icon="AlertTriangleOutline" />
 							</Padding>
 							<Text style={{ textAlign: 'center' }} weight="bold" overflow="break-word">
-								{t('deleteOtp.description')}
+								{t(
+									'deleteOtp.description',
+									'All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set.'
+								)}
 							</Text>
 						</Container>
 					)}
