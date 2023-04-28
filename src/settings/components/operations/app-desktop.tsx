@@ -8,6 +8,7 @@
  */
 
 import React, { ReactElement, useState, useMemo } from 'react';
+import { Buffer } from 'buffer';
 import {
 	Button,
 	Container,
@@ -347,7 +348,10 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 								>
 									<Row width="fit" padding={{ right: 'small' }}>
 										<Input
-											value={newPasswordResp.qrcode_data.auth_payload.password}
+											value={Buffer.from(
+												JSON.stringify(newPasswordResp.qrcode_data),
+												'utf-8'
+											).toString('base64')}
 											backgroundColor="gray5"
 											width="fit"
 											borderColor="gray5"
@@ -358,7 +362,11 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 										type="outlined"
 										onClick={(): void => {
 											// eslint-disable-next-line max-len
-											copyToClipboard(JSON.stringify(newPasswordResp.qrcode_data.auth_payload));
+											copyToClipboard(
+												Buffer.from(JSON.stringify(newPasswordResp.qrcode_data), 'utf-8').toString(
+													'base64'
+												)
+											);
 											createSnackbar({
 												key: 2,
 												label: t('common.tokenCopied', 'Token copied successfully')

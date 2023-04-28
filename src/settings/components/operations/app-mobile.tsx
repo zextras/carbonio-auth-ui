@@ -23,6 +23,7 @@ import { isEmpty, orderBy } from 'lodash';
 // @ts-ignore
 import QRCode from 'qrcode.react';
 import React, { ReactElement, useMemo, useState } from 'react';
+import { Buffer } from 'buffer';
 // @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
 // @ts-ignore
@@ -354,7 +355,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 										data-testid="qrcode-password"
 										size={143}
 										bgColor="transparent"
-										value={Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data)).toString(
+										value={Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data), 'utf-8').toString(
 											'base64'
 										)}
 									/>
@@ -363,7 +364,11 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
 											onClick={(): void => {
-												copyToClipboard(JSON.stringify(newQrCodeResp.qrcode_data.auth_payload));
+												copyToClipboard(
+													Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data), 'utf-8').toString(
+														'base64'
+													)
+												);
 												createSnackbar({
 													key: 2,
 													label: t('common.codeCopied', 'Code copied successfully')
