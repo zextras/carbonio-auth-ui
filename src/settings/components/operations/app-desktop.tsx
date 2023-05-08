@@ -8,7 +8,6 @@
  */
 
 import React, { ReactElement, useState, useMemo } from 'react';
-import { Buffer } from 'buffer';
 import {
 	Button,
 	Container,
@@ -27,7 +26,7 @@ import { BigIcon } from '../shared/big-icon';
 // @ts-ignore
 import { Section } from '../shared/section';
 // @ts-ignore
-import { copyToClipboard, formatDate } from '../utils';
+import { copyToClipboard, formatDate, objToBase64 } from '../utils';
 // @ts-ignore
 import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
@@ -348,10 +347,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 								>
 									<Row width="fit" padding={{ right: 'small' }}>
 										<Input
-											value={Buffer.from(
-												JSON.stringify(newPasswordResp.qrcode_data),
-												'utf-8'
-											).toString('base64')}
+											value={objToBase64(newPasswordResp.qrcode_data)}
 											backgroundColor="gray5"
 											width="fit"
 											borderColor="gray5"
@@ -362,11 +358,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 										type="outlined"
 										onClick={(): void => {
 											// eslint-disable-next-line max-len
-											copyToClipboard(
-												Buffer.from(JSON.stringify(newPasswordResp.qrcode_data), 'utf-8').toString(
-													'base64'
-												)
-											);
+											copyToClipboard(objToBase64(newPasswordResp.qrcode_data));
 											createSnackbar({
 												key: 2,
 												label: t('common.tokenCopied', 'Token copied successfully')

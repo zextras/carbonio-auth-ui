@@ -23,7 +23,6 @@ import { isEmpty, orderBy } from 'lodash';
 // @ts-ignore
 import QRCode from 'qrcode.react';
 import React, { ReactElement, useMemo, useState } from 'react';
-import { Buffer } from 'buffer';
 // @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
 // @ts-ignore
@@ -35,7 +34,7 @@ import { ErrorMessage } from '../shared/error-message';
 // @ts-ignore
 import { Section } from '../shared/section';
 // @ts-ignore
-import { copyToClipboard, formatDate } from '../utils';
+import { copyToClipboard, formatDate, objToBase64 } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -355,20 +354,14 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 										data-testid="qrcode-password"
 										size={143}
 										bgColor="transparent"
-										value={Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data), 'utf-8').toString(
-											'base64'
-										)}
+										value={objToBase64(newQrCodeResp.qrcode_data)}
 									/>
 									<Padding top="large">
 										<Button
 											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
 											onClick={(): void => {
-												copyToClipboard(
-													Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data), 'utf-8').toString(
-														'base64'
-													)
-												);
+												copyToClipboard(objToBase64(newQrCodeResp.qrcode_data));
 												createSnackbar({
 													key: 2,
 													label: t('common.codeCopied', 'Code copied successfully')
