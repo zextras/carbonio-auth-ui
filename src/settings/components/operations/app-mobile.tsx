@@ -34,7 +34,7 @@ import { ErrorMessage } from '../shared/error-message';
 // @ts-ignore
 import { Section } from '../shared/section';
 // @ts-ignore
-import { copyToClipboard, formatDate } from '../utils';
+import { copyToClipboard, formatDate, objToBase64 } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -354,16 +354,14 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 										data-testid="qrcode-password"
 										size={143}
 										bgColor="transparent"
-										value={Buffer.from(JSON.stringify(newQrCodeResp.qrcode_data)).toString(
-											'base64'
-										)}
+										value={objToBase64(newQrCodeResp.qrcode_data)}
 									/>
 									<Padding top="large">
 										<Button
 											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
 											onClick={(): void => {
-												copyToClipboard(JSON.stringify(newQrCodeResp.qrcode_data.auth_payload));
+												copyToClipboard(objToBase64(newQrCodeResp.qrcode_data));
 												createSnackbar({
 													key: 2,
 													label: t('common.codeCopied', 'Code copied successfully')

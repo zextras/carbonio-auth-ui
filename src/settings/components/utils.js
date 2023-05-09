@@ -5,6 +5,7 @@
 //  */
 
 import { isEqual, transform, isObject, filter } from 'lodash';
+import { Buffer } from 'buffer';
 
 export const differenceObject = (object, base) => {
 	// eslint-disable-next-line no-shadow
@@ -43,3 +44,5 @@ export const copyToClipboard = (text) => {
 		document.body.removeChild(password);
 	}
 };
+
+export const objToBase64 = (obj) => Buffer.from(JSON.stringify(obj), 'utf-8').toString('base64');
