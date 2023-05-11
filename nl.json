@@ -36,7 +36,7 @@
         "status": "Status",
         "service": "Service",
         "label": "Omschrijving",
-        "enabled": "Geactiveerd",
+        "enabled": "Ingeschakeld",
         "disabled": "Uitgeschakeld",
         "created": "Gecreëerd"
     },
@@ -89,7 +89,7 @@
     },
     "common": {
         "newAuthentication": "Nieuwe authenticatie",
-        "enabled": "Geactiveerd",
+        "enabled": "Ingeschakeld",
         "disabled": "Uitgeschakeld",
         "delete": "Verwijderen",
         "createPassword": "Wachtwoord creëren",
