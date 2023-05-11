@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
 	Button,
 	Container,
@@ -16,26 +15,25 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import QRCode from 'qrcode.react';
+import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
+import QRCode from 'qrcode.react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
-import { useTranslation } from 'react-i18next';
-
-import { BigIcon } from '../shared/big-icon';
-import { Section } from '../shared/section';
-import { fetchSoap } from '../../network/fetchSoap';
-
-import { formatDate, copyToClipboard } from '../utils';
-import { ErrorMessage } from '../shared/error-message';
-import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import { EmptyState } from '../../assets/icons/empty-state';
+import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import {
-	zextrasLogo,
 	otpCodesLoginPage,
-	otpCodesTypePin,
 	otpCodesQrCodePin,
-	poweredByZextras
+	otpCodesTypePin,
+	poweredByZextras,
+	zextrasLogo
 } from '../../assets/icons/svgAssets';
+import { fetchSoap } from '../../network/fetchSoap';
+import { BigIcon } from '../shared/big-icon';
+import { ErrorMessage } from '../shared/error-message';
+import { Section } from '../shared/section';
+import { copyToClipboard, formatDate } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -79,7 +77,6 @@ export function OTPAuthentication() {
 
 	const userMail = useRef();
 
-	const { t } = useTranslation();
 	const createSnackbar = useSnackbar();
 
 	const tableHeaders = [
@@ -545,7 +542,7 @@ export function OTPAuthentication() {
 									padding={{ all: 'large' }}
 								>
 									<QRCode
-										includeMargin={true}
+										includeMargin
 										data-testid="qrcode-password"
 										size={150}
 										bgColor={theme.palette.gray5.regular}
