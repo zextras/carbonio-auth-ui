@@ -33,7 +33,7 @@
         "allowedCharacters": "Разрешены подчеркивание и тире."
     },
     "passwordListLabel": {
-        "status": "Cостояние",
+        "status": "статусу",
         "service": "Сервис",
         "label": "Описание",
         "enabled": "Включено",
@@ -98,7 +98,7 @@
         "codeCopied": "Код успешно скопирован"
     },
     "changePassword": {
-        "zimbraPasswordMinNumericChars": "Минимальное количество цифр: {{num}.",
+        "zimbraPasswordMinNumericChars": "Минимальное количество цифр: {{num}}.",
         "zimbraPasswordMinLength": "Минимальная длина - {{num}} символов.",
         "zimbraPasswordMaxLength": "Максимальная длина - {{num}} символов.",
         "title": "Изменить пароль",
@@ -122,7 +122,7 @@
     "buttons": {
         "yes": "Да",
         "next": "Далее",
-        "done": "Готово",
+        "done": "Вход",
         "close": "Закрыть",
         "click": "Нажмите здесь",
         "cancel": "Отменить"
