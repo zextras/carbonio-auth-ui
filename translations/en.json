@@ -1,4 +1,12 @@
 {
+    "appDesktop": {
+        "descriptionHelp": "Description will help you remember where this Desktop Apps Authentication is used.",
+        "empty": "The Desktop Apps list is empty.",
+        "label": "Desktop Applications",
+        "new": "Desktop Apps | New Authentication",
+        "success": "New Desktop App password enabled successfully. Passwords list has been updated.",
+        "title": "Desktop Apps"
+    },
     "appMobile": {
         "descriptionHelp": "Description will help you remember where this Mobile Apps Authentication is used.",
         "empty": "The Mobile Apps list is empty.",
@@ -41,11 +49,15 @@
         "codeCopied": "Code copied successfully",
         "copyPassword": "Copy password",
         "copyQrCode": "Copy QR Code",
+        "copyToken": "copy Token",
         "createPassword": "Create password",
+        "createToken": "Create token",
         "delete": "Delete",
         "disabled": "Disabled",
         "enabled": "Enabled",
-        "newAuthentication": "New authentication"
+        "newAuthentication": "New authentication",
+        "passwordCopied": "",
+        "tokenCopied": "Token copied successfully"
     },
     "deleteOtp": {
         "description": "All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set."
@@ -69,6 +81,7 @@
     },
     "instruction": {
         "changePassword": "Here you can change your password.",
+        "desktop": "Here you can manage Desktop App password.",
         "eas": "Here you can manage your Exchange ActiveSync password.",
         "mobile": "Here you can manage Mobile App password.",
         "otp": "Here you can manage the OTP Authentication."
@@ -83,11 +96,12 @@
         "save": "Save"
     },
     "newOtp": {
+        "copy_token": "Use this token to authenticate your Desktop Sync account.",
         "label": "New OTP",
         "printPinCodes": "Print PIN codes",
         "save_pin": "We suggest to print and keep the PIN codes since they could be asked to authenticate; each PIN code can be used just once.",
         "scan_qr": "Scan this QR code through one of the supported apps.",
-        "warning": "Warning: you'll be able to see these codes just once."
+        "warning": "Warning: you'll be able to copy this token just once."
     },
     "newPassword": "New password",
     "options": "Options",
@@ -122,6 +136,10 @@
     },
     "setNewQRCode": {
         "successfully": "QR Authentication generated successfully"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Authentication description",
+        "successfully": "Token generated successfully."
     },
     "snackbar": {
         "error": "",
