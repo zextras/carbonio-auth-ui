@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "设置保存成功"
+    },
+    "setNewToken": {
+        "authenticationDescription": "认证描述"
     }
 }

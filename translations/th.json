@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "บันทึกการตั้งค่าเรียบร้อยแล้ว"
+    },
+    "setNewToken": {
+        "authenticationDescription": "คำอธิบายการตรวจสอบ"
     }
 }

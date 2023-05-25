@@ -121,7 +121,7 @@
     },
     "buttons": {
         "yes": "Evet",
-        "next": "Sonraki",
+        "next": "İleri",
         "done": "Tamamlandı",
         "close": "Kapat",
         "click": "Buraya tıklayın",
@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "Ayarlar başarıyla kaydedildi"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Kimlik doğrulama açıklaması"
     }
 }

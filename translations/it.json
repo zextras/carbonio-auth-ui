@@ -37,7 +37,7 @@
         "service": "Servizio",
         "label": "Descrizione",
         "enabled": "Abilitato",
-        "disabled": "Disabilitato",
+        "disabled": "Disabiliato",
         "created": "Creato"
     },
     "otpListLabel": {
@@ -46,7 +46,7 @@
     "options": "Opzioni",
     "newPassword": "Nuova password",
     "newOtp": {
-        "warning": "Attenzione: potrai vedere questi codici solo una volta.",
+        "warning": "Attenzione: potrai copiare questo token solo una volta.",
         "scan_qr": "Acquisisci il codice QR usando una delle applicazioni supportate.",
         "save_pin": "Ti suggeriamo di stampare e conservare i codici PIN in quanto potrebbero essere richiesti per autenticarsi in futuro; ciascun codice PIN può essere utilizzato una sola volta.",
         "printPinCodes": "Stampa codici PIN",
@@ -65,7 +65,8 @@
         "otp": "Qui puoi gestire l'Autenticazione OTP.",
         "mobile": "Qui puoi gestire la password dell'applicazione.",
         "eas": "Qui puoi gestire la tua password Exchange ActiveSync.",
-        "changePassword": "Puoi cambiare la tua password da qui."
+        "changePassword": "Puoi cambiare la tua password da qui.",
+        "desktop": "Qui puoi gestire la password dell'applicazione desktop."
     },
     "error": {
         "specialChars": "I caratteri speciali non sono consentiti.",
@@ -90,12 +91,15 @@
     "common": {
         "newAuthentication": "Nuova autenticazione",
         "enabled": "Abilitato",
-        "disabled": "Disabilitato",
+        "disabled": "Disabiliato",
         "delete": "Elimina",
         "createPassword": "Crea password",
         "copyQrCode": "Copia Codice QR",
         "copyPassword": "Copia password",
-        "codeCopied": "Codice copiato correttamente"
+        "codeCopied": "Codice copiato correttamente",
+        "createToken": "Crea token",
+        "copyToken": "copia token",
+        "tokenCopied": "Token copiato con successo"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Il numero minimo di numeri è {{num}}.",
@@ -137,5 +141,17 @@
     },
     "snackbar": {
         "settings_saved": "Impostazioni salvate con successo"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Descrizione autenticazione",
+        "successfully": "Token generato con successo."
+    },
+    "appDesktop": {
+        "descriptionHelp": "La descrizione sarà utile per indicare dove questa Autenticazione App Desktop è utilizzata.",
+        "empty": "La lista delle applicazioni desktop è vuota.",
+        "label": "Applicazioni desktop",
+        "new": "Applicazioni Desktop | Nuova Autenticazione",
+        "success": "La nuova password per l'applicazione desktop è stata abilitata con successo. La lista della password è stata aggiornata.",
+        "title": "Applicazioni Desktop"
     }
 }

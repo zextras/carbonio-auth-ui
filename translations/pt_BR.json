@@ -23,13 +23,13 @@
     },
     "setNewOtpLabel": {
         "title": "Autenticação de OTP",
-        "success": "Nova Autenticação de OTP feita com sucesso.",
+        "success": "Nova autenticação de OTP ativada com sucesso.",
         "prohibitedCharacters": "Não use nenhum caractere especial, acentos ou espaços.",
         "new": "Autenticação de OTP | Nova Autenticação",
         "maxLength": "O tamanho máximo da etiqueta é {{maxLength}} caracteres.",
         "labelPurpose": "Esta etiqueta irá te ajudar a lembrar onde a OTP é utilizada.",
         "inputLabel": "Etiqueta OTP",
-        "empty": "A lista de Autenticação de OTP está vazia.",
+        "empty": "A lista de autenticação de OTP está vazia.",
         "allowedCharacters": "O uso de underline e hífen é permitido."
     },
     "passwordListLabel": {
@@ -47,16 +47,16 @@
     "newPassword": "Nova senha",
     "newOtp": {
         "warning": "Atenção: você poderá ver estes códigos apenas uma vez.",
-        "scan_qr": "Digitalize este código QR através de um dos aplicativos suportados.",
+        "scan_qr": "Digitalize este código QR utilizando algum dos aplicativos suportados.",
         "save_pin": "Sugerimos imprimir e manter os códigos PIN seguros, pois eles serão solicitados ao autenticar; cada código PIN pode ser usado apenas uma vez.",
         "printPinCodes": "Imprimir códigos PIN",
-        "label": "Nova OTP"
+        "label": "Nova senha de uso único (OTP)"
     },
     "label": {
         "save": "Salvar",
         "cancel": "Cancelar",
         "app_name": "Auth",
-        "auth_settings": "Configurações de Autenticação"
+        "auth_settings": "Configurações de autenticação"
     },
     "instructions": {
         "needInfo": "Precisa de mais informações?"
@@ -71,8 +71,8 @@
         "specialChars": "Não são permitidos caracteres especiais.",
         "somethingWrong": "Algo deu errado.",
         "minimumLength": "O tamanho mínimo é de 6 caracteres.",
-        "maximumLength": "Comprimento máximo de 20 caracteres.",
-        "alreadyInUse": "Já em uso. Escolha outra descrição."
+        "maximumLength": "O comprimento máximo é de 20 caracteres.",
+        "alreadyInUse": "Já em uso. Por favor, escolha outra descrição."
     },
     "easAuth": {
         "success": "Nova senha do Exchange ActiveSync ativada com sucesso. A lista de senhas foi atualizada.",
@@ -91,33 +91,33 @@
         "newAuthentication": "Nova autenticação",
         "enabled": "Habilitado",
         "disabled": "Desabilitado",
-        "delete": "Apagar",
+        "delete": "Excluir",
         "createPassword": "Criar senha",
-        "copyQrCode": "Copiar Código QR",
+        "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar senha",
         "codeCopied": "Código copiado com sucesso"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Deve conter ao menos {{num}} números.",
-        "zimbraPasswordMinLength": "O tamanho mínimo é de {{num}} caracteres.",
-        "zimbraPasswordMaxLength": "Comprimento máximo de {{num}} caracteres.",
+        "zimbraPasswordMinLength": "O comprimento mínimo é de {{num}} caracteres.",
+        "zimbraPasswordMaxLength": "O comprimento máximo é de {{num}} caracteres.",
         "title": "Alterar Senha",
-        "sameOldPassword": "Sua senha não pode ser igual a antiga.",
+        "sameOldPassword": "Sua senha não pode ser igual à antiga.",
         "recentlyUsedPassword": "Esta senha foi usada recentemente.",
         "passwordChanged": "Sua senha foi alterada.",
-        "oldPassword": "Senha Antiga",
+        "oldPassword": "Senha antiga",
         "mustMatch": "As senhas devem coincidir.",
         "lowerUpper": "um caractere maiúsculo (ABC) e um caractere minúsculo (abc)",
         "incorrectPassword": "Senha incorreta.",
         "digitSpecial": "um número (123) e um caractere especial (!/@)",
-        "confirmNew": "Confirmar Nova Senha",
+        "confirmNew": "Confirmar nova senha",
         "formatNotValid": "A senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caractere especial",
-        "instruction": "Por favor, crie uma nova senha e insira no campo de confirmação",
+        "instruction": "Crie uma nova senha e digite-a no campo de confirmação",
         "mustContain": "A nova senha deve ter de 6 a 20 caracteres e deve conter:",
         "zimbraPasswordMinLowerCaseChars": "Deve conter ao menos {{num}} caracteres minúsculos.",
         "zimbraPasswordMinPunctuationChars": "Deve conter ao menos {{num}} caracteres especiais.",
         "zimbraPasswordMinUpperCaseChars": "Deve conter ao menos {{num}} caracteres maiúsculos.",
-        "zimbraPasswordLocked": "A alteração de senha foi desabilitada, entre em contato com seu administrador do sistema para mais informações."
+        "zimbraPasswordLocked": "A alteração de senhas não é permitida. Entre em contato com o administrador para obter mais informações."
     },
     "buttons": {
         "yes": "Sim",
@@ -133,9 +133,12 @@
         "new": "App Móvel | Nova Autenticação",
         "label": "Aplicativos Móveis",
         "empty": "A lista do App Móvel está vazia.",
-        "descriptionHelp": "A descrição vai te ajudar a lembrar onde foi usada a Autenticação do Mobile App."
+        "descriptionHelp": "A descrição ajudará você a lembrar onde essa autenticação é usada."
     },
     "snackbar": {
         "settings_saved": "Configurações salvas com sucesso"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Descrição da autenticação"
     }
 }

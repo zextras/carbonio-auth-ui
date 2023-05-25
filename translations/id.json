@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "Pengaturan berhasil disimpan"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Deskripsi autentikasi"
     }
 }
