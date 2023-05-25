@@ -122,7 +122,7 @@
     "buttons": {
         "yes": "Ja",
         "next": "Volgende",
-        "done": "Gedaan",
+        "done": "Fertig",
         "close": "Sluiten",
         "click": "Hier klikken",
         "cancel": "Abbrechen"
@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "Instellingen net succes opgeslagen"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Authenticatiebeschrijving"
     }
 }

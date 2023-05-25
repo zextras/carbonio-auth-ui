@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "सेटिंग्स सेव हो गईं"
+    },
+    "setNewToken": {
+        "authenticationDescription": "ऑथेंटिकेशन विवरण"
     }
 }

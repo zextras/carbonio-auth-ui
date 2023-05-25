@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "Configurações salvas com sucesso"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Descrição da autenticação"
     }
 }

@@ -122,7 +122,7 @@
     "buttons": {
         "yes": "Ja",
         "next": "Weiter",
-        "done": "Fertig",
+        "done": "Gedaan",
         "close": "Schließen",
         "click": "Hier klicken",
         "cancel": "Abbrechen"
@@ -137,5 +137,8 @@
     },
     "snackbar": {
         "settings_saved": "Einstellungen erfolgreich gespeichert"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Beschreibung der Authentifizierung"
     }
 }
