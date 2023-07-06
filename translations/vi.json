@@ -131,5 +131,8 @@
         "new": "Các ứng dụng di động | Xác thực mới",
         "label": "Các Ứng dụng di động",
         "empty": "Danh sách Ứng dụng di động rỗng."
+    },
+    "setNewToken": {
+        "authenticationDescription": "Mô tả xác thực"
     }
 }

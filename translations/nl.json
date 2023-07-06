@@ -46,11 +46,12 @@
     "options": "Opties",
     "newPassword": "Nieuw wachtwoord",
     "newOtp": {
-        "warning": "Waarschuwing: u zult deze codes maar één keer kunnen zien.",
+        "warning": "Waarschuwing: u kunt dit token slechts één keer kopiëren.",
         "scan_qr": "Scan deze QR-code via een van de ondersteunde apps.",
         "save_pin": "Wij raden u aan de PIN-codes af te drukken en te bewaren, omdat ze kunnen worden gevraagd voor verificatie; elke PIN-code kan slechts eenmaal worden gebruikt.",
         "printPinCodes": "PIN-codes afdrukken",
-        "label": "Nieuwe OTP"
+        "label": "Nieuwe OTP",
+        "copy_token": "Gebruik dit token om uw Desktop Sync-account te verifiëren."
     },
     "label": {
         "save": "Opslaan",
@@ -65,7 +66,8 @@
         "otp": "Hier kunt u de OTP Authenticatie beheren.",
         "mobile": "Hier kunt u het wachtwoord van de mobiele app beheren.",
         "eas": "Hier kunt u uw Exchange ActiveSync wachtwoord beheren.",
-        "changePassword": "Hier kunt u uw wachtwoord wijzigen."
+        "changePassword": "Hier kunt u uw wachtwoord wijzigen.",
+        "desktop": "Hier kunt u het wachtwoord van de Desktop App beheren."
     },
     "error": {
         "specialChars": "Speciale tekens zijn niet toegestaan.",
@@ -95,7 +97,10 @@
         "createPassword": "Wachtwoord creëren",
         "copyQrCode": "QR-code kopiëren",
         "copyPassword": "Wachtwoord kopiëren",
-        "codeCopied": "Code met succes gekopieerd"
+        "codeCopied": "Code met succes gekopieerd",
+        "copyToken": "kopieer Token",
+        "createToken": "Creëer een token",
+        "tokenCopied": "Token met succes gekopieerd"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Het minimumaantal numerieke tekens is {{num}}.",
@@ -122,7 +127,7 @@
     "buttons": {
         "yes": "Ja",
         "next": "Volgende",
-        "done": "Gedaan",
+        "done": "Fertig",
         "close": "Sluiten",
         "click": "Hier klikken",
         "cancel": "Abbrechen"
@@ -137,5 +142,17 @@
     },
     "snackbar": {
         "settings_saved": "Instellingen net succes opgeslagen"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Authenticatiebeschrijving",
+        "successfully": "Token met succes gegenereerd."
+    },
+    "appDesktop": {
+        "empty": "De lijst met bureaublad-apps is leeg.",
+        "label": "Desktop applicaties",
+        "new": "Bureaublad-apps | Nieuwe verificatie",
+        "title": "Desktop Apps",
+        "descriptionHelp": "Beschrijving helpt u herinneren waar deze Mobile Apps Authenticatie wordt gebruikt.",
+        "success": "Nieuwe Mobiele App wachtwoord met succes geactiveerd. Wachtwoordenlijst is bijgewerkt."
     }
 }
