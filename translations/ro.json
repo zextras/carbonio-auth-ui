@@ -7,13 +7,13 @@
     },
     "options": "Optiuni",
     "label": {
-        "save": "Salvare",
+        "save": "Salvați",
         "cancel": "Anulare"
     },
     "common": {
         "enabled": "Activat",
         "disabled": "Dezactivat",
-        "delete": "Ştergere"
+        "delete": "Sterge"
     },
     "buttons": {
         "yes": "Da",

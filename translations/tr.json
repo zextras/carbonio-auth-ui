@@ -35,7 +35,7 @@
     "passwordListLabel": {
         "status": "Durum",
         "service": "Servis",
-        "label": "Açıklama",
+        "label": "Tanım",
         "enabled": "Kullanıma açık",
         "disabled": "Kullanıma kapalı",
         "created": "Oluşturuldu"
@@ -46,11 +46,12 @@
     "options": "Seçenekler",
     "newPassword": "Yeni parola",
     "newOtp": {
-        "warning": "Uyarı: bu kod bilgilerini sadece bir kere görebileceksiniz.",
+        "warning": "Uyarı: bu token bilgilerini sadece bir kez kopyalayabileceksiniz.",
         "scan_qr": "Bu QR kodunu destekleyen uygulamalardan birisini kullanarak tarayın.",
         "save_pin": "PIN kodlarını yazdırıp saklamanızı öneririz çünkü yetkilendirme işlemi için gerekebilir; her PIN kodu sadece bir kere kullanılabilir.",
         "printPinCodes": "PIN kodları yazdır",
-        "label": "Yeni Tek Kullanımlık Parola"
+        "label": "Yeni Tek Kullanımlık Parola",
+        "copy_token": "Masaüstü Eşitleme hesabınızın kimliğini doğrulamak için bu token bilgisini kullanın."
     },
     "label": {
         "save": "Kaydet",
@@ -65,7 +66,8 @@
         "otp": "Tek Kullanımlık Parola Kimlik Doğrulamasını buradan yönetebilirsiniz.",
         "mobile": "Mobile App parolanızı buradan yönetebilirsiniz.",
         "eas": "Exchange ActiveSync parolanızı buradan yönetebilirsiniz.",
-        "changePassword": "Parolanızı buradan değiştirebilirsiniz."
+        "changePassword": "Parolanızı buradan değiştirebilirsiniz.",
+        "desktop": "Masaüstü Uygulama parolanızı buradan yönetebilirsiniz."
     },
     "error": {
         "specialChars": "Özel karakterler kullanılamaz.",
@@ -95,7 +97,10 @@
         "createPassword": "Parola oluştur",
         "copyQrCode": "QR Kodu kopyala",
         "copyPassword": "Parolayı kopyala",
-        "codeCopied": "Kod başarıyla kopyalandı"
+        "codeCopied": "Kod başarıyla kopyalandı",
+        "copyToken": "Token kopyala",
+        "createToken": "Token oluştur",
+        "tokenCopied": "Token başarıyla kopyalandı"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Nümerik karakter sayısı en az {{num}} olmalıdır.",
@@ -121,7 +126,7 @@
     },
     "buttons": {
         "yes": "Evet",
-        "next": "Sonraki",
+        "next": "İleri",
         "done": "Tamamlandı",
         "close": "Kapat",
         "click": "Buraya tıklayın",
@@ -137,5 +142,17 @@
     },
     "snackbar": {
         "settings_saved": "Ayarlar başarıyla kaydedildi"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Kimlik doğrulama açıklaması",
+        "successfully": "Token bilgisi başarıyla oluşturuldu."
+    },
+    "appDesktop": {
+        "descriptionHelp": "Tanım, Masaüstü Uygulamalar Kimlik Doğrulamasının nerede kullanıldığını hatırlamanıza yardımcı olur.",
+        "new": "Masaüstü Uygulamaları | Yeni Kimlik Doğrulama",
+        "empty": "Masaüstü Uygulamalar listesi boş.",
+        "label": "Masaüstü Uygulamaları",
+        "success": "Yeni Masaüstü uygulama parolası başarıyla etkinleştirildi. Parola listesi güncellendi.",
+        "title": "Masaüstü Uygulamaları"
     }
 }
