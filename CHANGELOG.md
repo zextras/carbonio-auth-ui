@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/zextras/carbonio-auth-ui/compare/v1.0.5...v1.1.0) (2023-07-06)
+
+
+### Features
+
+* desktop auth management ([c0d58b3](https://github.com/zextras/carbonio-auth-ui/commit/c0d58b3f81ab0ed26925e4475704415931657299))
+* desktop auth management ([3023041](https://github.com/zextras/carbonio-auth-ui/commit/30230415181301cfe8b8b982b9aa44c94b7acd14))
+* desktop auth management ([75bf944](https://github.com/zextras/carbonio-auth-ui/commit/75bf944448bdff05a472026b0da0c8fdeb7cc66a))
+* desktop auth management ([2859887](https://github.com/zextras/carbonio-auth-ui/commit/2859887ad5bbaece9b7b4cf8e52e4fd77c98703c))
+
+
+### Bug Fixes
+
+* force qr code color background to white ([adff79b](https://github.com/zextras/carbonio-auth-ui/commit/adff79b1d72d8de4bd1fd290e3a8baea05ddf258))
+* new translations repository ([4792722](https://github.com/zextras/carbonio-auth-ui/commit/4792722e9529584d72db6c7e9d6e5ac9a56d9a0b))
+* passwordRensponse and QrCondeResponse to base64 ([8cceb7d](https://github.com/zextras/carbonio-auth-ui/commit/8cceb7d678be84fdc04bd6a42732b925f4bce0ac))
+* passwordRensponse and QrCondeResponse to base64 ([9394c95](https://github.com/zextras/carbonio-auth-ui/commit/9394c957998273e1727920b6bf91148811ad5b12))
+
 ### [1.0.5](https://github.com/zextras/carbonio-auth-ui/compare/v1.0.4...v1.0.5) (2023-05-11)
 
 ### [1.0.4](https://github.com/zextras/carbonio-auth-ui/compare/v1.0.3...v1.0.4) (2023-03-16)
