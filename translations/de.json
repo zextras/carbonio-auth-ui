@@ -36,8 +36,8 @@
         "status": "Status",
         "service": "Service",
         "label": "Beschreibung",
-        "enabled": "Aktiviert",
-        "disabled": "Abgeschaltet",
+        "enabled": "Geactiveerd",
+        "disabled": "Deaktiviert",
         "created": "Erstellt"
     },
     "otpListLabel": {
@@ -89,9 +89,9 @@
     },
     "common": {
         "newAuthentication": "Neue Authentifizierung",
-        "enabled": "Aktiviert",
-        "disabled": "Abgeschaltet",
-        "delete": "Löschen",
+        "enabled": "Geactiveerd",
+        "disabled": "Deaktiviert",
+        "delete": "Verwijderen",
         "createPassword": "Passwort erstellen",
         "copyQrCode": "QR Code kopieren",
         "copyPassword": "Passwort kopieren",

@@ -50,7 +50,8 @@
         "scan_qr": "Escanea el código QR utilizando alguna de las aplicaciones soportadas.",
         "save_pin": "Se sugiere imprimir y guardar los códigos PIN ya que podrán ser requeridos para autenticarse. Cada código PIN es de un solo uso.",
         "printPinCodes": "Imprimir códigos PIN",
-        "label": "Nueva contraseña de un solo uso (OTP)"
+        "label": "Nueva contraseña de un solo uso (OTP)",
+        "copy_token": "Utiliza este Token para autenticarte en la cuenta Desktop Sync."
     },
     "label": {
         "save": "Guardar",
@@ -65,7 +66,8 @@
         "otp": "Aquí puedes administrar la autenticación OTP.",
         "mobile": "Aquí puedes administrar la contraseña de la aplicación móvil.",
         "eas": "Aquí puede administrar la contraseña Exchange ActiveSync.",
-        "changePassword": "Aquí puedes cambiar tu contraseña."
+        "changePassword": "Aquí puedes cambiar tu contraseña.",
+        "desktop": "Aquí puedes administrar la contraseña de la aplicación de escritorio."
     },
     "error": {
         "specialChars": "Los caracteres especiales no están permitidos.",
@@ -95,7 +97,10 @@
         "createPassword": "Crear contraseña",
         "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar contraseña",
-        "codeCopied": "Se ha copiado el código"
+        "codeCopied": "Se ha copiado el código",
+        "copyToken": "Copiar Token",
+        "createToken": "Crear Token",
+        "tokenCopied": "Token copiado"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Debe contener por lo menos {{num}} número(s).",
@@ -139,6 +144,15 @@
         "settings_saved": "Se han guardado los ajustes"
     },
     "setNewToken": {
-        "authenticationDescription": "Descripción de la autenticación"
+        "authenticationDescription": "Descripción de la autenticación",
+        "successfully": "El Token ha sido generado correctamente."
+    },
+    "appDesktop": {
+        "empty": "La lista de aplicaciones de escritorio está vacía.",
+        "label": "Aplicaciones de escritorio",
+        "title": "Aplicaciones de escritorio",
+        "descriptionHelp": "La descripción te ayudará a recordar en dónde se utiliza esta autenticación de aplicaciones de escritorio.",
+        "new": "Aplicaciones de escritorio | Nueva autenticación",
+        "success": "La nueva contraseña de la aplicación de escritorio se ha activado correctamente. La lista de contraseñas ha sido actualizada."
     }
 }

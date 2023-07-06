@@ -3,7 +3,8 @@
         "changePassword": "Di sini Anda bisa mengubah kata sandi.",
         "otp": "Di sini Anda bisa mengelola Autentikasi OTP.",
         "mobile": "Di sini Anda bisa mengelola kata sandi Aplikasi Seluler.",
-        "eas": "Di sini Anda bisa mengelola kata sandi Exchange ActiveSync."
+        "eas": "Di sini Anda bisa mengelola kata sandi Exchange ActiveSync.",
+        "desktop": "Di sini Anda dapat mengelola kata sandi Aplikasi Desktop."
     },
     "error": {
         "specialChars": "Karakter khusus tidak diizinkan.",
@@ -20,20 +21,23 @@
         "empty": "Daftar Exchange ActiveSync kosong."
     },
     "deletePassword": {
-        "title": "Anda yakin ingin menghapus kata sandi ini?"
+        "title": "Apakah Anda yakin ingin menghapus kata sandi ini?"
     },
     "deleteOtp": {
         "description": "Semua perangkat yang menggunakan kata sandi ini akan diputus sambungannya dan tidak dapat mengautentikasi sampai Anda memberikan serangkaian kredensial baru."
     },
     "common": {
         "newAuthentication": "Autentikasi baru",
-        "enabled": "Diaktifkan",
+        "enabled": "Aktif",
         "disabled": "Dinonaktifkan",
         "delete": "Hapus",
         "createPassword": "Buat kata sandi",
         "copyQrCode": "Salin Kode QR",
         "copyPassword": "Salin kata sandi",
-        "codeCopied": "Kode berhasil disalin"
+        "codeCopied": "Kode berhasil disalin",
+        "copyToken": "salin Token",
+        "createToken": "Buat token",
+        "tokenCopied": "Token berhasil disalin"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Jumlah karakter angka minimum adalah {{num}}.",
@@ -110,7 +114,7 @@
         "status": "Status",
         "service": "Layanan",
         "label": "Deskripsi",
-        "enabled": "Diaktifkan",
+        "enabled": "Aktif",
         "disabled": "Dinonaktifkan",
         "created": "Dibuat"
     },
@@ -120,11 +124,12 @@
     "options": "Opsi",
     "newPassword": "Kata sandi baru",
     "newOtp": {
-        "warning": "Peringatan: Anda hanya dapat melihat kode sekali.",
+        "warning": "Peringatan: Anda hanya dapat menyalint token ini sekali.",
         "scan_qr": "Pindai kode QR ini melalui salah satu aplikasi yang didukung.",
         "save_pin": "Sebaiknya cetak dan simpan kode PIN karena akan diminta untuk mengautentikasi; tiap kode PIN hanya dapat digunakan sekali.",
         "printPinCodes": "Cetak kode PIN",
-        "label": "OTP Baru"
+        "label": "OTP Baru",
+        "copy_token": "Gunakan token ini untuk mengotentikasi akun Sinkronisasi Desktop Anda."
     },
     "label": {
         "save": "Simpan",
@@ -139,6 +144,15 @@
         "settings_saved": "Pengaturan berhasil disimpan"
     },
     "setNewToken": {
-        "authenticationDescription": "Deskripsi autentikasi"
+        "authenticationDescription": "Deskripsi autentikasi",
+        "successfully": "Token berhasil dibuat."
+    },
+    "appDesktop": {
+        "empty": "Daftar Aplikasi Desktop kosong.",
+        "label": "Aplikasi Desktop",
+        "new": "Aplikasi Desktop | Autentikasi Baru",
+        "title": "Aplikasi Desktop",
+        "descriptionHelp": "Deskripsi akan membantu Anda mengingat di mana Autentikasi Aplikasi Desktop digunakan.",
+        "success": "Kata sandi Aplikasi Desktop baru berhasil diaktifkan. Daftar kata sandi telah diperbarui."
     }
 }

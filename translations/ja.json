@@ -46,11 +46,12 @@
     "options": "オプション",
     "newPassword": "新しいパスワード",
     "newOtp": {
-        "warning": "警告：これらのコードは1度のみ表示されます。",
+        "warning": "警告: このトークンをコピーできるのは 1 回だけです。",
         "scan_qr": "サポートされているアプリの1つを介してこのQRコードをスキャンします。",
         "save_pin": "PINコードは、認証を求められるため印刷して保管することをお勧めします。各PINコードは1度のみ使用できます。",
         "printPinCodes": "PINコードを印刷する",
-        "label": "新しいOTP"
+        "label": "新しいOTP",
+        "copy_token": "このトークンを使用して、Desktop Syncアカウントを認証します。"
     },
     "label": {
         "save": "保存する",
@@ -65,7 +66,8 @@
         "otp": "ここで、OTP認証を管理できます。",
         "mobile": "ここで、モバイルアプリのパスワードを管理できます。",
         "eas": "ここで、Exchange ActiveSyncパスワードを管理できます。",
-        "changePassword": "ここでパスワードを変更できます。"
+        "changePassword": "ここでパスワードを変更できます。",
+        "desktop": "ここでデスクトップアプリのパスワードを管理できます。"
     },
     "error": {
         "specialChars": "特殊文字は使用できません。",
@@ -95,7 +97,10 @@
         "createPassword": "パスワードを作成する",
         "copyQrCode": "QRコードをコピーする",
         "copyPassword": "パスワードをコピーする",
-        "codeCopied": "コードが正常にコピーされました"
+        "codeCopied": "コードが正常にコピーされました",
+        "copyToken": "トークンをコピーする",
+        "createToken": "トークンを作成する",
+        "tokenCopied": "トークンがコピーされました"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "数字は最低{{num}}個なければなりません。",
@@ -139,6 +144,15 @@
         "settings_saved": "設定が保存されました"
     },
     "setNewToken": {
-        "authenticationDescription": "認証の説明"
+        "authenticationDescription": "認証の説明",
+        "successfully": "トークンが生成されました。"
+    },
+    "appDesktop": {
+        "new": "デスクトップアプリ | 新しい認証",
+        "success": "新しいデスクトップアプリのパスワードが有効になりました。パスワードリストが更新されています。",
+        "descriptionHelp": "説明は、このデスクトップアプリ認証がどこで使用されるかを思い出すのに役立ちます。",
+        "empty": "デスクトップアプリのリストが空です。",
+        "label": "デスクトップアプリケーション",
+        "title": "デスクトップアプリ"
     }
 }

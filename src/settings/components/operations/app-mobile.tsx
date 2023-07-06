@@ -350,12 +350,14 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 									background="gray5"
 									padding={{ all: 'large' }}
 								>
-									<QRCode
-										data-testid="qrcode-password"
-										size={143}
-										bgColor="transparent"
-										value={objToBase64(newQrCodeResp.qrcode_data)}
-									/>
+									<div className="force-white-bg">
+										<QRCode
+											data-testid="qrcode-password"
+											size={143}
+											bgColor="transparent"
+											value={objToBase64(newQrCodeResp.qrcode_data)}
+										/>
+									</div>
 									<Padding top="large">
 										<Button
 											label={t('common.copyQrCode', 'Copy QR Code')}

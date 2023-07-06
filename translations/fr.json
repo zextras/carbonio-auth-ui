@@ -46,11 +46,12 @@
     "options": "Options",
     "newPassword": "Nouveau mot de passe",
     "newOtp": {
-        "warning": "Attention : vous ne pourrez voir ces codes qu'une seule fois.",
+        "warning": "Attention : vous ne pourrez copier ce Token qu'une seule fois.",
         "scan_qr": "Scannez ce code QR à l'aide de l'une des applications prises en charge.",
         "save_pin": "Nous vous conseillons d'imprimer et de conserver les codes PIN car ils pourraient vous être demandés pour vous authentifier ; chaque code PIN ne peut être utilisé qu'une seule fois.",
         "printPinCodes": "Imprimer les codes PIN",
-        "label": "Nouvel OTP"
+        "label": "Nouvel OTP",
+        "copy_token": "Utilisez ce Token pour authentifier votre compte de Synchronisation de Bureau."
     },
     "label": {
         "save": "Sauvegarder",
@@ -65,7 +66,8 @@
         "otp": "Ici vous pouvez gérer l'authentification OTP.",
         "mobile": "Ici, vous pouvez gérer le mot de passe de l'application mobile.",
         "eas": "Ici, vous pouvez gérer votre mot de passe Exchange ActiveSync.",
-        "changePassword": "Ici, vous pouvez changer votre mot de passe."
+        "changePassword": "Ici, vous pouvez changer votre mot de passe.",
+        "desktop": "Vous pouvez gérer les mots de passe des Applications de Bureau ici."
     },
     "error": {
         "specialChars": "Les caractères spéciaux ne sont pas autorisés.",
@@ -95,7 +97,10 @@
         "createPassword": "Créer le mot de passe",
         "copyQrCode": "Copie du QR code",
         "copyPassword": "Copier le mot de passe",
-        "codeCopied": "Code copié avec succès"
+        "codeCopied": "Code copié avec succès",
+        "copyToken": "Copier le Token",
+        "createToken": "Créer un token",
+        "tokenCopied": "Token copié avec succès"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "La quantité minimale de caractères numériques est {{num}}.",
@@ -139,6 +144,15 @@
         "settings_saved": "Les paramètres ont été sauvegardés avec succès"
     },
     "setNewToken": {
-        "authenticationDescription": "Description de l'authentification"
+        "authenticationDescription": "Description de l'authentification",
+        "successfully": "Token généré avec succès."
+    },
+    "appDesktop": {
+        "empty": "La liste des applications de bureau est vide.",
+        "descriptionHelp": "La description vous aidera à vous souvenir de l'endroit où l'authentification des applications de bureau est utilisée.",
+        "label": "Applications de Bureau",
+        "new": "Applications de Bureau | Nouvelle Authentification",
+        "success": "Le mot de passe de la nouvelle application de bureau a été activé avec succès. La liste des mots de passe a été mise à jour.",
+        "title": "Applications de Bureau"
     }
 }

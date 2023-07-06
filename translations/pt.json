@@ -15,7 +15,7 @@
         "successfully": "Autenticação QR gerada com sucesso"
     },
     "setNewPassword": {
-        "warningJustOnce": "Atenção: você poderá ver este código apenas uma vez",
+        "warningJustOnce": "Atenção: poderá ver este código apenas uma vez",
         "textDescription": "Utilize este código para autenticar a sua conta em dispositivos e clientes que aceitam Exchange ActiveSync",
         "successfully": "Senha criada com sucesso",
         "authenticationDescription": "Descrição da autenticação",
@@ -36,7 +36,7 @@
         "status": "Status",
         "service": "Serviço",
         "label": "Descrição",
-        "enabled": "Ativado",
+        "enabled": "Habilitado",
         "disabled": "Desabilitado",
         "created": "Criada"
     },
@@ -47,10 +47,11 @@
     "newPassword": "Nova senha",
     "newOtp": {
         "warning": "Atenção: você poderá ver estes códigos apenas uma vez.",
-        "scan_qr": "Digitalize este código QR utilizando algum dos aplicativos suportados.",
+        "scan_qr": "Leia este código QR através de uma das aplicações suportadas.",
         "save_pin": "Sugerimos imprimir e manter os códigos PIN seguros, pois eles serão solicitados ao autenticar; cada código PIN pode ser usado apenas uma vez.",
         "printPinCodes": "Imprimir códigos PIN",
-        "label": "Nova senha de uso único (OTP)"
+        "label": "Nova senha de uso único (OTP)",
+        "copy_token": "Use este token para autenticar-se na conta do Desktop Sync."
     },
     "label": {
         "save": "Salvar",
@@ -65,7 +66,8 @@
         "otp": "Aqui você pode gerenciar sua Autenticação de OTP.",
         "mobile": "Aqui você pode gerenciar sua senha do App Móvel.",
         "eas": "Aqui você pode gerenciar sua senha do Exchange ActiveSync.",
-        "changePassword": "Aqui você pode alterar sua senha."
+        "changePassword": "Aqui você pode alterar sua senha.",
+        "desktop": "Aqui pode gerir a senha da Aplicação de Desktop."
     },
     "error": {
         "specialChars": "Não são permitidos caracteres especiais.",
@@ -85,17 +87,20 @@
         "title": "Tem certeza que deseja excluir esta senha?"
     },
     "deleteOtp": {
-        "description": "Todos os dispositivos que estão usando esta senha serão desconectados e não poderão autenticar até que você forneça novas credenciais de acesso."
+        "description": "Todos os dispositivos que estão a utilizar esta palavra-passe serão desligados e não poderão autenticar-se até que o utilizador forneça as novas credenciais."
     },
     "common": {
         "newAuthentication": "Nova autenticação",
-        "enabled": "Ativado",
+        "enabled": "Habilitado",
         "disabled": "Desabilitado",
         "delete": "Excluir",
         "createPassword": "Criar senha",
         "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar senha",
-        "codeCopied": "Código copiado com sucesso"
+        "codeCopied": "Código copiado com sucesso",
+        "copyToken": "Copiar Token",
+        "createToken": "Criar um Token",
+        "tokenCopied": "Token copiado com sucesso"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Deve conter ao menos {{num}} números.",
@@ -139,6 +144,15 @@
         "settings_saved": "Configurações salvas com sucesso"
     },
     "setNewToken": {
-        "authenticationDescription": "Descrição da autenticação"
+        "authenticationDescription": "Descrição da autenticação",
+        "successfully": "Token gerado com sucesso."
+    },
+    "appDesktop": {
+        "empty": "A lista de aplicações de desktop está vazia.",
+        "label": "Aplicações de desktop",
+        "new": "Aplicações de desktop | Nova autenticação",
+        "success": "A nova senha da Aplicação de Desktop foi ativada com sucesso. A lista de senhas foi atualizada.",
+        "title": "Aplicações de desktop",
+        "descriptionHelp": "A descrição ajuda a identificar onde esta App de Autenticação de Desktop é usada."
     }
 }

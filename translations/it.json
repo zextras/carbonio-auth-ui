@@ -50,7 +50,8 @@
         "scan_qr": "Acquisisci il codice QR usando una delle applicazioni supportate.",
         "save_pin": "Ti suggeriamo di stampare e conservare i codici PIN in quanto potrebbero essere richiesti per autenticarsi in futuro; ciascun codice PIN può essere utilizzato una sola volta.",
         "printPinCodes": "Stampa codici PIN",
-        "label": "Nuovo OTP"
+        "label": "Nuovo OTP",
+        "copy_token": "Utilizza questo token per autenticare il tuo account Desktop Sync."
     },
     "label": {
         "save": "Salva",
@@ -121,11 +122,11 @@
         "zimbraPasswordLocked": "La modifica della password è disabilitata, contatta l'amministratore di sistema per ulteriore supporto.",
         "mustContain": "La nuova password deve essere lunga da 6 a 20 caratteri e deve contenere:",
         "instruction": "Crea una nuova password e inseriscila nel campo di conferma",
-        "formatNotValid": "La password deve contenere almeno un carattere maiuscolo, minuscolo, cifra, carattere speciale"
+        "formatNotValid": "La password deve contenere almeno una lettera maiuscola, una minuscola, un numero e un carattere speciale"
     },
     "buttons": {
         "yes": "Sì",
-        "next": "Successivo",
+        "next": "Avanti",
         "done": "Fine",
         "close": "Chiudi",
         "click": "Clicca qui",
