@@ -23,7 +23,7 @@
     },
     "setNewOtpLabel": {
         "title": "Autenticação de OTP",
-        "success": "Nova autenticação de OTP ativada com sucesso.",
+        "success": "Nova Autenticação de OTP feita com sucesso.",
         "prohibitedCharacters": "Não use nenhum caractere especial, acentos ou espaços.",
         "new": "Autenticação de OTP | Nova Autenticação",
         "maxLength": "O tamanho máximo da etiqueta é {{maxLength}} caracteres.",
@@ -47,10 +47,11 @@
     "newPassword": "Nova senha",
     "newOtp": {
         "warning": "Atenção: você poderá ver estes códigos apenas uma vez.",
-        "scan_qr": "Digitalize este código QR utilizando algum dos aplicativos suportados.",
+        "scan_qr": "Digitalize este código QR através de um dos aplicativos suportados.",
         "save_pin": "Sugerimos imprimir e manter os códigos PIN seguros, pois eles serão solicitados ao autenticar; cada código PIN pode ser usado apenas uma vez.",
         "printPinCodes": "Imprimir códigos PIN",
-        "label": "Nova senha de uso único (OTP)"
+        "label": "Nova senha de uso único (OTP)",
+        "copy_token": "Use esse token para se autenticar na conta do Desktop Sync."
     },
     "label": {
         "save": "Salvar",
@@ -65,14 +66,15 @@
         "otp": "Aqui você pode gerenciar sua Autenticação de OTP.",
         "mobile": "Aqui você pode gerenciar sua senha do App Móvel.",
         "eas": "Aqui você pode gerenciar sua senha do Exchange ActiveSync.",
-        "changePassword": "Aqui você pode alterar sua senha."
+        "changePassword": "Aqui você pode alterar sua senha.",
+        "desktop": "Aqui você pode gerenciar a senha do aplicativo de desktop."
     },
     "error": {
         "specialChars": "Não são permitidos caracteres especiais.",
         "somethingWrong": "Algo deu errado.",
         "minimumLength": "O tamanho mínimo é de 6 caracteres.",
         "maximumLength": "O comprimento máximo é de 20 caracteres.",
-        "alreadyInUse": "Já em uso. Por favor, escolha outra descrição."
+        "alreadyInUse": "Já em uso. Escolha outra descrição."
     },
     "easAuth": {
         "success": "Nova senha do Exchange ActiveSync ativada com sucesso. A lista de senhas foi atualizada.",
@@ -95,7 +97,10 @@
         "createPassword": "Criar senha",
         "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar senha",
-        "codeCopied": "Código copiado com sucesso"
+        "codeCopied": "Código copiado com sucesso",
+        "copyToken": "Copiar Token",
+        "createToken": "Criar Token",
+        "tokenCopied": "Token copiado com sucesso"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Deve conter ao menos {{num}} números.",
@@ -137,5 +142,17 @@
     },
     "snackbar": {
         "settings_saved": "Configurações salvas com sucesso"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Descrição da autenticação",
+        "successfully": "Token gerado com sucesso."
+    },
+    "appDesktop": {
+        "descriptionHelp": "A descrição o ajudará a lembrar onde essa autenticação de aplicativo de desktop é usada.",
+        "empty": "A lista de aplicativos de desktop está vazia.",
+        "label": "Aplicativos de desktop",
+        "new": "Aplicativos de desktop | Nova autenticação",
+        "title": "Aplicativos de desktop",
+        "success": "A nova senha do aplicativo de desktop foi ativada com sucesso. A lista de senhas foi atualizada."
     }
 }
