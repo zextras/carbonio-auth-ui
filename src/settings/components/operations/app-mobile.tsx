@@ -355,7 +355,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 											data-testid="qrcode-password"
 											size={143}
 											bgColor="transparent"
-											value={JSON.stringify(newQrCodeResp.qrcode_data.auth_payload)}
+											value={JSON.stringify(newQrCodeResp.qrcode_data)}
 										/>
 									</div>
 									<Padding top="large">
@@ -363,7 +363,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
 											onClick={(): void => {
-												copyToClipboard(JSON.stringify(newQrCodeResp.qrcode_data.auth_payload));
+												copyToClipboard(newQrCodeResp.qrcode_data.auth_payload.password);
 												createSnackbar({
 													key: 2,
 													label: t('common.codeCopied', 'Code copied successfully')
