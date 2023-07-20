@@ -4,7 +4,7 @@
             "whenToUse": "Dies sind Ihre statischen Codes. Sie müssen einen der Codes verwenden, wenn Sie Ihr Mobilgerät nicht dabei haben, um die Authentifizierung durchzuführen.",
             "useOnce": "Denken Sie daran, dass jeder Code nur einmal verwendet werden kann. Wir empfehlen daher, ihn nach der Verwendung aus der Liste zu löschen. Jedes Mal, wenn Sie einen Code verwenden, erhalten Sie eine Benachrichtigung per E-Mail.",
             "typePin": "Geben Sie einen der oben aufgeführten PIN-Codes ein",
-            "title": "OTP Codes",
+            "title": "OTP-Codes",
             "login": "Melden Sie sich mit Ihrem Passwort an",
             "keepInSafePlace": "Wir empfehlen Ihnen, die Codes an einem sicheren Ort aufzubewahren.",
             "howToUse": "Wie Sie Ihre PINs verwenden",
@@ -12,31 +12,31 @@
         }
     },
     "setNewQRCode": {
-        "successfully": "QR Authentifizierung erfolgreich erstellt"
+        "successfully": "QR-Authentifizierung erfolgreich erstellt"
     },
     "setNewPassword": {
         "warningJustOnce": "Warnung: Sie können diesen Code nur einmal sehen",
         "textDescription": "Nutzen Sie diesen Code, um Ihr Konto auf Exchange ActiveSync Services zu authentifizieren",
         "successfully": "Passwort erfolgreich generiert",
         "authenticationDescription": "Beschreibung der Authentifizierung",
-        "EASPasswordCopied": "EAS Passwort kopiert"
+        "EASPasswordCopied": "EAS-Passwort kopiert"
     },
     "setNewOtpLabel": {
-        "title": "OTP Authentifizierung",
-        "success": "Neue OTP Authentifizierung erfolgreich aktiviert.",
+        "title": "OTP-Authentifizierung",
+        "success": "Neue OTP-Authentifizierung erfolgreich aktiviert.",
         "prohibitedCharacters": "Benutzen Sie keine Sonderzeichen, Akzente oder Leerzeichen.",
-        "new": "OTP Authentifizierung | Neue Authentifizierung",
+        "new": "OTP-Authentifizierung | Neue Authentifizierung",
         "maxLength": "Die maximale Länge des Labels ist {{maxLength}} Zeichen.",
         "labelPurpose": "Das Label wird Ihnen helfen, sich zu erinnern, wo das OTP verwendet wird.",
-        "inputLabel": "OTP Label",
-        "empty": "Die OTP Authentifizierungsliste ist leer.",
+        "inputLabel": "OTP-Label",
+        "empty": "Die OTP-Authentifizierungsliste ist leer.",
         "allowedCharacters": "Unterstrich und Bindestrich sind erlaubt."
     },
     "passwordListLabel": {
         "status": "Status",
         "service": "Service",
         "label": "Beschreibung",
-        "enabled": "Geactiveerd",
+        "enabled": "Aktiviert",
         "disabled": "Deaktiviert",
         "created": "Erstellt"
     },
@@ -46,40 +46,42 @@
     "options": "Optionen",
     "newPassword": "Neues Passwort",
     "newOtp": {
-        "warning": "Warnung: Sie können diese Codes nur einmal sehen.",
-        "scan_qr": "Scannen Sie diesen QR Code mit einer der unterstützten Apps.",
-        "save_pin": "Wir empfehlen, die PIN Codes auszudrucken und aufzubewahren, da sie zur Authentifizierung abgefragt werden könnten; jeder PIN Code kann nur einmal benutzt werden.",
-        "printPinCodes": "PIN Codes drucken",
-        "label": "Neues OTP"
+        "warning": "Achtung: Sie können dieses Token nur einmal kopieren.",
+        "scan_qr": "Scannen Sie diesen QR-Code mit einer der unterstützten Apps.",
+        "save_pin": "Wir empfehlen, die PIN-Codes auszudrucken und aufzubewahren, da sie zur Authentifizierung abgefragt werden könnten; jeder PIN-Code kann nur einmal benutzt werden.",
+        "printPinCodes": "PIN-Codes drucken",
+        "label": "Neues OTP",
+        "copy_token": "Verwenden Sie dieses Token, um Ihr Desktop Sync-Konto zu authentifizieren."
     },
     "label": {
         "save": "Speichern",
         "cancel": "Abbrechen",
         "app_name": "Auth",
-        "auth_settings": "Authentifizierungs- Einstellungen"
+        "auth_settings": "Authentifizierungs-Einstellungen"
     },
     "instructions": {
         "needInfo": "Brauchen Sie weitere Informationen?"
     },
     "instruction": {
-        "otp": "Hier können Sie die OTP Authentifizierung verwalten.",
+        "otp": "Hier können Sie die OTP-Authentifizierung verwalten.",
         "mobile": "Hier können Sie Ihre Mobile App verwalten.",
-        "eas": "Hier können Sie Ihr Exchange ActiveSync Passwort verwalten.",
-        "changePassword": "Hier können Sie Ihr Passwort ändern."
+        "eas": "Hier können Sie Ihr Exchange ActiveSync-Passwort verwalten.",
+        "changePassword": "Hier können Sie Ihr Passwort ändern.",
+        "desktop": "Hier können Sie das Desktop-App-Passwort verwalten."
     },
     "error": {
         "specialChars": "Sonderzeichen sind nicht erlaubt.",
-        "somethingWrong": "Etwas ist schiefgegangen.",
+        "somethingWrong": "Ein Fehler ist aufgetreten.",
         "minimumLength": "Die Mindestlänge beträgt 6 Zeichen.",
         "maximumLength": "Die maximale Länge ist 20 Zeichen.",
         "alreadyInUse": "Bereits vergeben. Bitte wählen Sie eine andere Beschreibung."
     },
     "easAuth": {
-        "success": "Neues Exchange ActiveSync Passwort erfolgreich aktiviert. Die Passwortliste wurde aktualisiert.",
+        "success": "Neues Exchange ActiveSync-Passwort erfolgreich aktiviert. Die Passwortliste wurde aktualisiert.",
         "new": "Exchange ActiveSync | Neue Authentifizierung",
         "label": "Exchange ActiveSync",
         "helpRemember": "Die Beschreibung wird Ihnen helfen, sich zu erinnern, wo diese Exchange ActiveSync Authentifizierung verwendet wird.",
-        "empty": "Die Exchange ActiveSync Liste ist leer."
+        "empty": "Die Exchange ActiveSync-Liste ist leer."
     },
     "deletePassword": {
         "title": "Sind Sie sicher, dass Sie dieses Passwort löschen möchten?"
@@ -89,13 +91,16 @@
     },
     "common": {
         "newAuthentication": "Neue Authentifizierung",
-        "enabled": "Geactiveerd",
+        "enabled": "Aktiviert",
         "disabled": "Deaktiviert",
-        "delete": "Verwijderen",
+        "delete": "Löschen",
         "createPassword": "Passwort erstellen",
-        "copyQrCode": "QR Code kopieren",
+        "copyQrCode": "QR-Code kopieren",
         "copyPassword": "Passwort kopieren",
-        "codeCopied": "Code erfolgreich kopiert"
+        "codeCopied": "Code erfolgreich kopiert",
+        "copyToken": "Token kopieren",
+        "createToken": "Token erstellen",
+        "tokenCopied": "Token erfolgreich kopiert"
     },
     "changePassword": {
         "zimbraPasswordMinNumericChars": "Die Mindestanzahl der numerischen Zeichen ist {{num}}.",
@@ -113,7 +118,7 @@
         "confirmNew": "Neues Passwort bestätigen",
         "formatNotValid": "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
         "instruction": "Bitte erstellen Sie ein neues Passwort und geben Sie es in das Bestätigungsfeld ein",
-        "mustContain": "Das neue Kennwort sollte zwischen 6 und 20 Zeichen lang sein und muss enthalten:",
+        "mustContain": "Das neue Passwort sollte zwischen 6 und 20 Zeichen lang sein und muss enthalten:",
         "zimbraPasswordMinLowerCaseChars": "Die Mindestanzahl kleinerer Zeichen ist {{num}}.",
         "zimbraPasswordMinPunctuationChars": "Die Mindestanzahl an Sonderzeichen ist {{num}}.",
         "zimbraPasswordMinUpperCaseChars": "Die Mindestanzahl der Großbuchstaben ist {{num}}.",
@@ -122,23 +127,32 @@
     "buttons": {
         "yes": "Ja",
         "next": "Weiter",
-        "done": "Gedaan",
+        "done": "Fertig",
         "close": "Schließen",
         "click": "Hier klicken",
         "cancel": "Abbrechen"
     },
     "appMobile": {
         "title": "Mobile Apps",
-        "success": "Neues Mobile App Passwort erfolgreich aktiviert. Die Passwortliste wurde aktualisiert.",
+        "success": "Neues Mobile-App-Passwort erfolgreich aktiviert. Die Passwortliste wurde aktualisiert.",
         "new": "Mobile Apps | Neue Authentifizierung",
         "label": "Mobile Applikationen",
         "empty": "Die Mobile App Liste ist leer.",
-        "descriptionHelp": "Die Beschreibung wird Ihnen helfen, sich zu erinnern, wo diese Mobile App Authentifizierung verwendet wird."
+        "descriptionHelp": "Die Beschreibung wird Ihnen helfen, sich zu erinnern, wo diese Mobile-App-Authentifizierung verwendet wird."
     },
     "snackbar": {
         "settings_saved": "Einstellungen erfolgreich gespeichert"
     },
     "setNewToken": {
-        "authenticationDescription": "Beschreibung der Authentifizierung"
+        "authenticationDescription": "Beschreibung der Authentifizierung",
+        "successfully": "Token erfolgreich erstellt."
+    },
+    "appDesktop": {
+        "descriptionHelp": "Die Beschreibung wird Sie daran erinnern, wo diese Desktop-Apps-Authentifizierung verwendet wird.",
+        "empty": "Die Liste der Desktop-Apps ist leer.",
+        "label": "Desktop-Apps",
+        "success": "Neues Desktop-App-Passwort erfolgreich aktiviert. Die Passwortliste wurde aktualisiert.",
+        "title": "Desktop-Apps",
+        "new": "Desktop-Apps | Neue Authentifizierung"
     }
 }
