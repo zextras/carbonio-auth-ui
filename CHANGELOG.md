@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.2...v1.1.3) (2023-07-20)
+
+### [1.1.2](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.1...v1.1.2) (2023-07-18)
+
+
+### Bug Fixes
+
+* correct qrcode data missing the server field ([669fb17](https://github.com/zextras/carbonio-auth-ui/commit/669fb1793dee7a92f05cb2ba1c4ea2936dd460f8))
+
+### [1.1.1](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.0...v1.1.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* removed base64 conversion from mobile desktop autentication qrCode ([a8ce60c](https://github.com/zextras/carbonio-auth-ui/commit/a8ce60c30eb4f9717e1365a639c9705d4a6f59a7))
+
 ## [1.1.0](https://github.com/zextras/carbonio-auth-ui/compare/v1.0.5...v1.1.0) (2023-07-06)
 
 
