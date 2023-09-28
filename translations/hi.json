@@ -119,7 +119,7 @@
         "instruction": "कोई नया पासवर्ड बनाएँ और कन्फ़र्मेशन फील्ड में इसे एंटर करें",
         "mustContain": "नया पासवर्ड 6 से 20 कैरक्टर के बीच होना चाहिए और इसमें ये होना चाहिए:",
         "zimbraPasswordMinLowerCaseChars": "कम से कम {{num}} लोअर केस कैरक्टर होने चाहिए।",
-        "zimbraPasswordMinLength": "अधिकतम लंबाई {{num}} कैरक्टर है।",
+        "zimbraPasswordMinLength": "Minimum length is {{num}} characters।",
         "zimbraPasswordMinPunctuationChars": "कम से कम {{num}} स्पेशल कैरक्टर होने चाहिए।",
         "zimbraPasswordMinUpperCaseChars": "कम से कम {{num}} अपर केस कैरक्टर होने चाहिए।",
         "zimbraPasswordLocked": "पासवर्ड बदलाव बंद है, और मदद के लिए अपने सिस्टम एडमिनिस्ट्रेटर से संपर्क करें।"

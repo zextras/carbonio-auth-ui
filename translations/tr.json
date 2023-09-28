@@ -38,7 +38,7 @@
         "label": "Tanım",
         "enabled": "Kullanıma açık",
         "disabled": "Kullanıma kapalı",
-        "created": "Oluşturuldu"
+        "created": "Oluşturma"
     },
     "otpListLabel": {
         "failed_attempts": "Başarısız Girişimler"
