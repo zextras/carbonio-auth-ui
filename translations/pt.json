@@ -84,7 +84,7 @@
         "empty": "A lista do Exchange ActiveSync está vazia."
     },
     "deletePassword": {
-        "title": "Tem certeza que deseja excluir esta senha?"
+        "title": "Tem a certeza de que quer apagar esta palavra-passe?"
     },
     "deleteOtp": {
         "description": "Todos os dispositivos que estão a utilizar esta palavra-passe serão desligados e não poderão autenticar-se até que o utilizador forneça as novas credenciais."
@@ -93,7 +93,7 @@
         "newAuthentication": "Nova autenticação",
         "enabled": "Habilitado",
         "disabled": "Desabilitado",
-        "delete": "Excluir",
+        "delete": "Apagar",
         "createPassword": "Criar senha",
         "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar senha",

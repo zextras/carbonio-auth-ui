@@ -38,7 +38,7 @@
         "label": "Descripción",
         "enabled": "Activado",
         "disabled": "Desactivado",
-        "created": "Creado"
+        "created": "Generada"
     },
     "otpListLabel": {
         "failed_attempts": "Intentos fallidos"
@@ -93,7 +93,7 @@
         "newAuthentication": "Nueva autenticación",
         "enabled": "Activado",
         "disabled": "Desactivado",
-        "delete": "Eliminar",
+        "delete": "Borrar",
         "createPassword": "Crear contraseña",
         "copyQrCode": "Copiar código QR",
         "copyPassword": "Copiar contraseña",

@@ -37,7 +37,7 @@
         "service": "Servizio",
         "label": "Descrizione",
         "enabled": "Abilitato",
-        "disabled": "Disabiliato",
+        "disabled": "Disabilitato",
         "created": "Creato"
     },
     "otpListLabel": {
@@ -55,7 +55,7 @@
     },
     "label": {
         "save": "Salva",
-        "cancel": "Annulla",
+        "cancel": "Elimina",
         "app_name": "Auth",
         "auth_settings": "Impostazioni Auth"
     },
@@ -92,7 +92,7 @@
     "common": {
         "newAuthentication": "Nuova autenticazione",
         "enabled": "Abilitato",
-        "disabled": "Disabiliato",
+        "disabled": "Disabilitato",
         "delete": "Elimina",
         "createPassword": "Crea password",
         "copyQrCode": "Copia Codice QR",
@@ -116,9 +116,9 @@
         "incorrectPassword": "Password errata.",
         "digitSpecial": "un numero (123) e un carattere speciale (!/@)",
         "confirmNew": "Conferma Nuova Password",
-        "zimbraPasswordMinUpperCaseChars": "La quantità minima di caratteri maiuscoli è {{num}}.",
-        "zimbraPasswordMinPunctuationChars": "La quantità minima di caratteri speciali è {{num}}.",
-        "zimbraPasswordMinLowerCaseChars": "La quantità minima di caratteri minuscoli è {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "Il numero minimo di lettere maiuscole è {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Il numero minimo di caratteri speciali è {{num}}.",
+        "zimbraPasswordMinLowerCaseChars": "Il numero minimo di lettere minuscole è {{num}}.",
         "zimbraPasswordLocked": "La modifica della password è disabilitata, contatta l'amministratore di sistema per ulteriore supporto.",
         "mustContain": "La nuova password deve essere lunga da 6 a 20 caratteri e deve contenere:",
         "instruction": "Crea una nuova password e inseriscila nel campo di conferma",
