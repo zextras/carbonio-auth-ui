@@ -96,7 +96,7 @@
         "delete": "削除する",
         "createPassword": "パスワードを作成する",
         "copyQrCode": "QRコードをコピーする",
-        "copyPassword": "パスワードをコピーする",
+        "copyPassword": "パスコードをコピーする",
         "codeCopied": "コードが正常にコピーされました",
         "copyToken": "トークンをコピーする",
         "createToken": "トークンを作成する",
@@ -127,7 +127,7 @@
     "buttons": {
         "yes": "はい",
         "next": "次へ",
-        "done": "完了",
+        "done": "完了する",
         "close": "閉じる",
         "click": "こちらをクリックしてください",
         "cancel": "キャンセル"

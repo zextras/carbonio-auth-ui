@@ -17,7 +17,7 @@
     "setNewPassword": {
         "warningJustOnce": "Atenção: você poderá ver este código apenas uma vez",
         "textDescription": "Use este código para autenticar sua conta nos clientes e dispositivos que permitem Exchange ActiveSync",
-        "successfully": "Senha criada com sucesso",
+        "successfully": "Senha gerada com sucesso",
         "authenticationDescription": "Descrição da autenticação",
         "EASPasswordCopied": "Senha EAS copiada"
     },
@@ -29,14 +29,14 @@
         "maxLength": "O tamanho máximo da etiqueta é {{maxLength}} caracteres.",
         "labelPurpose": "Esta etiqueta irá te ajudar a lembrar onde a OTP é utilizada.",
         "inputLabel": "Etiqueta OTP",
-        "empty": "A lista de autenticação de OTP está vazia.",
+        "empty": "A lista de Autenticação de OTP está vazia.",
         "allowedCharacters": "O uso de underline e hífen é permitido."
     },
     "passwordListLabel": {
         "status": "Status",
         "service": "Serviço",
         "label": "Descrição",
-        "enabled": "Habilitado",
+        "enabled": "Habilitadas",
         "disabled": "Desabilitado",
         "created": "Criada"
     },
@@ -50,7 +50,7 @@
         "scan_qr": "Digitalize este código QR através de um dos aplicativos suportados.",
         "save_pin": "Sugerimos imprimir e manter os códigos PIN seguros, pois eles serão solicitados ao autenticar; cada código PIN pode ser usado apenas uma vez.",
         "printPinCodes": "Imprimir códigos PIN",
-        "label": "Nova senha de uso único (OTP)",
+        "label": "Nova OTP",
         "copy_token": "Use esse token para se autenticar na conta do Desktop Sync."
     },
     "label": {
@@ -73,7 +73,7 @@
         "specialChars": "Não são permitidos caracteres especiais.",
         "somethingWrong": "Algo deu errado.",
         "minimumLength": "O tamanho mínimo é de 6 caracteres.",
-        "maximumLength": "O comprimento máximo é de 20 caracteres.",
+        "maximumLength": "Comprimento máximo de 20 caracteres.",
         "alreadyInUse": "Já em uso. Escolha outra descrição."
     },
     "easAuth": {
@@ -91,11 +91,11 @@
     },
     "common": {
         "newAuthentication": "Nova autenticação",
-        "enabled": "Habilitado",
+        "enabled": "Habilitadas",
         "disabled": "Desabilitado",
-        "delete": "Excluir",
+        "delete": "Apagar",
         "createPassword": "Criar senha",
-        "copyQrCode": "Copiar código QR",
+        "copyQrCode": "Copiar Código QR",
         "copyPassword": "Copiar senha",
         "codeCopied": "Código copiado com sucesso",
         "copyToken": "Copiar Token",
@@ -107,10 +107,10 @@
         "zimbraPasswordMinLength": "O comprimento mínimo é de {{num}} caracteres.",
         "zimbraPasswordMaxLength": "O comprimento máximo é de {{num}} caracteres.",
         "title": "Alterar Senha",
-        "sameOldPassword": "Sua senha não pode ser igual à antiga.",
+        "sameOldPassword": "Sua senha não pode ser igual a antiga.",
         "recentlyUsedPassword": "Esta senha foi usada recentemente.",
         "passwordChanged": "Sua senha foi alterada.",
-        "oldPassword": "Senha antiga",
+        "oldPassword": "Senha Antiga",
         "mustMatch": "As senhas devem coincidir.",
         "lowerUpper": "um caractere maiúsculo (ABC) e um caractere minúsculo (abc)",
         "incorrectPassword": "Senha incorreta.",
