@@ -33,7 +33,7 @@
         "allowedCharacters": "O uso de underline e hífen é permitido."
     },
     "passwordListLabel": {
-        "status": "Status",
+        "status": "Estado",
         "service": "Serviço",
         "label": "Descrição",
         "enabled": "Habilitadas",
@@ -93,7 +93,7 @@
         "newAuthentication": "Nova autenticação",
         "enabled": "Habilitadas",
         "disabled": "Desabilitado",
-        "delete": "Apagar",
+        "delete": "Excluir",
         "createPassword": "Criar senha",
         "copyQrCode": "Copiar Código QR",
         "copyPassword": "Copiar senha",

@@ -18,7 +18,7 @@
         "warningJustOnce": "คำเตือน: คุณจะเห็นรหัสนี้เพียงครั้งเดียว",
         "textDescription": "ใช้รหัสนี้เพื่อตรวจสอบบัญชี ของคุณบนบริการ Exchange ActiveSync",
         "successfully": "สร้างรหัสผ่านสำเร็จแล้ว",
-        "authenticationDescription": "คำอธิบายการตรวจสอบ",
+        "authenticationDescription": "คำอธิบายการรับรองความถูกต้อง",
         "EASPasswordCopied": "คัดลอกรหัสผ่าน EAS แล้ว"
     },
     "setNewOtpLabel": {
@@ -144,7 +144,7 @@
         "settings_saved": "บันทึกการตั้งค่าเรียบร้อยแล้ว"
     },
     "setNewToken": {
-        "authenticationDescription": "คำอธิบายการตรวจสอบ",
+        "authenticationDescription": "คำอธิบายการรับรองความถูกต้อง",
         "successfully": "สร้างโทเค็นสำเร็จแล้ว"
     },
     "appDesktop": {
