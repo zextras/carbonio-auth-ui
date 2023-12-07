@@ -18,7 +18,7 @@
         "warningJustOnce": "Внимание: вы сможете увидеть этот код только один раз",
         "textDescription": "Используйте этот код для аутентификации своей учетной записи через Exchange ActiveSync",
         "successfully": "Пароль создан успешно",
-        "authenticationDescription": "Описание аутентификации",
+        "authenticationDescription": "Описание проверки подлинности",
         "EASPasswordCopied": "Пароль EAS скопирован"
     },
     "setNewOtpLabel": {
@@ -145,7 +145,7 @@
     },
     "setNewToken": {
         "successfully": "Токен успешно сгенерирован.",
-        "authenticationDescription": "Описание аутентификации"
+        "authenticationDescription": "Описание проверки подлинности"
     },
     "appDesktop": {
         "title": "Desktop приложения",

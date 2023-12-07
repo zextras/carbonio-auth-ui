@@ -4,7 +4,7 @@
             "whenToUse": "Dies sind Ihre statischen Codes. Sie müssen einen der Codes verwenden, wenn Sie Ihr Mobilgerät nicht dabei haben, um die Authentifizierung durchzuführen.",
             "useOnce": "Denken Sie daran, dass jeder Code nur einmal verwendet werden kann. Wir empfehlen daher, ihn nach der Verwendung aus der Liste zu löschen. Jedes Mal, wenn Sie einen Code verwenden, erhalten Sie eine Benachrichtigung per E-Mail.",
             "typePin": "Geben Sie einen der oben aufgeführten PIN-Codes ein",
-            "title": "OTP-Codes",
+            "title": "OTP Codes",
             "login": "Melden Sie sich mit Ihrem Passwort an",
             "keepInSafePlace": "Wir empfehlen Ihnen, die Codes an einem sicheren Ort aufzubewahren.",
             "howToUse": "Wie Sie Ihre PINs verwenden",
@@ -28,7 +28,7 @@
         "new": "OTP Authentifizierung | Neue Authentifizierung",
         "maxLength": "Die maximale Länge des Labels ist {{maxLength}} Zeichen.",
         "labelPurpose": "Das Label wird Ihnen helfen, sich zu erinnern, wo das OTP verwendet wird.",
-        "inputLabel": "OTP-Label",
+        "inputLabel": "OTP Label",
         "empty": "Die OTP Authentifizierungsliste ist leer.",
         "allowedCharacters": "Unterstrich und Bindestrich sind erlaubt."
     },

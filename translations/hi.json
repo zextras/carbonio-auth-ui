@@ -33,7 +33,7 @@
         "allowedCharacters": "अंडरस्कोर और डैश इस्तेमाल किए जा सकते हैं।"
     },
     "passwordListLabel": {
-        "status": "स्थिति",
+        "status": "स्टेटस",
         "service": "सर्विस",
         "label": "विवरण",
         "enabled": "चालू है",
