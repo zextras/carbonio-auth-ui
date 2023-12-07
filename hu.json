@@ -1,0 +1,158 @@
+{
+    "buttons": {
+        "cancel": "Mégse",
+        "done": "Kész",
+        "click": "Kattintson ide",
+        "close": "Bezárás",
+        "next": "Következő",
+        "yes": "Igen"
+    },
+    "common": {
+        "delete": "Töröl",
+        "disabled": "Letiltva",
+        "enabled": "Engedélyezett",
+        "codeCopied": "Kód másolása sikeres",
+        "copyPassword": "Jelszó másolása",
+        "copyQrCode": "QR-kód másolása",
+        "copyToken": "token másolása",
+        "createPassword": "Új jelszó létrehozása",
+        "createToken": "Token létrehozása",
+        "newAuthentication": "Új hitelesítés",
+        "tokenCopied": "Token másolása sikeres"
+    },
+    "label": {
+        "cancel": "Mégse",
+        "app_name": "Hitelesítés",
+        "save": "Mentés",
+        "auth_settings": "Hitelesítési beállítások"
+    },
+    "passwordListLabel": {
+        "disabled": "Letiltva",
+        "enabled": "Engedélyezett",
+        "label": "Leírás",
+        "status": "Státusz",
+        "created": "Létrehozva",
+        "service": "Szolgáltatás"
+    },
+    "instruction": {
+        "desktop": "Itt kezelheti az asztali alkalmazás jelszavát.",
+        "changePassword": "Itt módosíthatja a jelszavát.",
+        "eas": "Itt kezelheti Exchange ActiveSync jelszavát.",
+        "mobile": "Itt kezelheti a mobilalkalmazás jelszavát.",
+        "otp": "Itt kezelheti az OTP-hitelesítést."
+    },
+    "setNewOtpLabel": {
+        "new": "OTP hitelesítés | Új hitelesítés",
+        "allowedCharacters": "Aláhúzás és kötőjel megengedett.",
+        "empty": "Az OTP hitelesítési lista üres.",
+        "inputLabel": "OTP címke",
+        "labelPurpose": "A címke segít emlékezni arra, hogy hol használják az OTP-t.",
+        "maxLength": "A címke maximális hossza {{maxLength}} karakter.",
+        "prohibitedCharacters": "Ne használjon különleges karaktereket, ékezetes karaktereket vagy szóközöket.",
+        "success": "Az új OTP-hitelesítés sikeresen engedélyezve.",
+        "title": "OTP hitelesítés"
+    },
+    "setNewPassword": {
+        "warningJustOnce": "Figyelem: ezt a kódot csak egyszer láthatja",
+        "authenticationDescription": "Hitelesítés leírása",
+        "EASPasswordCopied": "EAS jelszó másolva",
+        "successfully": "Jelszó sikeresen létrehozva",
+        "textDescription": "Ezzel a kóddal hitelesítheti fiókját az Exchange ActiveSync szolgáltatásokban"
+    },
+    "staticOTPCodes": {
+        "print": {
+            "useOnce": "Ne feledje, hogy minden kód csak egyszer használható fel, ezért javasoljuk, hogy használat után törölje a listából. Bármikor, amikor kódot használ, kap egy értesítő e-mailt.",
+            "keepInSafePlace": "Javasoljuk, hogy a kódokat biztonságos helyen tárolja.",
+            "eraseUsedPin": "A használt PIN-KÓD törlése a listából",
+            "howToUse": "A PIN-kódok használata",
+            "login": "Bejelentkezés jelszóval",
+            "title": "OTP kódok",
+            "typePin": "Adja meg a fent felsorolt PIN-KÓDOK EGYIKÉT",
+            "whenToUse": "Ezek a statikus kódok. A kódok egyikét kell használnia abban az esetben, ha nem lesz közelben a mobilkészüléke, hogy folytassa a hitelesítést."
+        }
+    },
+    "newOtp": {
+        "save_pin": "Javasoljuk, hogy nyomtassa ki és őrizze meg a PIN-KÓDOKAT, mivel megkérhetik őket a hitelesítésre; minden PIN-KÓD csak egyszer használható fel.",
+        "copy_token": "Használja ezt a tokent asztali szinkronizálási fiókja hitelesítéséhez.",
+        "label": "Új OTP",
+        "printPinCodes": "PIN-KÓDOK NYOMTATÁSA",
+        "scan_qr": "Olvassa be ezt a QR-kódot a támogatott alkalmazások egyikén keresztül.",
+        "warning": "Figyelem: ezt a tokent csak egyszer másolhatja le."
+    },
+    "appDesktop": {
+        "descriptionHelp": "A Leírás segít emlékezni arra, hogy hol használják ezt az asztali alkalmazás-hitelesítést.",
+        "empty": "Az asztali alkalmazások listája üres.",
+        "label": "Asztali alkalmazások",
+        "new": "Asztali alkalmazások | Új hitelesítés",
+        "success": "Új asztali alkalmazás jelszavának engedélyezése sikeres. A jelszólista frissítve.",
+        "title": "Asztali alkalmazások"
+    },
+    "appMobile": {
+        "descriptionHelp": "A leírás segít emlékezni arra, hogy hol használja a mobil alkalmazás-hitelesítést.",
+        "empty": "Az mobil alkalmazások listája üres.",
+        "label": "Mobil alkalmazások",
+        "new": "Mobilalkalmazások | Új hitelesítés",
+        "success": "Új mobilalkalmazás jelszavának engedélyezése sikeres. A jelszólista frissítve.",
+        "title": "Mobil alkalmazások"
+    },
+    "changePassword": {
+        "confirmNew": "Jelszó megerősítése",
+        "digitSpecial": "egy szám (123) és egy speciális karakter (!/@)",
+        "formatNotValid": "A jelszónak tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert",
+        "incorrectPassword": "Hibás jelszó.",
+        "instruction": "Adjon meg egy új jelszót, és a megerősítési mezőbe írja be újra",
+        "lowerUpper": "egy nagybetűs (ABC) és egy kisbetűs (abc) karakter",
+        "mustContain": "Az új jelszónak 6-20 karakterből kell állnia, és a következőket kell tartalmaznia:",
+        "mustMatch": "A jelszavaknak meg kell egyezniük.",
+        "oldPassword": "Régi jelszó",
+        "passwordChanged": "Jelszava megváltozott.",
+        "recentlyUsedPassword": "Ezt a jelszót a közelmúltban használták.",
+        "sameOldPassword": "A jelszavad nem lehet ugyanaz, mint a régi.",
+        "title": "Jelszó módosítása",
+        "zimbraPasswordLocked": "A jelszó módosítása le van tiltva, további támogatásért forduljon a rendszergazdához.",
+        "zimbraPasswordMaxLength": "A maximális hossz {{num}} karakter.",
+        "zimbraPasswordMinLength": "A minimális hossz {{num}} karakter.",
+        "zimbraPasswordMinLowerCaseChars": "Az kisbetűk minimális száma {{num}}.",
+        "zimbraPasswordMinNumericChars": "Az számok minimális száma {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Az speciális karakterek minimális száma {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "A nagybetűk minimális száma {{num}}."
+    },
+    "deleteOtp": {
+        "description": "Minden eszköz, amely ezt a jelszót használja, le lesz választva, és nem lesznek képesek hitelesíteni magukat, amíg meg nem adsz egy új hitelesítő adatkészletet."
+    },
+    "deletePassword": {
+        "title": "Biztosan törli ezt a jelszót?"
+    },
+    "easAuth": {
+        "empty": "Az Exchange ActiveSync lista üres.",
+        "helpRemember": "A Leírás segít emlékezni arra, hogy hol használják ezt az Exchange ActiveSync hitelesítést.",
+        "label": "Exchange ActiveSync protokoll",
+        "new": "Exchange ActiveSync | Új hitelesítés",
+        "success": "Új Exchange ActiveSync jelszó sikeresen engedélyezve. A jelszólista frissítve."
+    },
+    "error": {
+        "alreadyInUse": "Már használatban van. Válasszon másik leírást.",
+        "maximumLength": "A maximális hossz 20 karakter.",
+        "minimumLength": "A minimális hossz 6 karakter.",
+        "somethingWrong": "Hiba történt.",
+        "specialChars": "Speciális karakterek használata nem engedélyezett."
+    },
+    "instructions": {
+        "needInfo": "További információra van szüksége?"
+    },
+    "newPassword": "Új jelszó",
+    "options": "Beállítások",
+    "otpListLabel": {
+        "failed_attempts": "Sikertelen próbálkozások"
+    },
+    "setNewQRCode": {
+        "successfully": "QR-hitelesítés sikeresen létrehozva"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Hitelesítés leírása",
+        "successfully": "Token sikeresen létrehozva."
+    },
+    "snackbar": {
+        "settings_saved": "Beállítások elmentve"
+    }
+}
