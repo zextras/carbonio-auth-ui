@@ -1,0 +1,22 @@
+{
+    "buttons": {
+        "cancel": "Cancel",
+        "close": "Close",
+        "yes": "Yes"
+    },
+    "common": {
+        "delete": "Delete",
+        "disabled": "Disabled",
+        "enabled": "Enabled"
+    },
+    "label": {
+        "cancel": "Cancel",
+        "save": "Save"
+    },
+    "passwordListLabel": {
+        "disabled": "Disabled",
+        "enabled": "Enabled",
+        "label": "Description",
+        "status": "Status"
+    }
+}

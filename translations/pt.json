@@ -1,12 +1,12 @@
 {
     "staticOTPCodes": {
         "print": {
-            "whenToUse": "Estes são seus códigos estáticos. Você terá que utilizar um dos códigos caso não tenha o seu dispositivo móvel para realizar a autenticação.",
-            "useOnce": "Tenha em mente que cada código pode ser usado apenas uma vez, então sugerimos que apague-o da sua lista após o uso. Sempre que usar um código, você receberá uma notificação por e-mail.",
+            "whenToUse": "Estes são os seus códigos estáticos. Caso não tenha o seu dispositivo móvel para realizar a autenticação, terá que utilizar um destes códigos.",
+            "useOnce": "Tenha em mente que cada código pode ser usado apenas uma vez, por isso sugerimos que o apague após o uso. Receberá uma notificação por e-mail sempre que usar um código.",
             "typePin": "Insira um dos códigos PIN listados acima",
             "title": "Códigos OTP",
             "login": "Acesse usando sua senha",
-            "keepInSafePlace": "Recomendamos que você guarde os códigos em um local seguro.",
+            "keepInSafePlace": "Recomendamos que guarde os códigos num local seguro.",
             "howToUse": "Como usar seus PINs",
             "eraseUsedPin": "Apague o código PIN usado da lista"
         }
@@ -33,7 +33,7 @@
         "allowedCharacters": "O uso de underline e hífen é permitido."
     },
     "passwordListLabel": {
-        "status": "Status",
+        "status": "Estado",
         "service": "Serviço",
         "label": "Descrição",
         "enabled": "Habilitado",
@@ -46,7 +46,7 @@
     "options": "Opções",
     "newPassword": "Nova senha",
     "newOtp": {
-        "warning": "Atenção: você poderá ver estes códigos apenas uma vez.",
+        "warning": "Atenção: apenas poderá copiar estes códigos uma vez.",
         "scan_qr": "Leia este código QR através de uma das aplicações suportadas.",
         "save_pin": "Sugerimos imprimir e manter os códigos PIN seguros, pois eles serão solicitados ao autenticar; cada código PIN pode ser usado apenas uma vez.",
         "printPinCodes": "Imprimir códigos PIN",
@@ -63,15 +63,15 @@
         "needInfo": "Precisa de mais informações?"
     },
     "instruction": {
-        "otp": "Aqui você pode gerenciar sua Autenticação de OTP.",
-        "mobile": "Aqui você pode gerenciar sua senha do App Móvel.",
-        "eas": "Aqui você pode gerenciar sua senha do Exchange ActiveSync.",
-        "changePassword": "Aqui você pode alterar sua senha.",
+        "otp": "Nesta página pode gerir a sua Autenticação de OTP.",
+        "mobile": "Nesta página pode gerir a sua senha de acesso da aplicação Móvel.",
+        "eas": "Nesta página pode gerir a sua senha de acesso do Exchange ActiveSync.",
+        "changePassword": "Nesta página pode alterar a sua Senha de Acesso.",
         "desktop": "Aqui pode gerir a senha da Aplicação de Desktop."
     },
     "error": {
         "specialChars": "Não são permitidos caracteres especiais.",
-        "somethingWrong": "Algo deu errado.",
+        "somethingWrong": "Ocorreu um erro.",
         "minimumLength": "O tamanho mínimo é de 6 caracteres.",
         "maximumLength": "O comprimento máximo é de 20 caracteres.",
         "alreadyInUse": "Já em uso. Por favor, escolha outra descrição."
@@ -84,7 +84,7 @@
         "empty": "A lista do Exchange ActiveSync está vazia."
     },
     "deletePassword": {
-        "title": "Tem a certeza de que quer apagar esta palavra-passe?"
+        "title": "Tem certeza que deseja excluir esta senha?"
     },
     "deleteOtp": {
         "description": "Todos os dispositivos que estão a utilizar esta palavra-passe serão desligados e não poderão autenticar-se até que o utilizador forneça as novas credenciais."
@@ -138,7 +138,7 @@
         "new": "App Móvel | Nova Autenticação",
         "label": "Aplicativos Móveis",
         "empty": "A lista do App Móvel está vazia.",
-        "descriptionHelp": "A descrição ajudará você a lembrar onde essa autenticação é usada."
+        "descriptionHelp": "A descrição ajudará a identificar onde esta Autenticação é usada."
     },
     "snackbar": {
         "settings_saved": "Configurações salvas com sucesso"

@@ -1,0 +1,20 @@
+{
+    "common": {
+        "delete": "حذف",
+        "disabled": "غیرفعال",
+        "enabled": "فعال"
+    },
+    "buttons": {
+        "cancel": "لغو",
+        "done": "انجام",
+        "yes": "بله"
+    },
+    "label": {
+        "cancel": "لغو"
+    },
+    "passwordListLabel": {
+        "disabled": "غیرفعال",
+        "enabled": "فعال",
+        "label": "توضیح"
+    }
+}
