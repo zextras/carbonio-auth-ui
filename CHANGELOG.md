@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.9](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.8...v1.1.9) (2024-01-15)
+
 ### [1.1.8](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.7...v1.1.8) (2023-12-07)
 
 ### [1.1.7](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.6...v1.1.7) (2023-11-23)
