@@ -37,7 +37,7 @@
         "service": "Serviço",
         "label": "Descrição",
         "enabled": "Habilitado",
-        "disabled": "Desabilitado",
+        "disabled": "Desativado",
         "created": "Criada"
     },
     "otpListLabel": {
@@ -92,7 +92,7 @@
     "common": {
         "newAuthentication": "Nova autenticação",
         "enabled": "Habilitado",
-        "disabled": "Desabilitado",
+        "disabled": "Desativado",
         "delete": "Apagar",
         "createPassword": "Criar senha",
         "copyQrCode": "Copiar código QR",
