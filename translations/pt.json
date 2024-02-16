@@ -92,7 +92,11 @@
     "common": {
         "newAuthentication": "Nova autenticação",
         "enabled": "Habilitado",
+<<<<<<< HEAD
         "disabled": "Desabilitadas",
+=======
+        "disabled": "Desativado",
+>>>>>>> a4a59496a2a9d63fbafff39c9484331529d7e436
         "delete": "Apagar",
         "createPassword": "Criar senha",
         "copyQrCode": "Copiar código QR",
