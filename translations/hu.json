@@ -8,7 +8,7 @@
         "yes": "Igen"
     },
     "common": {
-        "delete": "Töröl",
+        "delete": "Törlés",
         "disabled": "Letiltva",
         "enabled": "Engedélyezett",
         "codeCopied": "Kód másolása sikeres",
@@ -30,7 +30,7 @@
         "disabled": "Letiltva",
         "enabled": "Engedélyezett",
         "label": "Leírás",
-        "status": "Státusz",
+        "status": "Állapot",
         "created": "Létrehozva",
         "service": "Szolgáltatás"
     },
