@@ -33,7 +33,7 @@
         "allowedCharacters": "アンダースコアとダッシュは使用できます。"
     },
     "passwordListLabel": {
-        "status": "ステータス",
+        "status": "状態",
         "service": "サービス",
         "label": "説明",
         "enabled": "有効",
