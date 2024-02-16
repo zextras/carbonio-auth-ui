@@ -4,11 +4,12 @@
 //  * SPDX-License-Identifier: AGPL-3.0-only
 //  */
 
-import { isEqual, transform, isObject, filter } from 'lodash';
 import { Buffer } from 'buffer';
+import { isEqual, transform, isObject, filter } from 'lodash';
 
 export const differenceObject = (object, base) => {
 	// eslint-disable-next-line no-shadow
+	// eslint-disable-next-line @typescript-eslint/no-shadow
 	function changes(object, base) {
 		return transform(object, (result, value, key) => {
 			if (!isEqual(value, base[key])) {

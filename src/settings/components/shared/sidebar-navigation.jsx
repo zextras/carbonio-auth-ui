@@ -5,8 +5,9 @@
  */
 
 import React from 'react';
-import styled from 'styled-components';
+
 import { Container, Divider, Icon, Padding, Row, Text } from '@zextras/carbonio-design-system';
+import styled from 'styled-components';
 
 const LinkText = styled(Text)`
 	user-select: none;

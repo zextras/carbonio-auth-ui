@@ -5,8 +5,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { Spinner, addSettingsView, t } from '@zextras/carbonio-shell-ui';
 import React, { Suspense, lazy, useEffect } from 'react';
+
+import { Spinner, addSettingsView, t } from '@zextras/carbonio-shell-ui';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 

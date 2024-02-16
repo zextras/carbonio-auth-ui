@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+
 import { FormSubSection } from '@zextras/carbonio-design-system';
 
 export default function OptionsSettingsView({ t }) {

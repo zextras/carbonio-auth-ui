@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable camelcase */
 /* disabled camelcase for NewPasswordProps */
@@ -8,6 +9,7 @@
  */
 
 import React, { ReactElement, useState, useMemo } from 'react';
+
 import {
 	Button,
 	Container,
@@ -19,18 +21,20 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { orderBy, isEmpty } from 'lodash';
 import { t } from '@zextras/carbonio-shell-ui';
+import { orderBy, isEmpty } from 'lodash';
+
+// @ts-ignore
+import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
 import { BigIcon } from '../shared/big-icon';
+// @ts-ignore
+import { ErrorMessage } from '../shared/error-message';
 // @ts-ignore
 import { Section } from '../shared/section';
 // @ts-ignore
 import { copyToClipboard, formatDate, objToBase64 } from '../utils';
 // @ts-ignore
-import { fetchSoap } from '../../network/fetchSoap';
-// @ts-ignore
-import { ErrorMessage } from '../shared/error-message';
 
 const stepsNames = {
 	set_label: 'set_label',

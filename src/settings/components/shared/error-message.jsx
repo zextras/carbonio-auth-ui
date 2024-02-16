@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+
 import { Row, Text } from '@zextras/carbonio-design-system';
 
 export function ErrorMessage({ error }) {

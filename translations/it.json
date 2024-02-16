@@ -55,7 +55,7 @@
     },
     "label": {
         "save": "Salva",
-        "cancel": "Elimina",
+        "cancel": "Cancella",
         "app_name": "Auth",
         "auth_settings": "Impostazioni Auth"
     },
@@ -130,7 +130,7 @@
         "done": "Fine",
         "close": "Chiudi",
         "click": "Clicca qui",
-        "cancel": "Elimina"
+        "cancel": "Cancella"
     },
     "appMobile": {
         "title": "App Mobile",

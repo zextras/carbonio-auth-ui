@@ -2,7 +2,7 @@
     "appMobile": {
         "empty": "Lista aplikacji mobilnych jest pusta.",
         "label": "Aplikacje mobilne",
-        "new": "Aplikacje mobilne | Nowe uwierzytelnienie",
+        "new": "Aplikacje mobilne | Nowe uwierzytelnianie",
         "success": "Nowa hasło aplikacji mobilnej zostało włączone. Lista haseł została zaktualizowana.",
         "title": "Aplikacje mobilne",
         "descriptionHelp": "Opis pomoże Ci zapamiętać gdzie używane jest to uwierzytelnienie aplikacji mobilnych."
@@ -126,7 +126,7 @@
         "warningJustOnce": "Uwaga: będziesz mógł zobaczyć ten kod tylko raz"
     },
     "setNewQRCode": {
-        "successfully": "Uwierzytelnianie QR zostało wygenerowane pomyślnie"
+        "successfully": "Uwierzytelnianie QR zostało wygenerowane"
     },
     "setNewToken": {
         "authenticationDescription": "Opis uwierzytelniania",
