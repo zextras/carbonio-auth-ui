@@ -1,0 +1,158 @@
+{
+    "appMobile": {
+        "empty": "Lista aplikacji mobilnych jest pusta.",
+        "label": "Aplikacje mobilne",
+        "new": "Aplikacje mobilne | Nowe uwierzytelnianie",
+        "success": "Nowa hasło aplikacji mobilnej zostało włączone. Lista haseł została zaktualizowana.",
+        "title": "Aplikacje mobilne",
+        "descriptionHelp": "Opis pomoże Ci zapamiętać gdzie używane jest to uwierzytelnienie aplikacji mobilnych."
+    },
+    "newOtp": {
+        "label": "Nowe hasło OTP",
+        "printPinCodes": "Wydrukuj kody PIN",
+        "save_pin": "Sugerujemy wydrukowanie i trzymanie kodów PIN przy sobie, ponieważ mogą być one potrzebne do weryfikacji; każdego kodu PIN można użyć tylko raz.",
+        "scan_qr": "Zeskanuj ten kod QR przez jedną ze wspieranych aplikacji.",
+        "copy_token": "Użyj tego tokenu, aby uwierzytelnić Twoje konto synchronizacji pulpitu.",
+        "warning": "Uwaga: będziesz mógł skopiować ten token tylko raz."
+    },
+    "buttons": {
+        "cancel": "Anuluj",
+        "click": "Kliknij tutaj",
+        "close": "Zamknij",
+        "done": "Gotowe",
+        "next": "Następne",
+        "yes": "Tak"
+    },
+    "changePassword": {
+        "confirmNew": "Potwierdź nowe hasło",
+        "digitSpecial": "cyfrę (123) i znak specjalny (!/@)",
+        "formatNotValid": "Hasło musi zawierać co najmniej jedną: wielką literę, małą literę, cyfrę i znak specjalny",
+        "incorrectPassword": "Nieprawidłowe hasło.",
+        "instruction": "Stwórz nowe hasło i wprowadź je w polu potwierdzenia",
+        "lowerUpper": "wielką literę (ABC) i małą literę (abc)",
+        "mustContain": "Nowe hasło musi mieć od 6 do 20 znaków i musi zawierać:",
+        "mustMatch": "Hasła muszą się zgadzać.",
+        "oldPassword": "Stare hasło",
+        "passwordChanged": "Twoje hasło zostało zmienione.",
+        "recentlyUsedPassword": "To hasło było użyte niedawno temu.",
+        "sameOldPassword": "Twoje hasło nie może być takie samo jak stare.",
+        "title": "Zmień hasło",
+        "zimbraPasswordMaxLength": "Max. długość to {{num}} znaków.",
+        "zimbraPasswordMinLength": "Min. długość to {{num}} znaków.",
+        "zimbraPasswordMinLowerCaseChars": "Min. liczba małych liter to {{num}}.",
+        "zimbraPasswordMinNumericChars": "Min. liczba cyfr to {{num}}.",
+        "zimbraPasswordMinPunctuationChars": "Min. liczba znaków specjalnych to {{num}}.",
+        "zimbraPasswordMinUpperCaseChars": "Min. liczba wielkich liter to {{num}}.",
+        "zimbraPasswordLocked": "Zmienianie hasła jest wyłączone, skontaktuj się z Twoim administratorem systemu, aby uzyskać wsparcie."
+    },
+    "common": {
+        "codeCopied": "Kod został skopiowany",
+        "copyPassword": "Skopiuj hasło",
+        "copyQrCode": "Skopiuj kod QR",
+        "createPassword": "Stwórz hasło",
+        "delete": "Usuń",
+        "disabled": "Wyłączone",
+        "enabled": "Włączone",
+        "newAuthentication": "Nowe uwierzytelnienie",
+        "copyToken": "skopiuj token",
+        "createToken": "Stwórz token",
+        "tokenCopied": "Token został skopiowany"
+    },
+    "deleteOtp": {
+        "description": "Wszystkie urządzenia, które używają tego hasła zostaną rozłączone i nie będzie można ich uwierzytelnić dopóki nie ustawisz nowego zestawu danych logowania."
+    },
+    "deletePassword": {
+        "title": "Czy na pewno chcesz usunąć to hasło?"
+    },
+    "easAuth": {
+        "empty": "Lista Exchange ActiveSync jest pusta.",
+        "helpRemember": "Opis pomoże Ci zapamiętać gdzie to uwierzytelanianie Exchange ActiveSync jest używane.",
+        "label": "Exchange ActiveSync",
+        "new": "Exchange ActiveSync | Nowe uwierzytelnianie",
+        "success": "Nowe hasło Exchange ActiveSync zostało włączone pomyślnie. Lista haseł została zaktualizowana."
+    },
+    "error": {
+        "alreadyInUse": "Już używane. Wybierz inny opis.",
+        "maximumLength": "Max. długość to 20 znaków.",
+        "minimumLength": "Min. długość to 6 znaków.",
+        "somethingWrong": "Coś poszło nie tak.",
+        "specialChars": "Znaki specjalne nie są dozwolone."
+    },
+    "instruction": {
+        "changePassword": "Tutaj możesz zmienić swoje hasło.",
+        "eas": "Tutaj możesz zarządzać swoim hasłem Exchange ActiveSync.",
+        "mobile": "tutaj możesz zarządzać hasłem aplikacji mobilnej.",
+        "otp": "Tutaj możesz zarządzać uwierzytelnianiem OTP.",
+        "desktop": "Tutaj możesz zarządzać hasłem aplikacji komputerowej."
+    },
+    "instructions": {
+        "needInfo": "Potrzebujesz więcej informacji?"
+    },
+    "label": {
+        "app_name": "Uwierzytelnianie",
+        "cancel": "Anuluj",
+        "save": "Zapisz",
+        "auth_settings": "Ustawienia uwierzytelniania"
+    },
+    "newPassword": "Nowe hasło",
+    "options": "Opcje",
+    "otpListLabel": {
+        "failed_attempts": "Nieudane próby"
+    },
+    "passwordListLabel": {
+        "created": "Stworzono",
+        "disabled": "Wyłączone",
+        "enabled": "Włączone",
+        "label": "Opis",
+        "service": "Usługa",
+        "status": "Status"
+    },
+    "setNewOtpLabel": {
+        "allowedCharacters": "Podkreślenie i myślniki są dozwolone.",
+        "empty": "Lista uwierzytelnień OTP jest pusta.",
+        "inputLabel": "Określenie hasła OTP",
+        "labelPurpose": "To określenie pomoże Ci zapamiętać gdzie hasło OTP jest używane.",
+        "maxLength": "Max. długość określenie wynosi {{maxLength}} znaków.",
+        "new": "Uwierzytelnianie OTP | Nowe uwierzytelnianie",
+        "prohibitedCharacters": "Nie używaj żadnych znaków specjalnych, znaków diakrytycznych ani spacji.",
+        "success": "Nowe uwierzytelnianie OTP zostało włączone pomyślnie.",
+        "title": "Uwierzytelnianie OTP"
+    },
+    "setNewPassword": {
+        "EASPasswordCopied": "Hasło EAS zostało skopiowane",
+        "authenticationDescription": "Opis uwierzytelniania",
+        "successfully": "Hasło zostało wygenerowane pomyślnie",
+        "textDescription": "Użyj tego kodu, aby uwierzytelnić swoje konto w usługach Exchange ActiveSync",
+        "warningJustOnce": "Uwaga: będziesz mógł zobaczyć ten kod tylko raz"
+    },
+    "setNewQRCode": {
+        "successfully": "Uwierzytelnianie QR zostało wygenerowane"
+    },
+    "setNewToken": {
+        "authenticationDescription": "Opis uwierzytelniania",
+        "successfully": "Token został wygenerowany."
+    },
+    "staticOTPCodes": {
+        "print": {
+            "eraseUsedPin": "Wymaż użyty PIN z listy",
+            "howToUse": "Jak używać swoich PIN'ów",
+            "keepInSafePlace": "Zalecamy przechowywanie kodów w bezpiecznym miejscu.",
+            "login": "Zaloguj się używając swojego hasła",
+            "title": "Kody hasła OTP",
+            "typePin": "Wprowadź jeden z kodów PIN podanych powyżej",
+            "useOnce": "Pamiętaj, że każdy kod może zostać użyty tylko raz, sugerujemy więc usunięcie go z listy po jego użyciu. Zawsze kiedy użyjesz kodu, otrzymasz powiadomienie e-mail.",
+            "whenToUse": "To są Twoje kody statyczne. Będziesz musiał użyć jednego z tych kodów jeśli podczas uwierzytelniania nie będziesz miał pod ręką urządzenia mobilnego."
+        }
+    },
+    "appDesktop": {
+        "empty": "Lista aplikacji komputerowych jest pusta.",
+        "label": "Aplikacje komputerowe",
+        "new": "Aplikacje komputerowe | Nowe uwierzytelnienie",
+        "descriptionHelp": "Opis pomoże Ci zapamiętać gdzie używane jest to uwierzytelnienie aplikacji komputerowych.",
+        "success": "Nowe hasło aplikacji komputerowej zostało włączone. Lista haseł została zaktualizowana.",
+        "title": "Aplikacje komputerowe"
+    },
+    "snackbar": {
+        "settings_saved": "Ustawienia zostały zapisane"
+    }
+}

@@ -28,7 +28,7 @@
         "new": "Authentification OTP | Nouvelle authentification",
         "maxLength": "La longueur maximale de l'étiquette est de {{maxLength}} caractères.",
         "labelPurpose": "L'étiquette vous aidera à vous souvenir de l'endroit où l'OTP est utilisé.",
-        "inputLabel": "Etiquette OTP",
+        "inputLabel": "Étiquette OTP",
         "empty": "La liste d'authentification OTP est vide.",
         "allowedCharacters": "Le trait de soulignement et le tiret sont autorisés."
     },
@@ -93,7 +93,7 @@
         "newAuthentication": "Nouvelle authentification",
         "enabled": "Activé",
         "disabled": "Désactivé",
-        "delete": "Supprimer",
+        "delete": "Effacer",
         "createPassword": "Créer le mot de passe",
         "copyQrCode": "Copie du QR code",
         "copyPassword": "Copier le mot de passe",
@@ -126,7 +126,7 @@
     },
     "buttons": {
         "yes": "Oui",
-        "next": "Prochain",
+        "next": "Suivant",
         "done": "Terminé",
         "close": "Fermer",
         "click": "Cliquer ici",
