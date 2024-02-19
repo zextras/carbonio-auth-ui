@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+
 import {
 	Button,
 	Container,
@@ -18,8 +20,8 @@ import {
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
 import QRCode from 'qrcode.react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
+
 import { EmptyState } from '../../assets/icons/empty-state';
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import {
@@ -139,6 +141,7 @@ export function OTPAuthentication() {
 
 	const handleOnGenerateOTP = () =>
 		fetchSoap('GenerateOTPRequest', {
+			// eslint-disable-next-line sonarjs/no-duplicate-string
 			_jsns: 'urn:zextrasClient',
 			humanReadable: false,
 			labelPrefix: otpLabel

@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+
 import { Button, Container, Divider, Padding, Text, Row } from '@zextras/carbonio-design-system';
 
 function SectionHeader({

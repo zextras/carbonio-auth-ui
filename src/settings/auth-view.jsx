@@ -7,15 +7,17 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { orderBy } from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { AuthOutline } from './assets/icons/auth-outline';
+import { AppDesktop } from './components/operations/app-desktop';
+import { AppMobile } from './components/operations/app-mobile';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
-import { AppMobile } from './components/operations/app-mobile';
-import { AppDesktop } from './components/operations/app-desktop';
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';

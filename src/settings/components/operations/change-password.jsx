@@ -1,9 +1,12 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable no-console */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+
+import React, { useEffect, useState } from 'react';
 
 import {
 	Button,
@@ -16,7 +19,7 @@ import {
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { getUserAccount, t, useUserSettings } from '@zextras/carbonio-shell-ui';
-import React, { useEffect, useState } from 'react';
+
 import { fetchSoap } from '../../network/fetchSoap';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';

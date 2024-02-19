@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useMemo } from 'react';
+
 import {
 	Button,
 	Container,
@@ -17,16 +18,16 @@ import {
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
-import styled from 'styled-components';
 import { isEmpty, orderBy } from 'lodash';
-import { fetchSoap } from '../../network/fetchSoap';
+import styled from 'styled-components';
 
+import { EmptyState } from '../../assets/icons/empty-state';
+import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
+import { fetchSoap } from '../../network/fetchSoap';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
 import { formatDate, copyToClipboard } from '../utils';
-import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
-import { EmptyState } from '../../assets/icons/empty-state';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -95,6 +96,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 
 	const updatePasswords = () =>
 		fetchSoap('ListCredentialsRequest', {
+			// eslint-disable-next-line sonarjs/no-duplicate-string
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
 			res.response.ok &&

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable camelcase */
 /* disabled camelcase for QrCodeProps */
@@ -6,6 +7,8 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+
+import React, { ReactElement, useMemo, useState } from 'react';
 
 import {
 	Button,
@@ -22,7 +25,7 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 // @ts-ignore
 import QRCode from 'qrcode.react';
-import React, { ReactElement, useMemo, useState } from 'react';
+
 // @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
 // @ts-ignore

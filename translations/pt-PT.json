@@ -1,0 +1,16 @@
+{
+    "buttons": {
+        "cancel": "Cancelar",
+        "done": "Concluído"
+    },
+    "common": {
+        "delete": "Eliminar",
+        "enabled": "Activado"
+    },
+    "label": {
+        "cancel": "Cancelar"
+    },
+    "passwordListLabel": {
+        "enabled": "Activado"
+    }
+}
