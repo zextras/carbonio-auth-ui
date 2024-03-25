@@ -5,4 +5,3 @@
 //  */
 
 declare module '*.properties';
-declare module '@zextras/carbonio-design-system';

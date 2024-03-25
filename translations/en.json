@@ -15,6 +15,12 @@
         "success": "New Mobile App password enabled successfully. Passwords list has been updated.",
         "title": "Mobile Apps"
     },
+    "button": {
+        "remove": "remove",
+        "resend_code": "resend code",
+        "set_recovery_address": "set address"
+    },
+    "button_continue": "Continue",
     "buttons": {
         "cancel": "Cancel",
         "click": "Click here",
@@ -93,6 +99,8 @@
         "app_name": "Auth",
         "auth_settings": "Auth Settings",
         "cancel": "Cancel",
+        "enter_code": "Enter code",
+        "enter_recovery_address": "Enter your recovery address",
         "invalid_code": "Code not valid",
         "save": "Save"
     },

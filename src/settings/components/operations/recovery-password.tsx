@@ -14,7 +14,8 @@ import {
 	Button,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
+import { useUserSettings } from '@zextras/carbonio-shell-ui';
+import { useTranslation } from 'react-i18next';
 
 import { isValidEmail } from '../../../utils/email';
 import { setRecoveryAccountRequest } from '../../network/set-recovery-account-request';
@@ -22,8 +23,28 @@ import { setRecoveryAccountRequest } from '../../network/set-recovery-account-re
 // @ts-ignore
 import { Section } from '../shared/section';
 
+const useErrorSnackbar = (): (() => void) => {
+	const createSnackbar = useSnackbar();
+	const [t] = useTranslation();
+
+	return useCallback(
+		() =>
+			createSnackbar({
+				key: `send_recovery_error`,
+				replace: true,
+				type: 'error',
+				hideButton: true,
+				label: t('error.somethingWrong', 'Something went wrong.'),
+				autoHideTimeout: 3000
+			}),
+		[createSnackbar, t]
+	);
+};
 export const RecoveryPassword = (): JSX.Element => {
 	const createSnackbar = useSnackbar();
+	const errorSnackbar = useErrorSnackbar();
+	const [t] = useTranslation();
+
 	const { zimbraPrefPasswordRecoveryAddressStatus, zimbraPrefPasswordRecoveryAddress } =
 		useUserSettings().prefs;
 
@@ -70,15 +91,19 @@ export const RecoveryPassword = (): JSX.Element => {
 						),
 						autoHideTimeout: 3000
 					});
+				} else {
+					errorSnackbar();
 				}
 			}
 		);
-	}, [createSnackbar, passwordRecoveryAddress]);
+	}, [createSnackbar, errorSnackbar, passwordRecoveryAddress, t]);
 
 	const onResendCodeClick = useCallback(() => {
 		setRecoveryAccountRequest({ op: 'resendCode', recoveryAccount: passwordRecoveryAddress }).then(
 			(res) => {
 				if (!res.Fault) {
+					codeHasError && setCodeHasError(false);
+					codeValue && setCodeValue('');
 					setRecoveryAddressStatus('pending');
 					createSnackbar({
 						key: `resend_recovery`,
@@ -91,14 +116,18 @@ export const RecoveryPassword = (): JSX.Element => {
 						),
 						autoHideTimeout: 3000
 					});
+				} else {
+					errorSnackbar();
 				}
 			}
 		);
-	}, [createSnackbar, passwordRecoveryAddress]);
+	}, [codeHasError, codeValue, createSnackbar, errorSnackbar, passwordRecoveryAddress, t]);
 
 	const onCancelClick = useCallback(() => {
 		setRecoveryAccountRequest({ op: 'reset' }).then((res) => {
 			if (!res.Fault) {
+				codeHasError && setCodeHasError(false);
+				codeValue && setCodeValue('');
 				setRecoveryAddressStatus('');
 				setPasswordRecoveryAddress('');
 				createSnackbar({
@@ -109,9 +138,11 @@ export const RecoveryPassword = (): JSX.Element => {
 					label: t('snackbar.reset_recovery_address', 'Recovery address reset successfully'),
 					autoHideTimeout: 3000
 				});
+			} else {
+				errorSnackbar();
 			}
 		});
-	}, [createSnackbar]);
+	}, [codeHasError, codeValue, createSnackbar, errorSnackbar, t]);
 
 	const onContinueClick = useCallback(() => {
 		setRecoveryAccountRequest({
@@ -119,6 +150,8 @@ export const RecoveryPassword = (): JSX.Element => {
 			recoveryAccountVerificationCode: codeValue
 		}).then((res) => {
 			if (!res.Fault) {
+				codeHasError && setCodeHasError(false);
+				codeValue && setCodeValue('');
 				setRecoveryAddressStatus('verified');
 				createSnackbar({
 					key: `set_recovery_address`,
@@ -129,10 +162,13 @@ export const RecoveryPassword = (): JSX.Element => {
 					autoHideTimeout: 3000
 				});
 			} else {
-				setCodeHasError(true);
+				if (res.Fault.Detail.Error.Code === 'service.CODE_MISMATCH') {
+					setCodeHasError(true);
+				}
+				errorSnackbar();
 			}
 		});
-	}, [codeValue, createSnackbar]);
+	}, [codeHasError, codeValue, createSnackbar, errorSnackbar, t]);
 
 	const isSetAddressButtonDisabled = useMemo(
 		() => !isValidEmail(passwordRecoveryAddress) || isRecoveryAddressStatusInPending,
@@ -153,7 +189,12 @@ export const RecoveryPassword = (): JSX.Element => {
 						</Text>
 						<Container width="100%" gap={'0.5rem'} mainAlignment="flex-start" orientation={'row'}>
 							<Text>{passwordRecoveryAddress}</Text>
-							<Button type="outlined" color="error" label={'remove'} onClick={onCancelClick} />
+							<Button
+								type="outlined"
+								color="error"
+								label={t('button.remove', 'remove')}
+								onClick={onCancelClick}
+							/>
 						</Container>
 					</Container>
 				</>
@@ -177,14 +218,14 @@ export const RecoveryPassword = (): JSX.Element => {
 					<Container width="100%" gap={'0.5rem'} mainAlignment="flex-start" orientation={'row'}>
 						<Container width="50%">
 							<Input
-								label="Enter your recovery address"
+								label={t('label.enter_recovery_address', 'Enter your recovery address')}
 								value={passwordRecoveryAddress}
 								onChange={onAddressInputChange}
 								disabled={isRecoveryAddressStatusInPending}
 							/>
 						</Container>
 						<Button
-							label={'set address'}
+							label={t('button.set_recovery_address', 'set address')}
 							onClick={onSetAddressClick}
 							disabled={isSetAddressButtonDisabled}
 						/>
@@ -220,7 +261,7 @@ export const RecoveryPassword = (): JSX.Element => {
 								>
 									<Container width="50%">
 										<Input
-											label="Enter code"
+											label={t('label.enter_code', 'Enter code')}
 											value={codeValue}
 											onChange={onCodeInputChange}
 											hasError={codeHasError}
@@ -230,7 +271,11 @@ export const RecoveryPassword = (): JSX.Element => {
 										/>
 									</Container>
 									{isRecoveryAddressStatusInPending && (
-										<Button type="outlined" label={'resend code'} onClick={onResendCodeClick} />
+										<Button
+											type="outlined"
+											label={t('button.resend_code', 'resend code')}
+											onClick={onResendCodeClick}
+										/>
 									)}
 								</Container>
 							</Container>
@@ -243,7 +288,7 @@ export const RecoveryPassword = (): JSX.Element => {
 							>
 								<Button type="outlined" label={'cancel'} onClick={onCancelClick} />
 								<Button
-									label={'Continue'}
+									label={t('button_continue', 'Continue')}
 									onClick={onContinueClick}
 									disabled={!codeValue?.length}
 								/>
