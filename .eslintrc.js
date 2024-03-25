@@ -3,5 +3,8 @@
 // SPDX-License-Identifier: CC0-1.0
 
 module.exports = {
-	extends: ['./node_modules/@zextras/carbonio-ui-configs/rules/eslint.js']
+	extends: ['./node_modules/@zextras/carbonio-ui-configs/rules/eslint.js'],
+	rules: {
+		'@typescript-eslint/no-explicit-any': 'warn'
+	}
 };
