@@ -1,15 +1,12 @@
-/* eslint-disable react/sort-comp */
-
 /*
- * Copyright (C) 2011-2020 ZeXtras
- * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
+import { Container, Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { compact, orderBy } from 'lodash';
 
@@ -27,7 +24,7 @@ import { fetchSoap } from './network/fetchSoap';
 
 function Instruction({ instruction, link }) {
 	return (
-		<Row orientation="vertical">
+		<Row orientation="vertical" height="fill" width="fill">
 			<Padding bottom="medium">
 				<AuthOutline />
 			</Padding>
@@ -35,13 +32,21 @@ function Instruction({ instruction, link }) {
 				<Text style={{ textAlign: 'center' }} overflow="break-word" color="secondary">
 					{instruction}
 				</Text>
-				<Text style={{ textAlign: 'center' }} overflow="break-word" color="secondary">
-					{t('instructions.needInfo')}
-				</Text>
+				{link ? (
+					<Text style={{ textAlign: 'center' }} overflow="break-word" color="secondary">
+						{t('instructions.needInfo')}
+					</Text>
+				) : (
+					<Container height="1.188rem" />
+				)}
 			</Padding>
-			<Link href={link} target="_blank">
-				<u>{t('buttons.click')}</u>
-			</Link>
+			{link ? (
+				<Link href={link} target="_blank">
+					<u>{t('buttons.click')}</u>
+				</Link>
+			) : (
+				<Container height="1.188rem" />
+			)}
 		</Row>
 	);
 }
@@ -69,6 +74,10 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 				? {
 						name: 'recoveryaddress',
 						label: t('recoveryAddress.title', 'Recovery Address'),
+						instruction: t(
+							'instruction.recoveryaddress',
+							'Here you can set and change your mail recovery password.'
+						),
 						view: RecoveryPassword
 				  }
 				: undefined,

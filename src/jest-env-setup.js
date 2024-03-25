@@ -1,12 +1,8 @@
-// /*
-//  * SPDX-FileCopyrightText: 2021 2021 Zextras <https://www.zextras.com>
-//  *
-//  * SPDX-License-Identifier: AGPL-3.0-only
-//  */
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import '@testing-library/jest-dom/extend-expect';
-// import server from './mocks/server';
+/*
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 
 beforeEach(() => {
 	// Do not useFakeTimers with `whatwg-fetch` if using mocked server

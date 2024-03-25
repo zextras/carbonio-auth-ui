@@ -90,7 +90,8 @@
         "desktop": "Here you can manage Desktop App password.",
         "eas": "Here you can manage your Exchange ActiveSync password.",
         "mobile": "Here you can manage Mobile App password.",
-        "otp": "Here you can manage the OTP Authentication."
+        "otp": "Here you can manage the OTP Authentication.",
+        "recoveryaddress": "Here you can set and change your mail recovery password."
     },
     "instructions": {
         "needInfo": "Do you need more information?"
