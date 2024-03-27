@@ -195,7 +195,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 		setAuthDescription('');
 		showSnackbar &&
 			createSnackbar({
-				key: 1,
+				key: '1',
 				type: 'success',
 				label: t(
 					'appDesktop.success',
@@ -364,7 +364,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 											// eslint-disable-next-line max-len
 											copyToClipboard(objToBase64(newPasswordResp.qrcode_data));
 											createSnackbar({
-												key: 2,
+												key: '2',
 												label: t('common.tokenCopied', 'Token copied successfully')
 											});
 										}}

@@ -3,5 +3,4 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-
-declare module '*.properties';
+export const EMAIL_VALIDATOR_REGEX = /[^\s@]+@[^\s@]+\.[^\s@]+/;
