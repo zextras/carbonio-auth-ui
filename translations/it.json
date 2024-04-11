@@ -55,7 +55,7 @@
     },
     "label": {
         "save": "Salva",
-        "cancel": "Cancella",
+        "cancel": "Elimina",
         "app_name": "Auth",
         "auth_settings": "Impostazioni Auth"
     },
@@ -130,7 +130,7 @@
         "done": "Fine",
         "close": "Chiudi",
         "click": "Clicca qui",
-        "cancel": "Cancella"
+        "cancel": "Elimina"
     },
     "appMobile": {
         "title": "App Mobile",
@@ -154,5 +154,30 @@
         "new": "Applicazioni Desktop | Nuova Autenticazione",
         "success": "La nuova password per l'applicazione desktop è stata abilitata con successo. La lista della password è stata aggiornata.",
         "title": "Applicazioni Desktop"
+    },
+    "settingsAuth": {
+        "Displayer": {
+            "ResetPassword": "Reimposta Password",
+            "CreateANewPasswordToResetIt": "Crea una nuova password per reimpostarla."
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Annulla"
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Continua"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Qui puoi reimpostare la tua password."
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Password reimpostata correttamente"
+        },
+        "Option": {
+            "ResetPassword": "Reimposta Password"
+        },
+        "displayerInputField": {
+            "ConfirmPassword": "Conferma Password",
+            "NewPassword": "Nuova Password"
+        }
     }
 }
