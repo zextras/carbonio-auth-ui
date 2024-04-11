@@ -7,6 +7,7 @@ module.exports = {
 	plugins: ['unused-imports', 'notice'],
 	overrides: [],
 	rules: {
+		'@typescript-eslint/no-explicit-any': 'warn',
 		'import/order': [
 			'warn',
 			{
