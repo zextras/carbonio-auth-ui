@@ -154,5 +154,30 @@
         "new": "Applications de Bureau | Nouvelle Authentification",
         "success": "Le mot de passe de la nouvelle application de bureau a été activé avec succès. La liste des mots de passe a été mise à jour.",
         "title": "Applications de Bureau"
+    },
+    "settingsAuth": {
+        "Option": {
+            "ResetPassword": "Réinitialisation du mot de passe"
+        },
+        "displayerInputField": {
+            "ConfirmPassword": "Confirmer le mot de passe",
+            "NewPassword": "Nouveau mot de passe"
+        },
+        "Displayer": {
+            "ResetPassword": "Réinitialiser le mot de passe",
+            "CreateANewPasswordToResetIt": "Définissez un nouveau mot de passe pour le réinitialiser."
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Continuer"
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Le mot de passe a été réinitialisé avec succès"
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Annuler"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Vous pouvez réinitialiser votre mot de passe ici."
+        }
     }
 }

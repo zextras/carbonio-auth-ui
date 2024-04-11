@@ -1,6 +1,6 @@
 {
     "buttons": {
-        "cancel": "Mégse",
+        "cancel": "Törlés",
         "done": "Kész",
         "click": "Kattintson ide",
         "close": "Bezárás",
@@ -21,7 +21,7 @@
         "tokenCopied": "Token másolása sikeres"
     },
     "label": {
-        "cancel": "Mégse",
+        "cancel": "Törlés",
         "app_name": "Hitelesítés",
         "save": "Mentés",
         "auth_settings": "Hitelesítési beállítások"

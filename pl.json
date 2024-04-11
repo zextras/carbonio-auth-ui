@@ -68,7 +68,7 @@
         "empty": "Lista Exchange ActiveSync jest pusta.",
         "helpRemember": "Opis pomoże Ci zapamiętać gdzie to uwierzytelanianie Exchange ActiveSync jest używane.",
         "label": "Exchange ActiveSync",
-        "new": "Exchange ActiveSync | Nowe uwierzytelnianie",
+        "new": "Exchange ActiveSync | Nowe uwierzytelnienie",
         "success": "Nowe hasło Exchange ActiveSync zostało włączone pomyślnie. Lista haseł została zaktualizowana."
     },
     "error": {
@@ -81,7 +81,7 @@
     "instruction": {
         "changePassword": "Tutaj możesz zmienić swoje hasło.",
         "eas": "Tutaj możesz zarządzać swoim hasłem Exchange ActiveSync.",
-        "mobile": "tutaj możesz zarządzać hasłem aplikacji mobilnej.",
+        "mobile": "Tutaj możesz zarządzać hasłem aplikacji mobilnej.",
         "otp": "Tutaj możesz zarządzać uwierzytelnianiem OTP.",
         "desktop": "Tutaj możesz zarządzać hasłem aplikacji komputerowej."
     },
@@ -113,9 +113,9 @@
         "inputLabel": "Określenie hasła OTP",
         "labelPurpose": "To określenie pomoże Ci zapamiętać gdzie hasło OTP jest używane.",
         "maxLength": "Max. długość określenie wynosi {{maxLength}} znaków.",
-        "new": "Uwierzytelnianie OTP | Nowe uwierzytelnianie",
+        "new": "Uwierzytelnianie OTP | Nowe uwierzytelnienie",
         "prohibitedCharacters": "Nie używaj żadnych znaków specjalnych, znaków diakrytycznych ani spacji.",
-        "success": "Nowe uwierzytelnianie OTP zostało włączone pomyślnie.",
+        "success": "Nowe uwierzytelnienie OTP zostało włączone.",
         "title": "Uwierzytelnianie OTP"
     },
     "setNewPassword": {
@@ -154,5 +154,30 @@
     },
     "snackbar": {
         "settings_saved": "Ustawienia zostały zapisane"
+    },
+    "settingsAuth": {
+        "Displayer": {
+            "CreateANewPasswordToResetIt": "Aby zresetować hasło, stwórz nowe.",
+            "ResetPassword": "Zresetuj hasło"
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Anuluj"
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Hasło zostało zresetowane"
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Kontynuuj"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Tutaj możesz zresetować Twoje hasło."
+        },
+        "Option": {
+            "ResetPassword": "Zresetuj hasło"
+        },
+        "displayerInputField": {
+            "NewPassword": "Nowe hasło",
+            "ConfirmPassword": "Potwierdź hasło"
+        }
     }
 }
