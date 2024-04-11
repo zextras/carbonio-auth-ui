@@ -33,7 +33,7 @@
         "allowedCharacters": "Разрешены подчеркивание и тире."
     },
     "passwordListLabel": {
-        "status": "Статус",
+        "status": "статусу",
         "service": "Сервис",
         "label": "Описание",
         "enabled": "Включено",
@@ -154,5 +154,30 @@
         "label": "Desktop приложения",
         "empty": "Список Desktop приложений пуст.",
         "descriptionHelp": "Описание поможет вам вспомнить, где используется эта аутентификация."
+    },
+    "settingsAuth": {
+        "displayerInputField": {
+            "NewPassword": "Новый пароль",
+            "ConfirmPassword": "Подтвердить пароль"
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Отменить"
+        },
+        "Option": {
+            "ResetPassword": "Сбросить пароль"
+        },
+        "Displayer": {
+            "ResetPassword": "Сбросить пароль",
+            "CreateANewPasswordToResetIt": "Чтобы сбросить пароль, создайте новый."
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Пароль успешно сброшен"
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Продолжить"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Здесь вы можете сбросить пароль."
+        }
     }
 }

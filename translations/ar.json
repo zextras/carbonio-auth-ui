@@ -6,7 +6,8 @@
         "disabled": "معطل"
     },
     "label": {
-        "cancel": "إلغاء"
+        "cancel": "إلغاء",
+        "save": "حفظ"
     },
     "common": {
         "enabled": "قيد التمكين",

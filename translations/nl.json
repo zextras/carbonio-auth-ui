@@ -55,7 +55,7 @@
     },
     "label": {
         "save": "Opslaan",
-        "cancel": "Annuleren",
+        "cancel": "Abbrechen",
         "app_name": "Auth",
         "auth_settings": "Auth Instellingen"
     },
@@ -130,7 +130,7 @@
         "done": "Fertig",
         "close": "Sluiten",
         "click": "Hier klikken",
-        "cancel": "Annuleren"
+        "cancel": "Abbrechen"
     },
     "appMobile": {
         "title": "Mobiele apps",

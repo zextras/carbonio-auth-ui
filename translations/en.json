@@ -15,6 +15,12 @@
         "success": "New Mobile App password enabled successfully. Passwords list has been updated.",
         "title": "Mobile Apps"
     },
+    "button": {
+        "remove": "remove",
+        "resend_code": "resend code",
+        "set_recovery_address": "set address"
+    },
+    "button_continue": "Continue",
     "buttons": {
         "cancel": "Cancel",
         "click": "Click here",
@@ -84,7 +90,8 @@
         "desktop": "Here you can manage Desktop App password.",
         "eas": "Here you can manage your Exchange ActiveSync password.",
         "mobile": "Here you can manage Mobile App password.",
-        "otp": "Here you can manage the OTP Authentication."
+        "otp": "Here you can manage the OTP Authentication.",
+        "recoveryaddress": "Here you can set and change your mail recovery password."
     },
     "instructions": {
         "needInfo": "Do you need more information?"
@@ -93,6 +100,9 @@
         "app_name": "Auth",
         "auth_settings": "Auth Settings",
         "cancel": "Cancel",
+        "enter_code": "Enter code",
+        "enter_recovery_address": "Enter your recovery address",
+        "invalid_code": "Code not valid",
         "save": "Save"
     },
     "newOtp": {
@@ -115,6 +125,15 @@
         "label": "Description",
         "service": "Service",
         "status": "Status"
+    },
+    "recoveryAddress": {
+        "body_row1": "Enter an email address to set as your recovery address.",
+        "body_row2": "Clicking \"Set Address\" will initiate email verification. We'll send a confirmation email to the address you provide.",
+        "body_row3": "Enter the validation code we sent to your email address.",
+        "body_row4": "Didn't receive the code yet? Click \"Resend Code\".",
+        "status_verified_message": "Your recovery address is set. You can easily update it from here.",
+        "title": "Recovery Address",
+        "validation_code": "Validation code"
     },
     "setNewOtpLabel": {
         "allowedCharacters": "Underscore and dash are allowed.",
@@ -143,7 +162,11 @@
     },
     "snackbar": {
         "error": "",
-        "settings_saved": "Settings saved successfully"
+        "reset_recovery_address": "Recovery address reset successfully",
+        "set_recovery_address": "Recovery address set successfully",
+        "settings_saved": "Settings saved successfully",
+        "validation_code_resent": "Validation code has been resent to mail address",
+        "validation_code_sent": "Validation code has been sent to mail address"
     },
     "staticOTPCodes": {
         "print": {
@@ -155,6 +178,31 @@
             "typePin": "Insert one of the PIN codes listed above",
             "useOnce": "Keep in mind that each code can be used just once, so we suggest erasing it from the list once it is used. Whenever you’ll use a code, you are going to receive a notification e-mail.",
             "whenToUse": "These are your static codes. You will have to use one of the codes in case you won't have your mobile device to proceed with the authentication."
+        }
+    },
+    "settingsAuth": {
+        "Displayer": {
+            "ResetPassword": "Reset Password",
+            "CreateANewPasswordToResetIt": "Create a new password to reset it."
+        },
+        "Option": {
+            "ResetPassword": "Reset Password"
+        },
+        "displayerInputField": {
+            "NewPassword": "New Password",
+            "ConfirmPassword": "Confirm Password"
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Cancel"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Here you can reset your password."
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Continue"
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Password successfully reset"
         }
     }
 }

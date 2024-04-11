@@ -121,10 +121,10 @@ export function OTPAuthentication() {
 									otp.failed_attempts > 8
 										? 'error'
 										: otp.failed_attempts > 6
-										? 'warning'
-										: otp.failed_attempts > 2
-										? 'success'
-										: 'info'
+											? 'warning'
+											: otp.failed_attempts > 2
+												? 'success'
+												: 'info'
 								}
 							>
 								{`${otp.failed_attempts} / 10`}
