@@ -197,7 +197,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 		setAuthDescription('');
 		showSnackbar &&
 			createSnackbar({
-				key: 1,
+				key: '1',
 				type: 'success',
 				label: t(
 					'appMobile.success',
@@ -368,7 +368,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 											onClick={(): void => {
 												copyToClipboard(newQrCodeResp.qrcode_data.auth_payload.password);
 												createSnackbar({
-													key: 2,
+													key: '2',
 													label: t('common.codeCopied', 'Code copied successfully')
 												});
 											}}
