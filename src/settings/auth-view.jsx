@@ -79,7 +79,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 							'Here you can set and change your mail recovery password.'
 						),
 						view: RecoveryPassword
-				  }
+					}
 				: undefined,
 		[isRecoveryAddressFeatureEnabled]
 	);
