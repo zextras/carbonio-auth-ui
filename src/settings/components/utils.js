@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { Buffer } from 'buffer';
 import { isEqual, transform, isObject, filter } from 'lodash';
 
 export const differenceObject = (object, base) => {
