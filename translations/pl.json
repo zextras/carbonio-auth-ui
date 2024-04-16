@@ -115,7 +115,7 @@
         "maxLength": "Max. długość określenie wynosi {{maxLength}} znaków.",
         "new": "Uwierzytelnianie OTP | Nowe uwierzytelnienie",
         "prohibitedCharacters": "Nie używaj żadnych znaków specjalnych, znaków diakrytycznych ani spacji.",
-        "success": "Nowe uwierzytelnienie OTP zostało włączone pomyślnie.",
+        "success": "Nowe uwierzytelnienie OTP zostało włączone.",
         "title": "Uwierzytelnianie OTP"
     },
     "setNewPassword": {
@@ -154,5 +154,30 @@
     },
     "snackbar": {
         "settings_saved": "Ustawienia zostały zapisane"
+    },
+    "settingsAuth": {
+        "Displayer": {
+            "CreateANewPasswordToResetIt": "Aby zresetować hasło, stwórz nowe.",
+            "ResetPassword": "Zresetuj hasło"
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Anuluj"
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Hasło zostało zresetowane"
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Kontynuuj"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Tutaj możesz zresetować Twoje hasło."
+        },
+        "Option": {
+            "ResetPassword": "Zresetuj hasło"
+        },
+        "displayerInputField": {
+            "NewPassword": "Nowe hasło",
+            "ConfirmPassword": "Potwierdź hasło"
+        }
     }
 }

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.11...v1.2.0) (2024-04-11)
+
+
+### Features
+
+* user can set a recovery address in the settings section ([97e1269](https://github.com/zextras/carbonio-auth-ui/commit/97e12698715d6d3b619eb90b204700a99816ed2b))
+
+
+### Bug Fixes
+
+* reintroducing buffer dependency ([51c7f8f](https://github.com/zextras/carbonio-auth-ui/commit/51c7f8feebcdeda05edc2d7f46540d439004ce38))
+* remove buffer import ([403d9ac](https://github.com/zextras/carbonio-auth-ui/commit/403d9ac2aaea2b40e22fca81ce468840c2b5ce2d))
+
 ### [1.1.11](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.10...v1.1.11) (2024-02-16)
 
 ### [1.1.10](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.9...v1.1.10) (2024-01-22)
