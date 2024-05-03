@@ -11,7 +11,6 @@ import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { compact, orderBy } from 'lodash';
 
 import { AuthOutline } from './assets/icons/auth-outline';
-import { AppDesktop } from './components/operations/app-desktop';
 import { AppMobile } from './components/operations/app-mobile';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
@@ -107,13 +106,15 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
+		/* section is hidden cause not officially supported yet
+		ref: AUTH-543
 		{
 			name: 'desktop',
 			label: t('appDesktop.title', 'Desktop Apps'),
 			view: AppDesktop,
 			instruction: t('instruction.desktop', 'Here you can manage Desktop App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-		},
+		}, */
 		{
 			name: 'otp',
 			label: t('setNewOtpLabel.title', 'OTP Authentication'),
