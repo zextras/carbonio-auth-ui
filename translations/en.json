@@ -160,6 +160,34 @@
         "authenticationDescription": "Authentication description",
         "successfully": "Token generated successfully."
     },
+    "settingsAuth": {
+        "Column": {
+            "HereYouCanResetYourPassword": "Here you can reset your password."
+        },
+        "Displayer": {
+            "CreateANewPasswordToResetIt": "Create a new password to reset it.",
+            "ResetPassword": "Reset Password"
+        },
+        "ErrorDescriptionConfirmInput": {
+            "PasswordDoesNotMatch": "Password does not match"
+        },
+        "Option": {
+            "ResetPassword": "Reset Password"
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Password successfully reset"
+        },
+        "displayerInputField": {
+            "ConfirmPassword": "Confirm Password",
+            "NewPassword": "New Password"
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Continue"
+        },
+        "displayerSecondaryButton": {
+            "Cancel": "Cancel"
+        }
+    },
     "snackbar": {
         "error": "",
         "reset_recovery_address": "Recovery address reset successfully",
@@ -178,31 +206,6 @@
             "typePin": "Insert one of the PIN codes listed above",
             "useOnce": "Keep in mind that each code can be used just once, so we suggest erasing it from the list once it is used. Whenever you’ll use a code, you are going to receive a notification e-mail.",
             "whenToUse": "These are your static codes. You will have to use one of the codes in case you won't have your mobile device to proceed with the authentication."
-        }
-    },
-    "settingsAuth": {
-        "Displayer": {
-            "ResetPassword": "Reset Password",
-            "CreateANewPasswordToResetIt": "Create a new password to reset it."
-        },
-        "Option": {
-            "ResetPassword": "Reset Password"
-        },
-        "displayerInputField": {
-            "NewPassword": "New Password",
-            "ConfirmPassword": "Confirm Password"
-        },
-        "displayerSecondaryButton": {
-            "Cancel": "Cancel"
-        },
-        "Column": {
-            "HereYouCanResetYourPassword": "Here you can reset your password."
-        },
-        "displayerPrimaryButton": {
-            "Continue": "Continue"
-        },
-        "Snackbar": {
-            "PasswordSuccessfullyReset": "Password successfully reset"
         }
     }
 }

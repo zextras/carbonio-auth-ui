@@ -18,31 +18,15 @@ import { useUserSettings } from '@zextras/carbonio-shell-ui';
 import { useTranslation } from 'react-i18next';
 
 import { isValidEmail } from '../../../utils/email';
+import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
 import { setRecoveryAccountRequest } from '../../network/set-recovery-account-request';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { Section } from '../shared/section';
 
-const useErrorSnackbar = (): (() => void) => {
-	const createSnackbar = useSnackbar();
-	const [t] = useTranslation();
-
-	return useCallback(
-		() =>
-			createSnackbar({
-				key: `send_recovery_error`,
-				replace: true,
-				type: 'error',
-				hideButton: true,
-				label: t('error.somethingWrong', 'Something went wrong.'),
-				autoHideTimeout: 3000
-			}),
-		[createSnackbar, t]
-	);
-};
 export const RecoveryPassword = (): JSX.Element => {
 	const createSnackbar = useSnackbar();
-	const errorSnackbar = useErrorSnackbar();
+	const errorSnackbar = useGenericErrorSnackbar();
 	const [t] = useTranslation();
 
 	const { zimbraPrefPasswordRecoveryAddressStatus, zimbraPrefPasswordRecoveryAddress } =
