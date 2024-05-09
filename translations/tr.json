@@ -57,7 +57,10 @@
         "save": "Kaydet",
         "cancel": "İptal",
         "app_name": "Kimlik Doğrulaması",
-        "auth_settings": "Auth Ayarları"
+        "auth_settings": "Auth Ayarları",
+        "enter_code": "Kodu girin",
+        "enter_recovery_address": "Kurtarma adresinizi girin",
+        "invalid_code": "Kod geçerli değil"
     },
     "instructions": {
         "needInfo": "Daha fazla bilgi ister misiniz?"
@@ -67,7 +70,8 @@
         "mobile": "Mobile App parolanızı buradan yönetebilirsiniz.",
         "eas": "Exchange ActiveSync parolanızı buradan yönetebilirsiniz.",
         "changePassword": "Parolanızı buradan değiştirebilirsiniz.",
-        "desktop": "Masaüstü Uygulama parolanızı buradan yönetebilirsiniz."
+        "desktop": "Masaüstü Uygulama parolanızı buradan yönetebilirsiniz.",
+        "recoveryaddress": "Posta kurtarma şifrenizi buradan ayarlayabilir ve değiştirebilirsiniz."
     },
     "error": {
         "specialChars": "Özel karakterler kullanılamaz.",
@@ -154,5 +158,17 @@
         "label": "Masaüstü Uygulamaları",
         "success": "Yeni Masaüstü uygulama parolası başarıyla etkinleştirildi. Parola listesi güncellendi.",
         "title": "Masaüstü Uygulamaları"
-    }
+    },
+    "recoveryAddress": {
+        "body_row1": "Kurtarma adresiniz olarak ayarlamak için bir e-posta adresi girin.",
+        "body_row3": "E-posta adresinize gönderdiğimiz doğrulama kodunu girin.",
+        "body_row2": "\"Adresi Ayarla\" ya tıkladığınızda e-posta doğrulaması başlatılacak. Belirlediğiniz adrese onay e-postası göndereceğiz.",
+        "body_row4": "Kodu henüz almadınız mı? \"Kodu Yeniden Gönder\" e tıklayın."
+    },
+    "button": {
+        "remove": "kaldır",
+        "resend_code": "kodu tekrar gönder",
+        "set_recovery_address": "adresi belirle"
+    },
+    "button_continue": "İlerle"
 }

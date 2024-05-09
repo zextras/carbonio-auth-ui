@@ -57,7 +57,10 @@
         "save": "Sauvegarder",
         "cancel": "Annuler",
         "app_name": "Authentification",
-        "auth_settings": "Paramètres d'authentification"
+        "auth_settings": "Paramètres d'authentification",
+        "enter_code": "Entrer le code",
+        "enter_recovery_address": "Entrez votre adresse de récupération",
+        "invalid_code": "Code invalide"
     },
     "instructions": {
         "needInfo": "Avez-vous besoin de plus d'informations ?"
@@ -67,7 +70,8 @@
         "mobile": "Ici, vous pouvez gérer le mot de passe de l'application mobile.",
         "eas": "Ici, vous pouvez gérer votre mot de passe Exchange ActiveSync.",
         "changePassword": "Ici, vous pouvez changer votre mot de passe.",
-        "desktop": "Vous pouvez gérer les mots de passe des Applications de Bureau ici."
+        "desktop": "Vous pouvez gérer les mots de passe des Applications de Bureau ici.",
+        "recoveryaddress": "Ici vous pouvez définir et changer votre email de récupération de mot de passe."
     },
     "error": {
         "specialChars": "Les caractères spéciaux ne sont pas autorisés.",
@@ -141,7 +145,11 @@
         "descriptionHelp": "La description vous aidera à vous rappeler où cette application d'authentification mobile est utilisée."
     },
     "snackbar": {
-        "settings_saved": "Les paramètres ont été sauvegardés avec succès"
+        "settings_saved": "Les paramètres ont été sauvegardés avec succès",
+        "validation_code_sent": "Le code de validation a été envoyé à votre adresse email",
+        "reset_recovery_address": "L'adresse de récupération a été réinitialisé avec succès",
+        "set_recovery_address": "L'adresse de récupération a été définie avec succès",
+        "validation_code_resent": "Le code de validation a été renvoyé à votre adresse email"
     },
     "setNewToken": {
         "authenticationDescription": "Description de l'authentification",
@@ -168,7 +176,7 @@
             "CreateANewPasswordToResetIt": "Définissez un nouveau mot de passe pour le réinitialiser."
         },
         "displayerPrimaryButton": {
-            "Continue": "Continuer"
+            "Continue": "Confirmer"
         },
         "Snackbar": {
             "PasswordSuccessfullyReset": "Le mot de passe a été réinitialisé avec succès"
@@ -179,5 +187,20 @@
         "Column": {
             "HereYouCanResetYourPassword": "Vous pouvez réinitialiser votre mot de passe ici."
         }
-    }
+    },
+    "recoveryAddress": {
+        "body_row2": "Cliquez \"Définir l'Adresse\" va initier la vérification de l'email. Nous enverrons un email de confirmation à l'adresse que vous avez fournis.",
+        "body_row1": "Entrez une adresse email à définir comme adresse de récupération.",
+        "status_verified_message": "Votre adresse de récupération a été définie. Vous pouvez la modifier facilement ici.",
+        "body_row3": "Entrez le code de validation que nous avons envoyé à votre adresse email.",
+        "body_row4": "Vous n'avez pas encore reçu le code ? Cliquez sur \"Renvoyer le Code\".",
+        "title": "Adresse de Récupération",
+        "validation_code": "Code de validation"
+    },
+    "button": {
+        "set_recovery_address": "définir l'adresse",
+        "remove": "enlever",
+        "resend_code": "renvoyer le code"
+    },
+    "button_continue": "Continuer"
 }
