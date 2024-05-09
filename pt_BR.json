@@ -33,7 +33,7 @@
         "allowedCharacters": "O uso de underline e hífen é permitido."
     },
     "passwordListLabel": {
-        "status": "Status",
+        "status": "Estado",
         "service": "Serviço",
         "label": "Descrição",
         "enabled": "Habilitadas",
@@ -57,7 +57,10 @@
         "save": "Salvar",
         "cancel": "Cancelar",
         "app_name": "Auth",
-        "auth_settings": "Configurações de autenticação"
+        "auth_settings": "Configurações de autenticação",
+        "enter_code": "Insira o código",
+        "enter_recovery_address": "Insira seu endereço de recuperação",
+        "invalid_code": "Código inválido"
     },
     "instructions": {
         "needInfo": "Precisa de mais informações?"
@@ -67,7 +70,8 @@
         "mobile": "Aqui você pode gerenciar sua senha do App Móvel.",
         "eas": "Aqui você pode gerenciar sua senha do Exchange ActiveSync.",
         "changePassword": "Aqui você pode alterar sua senha.",
-        "desktop": "Aqui você pode gerenciar a senha do aplicativo de desktop."
+        "desktop": "Aqui você pode gerenciar a senha do aplicativo de desktop.",
+        "recoveryaddress": "Aqui você pode definir e alterar seu e-mail de recuperação de senha."
     },
     "error": {
         "specialChars": "Não são permitidos caracteres especiais.",
@@ -141,7 +145,11 @@
         "descriptionHelp": "A descrição ajudará você a lembrar onde essa autenticação é usada."
     },
     "snackbar": {
-        "settings_saved": "Configurações salvas com sucesso"
+        "settings_saved": "Configurações salvas com sucesso",
+        "reset_recovery_address": "Endereço de recuperação redefinido com sucesso",
+        "validation_code_resent": "Código de validação reenviado ao endereço de e-mail",
+        "validation_code_sent": "Código de validação enviado ao endereço de e-mail",
+        "set_recovery_address": "Endereço de recuperação configurado com sucesso"
     },
     "setNewToken": {
         "authenticationDescription": "Descrição da autenticação",
@@ -154,5 +162,45 @@
         "new": "Aplicativos de desktop | Nova autenticação",
         "title": "Aplicativos de desktop",
         "success": "A nova senha do aplicativo de desktop foi ativada com sucesso. A lista de senhas foi atualizada."
+    },
+    "settingsAuth": {
+        "displayerSecondaryButton": {
+            "Cancel": "Cancelar"
+        },
+        "displayerPrimaryButton": {
+            "Continue": "Confirmar"
+        },
+        "Displayer": {
+            "CreateANewPasswordToResetIt": "Crie uma nova senha para redefini-la.",
+            "ResetPassword": "Redefinir Senha"
+        },
+        "Option": {
+            "ResetPassword": "Redefinir Senha"
+        },
+        "displayerInputField": {
+            "NewPassword": "Nova Senha",
+            "ConfirmPassword": "Confirmar Senha"
+        },
+        "Column": {
+            "HereYouCanResetYourPassword": "Aqui você pode redefinir sua senha."
+        },
+        "Snackbar": {
+            "PasswordSuccessfullyReset": "Senha redefinida com sucesso"
+        }
+    },
+    "button": {
+        "remove": "remover",
+        "resend_code": "reenviar código",
+        "set_recovery_address": "definir endereço"
+    },
+    "button_continue": "Continuar",
+    "recoveryAddress": {
+        "body_row1": "Insira um endereço de e-mail para definir como seu endereço de recuperação.",
+        "body_row3": "Insira o código de validação enviado ao seu endereço de e-mail.",
+        "body_row4": "Ainda não recebeu o código? Clique em \"Reenviar Código\".",
+        "status_verified_message": "Seu endereço de recuperação está configurado. Você pode atualizá-lo facilmente aqui.",
+        "title": "Endereço de Recuperação",
+        "validation_code": "Código de Validação",
+        "body_row2": "Ao clicar em \"Definir Endereço\", será iniciada a verificação do e-mail. Vamos enviar um e-mail de confirmação para o endereço informado."
     }
 }
