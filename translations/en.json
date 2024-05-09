@@ -199,7 +199,7 @@
             "HereYouCanResetYourPassword": "Here you can reset your password."
         },
         "displayerPrimaryButton": {
-            "Continue": "Continue"
+            "Continue": "Confirm"
         },
         "Snackbar": {
             "PasswordSuccessfullyReset": "Password successfully reset"
