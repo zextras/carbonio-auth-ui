@@ -123,12 +123,7 @@ export function ResetPassword(): JSX.Element {
 				<Padding horizontal="small" />
 				<Button
 					label={t('settingsAuth.displayerPrimaryButton.Continue', 'Confirm')}
-					disabled={
-						!newPasswordValue.length ||
-						newPasswordValue.length < parseInt(zimbraPasswordMinLength as string, 10) ||
-						newPasswordValue.length > parseInt(zimbraPasswordMaxLength as string, 10) ||
-						newPasswordValue !== confirmPasswordValue
-					}
+					disabled={!newPasswordValue.length || newPasswordValue !== confirmPasswordValue}
 					onClick={onConfirmClick}
 				/>
 			</Row>
