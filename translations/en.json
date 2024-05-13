@@ -176,7 +176,7 @@
             "ResetPassword": "Reset Password"
         },
         "Snackbar": {
-            "PasswordSuccessfullyReset": "Password successfully reset"
+            "PasswordSuccessfullyReset": "Password successfully reset. Session needs to be reloaded"
         },
         "displayerInputField": {
             "ConfirmPassword": "Confirm Password",
