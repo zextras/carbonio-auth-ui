@@ -15,7 +15,7 @@ export const useGenericErrorSnackbar = (): ((arg?: string) => void) => {
 	return useCallback(
 		(label?: string) =>
 			createSnackbar({
-				key: `send_recovery_error`,
+				key: `generic_error`,
 				replace: true,
 				type: 'error',
 				hideButton: true,

@@ -41,13 +41,13 @@ export function ResetPassword(): JSX.Element {
 			if (!res.Fault) {
 				resetValues();
 				createSnackbar({
-					key: `send_recovery`,
+					key: `send_reset`,
 					replace: true,
 					type: 'info',
 					hideButton: true,
 					label: t(
-						'snackbar.validation_code_sent',
-						'Validation code has been sent to mail address'
+						'settingsAuth.Snackbar.PasswordSuccessfullyReset',
+						'Password successfully reset. Session needs to be reloaded'
 					),
 					autoHideTimeout: 3000
 				});
@@ -66,8 +66,17 @@ export function ResetPassword(): JSX.Element {
 		<Section title={t('settingsAuth.Displayer.ResetPassword', 'Reset Password')} divider isDisabled>
 			<Row mainAlignment="flex-start" width="fill">
 				<Padding bottom="large">
-					<Text overflow="break-word" size="large">
-						{t('settingsAuth.Displayer.CreateANewPasswordToResetIt')}
+					<Text overflow="break-word">
+						{t(
+							'settingsAuth.Displayer.CreateANewPasswordToResetIt',
+							'Create a new password to reset it.'
+						)}
+					</Text>
+					<Text overflow="break-word">
+						{t(
+							'settingsAuth.Displayer.WarningSessionRefresh',
+							`Clicking "Continue" will invalidate the current session requiring a new login. Make sure to complete every other work before starting this procedure`
+						)}
 					</Text>
 				</Padding>
 			</Row>

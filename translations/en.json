@@ -166,7 +166,8 @@
         },
         "Displayer": {
             "CreateANewPasswordToResetIt": "Create a new password to reset it.",
-            "ResetPassword": "Reset Password"
+            "ResetPassword": "Reset Password",
+            "WarningSessionRefresh": "Clicking \"Continue\" will invalidate the current session requiring a new login. Make sure to complete every other work before starting this procedure"
         },
         "ErrorDescriptionConfirmInput": {
             "PasswordDoesNotMatch": "Password does not match"
