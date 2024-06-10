@@ -16,6 +16,7 @@ import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
+import { ResetPassword } from './components/operations/reset-password';
 import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
@@ -58,15 +59,28 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 		[zimbraFeatureResetPasswordStatus]
 	);
 
+	const changePasswordItem = {
+		name: 'changepassword',
+		label: t('changePassword.title', 'Change Password'),
+		view: ChangePassword,
+		instruction: t('instruction.changePassword', 'Here you can change your password.'),
+		link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
+	};
+
+	const resetPasswordItem = {
+		name: 'resetpassword',
+		label: t('settingsAuth.Option.ResetPassword', 'reset Password'),
+		view: ResetPassword,
+		instruction: t(
+			'settingsAuth.Column.HereYouCanResetYourPassword',
+			'Here you can reset your password.'
+		)
+	};
+
 	const linksWithoutZextras = [
-		{
-			name: 'changepassword',
-			label: t('changePassword.title', 'Change Password'),
-			view: ChangePassword,
-			instruction: t('instruction.changePassword', 'Here you can change your password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
-		}
+		isRecoveryAddressFeatureEnabled ? resetPasswordItem : changePasswordItem
 	];
+
 	const recoveryPasswordItem = useMemo(
 		() =>
 			isRecoveryAddressFeatureEnabled
@@ -84,13 +98,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	);
 
 	const links = compact([
-		{
-			name: 'changepassword',
-			label: t('changePassword.title', 'Change Password'),
-			view: ChangePassword,
-			instruction: t('instruction.changePassword', 'Here you can change your password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
-		},
+		...linksWithoutZextras,
 		recoveryPasswordItem,
 		{
 			name: 'activesync',
