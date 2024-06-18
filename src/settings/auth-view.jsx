@@ -11,12 +11,12 @@ import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { compact, orderBy } from 'lodash';
 
 import { AuthOutline } from './assets/icons/auth-outline';
-import { AppDesktop } from './components/operations/app-desktop';
 import { AppMobile } from './components/operations/app-mobile';
 import { ChangePassword } from './components/operations/change-password';
 import { ExchangeActiveSync } from './components/operations/exchange-active-sync';
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
+import { ResetPassword } from './components/operations/reset-password';
 import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
@@ -59,15 +59,28 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 		[zimbraFeatureResetPasswordStatus]
 	);
 
+	const changePasswordItem = {
+		name: 'changepassword',
+		label: t('changePassword.title', 'Change Password'),
+		view: ChangePassword,
+		instruction: t('instruction.changePassword', 'Here you can change your password.'),
+		link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
+	};
+
+	const resetPasswordItem = {
+		name: 'resetpassword',
+		label: t('settingsAuth.Option.ResetPassword', 'reset Password'),
+		view: ResetPassword,
+		instruction: t(
+			'settingsAuth.Column.HereYouCanResetYourPassword',
+			'Here you can reset your password.'
+		)
+	};
+
 	const linksWithoutZextras = [
-		{
-			name: 'changepassword',
-			label: t('changePassword.title', 'Change Password'),
-			view: ChangePassword,
-			instruction: t('instruction.changePassword', 'Here you can change your password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
-		}
+		isRecoveryAddressFeatureEnabled ? resetPasswordItem : changePasswordItem
 	];
+
 	const recoveryPasswordItem = useMemo(
 		() =>
 			isRecoveryAddressFeatureEnabled
@@ -85,13 +98,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	);
 
 	const links = compact([
-		{
-			name: 'changepassword',
-			label: t('changePassword.title', 'Change Password'),
-			view: ChangePassword,
-			instruction: t('instruction.changePassword', 'Here you can change your password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
-		},
+		...linksWithoutZextras,
 		recoveryPasswordItem,
 		{
 			name: 'activesync',
@@ -107,13 +114,15 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
+		/* section is hidden cause not officially supported yet
+		ref: AUTH-543
 		{
 			name: 'desktop',
 			label: t('appDesktop.title', 'Desktop Apps'),
 			view: AppDesktop,
 			instruction: t('instruction.desktop', 'Here you can manage Desktop App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-		},
+		}, */
 		{
 			name: 'otp',
 			label: t('setNewOtpLabel.title', 'OTP Authentication'),
