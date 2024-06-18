@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/zextras/carbonio-auth-ui/compare/v1.2.1...v1.3.0) (2024-06-18)
+
+
+### Features
+
+* use json v4 for translations updates ([21f9f6c](https://github.com/zextras/carbonio-auth-ui/commit/21f9f6cecf7349dc73e4b31b0a38c289da06afc9))
+* user can reset the password from settings if allowed ([00791ed](https://github.com/zextras/carbonio-auth-ui/commit/00791ed4fee6ad40578081eb22b0ce124cec8105))
+
+
+### Bug Fixes
+
+* remove desktop app section ([8799270](https://github.com/zextras/carbonio-auth-ui/commit/87992709527708c8f839fc91aa6131c74c823a41))
+* remove desktop app section ([81870e9](https://github.com/zextras/carbonio-auth-ui/commit/81870e9ea1ef76110b629bc66384c44e327c78af))
+
 ### [1.2.1](https://github.com/zextras/carbonio-auth-ui/compare/v1.2.0...v1.2.1) (2024-05-09)
 
 ## [1.2.0](https://github.com/zextras/carbonio-auth-ui/compare/v1.1.11...v1.2.0) (2024-04-11)
