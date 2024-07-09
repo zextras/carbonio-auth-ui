@@ -27,7 +27,7 @@ import { fetchSoap } from '../../network/fetchSoap';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-import { formatDate, copyToClipboard, formatDateUsingLocale } from '../utils';
+import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
