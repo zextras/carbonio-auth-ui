@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { getI18n } from '@zextras/carbonio-shell-ui';
 import { Buffer } from 'buffer';
 import { isEqual, transform, isObject, filter } from 'lodash';
 
@@ -32,6 +33,22 @@ export const formatDate = (date) => {
 		new Date(date).toLocaleTimeString('en-US')
 	);
 };
+
+export function formatDateUsingLocale(timeInMillis) {
+	if (!timeInMillis) return '/';
+	const dateTime = new Date(timeInMillis);
+	const date = new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric'
+	}).format(dateTime);
+	const time = new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
+		hour: '2-digit',
+		minute: '2-digit',
+		second: 'numeric'
+	}).format(dateTime);
+	return `${date} | ${time}`;
+}
 
 export const copyToClipboard = (text) => {
 	if (/Firefox\//i.test(navigator.userAgent)) {

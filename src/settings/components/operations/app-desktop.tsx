@@ -33,7 +33,7 @@ import { ErrorMessage } from '../shared/error-message';
 // @ts-ignore
 import { Section } from '../shared/section';
 // @ts-ignore
-import { copyToClipboard, formatDate, objToBase64 } from '../utils';
+import { copyToClipboard, objToBase64, formatDateUsingLocale } from '../utils';
 // @ts-ignore
 
 const stepsNames = {
@@ -133,7 +133,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 							p.services[0].service === 'EAS'
 								? t('easAuth.label', 'Exchange ActiveSync')
 								: t('appDesktop.label', 'Desktop Applications'),
-							formatDate(p.created)
+							formatDateUsingLocale(p.created)
 						],
 						clickable: true
 					});
