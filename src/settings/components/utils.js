@@ -34,22 +34,20 @@ export const formatDate = (date) => {
 	);
 };
 
-export function formatDateUsingLocale(date) {
-	if (!date) return '/';
-	return (
-		// eslint-disable-next-line prefer-template
-		new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric'
-		}).format(new Date(date)) +
-		' | ' +
-		new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
-			hour: '2-digit',
-			minute: '2-digit',
-			second: 'numeric'
-		}).format(new Date(date))
-	);
+export function formatDateUsingLocale(timeInMillis) {
+	if (!timeInMillis) return '/';
+	const dateTime = new Date(timeInMillis);
+	const date = new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric'
+	}).format(dateTime);
+	const time = new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
+		hour: '2-digit',
+		minute: '2-digit',
+		second: 'numeric'
+	}).format(dateTime);
+	return `${date} | ${time}`;
 }
 
 export const copyToClipboard = (text) => {
