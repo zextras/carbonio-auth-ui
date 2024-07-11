@@ -37,7 +37,7 @@ import { ErrorMessage } from '../shared/error-message';
 // @ts-ignore
 import { Section } from '../shared/section';
 // @ts-ignore
-import { copyToClipboard, formatDate } from '../utils';
+import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -140,7 +140,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 							p.services[0].service === 'EAS'
 								? t('easAuth.label', 'Exchange ActiveSync')
 								: t('appMobile.label', 'Mobile Applications'),
-							formatDate(p.created)
+							formatDateUsingLocale(p.created)
 						],
 						clickable: true
 					});

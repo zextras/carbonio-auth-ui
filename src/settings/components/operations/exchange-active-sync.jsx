@@ -27,7 +27,7 @@ import { fetchSoap } from '../../network/fetchSoap';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-import { formatDate, copyToClipboard } from '../utils';
+import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -85,7 +85,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 							p.label,
 							p.enabled ? t('common.enabled', 'Enabled') : t('common.disabled', 'Disabled'),
 							p.services[0].service === 'EAS' ? t('easAuth.label') : t('appMobile.label'),
-							formatDate(p.created)
+							formatDateUsingLocale(p.created)
 						],
 						clickable: true
 					});
