@@ -35,7 +35,7 @@ import { fetchSoap } from '../../network/fetchSoap';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-import { copyToClipboard, formatDate } from '../utils';
+import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
 
@@ -130,7 +130,7 @@ export function OTPAuthentication() {
 								{`${otp.failed_attempts} / 10`}
 							</Text>
 						</Row>,
-						formatDate(otp.created)
+						formatDateUsingLocale(otp.created)
 					],
 					clickable: true
 				});
@@ -238,7 +238,7 @@ export function OTPAuthentication() {
 		document.body.appendChild(iframe);
 
 		const currentDate = new Date();
-		const formattedDate = formatDate(currentDate);
+		const formattedDate = formatDateUsingLocale(currentDate);
 
 		const htmlCode = `
 			<!DOCTYPE html>
