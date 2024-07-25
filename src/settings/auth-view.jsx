@@ -52,8 +52,8 @@ function Instruction({ instruction, link }) {
 }
 
 function SideBar({ activeTab, setActiveTab, hasZextras }) {
-	const { zimbraFeatureResetPasswordStatus } = useUserSettings().attrs;
-
+	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
+		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
 		() => zimbraFeatureResetPasswordStatus && zimbraFeatureResetPasswordStatus === 'enabled',
 		[zimbraFeatureResetPasswordStatus]
@@ -97,6 +97,20 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 		[isRecoveryAddressFeatureEnabled]
 	);
 
+	const otpAuthenticationItem = useMemo(
+		() =>
+			carbonioFeatureOTPMgmtEnabled === 'TRUE'
+				? {
+						name: 'otp',
+						label: t('setNewOtpLabel.title', 'OTP Authentication'),
+						view: OTPAuthentication,
+						instruction: t('instruction.otp', 'Here you can manage the OTP Authentication.  '),
+						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-otp'
+					}
+				: undefined,
+		[carbonioFeatureOTPMgmtEnabled]
+	);
+
 	const links = compact([
 		...linksWithoutZextras,
 		recoveryPasswordItem,
@@ -114,6 +128,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
+		otpAuthenticationItem
 		/* section is hidden cause not officially supported yet
 		ref: AUTH-543
 		{
@@ -123,13 +138,6 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			instruction: t('instruction.desktop', 'Here you can manage Desktop App password.'),
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		}, */
-		{
-			name: 'otp',
-			label: t('setNewOtpLabel.title', 'OTP Authentication'),
-			view: OTPAuthentication,
-			instruction: t('instruction.otp', 'Here you can manage the OTP Authentication.  '),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-otp'
-		}
 	]);
 
 	useEffect(() => {
