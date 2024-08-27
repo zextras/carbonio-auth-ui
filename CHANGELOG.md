@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/zextras/carbonio-auth-ui/compare/v1.3.1...v1.4.0) (2024-08-27)
+
+
+### Features
+
+* limit user capabilities for OTP management ([8817a3c](https://github.com/zextras/carbonio-auth-ui/commit/8817a3cbb725da63da5f4b85431136d9e97b98a6))
+
 ### [1.3.1](https://github.com/zextras/carbonio-auth-ui/compare/v1.3.0...v1.3.1) (2024-07-11)
 
 
