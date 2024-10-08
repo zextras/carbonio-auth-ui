@@ -181,14 +181,14 @@ function ActiveTab({ activeTab }) {
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
-			res.response.ok &&
-				setPasswords(
-					orderBy(
-						(res.response.value && res.response.value.list) || res.response.values,
-						['created'],
-						['desc']
-					)
-				);
+			if ('Fault' in res) return;
+			setPasswords(
+				orderBy(
+					(res.response.value && res.response.value.list) || res.response.values,
+					['created'],
+					['desc']
+				)
+			);
 		});
 	}, []);
 

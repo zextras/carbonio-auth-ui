@@ -13,7 +13,6 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { useUserSettings } from '@zextras/carbonio-shell-ui';
 import { useTranslation } from 'react-i18next';
 
 import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
@@ -29,7 +28,6 @@ export function ResetPassword(): JSX.Element {
 
 	const [newPasswordValue, setNewPasswordValue] = useState('');
 	const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
-	const { zimbraPasswordMinLength, zimbraPasswordMaxLength } = useUserSettings().attrs;
 
 	const resetValues = useCallback(() => {
 		setNewPasswordValue('');
@@ -43,7 +41,7 @@ export function ResetPassword(): JSX.Element {
 				createSnackbar({
 					key: `send_reset`,
 					replace: true,
-					type: 'info',
+					severity: 'info',
 					hideButton: true,
 					label: t(
 						'settingsAuth.Snackbar.PasswordSuccessfullyReset',
