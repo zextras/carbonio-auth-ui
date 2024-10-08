@@ -25,7 +25,7 @@ export function SidebarNavigation({ links, activeTab, setActiveTab }) {
 	return (
 		<Container width="100%" height="100%" mainAlignment="flex-start" crossAlignment="stretch">
 			{links.map((link, index) => (
-				<div key={link.url}>
+				<div key={index}>
 					{index !== 0 && <Divider color="gray3" />}
 					<NavigationLink
 						width="100%"
