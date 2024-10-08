@@ -1,7 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable camelcase */
-/* disabled camelcase for QrCodeProps */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -23,8 +22,7 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
-// @ts-ignore
-import QRCode from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 
 // @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
@@ -198,7 +196,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 		showSnackbar &&
 			createSnackbar({
 				key: '1',
-				type: 'success',
+				severity: 'success',
 				label: t(
 					'appMobile.success',
 					'New Mobile App password enabled successfully. Passwords list has been updated.'
@@ -354,7 +352,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 									padding={{ all: 'large' }}
 								>
 									<div className="force-white-bg">
-										<QRCode
+										<QRCodeSVG
 											data-testid="qrcode-password"
 											size={143}
 											bgColor="transparent"

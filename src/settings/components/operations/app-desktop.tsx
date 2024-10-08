@@ -196,7 +196,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 		showSnackbar &&
 			createSnackbar({
 				key: '1',
-				type: 'success',
+				severity: 'success',
 				label: t(
 					'appDesktop.success',
 					'New Desktop App password enabled successfully. Passwords list has been updated.'

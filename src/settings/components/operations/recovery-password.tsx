@@ -67,7 +67,7 @@ export const RecoveryPassword = (): JSX.Element => {
 					createSnackbar({
 						key: `send_recovery`,
 						replace: true,
-						type: 'info',
+						severity: 'info',
 						hideButton: true,
 						label: t(
 							'snackbar.validation_code_sent',
@@ -92,7 +92,7 @@ export const RecoveryPassword = (): JSX.Element => {
 					createSnackbar({
 						key: `resend_recovery`,
 						replace: true,
-						type: 'info',
+						severity: 'info',
 						hideButton: true,
 						label: t(
 							'snackbar.validation_code_resent',
@@ -117,7 +117,7 @@ export const RecoveryPassword = (): JSX.Element => {
 				createSnackbar({
 					key: `reset_recovery`,
 					replace: true,
-					type: 'info',
+					severity: 'info',
 					hideButton: true,
 					label: t('snackbar.reset_recovery_address', 'Recovery address reset successfully'),
 					autoHideTimeout: 3000
@@ -140,7 +140,7 @@ export const RecoveryPassword = (): JSX.Element => {
 				createSnackbar({
 					key: `set_recovery_address`,
 					replace: true,
-					type: 'success',
+					severity: 'success',
 					hideButton: true,
 					label: t('snackbar.set_recovery_address', 'Recovery address set successfully'),
 					autoHideTimeout: 3000
