@@ -8,9 +8,9 @@ type CheckZextrasSupported = { hasZextras: boolean };
 
 export function checkSupportedZextras(): Promise<CheckZextrasSupported> {
 	return fetch('/zx/auth/supported').then((res) => {
-		if (res.status === 404) {
-			return { hasZextras: false };
+		if (res.status === 200) {
+			return { hasZextras: true };
 		}
-		return { hasZextras: true };
+		return { hasZextras: false };
 	});
 }
