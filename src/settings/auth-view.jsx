@@ -201,7 +201,7 @@ export default function App() {
 
 	const checkHasZextras = useCallback(async () => {
 		const response = await checkSupportedZextras();
-		setHasZextras(response.hasZextras);
+		setHasZextras(response.isSupported);
 	}, []);
 
 	useEffect(() => {

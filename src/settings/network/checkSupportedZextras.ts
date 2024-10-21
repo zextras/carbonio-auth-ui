@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-type CheckZextrasSupported = { hasZextras: boolean };
+type CheckZextrasSupported = { isSupported: boolean };
 
 export function checkSupportedZextras(): Promise<CheckZextrasSupported> {
 	return fetch('/zx/auth/supported').then((res) => {
 		if (res.status === 200) {
-			return { hasZextras: true };
+			return { isSupported: true };
 		}
-		return { hasZextras: false };
+		return { isSupported: false };
 	});
 }
