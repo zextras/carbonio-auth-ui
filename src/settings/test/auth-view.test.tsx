@@ -5,28 +5,12 @@
  */
 import React from 'react';
 
-import { act, render, screen, within } from '@testing-library/react';
-import { ThemeProvider } from '@zextras/carbonio-design-system';
-import i18next, { i18n } from 'i18next';
-import { I18nextProvider } from 'react-i18next';
-import App from '../auth-view';
+import { act, screen, within } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 
+import { customRender } from '../../test/test-utils';
+import App from '../auth-view';
 import { checkSupportedZextras } from '../network/checkSupportedZextras';
-
-export function getAppI18n(): i18n {
-	const newI18n = i18next.createInstance();
-	newI18n.init({
-		lng: 'en',
-		fallbackLng: 'en',
-		debug: false,
-		interpolation: {
-			escapeValue: false
-		},
-		resources: { en: { translation: {} } }
-	});
-	return newI18n;
-}
 
 jest.mock('@zextras/carbonio-shell-ui', () => ({
 	useUserSettings: (): any => ({
@@ -53,13 +37,7 @@ describe('auth view', () => {
 		);
 
 		await act(async () => {
-			render(
-				<ThemeProvider>
-					<I18nextProvider i18n={getAppI18n()}>
-						<App />
-					</I18nextProvider>
-				</ThemeProvider>
-			);
+			customRender(<App />);
 		});
 
 		expect(
