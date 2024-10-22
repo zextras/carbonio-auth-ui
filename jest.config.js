@@ -16,7 +16,7 @@ module.exports = {
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*.js', 'src/**/*.jsx', 'src/**/*.ts', 'src/**/*.tsx'],
 	coverageDirectory: 'coverage',
-	coverageReporters: ['text', 'cobertura'],
+	coverageReporters: ['lcov', 'html'],
 	reporters: ['default'],
 	// testMatch: ['/test/**/*.js?(x)'],
 	setupFilesAfterEnv: ['<rootDir>/src/jest-env-setup.js'],
