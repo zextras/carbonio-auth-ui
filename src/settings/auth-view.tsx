@@ -221,13 +221,7 @@ function ActiveTab({ activeTab }: { activeTab: Tab }): React.JSX.Element {
 		});
 	}, []);
 
-	return (
-		<activeTab.view
-			data-testid={`activeTab-${activeTab.name}`}
-			passwords={passwords}
-			setPasswords={setPasswords}
-		/>
-	);
+	return <activeTab.view passwords={passwords} setPasswords={setPasswords} />;
 }
 
 export default function App(): React.JSX.Element {

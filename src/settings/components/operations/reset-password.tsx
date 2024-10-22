@@ -13,7 +13,7 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { useTranslation } from 'react-i18next';
+import { t } from '@zextras/carbonio-shell-ui';
 
 import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
 import { resetPasswordRequest } from '../../network/reset-password-request';
@@ -22,7 +22,6 @@ import { resetPasswordRequest } from '../../network/reset-password-request';
 import { Section } from '../shared/section';
 
 export function ResetPassword(): JSX.Element {
-	const [t] = useTranslation();
 	const createSnackbar = useSnackbar();
 	const errorSnackbar = useGenericErrorSnackbar();
 
