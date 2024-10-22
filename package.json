@@ -31,6 +31,8 @@
 		"@babel/preset-typescript": "^7.24.1",
 		"@commitlint/cli": "^19.2.1",
 		"@commitlint/config-conventional": "^19.1.0",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^16.0.1",
 		"@types/lodash": "^4.17.0",
 		"@types/jest": "^28.1.6",
 		"@zextras/carbonio-ui-configs": "^1.0.0",

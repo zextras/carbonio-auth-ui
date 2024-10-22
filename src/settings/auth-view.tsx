@@ -22,7 +22,24 @@ import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { fetchSoap } from './network/fetchSoap';
 
-function Instruction({ instruction, link }) {
+type Tab = {
+	name: string;
+	label: string;
+	view: (props: {
+		passwords: Password[];
+		setPasswords: (passwords: Password[]) => void;
+	}) => React.JSX.Element;
+	instruction: string;
+	link?: string;
+};
+
+function Instruction({
+	instruction,
+	link
+}: {
+	instruction: string;
+	link?: string;
+}): React.JSX.Element {
 	return (
 		<Row orientation="vertical" height="fill" width="fill">
 			<Padding bottom="medium">
@@ -51,7 +68,15 @@ function Instruction({ instruction, link }) {
 	);
 }
 
-function SideBar({ activeTab, setActiveTab, hasZextras }) {
+function SideBar({
+	activeTab,
+	setActiveTab,
+	hasZextras
+}: {
+	activeTab: Tab;
+	setActiveTab: (activeTab: Tab) => void;
+	hasZextras: boolean;
+}): React.JSX.Element {
 	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
 		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
@@ -153,7 +178,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			height="100%"
 		>
 			<Row>
-				<Row width="100%" mainAlignment="flex=start" padding={{ all: 'small' }}>
+				<Row width="100%" padding={{ all: 'small' }}>
 					<Padding right="small">
 						<AuthOutline size="1.5rem" />
 					</Padding>
@@ -174,13 +199,17 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	);
 }
 
-function ActiveTab({ activeTab }) {
-	const [passwords, setPasswords] = useState([]);
+type Password = {
+	created: number;
+};
+
+function ActiveTab({ activeTab }: { activeTab: Tab }): React.JSX.Element {
+	const [passwords, setPasswords] = useState<Password[]>([]);
 
 	useEffect(() => {
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
-		}).then((res) => {
+		}).then((res: { response: { value?: { list: Password[] }; values?: Password[] } }) => {
 			if ('Fault' in res) return;
 			setPasswords(
 				orderBy(
@@ -192,11 +221,17 @@ function ActiveTab({ activeTab }) {
 		});
 	}, []);
 
-	return <activeTab.view passwords={passwords} setPasswords={setPasswords} />;
+	return (
+		<activeTab.view
+			data-testid={`activeTab-${activeTab.name}`}
+			passwords={passwords}
+			setPasswords={setPasswords}
+		/>
+	);
 }
 
-export default function App() {
-	const [activeTab, setActiveTab] = useState();
+export default function App(): React.JSX.Element {
+	const [activeTab, setActiveTab] = useState<Tab>();
 	const [hasZextras, setHasZextras] = useState(false);
 
 	const checkHasZextras = useCallback(async () => {
@@ -212,7 +247,7 @@ export default function App() {
 	return (
 		<Shell>
 			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
-			<ColumnFull mainAlignment="space-between" takeAvailableSpace>
+			<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
 				<ColumnLeft
 					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
 					mainAlignment="flex-start"
