@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import fetchMock from 'jest-fetch-mock';
 
 beforeEach(() => {
 	// Do not useFakeTimers with `whatwg-fetch` if using mocked server
@@ -10,6 +11,7 @@ beforeEach(() => {
 	jest.useFakeTimers();
 });
 beforeAll(() => {
+	fetchMock.enableMocks();
 	// server.listen();
 	Object.defineProperty(window, 'matchMedia', {
 		writable: true,
