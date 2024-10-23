@@ -38,14 +38,15 @@ export type OtpTableRow = {
 	columns: [string, string, React.JSX.Element, string];
 	clickable: boolean;
 };
+type TabViewWithPasswords = {
+	passwords: Password[];
+	setPasswords: (passwords: Password[]) => void;
+};
 
 export type Tab = {
 	name: string;
 	label: string;
-	view: (props: {
-		passwords: Password[];
-		setPasswords: (passwords: Password[]) => void;
-	}) => React.JSX.Element | (() => React.JSX.Element);
+	view: React.FC<TabViewWithPasswords> | React.FC;
 	instruction: string;
 	link?: string;
 };
