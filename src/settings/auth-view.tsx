@@ -63,7 +63,7 @@ function SideBar({
 	setActiveTab,
 	hasZextras
 }: {
-	activeTab: Tab;
+	activeTab: Tab | undefined;
 	setActiveTab: (activeTab: Tab) => void;
 	hasZextras: boolean;
 }): React.JSX.Element {
