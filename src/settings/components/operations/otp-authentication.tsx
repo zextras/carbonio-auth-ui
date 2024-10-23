@@ -23,7 +23,7 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
-import QRCode, { QRCodeSVG } from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 import styled, { useTheme } from 'styled-components';
 
 // @ts-ignore
