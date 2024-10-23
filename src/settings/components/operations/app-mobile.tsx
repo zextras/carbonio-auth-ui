@@ -1,8 +1,5 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable camelcase */
 /*
- * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -24,17 +21,11 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 import { QRCodeSVG } from 'qrcode.react';
 
-// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
-// @ts-ignore
 import { fetchSoap } from '../../network/fetchSoap';
-// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
-// @ts-ignore
 import { ErrorMessage } from '../shared/error-message';
-// @ts-ignore
 import { Section } from '../shared/section';
-// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
@@ -126,7 +117,6 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 	];
 
 	const tableRows = useMemo(
-		/* eslint-disable react-hooks/exhaustive-deps */
 		() =>
 			passwords.reduce((acc: any, p: any) => {
 				p.services[0].service === 'MobileApp' &&
@@ -147,7 +137,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 		[passwords]
 	);
 
-	const updatePasswords = (): void =>
+	const updatePasswords = (): Promise<void> =>
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then(
@@ -169,7 +159,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 			}
 		);
 
-	const handleOnGenerateQrcode = (): void =>
+	const handleOnGenerateQrcode = (): Promise<void> =>
 		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
@@ -181,7 +171,7 @@ export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactEle
 			}
 		});
 
-	const handleOnDeletePassword = (): void =>
+	const handleOnDeletePassword = (): Promise<void> =>
 		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
