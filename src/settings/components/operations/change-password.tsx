@@ -1,5 +1,4 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable no-console */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -138,7 +137,7 @@ export function ChangePassword(): React.JSX.Element {
 
 	return (
 		<>
-			<Section title={t('changePassword.title')} divider isDisabled>
+			<Section title={t('changePassword.title')}>
 				{isLocked && (
 					<Container
 						padding={{ vertical: 'medium', horizontal: 'small' }}
@@ -179,7 +178,7 @@ export function ChangePassword(): React.JSX.Element {
 							backgroundColor="gray5"
 							value={oldPassword}
 							onChange={(e): void => setOldPassword(e.target.value)}
-							hasError={errorLabelOldPassword}
+							hasError={!!errorLabelOldPassword}
 							disabled={isLocked}
 						/>
 						{errorLabelOldPassword && <ErrorMessage error={errorLabelOldPassword} />}
@@ -190,7 +189,7 @@ export function ChangePassword(): React.JSX.Element {
 							backgroundColor="gray5"
 							value={newPassword}
 							onChange={(e): void => setNewPassword(e.target.value)}
-							hasError={errorLabelNewPassword}
+							hasError={!!errorLabelNewPassword}
 							disabled={isLocked}
 						/>
 						{errorLabelNewPassword && <ErrorMessage error={errorLabelNewPassword} />}
@@ -201,7 +200,7 @@ export function ChangePassword(): React.JSX.Element {
 							backgroundColor="gray5"
 							value={confirmPassword}
 							onChange={(e): void => setConfirmPassword(e.target.value)}
-							hasError={errorLabelConfirmPassword}
+							hasError={!!errorLabelConfirmPassword}
 							disabled={isLocked}
 						/>
 						{errorLabelConfirmPassword && <ErrorMessage error={errorLabelConfirmPassword} />}
@@ -214,9 +213,9 @@ export function ChangePassword(): React.JSX.Element {
 							!oldPassword ||
 							!newPassword ||
 							!confirmPassword ||
-							errorLabelOldPassword ||
-							errorLabelNewPassword ||
-							errorLabelConfirmPassword ||
+							!!errorLabelOldPassword ||
+							!!errorLabelNewPassword ||
+							!!errorLabelConfirmPassword ||
 							isLocked
 						}
 						onClick={changePasswordSoap}

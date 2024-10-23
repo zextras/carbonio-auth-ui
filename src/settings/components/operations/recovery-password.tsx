@@ -158,7 +158,7 @@ export const RecoveryPassword = (): JSX.Element => {
 	);
 
 	return (
-		<Section title={t('recoveryAddress.title', 'Recovery Address')} divider>
+		<Section title={t('recoveryAddress.title', 'Recovery Address')}>
 			{isRecoveryAddressStatusVerified ? (
 				<>
 					<Padding top="large" />

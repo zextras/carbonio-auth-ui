@@ -60,7 +60,7 @@ export function ResetPassword(): JSX.Element {
 	);
 
 	return (
-		<Section title={t('settingsAuth.Displayer.ResetPassword', 'Reset Password')} divider isDisabled>
+		<Section title={t('settingsAuth.Displayer.ResetPassword', 'Reset Password')}>
 			<Row mainAlignment="flex-start" width="fill">
 				<Padding bottom="large">
 					<Text overflow="break-word">

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -23,7 +25,9 @@ import { isEmpty, map, orderBy, reduce } from 'lodash';
 import QRCode from 'qrcode.react';
 import styled, { useTheme } from 'styled-components';
 
+// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
+// @ts-ignore
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import {
 	otpCodesLoginPage,
@@ -31,11 +35,14 @@ import {
 	otpCodesTypePin,
 	poweredByZextras,
 	zextrasLogo
+	// @ts-ignore
 } from '../../assets/icons/svgAssets';
 import { fetchSoap } from '../../network/fetchSoap';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
+// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
@@ -78,7 +85,7 @@ export function OTPAuthentication(): React.JSX.Element {
 	const [errorLabel, setErrorLabel] = useState('');
 	const [pinCodes, setPinCodes] = useState([]);
 
-	const userMail = useRef();
+	const userMail = useRef<string>();
 
 	const createSnackbar = useSnackbar();
 
@@ -451,7 +458,7 @@ export function OTPAuthentication(): React.JSX.Element {
 
 	return (
 		<>
-			<Section title={t('setNewOtpLabel.title')} divider>
+			<Section title={t('setNewOtpLabel.title')}>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button

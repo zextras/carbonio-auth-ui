@@ -21,11 +21,12 @@ import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { fetchSoap } from './network/fetchSoap';
+import { Password } from './types';
 
 type Tab = {
 	name: string;
 	label: string;
-	view: (props: {
+	view: (props?: {
 		passwords: Password[];
 		setPasswords: (passwords: Password[]) => void;
 	}) => React.JSX.Element;
@@ -166,7 +167,6 @@ function SideBar({
 	]);
 
 	useEffect(() => {
-		/* eslint-disable react-hooks/exhaustive-deps */
 		setActiveTab(links[0]);
 	}, []);
 
@@ -198,10 +198,6 @@ function SideBar({
 		</Row>
 	);
 }
-
-type Password = {
-	created: number;
-};
 
 function ActiveTab({ activeTab }: { activeTab: Tab }): React.JSX.Element {
 	const [passwords, setPasswords] = useState<Password[]>([]);

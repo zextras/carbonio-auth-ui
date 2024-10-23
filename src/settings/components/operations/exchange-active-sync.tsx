@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -22,15 +24,18 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 import styled from 'styled-components';
 
+// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
+// @ts-ignore
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import { fetchSoap } from '../../network/fetchSoap';
+import { PasswordId, TableRow, ViewProps } from '../../types';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
+// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
-
-/* eslint-disable react/jsx-no-bind */
 
 const stepsNames = {
 	set_label: 'set_label',
@@ -44,10 +49,12 @@ const TextPasswordContainer = styled(Row)`
 	background-color: ${({ theme }: { theme: Theme }): string => theme.palette.gray5.regular};
 `;
 
-export function ExchangeActiveSync({ passwords, setPasswords }): React.JSX.Element {
+export function ExchangeActiveSync({ passwords, setPasswords }: ViewProps): React.JSX.Element {
 	const [authDescription, setAuthDescription] = useState('');
-	const [newPasswordResponse, setNewPasswordResponse] = useState();
-	const [selectedPassword, setSelectedPassword] = useState();
+	const [newPasswordResponse, setNewPasswordResponse] = useState<{
+		text_data: { password: string };
+	}>();
+	const [selectedPassword, setSelectedPassword] = useState<PasswordId>();
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const createSnackbar = useSnackbar();
@@ -77,7 +84,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }): React.JSX.Eleme
 
 	const tableRows = useMemo(
 		() =>
-			passwords.reduce((acc, p) => {
+			passwords.reduce((acc: TableRow[], p) => {
 				p.services[0].service === 'EAS' &&
 					acc.push({
 						id: p.id,
@@ -149,7 +156,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }): React.JSX.Eleme
 		return '';
 	}, [authDescription]);
 
-	function ActionButton(): React.JSX.Element | undefined {
+	function ActionButton(): React.JSX.Element {
 		if (step === stepsNames.set_label) {
 			return (
 				<Button
@@ -184,11 +191,12 @@ export function ExchangeActiveSync({ passwords, setPasswords }): React.JSX.Eleme
 				/>
 			);
 		}
+		return <></>;
 	}
 
 	return (
 		<>
-			<Section title={t('easAuth.label')} divider>
+			<Section title={t('easAuth.label')}>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button

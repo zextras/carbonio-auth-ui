@@ -6,29 +6,9 @@
 
 import React from 'react';
 
-import { Button, Container, Divider, Padding, Text, Row } from '@zextras/carbonio-design-system';
+import { Container, Divider, Text, Row } from '@zextras/carbonio-design-system';
 
-type SectionHeaderProps = {
-	title: string;
-	divider: boolean;
-	showButtons: boolean;
-	saveLabel: string;
-	onSave: () => void;
-	onCancel: () => void;
-	isSaving: boolean;
-	isDisabled: boolean;
-};
-
-function SectionHeader({
-	title,
-	divider,
-	showButtons,
-	saveLabel,
-	onSave,
-	onCancel,
-	isSaving,
-	isDisabled
-}: SectionHeaderProps): React.JSX.Element {
+function SectionHeader({ title }: { title: string }): React.JSX.Element {
 	return (
 		<Container width="100%" height="fit">
 			<Row mainAlignment="flex-start" crossAlignment="center" width="100%" height="auto">
@@ -37,26 +17,8 @@ function SectionHeader({
 						{title}
 					</Text>
 				</Row>
-				{showButtons && (
-					<Row padding={{ horizontal: 'small' }}>
-						<Padding right="small">
-							<Button
-								label={'cancel'}
-								color="secondary"
-								onClick={onCancel}
-								disabled={isSaving || isDisabled}
-							/>
-						</Padding>
-						<Button
-							label={saveLabel || 'save'}
-							onClick={onSave}
-							loading={isSaving}
-							disabled={isSaving || isDisabled}
-						/>
-					</Row>
-				)}
 			</Row>
-			{divider && <Divider />}
+			<Divider />
 		</Container>
 	);
 }
@@ -80,16 +42,10 @@ function SectionBody({
 	);
 }
 
-function SectionFooter({
-	divider,
-	footer
-}: {
-	divider: boolean;
-	footer: React.JSX.Element;
-}): React.JSX.Element {
+function SectionFooter({ footer }: { footer: React.JSX.Element }): React.JSX.Element {
 	return (
 		<Container width="100%" height="fit">
-			{divider && <Divider />}
+			<Divider />
 			<Container height="fit" padding={{ all: 'large' }}>
 				{footer}
 			</Container>
@@ -98,46 +54,23 @@ function SectionFooter({
 }
 
 type SectionProps = {
-	children: React.ReactNode;
+	children?: React.ReactNode;
 	title: string;
-	divider: boolean;
-	footer: React.JSX.Element;
-	showButtons: boolean;
-	saveLabel: string;
-	onSave: () => void;
-	onCancel: () => void;
-	isSaving: boolean;
-	padding: { all: string };
-	isDisabled: boolean;
+	footer?: React.JSX.Element;
+	padding?: { all: string };
 };
 
 export function Section({
 	children,
 	title,
-	divider,
 	footer,
-	showButtons,
-	saveLabel,
-	onSave,
-	onCancel,
-	isSaving,
-	padding = { all: 'large' },
-	isDisabled
+	padding = { all: 'large' }
 }: SectionProps): React.JSX.Element {
 	return (
 		<Container background="gray6" height="fill" mainAlignment="flex-start">
-			<SectionHeader
-				title={title}
-				showButtons={showButtons}
-				saveLabel={saveLabel}
-				onSave={onSave}
-				onCancel={onCancel}
-				isSaving={isSaving}
-				isDisabled={isDisabled}
-				divider={divider}
-			/>
+			<SectionHeader title={title} />
 			<SectionBody padding={padding}>{children}</SectionBody>
-			{footer && <SectionFooter divider={divider} footer={footer} />}
+			{footer && <SectionFooter footer={footer} />}
 		</Container>
 	);
 }
