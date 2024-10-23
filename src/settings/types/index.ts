@@ -38,3 +38,14 @@ export type OtpTableRow = {
 	columns: [string, string, React.JSX.Element, string];
 	clickable: boolean;
 };
+
+export type Tab = {
+	name: string;
+	label: string;
+	view: (props?: {
+		passwords: Password[];
+		setPasswords: (passwords: Password[]) => void;
+	}) => React.JSX.Element;
+	instruction: string;
+	link?: string;
+};

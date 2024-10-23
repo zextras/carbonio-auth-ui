@@ -21,18 +21,7 @@ import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { fetchSoap } from './network/fetchSoap';
-import { Password } from './types';
-
-type Tab = {
-	name: string;
-	label: string;
-	view: (props?: {
-		passwords: Password[];
-		setPasswords: (passwords: Password[]) => void;
-	}) => React.JSX.Element;
-	instruction: string;
-	link?: string;
-};
+import { Password, Tab } from './types';
 
 function Instruction({
 	instruction,

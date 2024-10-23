@@ -17,6 +17,8 @@ import {
 } from '@zextras/carbonio-design-system';
 import styled from 'styled-components';
 
+import { Tab } from '../../types';
+
 const LinkText = styled(Text)`
 	user-select: none;
 `;
@@ -31,7 +33,15 @@ const NavigationLink = styled(Row)`
 	}
 `;
 
-export function SidebarNavigation({ links, activeTab, setActiveTab }): React.JSX.Element {
+export function SidebarNavigation({
+	links,
+	activeTab,
+	setActiveTab
+}: {
+	links: Tab[];
+	activeTab: Tab;
+	setActiveTab: (activeTab: Tab) => void;
+}): React.JSX.Element {
 	return (
 		<Container width="100%" height="100%" mainAlignment="flex-start" crossAlignment="stretch">
 			{links.map((link, index: number) => (
