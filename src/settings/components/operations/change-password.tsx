@@ -24,7 +24,7 @@ import { fetchSoap } from '../../network/fetchSoap';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
 
-export function ChangePassword() {
+export function ChangePassword(): React.JSX.Element {
 	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,7 +32,7 @@ export function ChangePassword() {
 	const [errorLabelNewPassword, setErrorLabelNewPassword] = useState('');
 	const [errorLabelConfirmPassword, setErrorLabelConfirmPassword] = useState('');
 	const [correctOldPassword, setCorrectOldPassword] = useState('');
-	const [isLocked, setIsLocked] = useState();
+	const [isLocked, setIsLocked] = useState<boolean>();
 	const settings = useUserSettings();
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ export function ChangePassword() {
 
 	const createSnackbar = useSnackbar();
 
-	function formatPasswordRule(type, num) {
+	function formatPasswordRule(type: string, num: number): string {
 		switch (type) {
 			case 'zimbraPasswordMinLength':
 				return t('changePassword.zimbraPasswordMinLength', { num });
@@ -61,7 +61,7 @@ export function ChangePassword() {
 		}
 	}
 
-	function formatPasswordCode(code) {
+	function formatPasswordCode(code: string): void {
 		switch (code) {
 			case 'account.AUTH_FAILED':
 				setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
@@ -71,28 +71,28 @@ export function ChangePassword() {
 				break;
 			default:
 				createSnackbar({
-					key: 2,
-					type: 'error',
+					key: '2',
+					severity: 'error',
 					label: t('error.somethingWrong'),
 					actionLabel: t('buttons.close')
 				});
 		}
 	}
 
-	const changePasswordSoap = () => {
+	const changePasswordSoap = (): void => {
 		fetchSoap('ChangePasswordRequest', {
 			_jsns: 'urn:zimbraAccount',
 			account: {
 				by: 'name',
-				_content: getUserAccount().name
+				_content: getUserAccount()?.name
 			},
 			oldPassword: { _content: oldPassword },
 			password: { _content: confirmPassword }
 		}).then((res) => {
 			if (res && 'ChangePasswordResponse' in res && 'authToken' in res.ChangePasswordResponse) {
 				createSnackbar({
-					key: 1,
-					type: 'success',
+					key: '1',
+					severity: 'success',
 					label: t('changePassword.passwordChanged'),
 					actionLabel: t('buttons.close')
 				});
@@ -106,8 +106,8 @@ export function ChangePassword() {
 				formatPasswordCode(code);
 			} else {
 				createSnackbar({
-					key: 2,
-					type: 'error',
+					key: '2',
+					severity: 'error',
 					label: t('error.somethingWrong'),
 					actionLabel: t('buttons.close')
 				});
@@ -178,7 +178,7 @@ export function ChangePassword() {
 							label={t('changePassword.oldPassword')}
 							backgroundColor="gray5"
 							value={oldPassword}
-							onChange={(e) => setOldPassword(e.target.value)}
+							onChange={(e): void => setOldPassword(e.target.value)}
 							hasError={errorLabelOldPassword}
 							disabled={isLocked}
 						/>
@@ -189,7 +189,7 @@ export function ChangePassword() {
 							label={t('newPassword')}
 							backgroundColor="gray5"
 							value={newPassword}
-							onChange={(e) => setNewPassword(e.target.value)}
+							onChange={(e): void => setNewPassword(e.target.value)}
 							hasError={errorLabelNewPassword}
 							disabled={isLocked}
 						/>
@@ -200,7 +200,7 @@ export function ChangePassword() {
 							label={t('changePassword.confirmNew')}
 							backgroundColor="gray5"
 							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							onChange={(e): void => setConfirmPassword(e.target.value)}
 							hasError={errorLabelConfirmPassword}
 							disabled={isLocked}
 						/>

@@ -15,6 +15,7 @@ import {
 	Row,
 	Table,
 	Text,
+	Theme,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
@@ -40,10 +41,10 @@ const stepsNames = {
 const TextPasswordContainer = styled(Row)`
 	font-family: monospace;
 	font-size: 1.25rem;
-	background-color: ${({ theme }) => theme.palette.gray5.regular};
+	background-color: ${({ theme }: { theme: Theme }): string => theme.palette.gray5.regular};
 `;
 
-export function ExchangeActiveSync({ passwords, setPasswords }) {
+export function ExchangeActiveSync({ passwords, setPasswords }): React.JSX.Element {
 	const [authDescription, setAuthDescription] = useState('');
 	const [newPasswordResponse, setNewPasswordResponse] = useState();
 	const [selectedPassword, setSelectedPassword] = useState();
@@ -75,7 +76,6 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 	];
 
 	const tableRows = useMemo(
-		/* eslint-disable react-hooks/exhaustive-deps */
 		() =>
 			passwords.reduce((acc, p) => {
 				p.services[0].service === 'EAS' &&
@@ -94,7 +94,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 		[passwords]
 	);
 
-	const updatePasswords = () =>
+	const updatePasswords = (): Promise<void> =>
 		fetchSoap('ListCredentialsRequest', {
 			// eslint-disable-next-line sonarjs/no-duplicate-string
 			_jsns: 'urn:zextrasClient'
@@ -109,7 +109,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 				);
 		});
 
-	const handleOnGeneratePassword = () =>
+	const handleOnGeneratePassword = (): Promise<void> =>
 		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
@@ -121,7 +121,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 			}
 		});
 
-	const handleOnDeletePassword = () =>
+	const handleOnDeletePassword = (): Promise<void> =>
 		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
@@ -129,14 +129,14 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 			res.response.ok && updatePasswords();
 		});
 
-	const handleOnClose = (showSnackbar = false) => {
+	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
 		setAuthDescription('');
 		setStep(stepsNames.set_label);
 		showSnackbar &&
 			createSnackbar({
-				key: 1,
-				type: 'success',
+				key: '1',
+				severity: 'success',
 				label: t('easAuth.success')
 			});
 	};
@@ -149,13 +149,13 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 		return '';
 	}, [authDescription]);
 
-	function ActionButton() {
+	function ActionButton(): React.JSX.Element | undefined {
 		if (step === stepsNames.set_label) {
 			return (
 				<Button
 					label={t('common.createPassword')}
 					disabled={authDescription === ''}
-					onClick={() => {
+					onClick={(): void => {
 						setStep(stepsNames.generate_password);
 						handleOnGeneratePassword();
 					}}
@@ -166,7 +166,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 			return (
 				<Button
 					label={t('buttons.done')}
-					onClick={() => {
+					onClick={(): void => {
 						handleOnClose(true);
 					}}
 				/>
@@ -177,7 +177,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 				<Button
 					label={t('buttons.yes')}
 					color="error"
-					onClick={() => {
+					onClick={(): void => {
 						handleOnDeletePassword();
 						handleOnClose();
 					}}
@@ -197,7 +197,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 							color="error"
 							icon="CloseOutline"
 							disabled={!selectedPassword || tableRows.length === 0}
-							onClick={() => {
+							onClick={(): void => {
 								setShowModal(true);
 								setStep(stepsNames.delete_password);
 							}}
@@ -207,7 +207,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 								label={t('common.newAuthentication')}
 								type="outlined"
 								icon="Plus"
-								onClick={() => setShowModal(true)}
+								onClick={(): void => setShowModal(true)}
 							/>
 						</Padding>
 					</Row>
@@ -218,7 +218,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 								headers={tableHeaders}
 								showCheckbox={false}
 								multiSelect={false}
-								onSelectionChange={(selected) => setSelectedPassword(selected[0])}
+								onSelectionChange={(selected): void => setSelectedPassword(selected[0])}
 							/>
 							{isEmpty(tableRows) && (
 								<Container padding="4rem 0 0">
@@ -235,7 +235,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 			<Modal
 				title={t('easAuth.new')}
 				open={showModal}
-				onClose={() => handleOnClose(false)}
+				onClose={(): void => handleOnClose(false)}
 				customFooter={
 					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
 						<PoweredByZextras />
@@ -244,7 +244,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 								label={
 									step === stepsNames.delete_password ? t('buttons.cancel') : t('buttons.close')
 								}
-								onClick={() => handleOnClose()}
+								onClick={(): void => handleOnClose()}
 								color="secondary"
 							/>
 							<Padding left="small">
@@ -260,7 +260,7 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 							<Input
 								label={t('setNewPassword.authenticationDescription')}
 								value={authDescription}
-								onChange={(e) => setAuthDescription(e.target.value)}
+								onChange={(e): void => setAuthDescription(e.target.value)}
 								backgroundColor="gray5"
 							/>
 							{formatError && <ErrorMessage error={formatError} />}
@@ -293,13 +293,13 @@ export function ExchangeActiveSync({ passwords, setPasswords }) {
 									<Button
 										label={t('common.copyPassword')}
 										type="outlined"
-										onClick={() => {
+										onClick={(): void => {
 											copyToClipboard(
 												newPasswordResponse && newPasswordResponse.text_data.password
 											);
 											createSnackbar({
-												key: 1,
-												type: 'info',
+												key: '1',
+												severity: 'info',
 												label: t('setNewPassword.EASPasswordCopied')
 											});
 										}}

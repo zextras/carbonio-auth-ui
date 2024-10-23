@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-export function AuthOutline({ size = '4rem' }) {
+export function AuthOutline({ size = '4rem' }: { size: string }): React.JSX.Element {
 	return (
 		<svg
 			width={size}

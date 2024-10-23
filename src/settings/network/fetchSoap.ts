@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export const fetchSoap = (api, body) =>
+export const fetchSoap = (api: string, body: Record<string, any>): Promise<any> =>
 	fetch(`/service/soap/${api}`, {
 		method: 'POST',
 		headers: {

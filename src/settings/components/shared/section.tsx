@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -7,6 +7,17 @@
 import React from 'react';
 
 import { Button, Container, Divider, Padding, Text, Row } from '@zextras/carbonio-design-system';
+
+type SectionHeaderProps = {
+	title: string;
+	divider: boolean;
+	showButtons: boolean;
+	saveLabel: string;
+	onSave: () => void;
+	onCancel: () => void;
+	isSaving: boolean;
+	isDisabled: boolean;
+};
 
 function SectionHeader({
 	title,
@@ -17,7 +28,7 @@ function SectionHeader({
 	onCancel,
 	isSaving,
 	isDisabled
-}) {
+}: SectionHeaderProps): React.JSX.Element {
 	return (
 		<Container width="100%" height="fit">
 			<Row mainAlignment="flex-start" crossAlignment="center" width="100%" height="auto">
@@ -50,7 +61,13 @@ function SectionHeader({
 	);
 }
 
-function SectionBody({ padding, children }) {
+function SectionBody({
+	padding,
+	children
+}: {
+	padding: { all: string };
+	children: React.ReactNode;
+}): React.JSX.Element {
 	return (
 		<Container
 			mainAlignment="flex-start"
@@ -63,7 +80,13 @@ function SectionBody({ padding, children }) {
 	);
 }
 
-function SectionFooter({ divider, footer }) {
+function SectionFooter({
+	divider,
+	footer
+}: {
+	divider: boolean;
+	footer: React.JSX.Element;
+}): React.JSX.Element {
 	return (
 		<Container width="100%" height="fit">
 			{divider && <Divider />}
@@ -73,6 +96,20 @@ function SectionFooter({ divider, footer }) {
 		</Container>
 	);
 }
+
+type SectionProps = {
+	children: React.ReactNode;
+	title: string;
+	divider: boolean;
+	footer: React.JSX.Element;
+	showButtons: boolean;
+	saveLabel: string;
+	onSave: () => void;
+	onCancel: () => void;
+	isSaving: boolean;
+	padding: { all: string };
+	isDisabled: boolean;
+};
 
 export function Section({
 	children,
@@ -86,7 +123,7 @@ export function Section({
 	isSaving,
 	padding = { all: 'large' },
 	isDisabled
-}) {
+}: SectionProps): React.JSX.Element {
 	return (
 		<Container background="gray6" height="fill" mainAlignment="flex-start">
 			<SectionHeader

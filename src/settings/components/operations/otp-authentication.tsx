@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -15,6 +15,7 @@ import {
 	Row,
 	Table,
 	Text,
+	Theme,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
@@ -62,10 +63,10 @@ const StaticCode = styled.label`
 `;
 
 const QRCodeRow = styled(Row)`
-	border-radius: ${({ theme }) => theme.borderRadius};
+	border-radius: ${({ theme }: { theme: Theme }): string => theme.borderRadius};
 `;
 
-export function OTPAuthentication() {
+export function OTPAuthentication(): React.JSX.Element {
 	const theme = useTheme();
 
 	const [otpList, setOTPList] = useState([]);
@@ -139,7 +140,7 @@ export function OTPAuthentication() {
 		[otpList]
 	);
 
-	const handleOnGenerateOTP = () =>
+	const handleOnGenerateOTP = (): Promise<void> =>
 		fetchSoap('GenerateOTPRequest', {
 			// eslint-disable-next-line sonarjs/no-duplicate-string
 			_jsns: 'urn:zextrasClient',
@@ -159,14 +160,14 @@ export function OTPAuthentication() {
 			}
 		});
 
-	const updateOTPList = () =>
+	const updateOTPList = (): Promise<void> =>
 		fetchSoap('ListOTPRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
 			res.response.ok && setOTPList(orderBy(res.response.value.list, ['created'], ['desc']));
 		});
 
-	const handleOnDeleteOTP = () =>
+	const handleOnDeleteOTP = (): Promise<void> =>
 		fetchSoap('DeleteOTPRequest', {
 			_jsns: 'urn:zextrasClient',
 			id: selectedOTP
@@ -174,25 +175,25 @@ export function OTPAuthentication() {
 			res.response.ok && updateOTPList();
 		});
 
-	const handleOnClose = (showSnackbar = false) => {
+	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
 		setModalStep(stepsNames.set_label);
 		setOTPLabel('');
 		showSnackbar &&
 			createSnackbar({
-				key: 1,
-				type: 'success',
+				key: '1',
+				severity: 'success',
 				label: t('setNewOtpLabel.success')
 			});
 	};
 
-	function ActionButton() {
+	function ActionButton(): React.JSX.Element | undefined {
 		if (modalStep === stepsNames.set_label) {
 			return (
 				<Button
 					label={t('common.createPassword')}
 					disabled={otpLabel === '' || errorLabel}
-					onClick={() => {
+					onClick={(): void => {
 						handleOnGenerateOTP();
 					}}
 				/>
@@ -202,7 +203,7 @@ export function OTPAuthentication() {
 			return (
 				<Button
 					label={t('buttons.next')}
-					onClick={() => {
+					onClick={(): void => {
 						setModalStep(stepsNames.show_pin_codes);
 					}}
 				/>
@@ -213,7 +214,7 @@ export function OTPAuthentication() {
 				<Button
 					label={t('buttons.yes')}
 					color="error"
-					onClick={() => {
+					onClick={(): void => {
 						handleOnDeleteOTP();
 						handleOnClose();
 					}}
@@ -224,7 +225,7 @@ export function OTPAuthentication() {
 			return (
 				<Button
 					label={t('buttons.done')}
-					onClick={() => {
+					onClick={(): void => {
 						handleOnClose(true);
 						updateOTPList();
 					}}
@@ -233,7 +234,7 @@ export function OTPAuthentication() {
 		}
 	}
 
-	function printCodes(codes, labelsObj) {
+	function printCodes(codes, labelsObj): void {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 
@@ -425,11 +426,11 @@ export function OTPAuthentication() {
 			</html>
 		`;
 
-		iframe.contentWindow.document.open('text/html', 'replace');
-		iframe.contentWindow.document.write(htmlCode);
-		iframe.contentWindow.document.close();
+		iframe?.contentWindow?.document.open('text/html', 'replace');
+		iframe?.contentWindow?.document.write(htmlCode);
+		iframe?.contentWindow?.document.close();
 
-		iframe.contentWindow.print();
+		iframe?.contentWindow?.print();
 		setTimeout(() => iframe.remove(), 100);
 	}
 
@@ -459,7 +460,7 @@ export function OTPAuthentication() {
 							color="error"
 							icon="CloseOutline"
 							disabled={!selectedOTP || tableRows.length === 0}
-							onClick={() => {
+							onClick={(): void => {
 								setShowModal(true);
 								setModalStep(stepsNames.delete_password);
 							}}
@@ -469,7 +470,7 @@ export function OTPAuthentication() {
 								label={t('newOtp.label')}
 								type="outlined"
 								icon="Plus"
-								onClick={() => setShowModal(true)}
+								onClick={(): void => setShowModal(true)}
 							/>
 						</Padding>
 					</Row>
@@ -495,7 +496,7 @@ export function OTPAuthentication() {
 			<Modal
 				title={t('setNewOtpLabel.new')}
 				open={showModal}
-				onClose={() => handleOnClose(false)}
+				onClose={(): void => handleOnClose(false)}
 				customFooter={
 					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
 						<PoweredByZextras />
@@ -506,7 +507,7 @@ export function OTPAuthentication() {
 										? t('buttons.cancel')
 										: t('buttons.close')
 								}
-								onClick={() => handleOnClose()}
+								onClick={(): void => handleOnClose()}
 								color="secondary"
 							/>
 							<Padding left="small">
@@ -522,7 +523,7 @@ export function OTPAuthentication() {
 							<Input
 								label={t('setNewOtpLabel.inputLabel')}
 								value={otpLabel}
-								onChange={(e) => setOTPLabel(e.target.value)}
+								onChange={(e): void => setOTPLabel(e.target.value)}
 								backgroundColor="gray5"
 								hasError={errorLabel}
 							/>
@@ -555,10 +556,10 @@ export function OTPAuthentication() {
 										<Button
 											label={t('common.copyQrCode')}
 											type="outlined"
-											onClick={() => {
+											onClick={(): void => {
 												copyToClipboard(qrData);
 												createSnackbar({
-													key: 2,
+													key: '2',
 													label: t('common.codeCopied')
 												});
 											}}
@@ -585,7 +586,7 @@ export function OTPAuthentication() {
 											<Button
 												type="outlined"
 												label={t('newOtp.printPinCodes')}
-												onClick={() =>
+												onClick={(): void =>
 													printCodes(pinCodes, {
 														title: t('staticOTPCodes.print.title'),
 														whenToUse: t('staticOTPCodes.print.whenToUse'),
