@@ -39,7 +39,7 @@ import {
 } from '../../assets/icons/svgAssets';
 import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
-import { Otp, OtpTableRow } from '../../types';
+import { Otp, OtpId, OtpTableRow } from '../../types';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
@@ -74,17 +74,30 @@ const QRCodeRow = styled(Row)`
 	border-radius: ${({ theme }: { theme: Theme }): string => theme.borderRadius};
 `;
 
+type PinCode = { code: string };
+
+type LabelsObj = {
+	title: string;
+	typePin: string;
+	login: string;
+	eraseUsedPin: boolean;
+	howToUse: string;
+	whenToUse: string;
+	useOnce: string;
+	keepInSafePlace: string;
+};
+
 export function OTPAuthentication(): React.JSX.Element {
 	const theme = useTheme();
 
 	const [otpList, setOTPList] = useState<Otp[]>([]);
-	const [selectedOTP, setSelectedOTP] = useState();
+	const [selectedOTP, setSelectedOTP] = useState<OtpId>();
 	const [showModal, setShowModal] = useState(false);
 	const [modalStep, setModalStep] = useState(stepsNames.set_label);
 	const [otpLabel, setOTPLabel] = useState('');
 	const [qrData, setQrData] = useState();
 	const [errorLabel, setErrorLabel] = useState('');
-	const [pinCodes, setPinCodes] = useState([]);
+	const [pinCodes, setPinCodes] = useState<Record<string>>([]);
 
 	const userMail = useRef<string>();
 
@@ -200,7 +213,7 @@ export function OTPAuthentication(): React.JSX.Element {
 			return (
 				<Button
 					label={t('common.createPassword')}
-					disabled={otpLabel === '' || errorLabel}
+					disabled={otpLabel === '' || !!errorLabel}
 					onClick={(): void => {
 						handleOnGenerateOTP();
 					}}
@@ -242,7 +255,7 @@ export function OTPAuthentication(): React.JSX.Element {
 		}
 	}
 
-	function printCodes(codes, labelsObj): void {
+	function printCodes(codes: Record<string, PinCode>, labelsObj: LabelsObj): void {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 
@@ -488,7 +501,7 @@ export function OTPAuthentication(): React.JSX.Element {
 							headers={tableHeaders}
 							showCheckbox={false}
 							multiSelect={false}
-							onSelectionChange={(selected) => setSelectedOTP(selected[0])}
+							onSelectionChange={(selected): void => setSelectedOTP(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
 							<Container padding="4rem 0 0">
@@ -533,7 +546,7 @@ export function OTPAuthentication(): React.JSX.Element {
 								value={otpLabel}
 								onChange={(e): void => setOTPLabel(e.target.value)}
 								backgroundColor="gray5"
-								hasError={errorLabel}
+								hasError={!!errorLabel}
 							/>
 							{errorLabel && <ErrorMessage error={errorLabel} />}
 							<Padding vertical="medium" style={{ textAlign: 'center' }} />
