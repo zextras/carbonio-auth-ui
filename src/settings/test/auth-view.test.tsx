@@ -21,6 +21,7 @@ jest.mock('@zextras/carbonio-shell-ui', () => ({
 jest.mock('../network/checkSupportedZextras', () => ({
 	checkSupportedZextras: jest.fn()
 }));
+
 describe('auth view', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -70,5 +71,50 @@ describe('auth view', () => {
 		expect(
 			within(screen.getByTestId('active-panel')).getByText('settingsAuth.Displayer.ResetPassword')
 		).toBeInTheDocument();
+	});
+
+	it('should display EAS, OTP and Mobile APP if advanced supported', async () => {
+		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
+		(useUserSettings as jest.Mock).mockReturnValue({
+			attrs: {
+				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureResetPasswordStatus: 'disabled'
+			}
+		});
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: { response: { values: [] } }
+			})
+		);
+
+		await act(async () => {
+			customRender(<App />);
+		});
+
+		expect(screen.getByText('easAuth.label')).toBeVisible();
+		expect(screen.getByText('appMobile.title')).toBeVisible();
+		expect(screen.getByText('setNewOtpLabel.title')).toBeVisible();
+	});
+	it('should not display EAS, OTP and Mobile APP if advanced not supported', async () => {
+		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: false });
+		(useUserSettings as jest.Mock).mockReturnValue({
+			attrs: {
+				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureResetPasswordStatus: 'disabled'
+			}
+		});
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: { response: { values: [] } }
+			})
+		);
+
+		await act(async () => {
+			customRender(<App />);
+		});
+
+		expect(screen.queryByText('easAuth.label')).not.toBeInTheDocument();
+		expect(screen.queryByText('appMobile.title')).not.toBeInTheDocument();
+		expect(screen.queryByText('setNewOtpLabel.title')).not.toBeInTheDocument();
 	});
 });
