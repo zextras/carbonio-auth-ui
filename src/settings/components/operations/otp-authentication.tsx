@@ -23,7 +23,7 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
-import QRCode from 'qrcode.react';
+import QRCode, { QRCodeSVG } from 'qrcode.react';
 import styled, { useTheme } from 'styled-components';
 
 // @ts-ignore
@@ -82,7 +82,7 @@ type LabelsObj = {
 	title: string;
 	typePin: string;
 	login: string;
-	eraseUsedPin: boolean;
+	eraseUsedPin: string;
 	howToUse: string;
 	whenToUse: string;
 	useOnce: string;
@@ -90,7 +90,7 @@ type LabelsObj = {
 };
 
 export function OTPAuthentication(): React.JSX.Element {
-	const theme = useTheme();
+	const theme = useTheme() as Theme;
 
 	const [otpList, setOTPList] = useState<Otp[]>([]);
 	const [selectedOTP, setSelectedOTP] = useState<OtpId>();
@@ -99,7 +99,7 @@ export function OTPAuthentication(): React.JSX.Element {
 	const [otpLabel, setOTPLabel] = useState('');
 	const [qrData, setQrData] = useState();
 	const [errorLabel, setErrorLabel] = useState('');
-	const [pinCodes, setPinCodes] = useState<Record<string, PinCode>>([]);
+	const [pinCodes, setPinCodes] = useState<Record<string, PinCode>>({});
 
 	const userMail = useRef<string>();
 
@@ -210,7 +210,7 @@ export function OTPAuthentication(): React.JSX.Element {
 			});
 	};
 
-	function ActionButton(): React.JSX.Element | undefined {
+	function ActionButton(): React.JSX.Element {
 		if (modalStep === stepsNames.set_label) {
 			return (
 				<Button
@@ -255,6 +255,7 @@ export function OTPAuthentication(): React.JSX.Element {
 				/>
 			);
 		}
+		return <></>;
 	}
 
 	function printCodes(codes: Record<string, PinCode>, labelsObj: LabelsObj): void {
@@ -568,7 +569,7 @@ export function OTPAuthentication(): React.JSX.Element {
 									orientation="vertical"
 									padding={{ all: 'large' }}
 								>
-									<QRCode
+									<QRCodeSVG
 										includeMargin
 										data-testid="qrcode-password"
 										size={150}

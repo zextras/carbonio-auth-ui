@@ -54,14 +54,7 @@ export function SidebarNavigation({
 						onClick={(): void => setActiveTab(link)}
 						isActive={activeTab.name === link.name}
 					>
-						{link.icon && (
-							<Padding right="large">
-								<Icon size="large" icon={link.icon} />
-							</Padding>
-						)}
-						<LinkText size="large" isActive={activeTab.name === link.name}>
-							{link.label}
-						</LinkText>
+						<LinkText size="large">{link.label}</LinkText>
 					</NavigationLink>
 				</div>
 			))}

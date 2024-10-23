@@ -52,7 +52,7 @@ export function ResetPassword(): JSX.Element {
 				errorSnackbar(res?.Fault?.Reason?.Text);
 			}
 		});
-	}, [createSnackbar, errorSnackbar, newPasswordValue, resetValues, t]);
+	}, [createSnackbar, errorSnackbar, newPasswordValue, resetValues]);
 
 	const hasMatchError = useMemo(
 		() => confirmPasswordValue.length > 0 && newPasswordValue !== confirmPasswordValue,

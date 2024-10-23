@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -17,6 +18,7 @@ import { ExchangeActiveSync } from './components/operations/exchange-active-sync
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
 import { ResetPassword } from './components/operations/reset-password';
+// @ts-ignore
 import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
@@ -157,6 +159,8 @@ function SideBar({
 
 	useEffect(() => {
 		setActiveTab(links[0]);
+		// putting depencency results in first tab to be always active
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -222,7 +226,7 @@ export default function App(): React.JSX.Element {
 		checkHasZextras();
 	}, [checkHasZextras]);
 
-	const occupyFull = useMemo(() => window.innerWidth <= 1800, [window.innerWidth]);
+	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
 	return (
 		<Shell>
 			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
