@@ -42,10 +42,10 @@ export type OtpTableRow = {
 export type Tab = {
 	name: string;
 	label: string;
-	view: (props?: {
+	view: (props: {
 		passwords: Password[];
 		setPasswords: (passwords: Password[]) => void;
-	}) => React.JSX.Element;
+	}) => React.JSX.Element | (() => React.JSX.Element);
 	instruction: string;
 	link?: string;
 };

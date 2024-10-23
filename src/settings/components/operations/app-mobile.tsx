@@ -26,6 +26,8 @@ import { QRCodeSVG } from 'qrcode.react';
 import { EmptyState } from '../../assets/icons/empty-state';
 import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
+import { ViewProps } from '../../types';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
@@ -51,11 +53,6 @@ type PasswordProps = {
 	hash: string;
 	enabled: boolean;
 	algorithm: string;
-};
-
-type AppMobileProps = {
-	passwords: Array<PasswordProps>;
-	setPasswords: (arg: Array<PasswordProps>) => void;
 };
 
 type QrCodeProps = {
@@ -87,7 +84,7 @@ type QrCodeProps = {
 	};
 };
 
-export function AppMobile({ passwords, setPasswords }: AppMobileProps): ReactElement {
+export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
