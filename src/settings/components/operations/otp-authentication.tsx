@@ -39,6 +39,7 @@ import {
 } from '../../assets/icons/svgAssets';
 import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
+import { Otp, OtpTableRow } from '../../types';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
@@ -76,7 +77,7 @@ const QRCodeRow = styled(Row)`
 export function OTPAuthentication(): React.JSX.Element {
 	const theme = useTheme();
 
-	const [otpList, setOTPList] = useState([]);
+	const [otpList, setOTPList] = useState<Otp[]>([]);
 	const [selectedOTP, setSelectedOTP] = useState();
 	const [showModal, setShowModal] = useState(false);
 	const [modalStep, setModalStep] = useState(stepsNames.set_label);
@@ -116,7 +117,7 @@ export function OTPAuthentication(): React.JSX.Element {
 	const tableRows = useMemo(
 		/* eslint-disable no-nested-ternary, react-hooks/exhaustive-deps */
 		() =>
-			otpList.reduce((acc, otp) => {
+			otpList.reduce((acc: OtpTableRow[], otp) => {
 				acc.push({
 					id: otp.id,
 					columns: [

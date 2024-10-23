@@ -4,14 +4,25 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export type PasswordId = string;
+import React from 'react';
 
+export type PasswordId = string;
 export type Password = {
-	created: number;
 	id: PasswordId;
 	label: string;
 	enabled: boolean;
 	services: [{ service: string }];
+	created: number;
+};
+
+export type OtpId = string;
+
+export type Otp = {
+	id: OtpId;
+	label: string;
+	enabled: boolean;
+	failed_attempts: number;
+	created: number;
 };
 
 export type ViewProps = { passwords: Password[]; setPasswords: (password: Password[]) => void };
@@ -19,5 +30,11 @@ export type ViewProps = { passwords: Password[]; setPasswords: (password: Passwo
 export type TableRow = {
 	id: string;
 	columns: [string, string, string, string];
+	clickable: boolean;
+};
+
+export type OtpTableRow = {
+	id: string;
+	columns: [string, string, React.JSX.Element, string];
 	clickable: boolean;
 };
