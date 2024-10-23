@@ -17,6 +17,7 @@ import {
 	Row,
 	Table,
 	Text,
+	THeader,
 	Theme,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
@@ -40,6 +41,7 @@ import {
 import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
 import { Otp, OtpId, OtpTableRow } from '../../types';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
@@ -97,13 +99,13 @@ export function OTPAuthentication(): React.JSX.Element {
 	const [otpLabel, setOTPLabel] = useState('');
 	const [qrData, setQrData] = useState();
 	const [errorLabel, setErrorLabel] = useState('');
-	const [pinCodes, setPinCodes] = useState<Record<string>>([]);
+	const [pinCodes, setPinCodes] = useState<Record<string, PinCode>>([]);
 
 	const userMail = useRef<string>();
 
 	const createSnackbar = useSnackbar();
 
-	const tableHeaders = [
+	const tableHeaders: THeader[] = [
 		{
 			id: 'code',
 			label: t('passwordListLabel.label', 'Description'),
