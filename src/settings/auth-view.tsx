@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -17,12 +18,20 @@ import { ExchangeActiveSync } from './components/operations/exchange-active-sync
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
 import { ResetPassword } from './components/operations/reset-password';
+// @ts-ignore
 import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { fetchSoap } from './network/fetchSoap';
+import { Password, Tab } from './types';
 
-function Instruction({ instruction, link }) {
+function Instruction({
+	instruction,
+	link
+}: {
+	instruction: string;
+	link?: string;
+}): React.JSX.Element {
 	return (
 		<Row orientation="vertical" height="fill" width="fill">
 			<Padding bottom="medium">
@@ -51,7 +60,15 @@ function Instruction({ instruction, link }) {
 	);
 }
 
-function SideBar({ activeTab, setActiveTab, hasZextras }) {
+function SideBar({
+	activeTab,
+	setActiveTab,
+	hasZextras
+}: {
+	activeTab: Tab | undefined;
+	setActiveTab: (activeTab: Tab) => void;
+	hasZextras: boolean;
+}): React.JSX.Element {
 	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
 		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
@@ -141,8 +158,9 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	]);
 
 	useEffect(() => {
-		/* eslint-disable react-hooks/exhaustive-deps */
 		setActiveTab(links[0]);
+		// putting depencency results in first tab to be always active
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -153,7 +171,7 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 			height="100%"
 		>
 			<Row>
-				<Row width="100%" mainAlignment="flex=start" padding={{ all: 'small' }}>
+				<Row width="100%" padding={{ all: 'small' }}>
 					<Padding right="small">
 						<AuthOutline size="1.5rem" />
 					</Padding>
@@ -174,13 +192,13 @@ function SideBar({ activeTab, setActiveTab, hasZextras }) {
 	);
 }
 
-function ActiveTab({ activeTab }) {
-	const [passwords, setPasswords] = useState([]);
+function ActiveTab({ activeTab }: { activeTab: Tab }): React.JSX.Element {
+	const [passwords, setPasswords] = useState<Password[]>([]);
 
 	useEffect(() => {
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
-		}).then((res) => {
+		}).then((res: { response: { value?: { list: Password[] }; values?: Password[] } }) => {
 			if ('Fault' in res) return;
 			setPasswords(
 				orderBy(
@@ -195,8 +213,8 @@ function ActiveTab({ activeTab }) {
 	return <activeTab.view passwords={passwords} setPasswords={setPasswords} />;
 }
 
-export default function App() {
-	const [activeTab, setActiveTab] = useState();
+export default function App(): React.JSX.Element {
+	const [activeTab, setActiveTab] = useState<Tab>();
 	const [hasZextras, setHasZextras] = useState(false);
 
 	const checkHasZextras = useCallback(async () => {
@@ -208,11 +226,11 @@ export default function App() {
 		checkHasZextras();
 	}, [checkHasZextras]);
 
-	const occupyFull = useMemo(() => window.innerWidth <= 1800, [window.innerWidth]);
+	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
 	return (
 		<Shell>
 			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
-			<ColumnFull mainAlignment="space-between" takeAvailableSpace>
+			<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
 				<ColumnLeft
 					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
 					mainAlignment="flex-start"

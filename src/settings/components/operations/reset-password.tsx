@@ -13,7 +13,7 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { useTranslation } from 'react-i18next';
+import { t } from '@zextras/carbonio-shell-ui';
 
 import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
 import { resetPasswordRequest } from '../../network/reset-password-request';
@@ -22,7 +22,6 @@ import { resetPasswordRequest } from '../../network/reset-password-request';
 import { Section } from '../shared/section';
 
 export function ResetPassword(): JSX.Element {
-	const [t] = useTranslation();
 	const createSnackbar = useSnackbar();
 	const errorSnackbar = useGenericErrorSnackbar();
 
@@ -53,7 +52,7 @@ export function ResetPassword(): JSX.Element {
 				errorSnackbar(res?.Fault?.Reason?.Text);
 			}
 		});
-	}, [createSnackbar, errorSnackbar, newPasswordValue, resetValues, t]);
+	}, [createSnackbar, errorSnackbar, newPasswordValue, resetValues]);
 
 	const hasMatchError = useMemo(
 		() => confirmPasswordValue.length > 0 && newPasswordValue !== confirmPasswordValue,
@@ -61,7 +60,7 @@ export function ResetPassword(): JSX.Element {
 	);
 
 	return (
-		<Section title={t('settingsAuth.Displayer.ResetPassword', 'Reset Password')} divider isDisabled>
+		<Section title={t('settingsAuth.Displayer.ResetPassword', 'Reset Password')}>
 			<Row mainAlignment="flex-start" width="fill">
 				<Padding bottom="large">
 					<Text overflow="break-word">
