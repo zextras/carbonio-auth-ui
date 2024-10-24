@@ -99,7 +99,7 @@ export function OTPAuthentication(): React.JSX.Element {
 	const [otpLabel, setOTPLabel] = useState('');
 	const [qrData, setQrData] = useState();
 	const [errorLabel, setErrorLabel] = useState('');
-	const [pinCodes, setPinCodes] = useState<Record<string, PinCode>>({});
+	const [pinCodes, setPinCodes] = useState<PinCode[]>([]);
 
 	const userMail = useRef<string>();
 
@@ -258,7 +258,7 @@ export function OTPAuthentication(): React.JSX.Element {
 		return <></>;
 	}
 
-	function printCodes(codes: Record<string, PinCode>, labelsObj: LabelsObj): void {
+	function printCodes(codes: PinCode[], labelsObj: LabelsObj): void {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 
