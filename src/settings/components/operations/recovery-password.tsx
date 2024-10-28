@@ -20,8 +20,6 @@ import { useTranslation } from 'react-i18next';
 import { isValidEmail } from '../../../utils/email';
 import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
 import { setRecoveryAccountRequest } from '../../network/set-recovery-account-request';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { Section } from '../shared/section';
 
 export const RecoveryPassword = (): JSX.Element => {
@@ -51,11 +49,11 @@ export const RecoveryPassword = (): JSX.Element => {
 		[recoveryAddressStatus]
 	);
 
-	const onAddressInputChange = useCallback((e) => {
+	const onAddressInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setPasswordRecoveryAddress(e.target.value);
 	}, []);
 
-	const onCodeInputChange = useCallback((e) => {
+	const onCodeInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setCodeValue(e.target.value);
 	}, []);
 
@@ -160,7 +158,7 @@ export const RecoveryPassword = (): JSX.Element => {
 	);
 
 	return (
-		<Section title={t('recoveryAddress.title', 'Recovery Address')} divider>
+		<Section title={t('recoveryAddress.title', 'Recovery Address')}>
 			{isRecoveryAddressStatusVerified ? (
 				<>
 					<Padding top="large" />

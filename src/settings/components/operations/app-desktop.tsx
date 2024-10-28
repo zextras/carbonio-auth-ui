@@ -1,7 +1,4 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable camelcase */
-/* disabled camelcase for NewPasswordProps */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -27,6 +24,8 @@ import { orderBy, isEmpty } from 'lodash';
 // @ts-ignore
 import { fetchSoap } from '../../network/fetchSoap';
 // @ts-ignore
+import { Password, TableRow, ViewProps } from '../../types';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 // @ts-ignore
 import { ErrorMessage } from '../shared/error-message';
@@ -41,27 +40,6 @@ const stepsNames = {
 	generate_password: 'generate_password',
 	delete_password: 'delete_password'
 };
-
-type PasswordProps = {
-	generated: number;
-	created: Date;
-	label: string;
-	id: string;
-	services: [
-		{
-			service: string;
-		}
-	];
-	hash: string;
-	enabled: boolean;
-	algorithm: string;
-};
-
-type AppDesktopProps = {
-	passwords: Array<PasswordProps>;
-	setPasswords: (arg: Array<PasswordProps>) => void;
-};
-
 type NewPasswordProps = {
 	qrcode_data: {
 		auth_method: string;
@@ -75,23 +53,10 @@ type NewPasswordProps = {
 			}
 		];
 	};
-	list: {
-		generated: string;
-		created: string;
-		label: string;
-		id: string;
-		services: [
-			{
-				service: string;
-			}
-		];
-		hash: string;
-		enabled: boolean;
-		algorithm: string;
-	};
+	list: [Password];
 };
 
-export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactElement {
+export function AppDesktop({ passwords, setPasswords }: ViewProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 	const [step, setStep] = useState(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
@@ -123,16 +88,14 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 
 	const tableRows = useMemo(
 		() =>
-			passwords.reduce((acc: any, p: any) => {
+			passwords.reduce((acc: TableRow[], p) => {
 				p.services[0].service === 'DesktopApp' &&
 					acc.push({
 						id: p.id,
 						columns: [
 							p.label,
 							p.enabled ? t('common.enabled', 'Enabled') : t('common.disabled', 'Disabled'),
-							p.services[0].service === 'EAS'
-								? t('easAuth.label', 'Exchange ActiveSync')
-								: t('appDesktop.label', 'Desktop Applications'),
+							t('appDesktop.label', 'Desktop Applications'),
 							formatDateUsingLocale(p.created)
 						],
 						clickable: true
@@ -142,7 +105,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 		[passwords]
 	);
 
-	const updatePasswords = (): void =>
+	const updatePasswords = (): Promise<void> =>
 		fetchSoap('ListCredentialsRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then(
@@ -164,7 +127,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 			}
 		);
 
-	const handleOnGenerateQrcode = (): void =>
+	const handleOnGenerateQrcode = (): Promise<void> =>
 		fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
@@ -181,7 +144,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 			}
 		);
 
-	const handleOnDeletePassword = (): void =>
+	const handleOnDeletePassword = (): Promise<void> =>
 		fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
@@ -252,7 +215,7 @@ export function AppDesktop({ passwords, setPasswords }: AppDesktopProps): ReactE
 
 	return (
 		<>
-			<Section title={t('appDesktop.title', 'Desktop Apps')} divider>
+			<Section title={t('appDesktop.title', 'Desktop Apps')}>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button

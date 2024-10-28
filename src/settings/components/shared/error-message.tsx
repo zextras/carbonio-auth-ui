@@ -8,7 +8,7 @@ import React from 'react';
 
 import { Row, Text } from '@zextras/carbonio-design-system';
 
-export function ErrorMessage({ error }) {
+export function ErrorMessage({ error }: { error: string }): React.JSX.Element {
 	return (
 		<Row width="fill" mainAlignment="flex-start" padding={{ top: 'extrasmall' }}>
 			<Text size="small" color="error">

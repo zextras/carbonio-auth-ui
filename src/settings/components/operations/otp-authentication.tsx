@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /*
- * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -15,14 +17,18 @@ import {
 	Row,
 	Table,
 	Text,
+	THeader,
+	Theme,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
-import QRCode from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 import styled, { useTheme } from 'styled-components';
 
+// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
+// @ts-ignore
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import {
 	otpCodesLoginPage,
@@ -30,11 +36,16 @@ import {
 	otpCodesTypePin,
 	poweredByZextras,
 	zextrasLogo
+	// @ts-ignore
 } from '../../assets/icons/svgAssets';
 import { fetchSoap } from '../../network/fetchSoap';
+// @ts-ignore
+import { Otp, OtpId, OtpTableRow } from '../../types';
+// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
+// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 /* eslint-disable react/jsx-no-bind */
@@ -62,26 +73,39 @@ const StaticCode = styled.label`
 `;
 
 const QRCodeRow = styled(Row)`
-	border-radius: ${({ theme }) => theme.borderRadius};
+	border-radius: ${({ theme }: { theme: Theme }): string => theme.borderRadius};
 `;
 
-export function OTPAuthentication() {
-	const theme = useTheme();
+type PinCode = { code: string };
 
-	const [otpList, setOTPList] = useState([]);
-	const [selectedOTP, setSelectedOTP] = useState();
+type LabelsObj = {
+	title: string;
+	typePin: string;
+	login: string;
+	eraseUsedPin: string;
+	howToUse: string;
+	whenToUse: string;
+	useOnce: string;
+	keepInSafePlace: string;
+};
+
+export function OTPAuthentication(): React.JSX.Element {
+	const theme = useTheme() as Theme;
+
+	const [otpList, setOTPList] = useState<Otp[]>([]);
+	const [selectedOTP, setSelectedOTP] = useState<OtpId>();
 	const [showModal, setShowModal] = useState(false);
 	const [modalStep, setModalStep] = useState(stepsNames.set_label);
 	const [otpLabel, setOTPLabel] = useState('');
 	const [qrData, setQrData] = useState();
 	const [errorLabel, setErrorLabel] = useState('');
-	const [pinCodes, setPinCodes] = useState([]);
+	const [pinCodes, setPinCodes] = useState<PinCode[]>([]);
 
-	const userMail = useRef();
+	const userMail = useRef<string>();
 
 	const createSnackbar = useSnackbar();
 
-	const tableHeaders = [
+	const tableHeaders: THeader[] = [
 		{
 			id: 'code',
 			label: t('passwordListLabel.label', 'Description'),
@@ -108,7 +132,7 @@ export function OTPAuthentication() {
 	const tableRows = useMemo(
 		/* eslint-disable no-nested-ternary, react-hooks/exhaustive-deps */
 		() =>
-			otpList.reduce((acc, otp) => {
+			otpList.reduce((acc: OtpTableRow[], otp) => {
 				acc.push({
 					id: otp.id,
 					columns: [
@@ -139,7 +163,7 @@ export function OTPAuthentication() {
 		[otpList]
 	);
 
-	const handleOnGenerateOTP = () =>
+	const handleOnGenerateOTP = (): Promise<void> =>
 		fetchSoap('GenerateOTPRequest', {
 			// eslint-disable-next-line sonarjs/no-duplicate-string
 			_jsns: 'urn:zextrasClient',
@@ -159,14 +183,14 @@ export function OTPAuthentication() {
 			}
 		});
 
-	const updateOTPList = () =>
+	const updateOTPList = (): Promise<void> =>
 		fetchSoap('ListOTPRequest', {
 			_jsns: 'urn:zextrasClient'
 		}).then((res) => {
 			res.response.ok && setOTPList(orderBy(res.response.value.list, ['created'], ['desc']));
 		});
 
-	const handleOnDeleteOTP = () =>
+	const handleOnDeleteOTP = (): Promise<void> =>
 		fetchSoap('DeleteOTPRequest', {
 			_jsns: 'urn:zextrasClient',
 			id: selectedOTP
@@ -174,25 +198,25 @@ export function OTPAuthentication() {
 			res.response.ok && updateOTPList();
 		});
 
-	const handleOnClose = (showSnackbar = false) => {
+	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
 		setModalStep(stepsNames.set_label);
 		setOTPLabel('');
 		showSnackbar &&
 			createSnackbar({
-				key: 1,
-				type: 'success',
+				key: '1',
+				severity: 'success',
 				label: t('setNewOtpLabel.success')
 			});
 	};
 
-	function ActionButton() {
+	function ActionButton(): React.JSX.Element {
 		if (modalStep === stepsNames.set_label) {
 			return (
 				<Button
 					label={t('common.createPassword')}
-					disabled={otpLabel === '' || errorLabel}
-					onClick={() => {
+					disabled={otpLabel === '' || !!errorLabel}
+					onClick={(): void => {
 						handleOnGenerateOTP();
 					}}
 				/>
@@ -202,7 +226,7 @@ export function OTPAuthentication() {
 			return (
 				<Button
 					label={t('buttons.next')}
-					onClick={() => {
+					onClick={(): void => {
 						setModalStep(stepsNames.show_pin_codes);
 					}}
 				/>
@@ -213,7 +237,7 @@ export function OTPAuthentication() {
 				<Button
 					label={t('buttons.yes')}
 					color="error"
-					onClick={() => {
+					onClick={(): void => {
 						handleOnDeleteOTP();
 						handleOnClose();
 					}}
@@ -224,16 +248,17 @@ export function OTPAuthentication() {
 			return (
 				<Button
 					label={t('buttons.done')}
-					onClick={() => {
+					onClick={(): void => {
 						handleOnClose(true);
 						updateOTPList();
 					}}
 				/>
 			);
 		}
+		return <></>;
 	}
 
-	function printCodes(codes, labelsObj) {
+	function printCodes(codes: PinCode[], labelsObj: LabelsObj): void {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 
@@ -425,11 +450,11 @@ export function OTPAuthentication() {
 			</html>
 		`;
 
-		iframe.contentWindow.document.open('text/html', 'replace');
-		iframe.contentWindow.document.write(htmlCode);
-		iframe.contentWindow.document.close();
+		iframe?.contentWindow?.document.open('text/html', 'replace');
+		iframe?.contentWindow?.document.write(htmlCode);
+		iframe?.contentWindow?.document.close();
 
-		iframe.contentWindow.print();
+		iframe?.contentWindow?.print();
 		setTimeout(() => iframe.remove(), 100);
 	}
 
@@ -450,7 +475,7 @@ export function OTPAuthentication() {
 
 	return (
 		<>
-			<Section title={t('setNewOtpLabel.title')} divider>
+			<Section title={t('setNewOtpLabel.title')}>
 				<Container>
 					<Row width="100%" mainAlignment="flex-end">
 						<Button
@@ -459,7 +484,7 @@ export function OTPAuthentication() {
 							color="error"
 							icon="CloseOutline"
 							disabled={!selectedOTP || tableRows.length === 0}
-							onClick={() => {
+							onClick={(): void => {
 								setShowModal(true);
 								setModalStep(stepsNames.delete_password);
 							}}
@@ -469,7 +494,7 @@ export function OTPAuthentication() {
 								label={t('newOtp.label')}
 								type="outlined"
 								icon="Plus"
-								onClick={() => setShowModal(true)}
+								onClick={(): void => setShowModal(true)}
 							/>
 						</Padding>
 					</Row>
@@ -479,7 +504,7 @@ export function OTPAuthentication() {
 							headers={tableHeaders}
 							showCheckbox={false}
 							multiSelect={false}
-							onSelectionChange={(selected) => setSelectedOTP(selected[0])}
+							onSelectionChange={(selected): void => setSelectedOTP(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
 							<Container padding="4rem 0 0">
@@ -495,7 +520,7 @@ export function OTPAuthentication() {
 			<Modal
 				title={t('setNewOtpLabel.new')}
 				open={showModal}
-				onClose={() => handleOnClose(false)}
+				onClose={(): void => handleOnClose(false)}
 				customFooter={
 					<Row width="100%" mainAlignment="space-between" crossAlignment="flex-end">
 						<PoweredByZextras />
@@ -506,7 +531,7 @@ export function OTPAuthentication() {
 										? t('buttons.cancel')
 										: t('buttons.close')
 								}
-								onClick={() => handleOnClose()}
+								onClick={(): void => handleOnClose()}
 								color="secondary"
 							/>
 							<Padding left="small">
@@ -522,9 +547,9 @@ export function OTPAuthentication() {
 							<Input
 								label={t('setNewOtpLabel.inputLabel')}
 								value={otpLabel}
-								onChange={(e) => setOTPLabel(e.target.value)}
+								onChange={(e): void => setOTPLabel(e.target.value)}
 								backgroundColor="gray5"
-								hasError={errorLabel}
+								hasError={!!errorLabel}
 							/>
 							{errorLabel && <ErrorMessage error={errorLabel} />}
 							<Padding vertical="medium" style={{ textAlign: 'center' }} />
@@ -544,7 +569,7 @@ export function OTPAuthentication() {
 									orientation="vertical"
 									padding={{ all: 'large' }}
 								>
-									<QRCode
+									<QRCodeSVG
 										includeMargin
 										data-testid="qrcode-password"
 										size={150}
@@ -555,10 +580,10 @@ export function OTPAuthentication() {
 										<Button
 											label={t('common.copyQrCode')}
 											type="outlined"
-											onClick={() => {
+											onClick={(): void => {
 												copyToClipboard(qrData);
 												createSnackbar({
-													key: 2,
+													key: '2',
 													label: t('common.codeCopied')
 												});
 											}}
@@ -585,7 +610,7 @@ export function OTPAuthentication() {
 											<Button
 												type="outlined"
 												label={t('newOtp.printPinCodes')}
-												onClick={() =>
+												onClick={(): void =>
 													printCodes(pinCodes, {
 														title: t('staticOTPCodes.print.title'),
 														whenToUse: t('staticOTPCodes.print.whenToUse'),
