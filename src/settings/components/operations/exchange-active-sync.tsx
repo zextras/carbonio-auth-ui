@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -17,24 +15,19 @@ import {
 	Row,
 	Table,
 	Text,
-	Theme,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 import styled from 'styled-components';
 
-// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
-// @ts-ignore
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import { fetchSoap } from '../../network/fetchSoap';
 import { PasswordId, TableRow, ViewProps } from '../../types';
-// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 const stepsNames = {
@@ -46,10 +39,13 @@ const stepsNames = {
 const TextPasswordContainer = styled(Row)`
 	font-family: monospace;
 	font-size: 1.25rem;
-	background-color: ${({ theme }: { theme: Theme }): string => theme.palette.gray5.regular};
+	background-color: ${({ theme }): string => theme.palette.gray5.regular};
 `;
 
-export function ExchangeActiveSync({ passwords, setPasswords }: ViewProps): React.JSX.Element {
+export function ExchangeActiveSync({
+	passwords,
+	setPasswords
+}: Readonly<ViewProps>): React.JSX.Element {
 	const [authDescription, setAuthDescription] = useState('');
 	const [newPasswordResponse, setNewPasswordResponse] = useState<{
 		text_data: { password: string };
