@@ -7,12 +7,16 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 
 import { addSettingsView, t } from '@zextras/carbonio-shell-ui';
-import { Spinner } from "@zextras/carbonio-design-system";
+import { Container, Spinner } from "@zextras/carbonio-design-system";
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
 const Auth = (props) => (
-	<Suspense fallback={<Spinner color={'primary'} />}>
+	<Suspense fallback={
+		<Container>
+			<Spinner color={'primary'} />
+		</Container>
+	}>
 		<LazyAuth {...props} />
 	</Suspense>
 );
