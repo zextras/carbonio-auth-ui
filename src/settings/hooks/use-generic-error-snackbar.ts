@@ -17,7 +17,7 @@ export const useGenericErrorSnackbar = (): ((arg?: string) => void) => {
 			createSnackbar({
 				key: `generic_error`,
 				replace: true,
-				type: 'error',
+				severity: 'error',
 				hideButton: true,
 				label: label ?? t('error.somethingWrong', 'Something went wrong.'),
 				autoHideTimeout: 3000

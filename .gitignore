@@ -60,3 +60,4 @@ coverage/cobertura-coverage.xml
 
 .reuse/*
 LICENSES/*
+/coverage/

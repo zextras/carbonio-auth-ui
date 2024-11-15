@@ -1,12 +1,12 @@
 /*
- * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+ * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import React from 'react';
 
-export function AuthOutline({ size = '4rem' }) {
+export function AuthOutline({ size = '4rem' }: { size?: string }): React.JSX.Element {
 	return (
 		<svg
 			width={size}
