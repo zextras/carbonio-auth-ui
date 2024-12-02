@@ -48,8 +48,8 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.7",
-		"@zextras/carbonio-design-system": "9.0.0-devel.5",
-		"@zextras/carbonio-shell-ui": "^8.0.0",
+		"@zextras/carbonio-design-system": "9.0.0-devel.11",
+		"@zextras/carbonio-shell-ui": "devel",
 		"buffer": "^6.0.3",
 		"core-js": "^3.36.1",
 		"i18next": "^22.4.12",
