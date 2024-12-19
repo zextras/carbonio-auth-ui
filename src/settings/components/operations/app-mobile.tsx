@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -22,16 +21,12 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 import { QRCodeSVG } from 'qrcode.react';
 
-// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
 import { fetchSoap } from '../../network/fetchSoap';
-// @ts-ignore
 import { ViewProps } from '../../types';
-// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
 
 const stepsNames = {

@@ -136,92 +136,90 @@ export function ChangePassword(): React.JSX.Element {
 	}, [confirmPassword, newPassword]);
 
 	return (
-		<>
-			<Section title={t('changePassword.title')}>
-				{isLocked && (
-					<Container
-						padding={{ vertical: 'medium', horizontal: 'small' }}
-						background="highlight"
-						height="20%"
-						width="fill"
-						mainAlignment="flex-start"
-						crossAlignment="flex-start"
-					>
-						<Row>
-							<Row width="10%">
-								<Icon icon="AlertCircleOutline" size="large" color="#2196d3" />
-							</Row>
-
-							<Row takeAvailableSpace>
-								<Text overflow="break-word" size="large" style={{ textAlign: 'center' }}>
-									{t('changePassword.zimbraPasswordLocked')}
-								</Text>
-							</Row>
+		<Section title={t('changePassword.title')}>
+			{isLocked && (
+				<Container
+					padding={{ vertical: 'medium', horizontal: 'small' }}
+					background="highlight"
+					height="20%"
+					width="fill"
+					mainAlignment="flex-start"
+					crossAlignment="flex-start"
+				>
+					<Row>
+						<Row width="10%">
+							<Icon icon="AlertCircleOutline" size="large" color="#2196d3" />
 						</Row>
-					</Container>
-				)}
-				<Container maxWidth="30rem">
-					<Row padding="4rem 0 2rem">
-						<Text
-							overflow="break-word"
-							size="large"
-							color={isLocked ? 'gray1' : 'regular'}
-							style={{ textAlign: 'center' }}
-						>
-							{t('changePassword.instruction')}
-						</Text>
+
+						<Row takeAvailableSpace>
+							<Text overflow="break-word" size="large" style={{ textAlign: 'center' }}>
+								{t('changePassword.zimbraPasswordLocked')}
+							</Text>
+						</Row>
 					</Row>
-					<Divider />
-					<Row padding="2rem 0 1rem" width="fill">
-						<PasswordInput
-							label={t('changePassword.oldPassword')}
-							backgroundColor="gray5"
-							value={oldPassword}
-							onChange={(e): void => setOldPassword(e.target.value)}
-							hasError={!!errorLabelOldPassword}
-							disabled={isLocked}
-						/>
-						{errorLabelOldPassword && <ErrorMessage error={errorLabelOldPassword} />}
-					</Row>
-					<Row padding={{ bottom: 'large' }} width="fill">
-						<PasswordInput
-							label={t('newPassword')}
-							backgroundColor="gray5"
-							value={newPassword}
-							onChange={(e): void => setNewPassword(e.target.value)}
-							hasError={!!errorLabelNewPassword}
-							disabled={isLocked}
-						/>
-						{errorLabelNewPassword && <ErrorMessage error={errorLabelNewPassword} />}
-					</Row>
-					<Row padding={{ bottom: 'large' }} width="fill">
-						<PasswordInput
-							label={t('changePassword.confirmNew')}
-							backgroundColor="gray5"
-							value={confirmPassword}
-							onChange={(e): void => setConfirmPassword(e.target.value)}
-							hasError={!!errorLabelConfirmPassword}
-							disabled={isLocked}
-						/>
-						{errorLabelConfirmPassword && <ErrorMessage error={errorLabelConfirmPassword} />}
-					</Row>
-					<Button
-						label={t('changePassword.title')}
-						type="outlined"
-						width="fill"
-						disabled={
-							!oldPassword ||
-							!newPassword ||
-							!confirmPassword ||
-							!!errorLabelOldPassword ||
-							!!errorLabelNewPassword ||
-							!!errorLabelConfirmPassword ||
-							isLocked
-						}
-						onClick={changePasswordSoap}
-					/>
 				</Container>
-			</Section>
-		</>
+			)}
+			<Container maxWidth="30rem">
+				<Row padding="4rem 0 2rem">
+					<Text
+						overflow="break-word"
+						size="large"
+						color={isLocked ? 'gray1' : 'text'}
+						style={{ textAlign: 'center' }}
+					>
+						{t('changePassword.instruction')}
+					</Text>
+				</Row>
+				<Divider />
+				<Row padding="2rem 0 1rem" width="fill">
+					<PasswordInput
+						label={t('changePassword.oldPassword')}
+						background="gray5"
+						value={oldPassword}
+						onChange={(e): void => setOldPassword(e.target.value)}
+						hasError={!!errorLabelOldPassword}
+						disabled={isLocked}
+					/>
+					{errorLabelOldPassword && <ErrorMessage error={errorLabelOldPassword} />}
+				</Row>
+				<Row padding={{ bottom: 'large' }} width="fill">
+					<PasswordInput
+						label={t('newPassword')}
+						background="gray5"
+						value={newPassword}
+						onChange={(e): void => setNewPassword(e.target.value)}
+						hasError={!!errorLabelNewPassword}
+						disabled={isLocked}
+					/>
+					{errorLabelNewPassword && <ErrorMessage error={errorLabelNewPassword} />}
+				</Row>
+				<Row padding={{ bottom: 'large' }} width="fill">
+					<PasswordInput
+						label={t('changePassword.confirmNew')}
+						background="gray5"
+						value={confirmPassword}
+						onChange={(e): void => setConfirmPassword(e.target.value)}
+						hasError={!!errorLabelConfirmPassword}
+						disabled={isLocked}
+					/>
+					{errorLabelConfirmPassword && <ErrorMessage error={errorLabelConfirmPassword} />}
+				</Row>
+				<Button
+					label={t('changePassword.title')}
+					type="outlined"
+					width="fill"
+					disabled={
+						!oldPassword ||
+						!newPassword ||
+						!confirmPassword ||
+						!!errorLabelOldPassword ||
+						!!errorLabelNewPassword ||
+						!!errorLabelConfirmPassword ||
+						isLocked
+					}
+					onClick={changePasswordSoap}
+				/>
+			</Container>
+		</Section>
 	);
 }
