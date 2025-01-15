@@ -22,14 +22,14 @@ import { Tab } from '../../types';
 const LinkText = styled(Text)`
 	user-select: none;
 `;
-const NavigationLink = styled(Row)`
+const NavigationLink = styled(Row)<{ $isActive: boolean }>`
 	cursor: pointer;
-	background: ${({ theme, isActive }: { theme: Theme; isActive: boolean }): string | false =>
-		isActive && theme.palette.highlight.regular};
+	background: ${({ theme, $isActive }): string | false =>
+		$isActive && theme.palette.highlight.regular};
 	transition: 0.2s ease-out;
 	&:hover {
-		background: ${({ theme, isActive }: { theme: Theme; isActive: boolean }): string =>
-			theme.palette[isActive ? 'highlight' : 'gray5'].hover};
+		background: ${({ theme, $isActive }): string =>
+			theme.palette[$isActive ? 'highlight' : 'gray5'].hover};
 	}
 `;
 
@@ -37,11 +37,11 @@ export function SidebarNavigation({
 	links,
 	activeTab,
 	setActiveTab
-}: {
+}: Readonly<{
 	links: Tab[];
 	activeTab: Tab;
 	setActiveTab: (activeTab: Tab) => void;
-}): React.JSX.Element {
+}>): React.JSX.Element {
 	return (
 		<Container width="100%" height="100%" mainAlignment="flex-start" crossAlignment="stretch">
 			{links.map((link, index: number) => (
@@ -52,7 +52,7 @@ export function SidebarNavigation({
 						padding={{ horizontal: 'large', vertical: 'medium' }}
 						mainAlignment="flex-start"
 						onClick={(): void => setActiveTab(link)}
-						isActive={activeTab.name === link.name}
+						$isActive={activeTab.name === link.name}
 					>
 						<LinkText size="large">{link.label}</LinkText>
 					</NavigationLink>

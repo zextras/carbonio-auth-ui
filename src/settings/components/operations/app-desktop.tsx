@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
  *
@@ -21,19 +20,12 @@ import {
 import { t } from '@zextras/carbonio-shell-ui';
 import { orderBy, isEmpty } from 'lodash';
 
-// @ts-ignore
 import { fetchSoap } from '../../network/fetchSoap';
-// @ts-ignore
 import { Password, TableRow, ViewProps } from '../../types';
-// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
-// @ts-ignore
 import { ErrorMessage } from '../shared/error-message';
-// @ts-ignore
 import { Section } from '../shared/section';
-// @ts-ignore
 import { copyToClipboard, objToBase64, formatDateUsingLocale } from '../utils';
-// @ts-ignore
 
 const stepsNames = {
 	set_label: 'set_label',

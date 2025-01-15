@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -26,9 +24,7 @@ import { isEmpty, map, orderBy, reduce } from 'lodash';
 import { QRCodeSVG } from 'qrcode.react';
 import styled, { useTheme } from 'styled-components';
 
-// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
-// @ts-ignore
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';
 import {
 	otpCodesLoginPage,
@@ -36,19 +32,13 @@ import {
 	otpCodesTypePin,
 	poweredByZextras,
 	zextrasLogo
-	// @ts-ignore
 } from '../../assets/icons/svgAssets';
 import { fetchSoap } from '../../network/fetchSoap';
-// @ts-ignore
 import { Otp, OtpId, OtpTableRow } from '../../types';
-// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-// @ts-ignore
 import { copyToClipboard, formatDateUsingLocale } from '../utils';
-
-/* eslint-disable react/jsx-no-bind */
 
 const stepsNames = {
 	set_label: 'set_label',
@@ -73,7 +63,7 @@ const StaticCode = styled.label`
 `;
 
 const QRCodeRow = styled(Row)`
-	border-radius: ${({ theme }: { theme: Theme }): string => theme.borderRadius};
+	border-radius: ${({ theme }): string => theme.borderRadius};
 `;
 
 type PinCode = { code: string };

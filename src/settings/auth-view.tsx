@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -18,7 +17,6 @@ import { ExchangeActiveSync } from './components/operations/exchange-active-sync
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
 import { ResetPassword } from './components/operations/reset-password';
-// @ts-ignore
 import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
@@ -28,10 +26,10 @@ import { Password, Tab } from './types';
 function Instruction({
 	instruction,
 	link
-}: {
+}: Readonly<{
 	instruction: string;
 	link?: string;
-}): React.JSX.Element {
+}>): React.JSX.Element {
 	return (
 		<Row orientation="vertical" height="fill" width="fill">
 			<Padding bottom="medium">
@@ -64,11 +62,11 @@ function SideBar({
 	activeTab,
 	setActiveTab,
 	hasZextras
-}: {
+}: Readonly<{
 	activeTab: Tab | undefined;
 	setActiveTab: (activeTab: Tab) => void;
 	hasZextras: boolean;
-}): React.JSX.Element {
+}>): React.JSX.Element {
 	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
 		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
@@ -192,7 +190,7 @@ function SideBar({
 	);
 }
 
-function ActiveTab({ activeTab }: { activeTab: Tab }): React.JSX.Element {
+function ActiveTab({ activeTab }: Readonly<{ activeTab: Tab }>): React.JSX.Element {
 	const [passwords, setPasswords] = useState<Password[]>([]);
 
 	useEffect(() => {
