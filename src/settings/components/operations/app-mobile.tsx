@@ -27,7 +27,7 @@ import { ViewProps } from '../../types';
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-import { copyToClipboard, formatDateUsingLocale } from '../utils';
+import { copyToClipboard, formatDateUsingLocale, objToBase64 } from '../utils';
 
 const stepsNames = {
 	set_label: 'set_label',
@@ -348,7 +348,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
 											onClick={(): void => {
-												copyToClipboard(newQrCodeResp.qrcode_data.auth_payload.password);
+												copyToClipboard(objToBase64(newQrCodeResp.qrcode_data));
 												createSnackbar({
 													key: '2',
 													label: t('common.codeCopied', 'Code copied successfully')
