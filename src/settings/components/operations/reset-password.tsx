@@ -17,8 +17,6 @@ import { t } from '@zextras/carbonio-shell-ui';
 
 import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
 import { resetPasswordRequest } from '../../network/reset-password-request';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { Section } from '../shared/section';
 
 export function ResetPassword(): JSX.Element {

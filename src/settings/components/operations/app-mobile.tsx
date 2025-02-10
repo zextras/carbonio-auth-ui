@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * SPDX-FileCopyrightText: 2024 Zextras <https://www.zextras.com>
  *
@@ -22,17 +21,13 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 import { QRCodeSVG } from 'qrcode.react';
 
-// @ts-ignore
 import { EmptyState } from '../../assets/icons/empty-state';
 import { fetchSoap } from '../../network/fetchSoap';
-// @ts-ignore
 import { ViewProps } from '../../types';
-// @ts-ignore
 import { BigIcon } from '../shared/big-icon';
 import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-// @ts-ignore
-import { copyToClipboard, formatDateUsingLocale } from '../utils';
+import { copyToClipboard, formatDateUsingLocale, objToBase64 } from '../utils';
 
 const stepsNames = {
 	set_label: 'set_label',
@@ -353,7 +348,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 											label={t('common.copyQrCode', 'Copy QR Code')}
 											type="outlined"
 											onClick={(): void => {
-												copyToClipboard(newQrCodeResp.qrcode_data.auth_payload.password);
+												copyToClipboard(objToBase64(newQrCodeResp.qrcode_data));
 												createSnackbar({
 													key: '2',
 													label: t('common.codeCopied', 'Code copied successfully')
