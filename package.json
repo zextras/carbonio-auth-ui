@@ -49,7 +49,7 @@
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.7",
 		"@zextras/carbonio-design-system": "^9.0.0",
-		"@zextras/carbonio-shell-ui": "playground",
+		"@zextras/carbonio-shell-ui": "^10.0.0-devel.1744805695533",
 		"buffer": "^6.0.3",
 		"core-js": "^3.36.1",
 		"i18next": "^22.4.12",
