@@ -213,7 +213,7 @@ function ActiveTab({ activeTab }: Readonly<{ activeTab: Tab }>): React.JSX.Eleme
 
 export default function App(): React.JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>();
-	const [hasZextras, setHasZextras] = useState(true);
+	const [hasZextras, setHasZextras] = useState(false);
 
 	const checkHasZextras = useCallback(async () => {
 		const response = await checkSupportedZextras();
