@@ -6,39 +6,21 @@
 
 import React from 'react';
 
-import { Container, Divider, Text, Row } from '@zextras/carbonio-design-system';
-
-function SectionHeader({ title }: { title: string }): React.JSX.Element {
-	return (
-		<Container width="100%" height="fit">
-			<Row mainAlignment="flex-start" crossAlignment="center" width="100%" height="auto">
-				<Row mainAlignment="flex-start" padding={{ all: 'large' }}>
-					<Text size="large" weight="bold">
-						{title}
-					</Text>
-				</Row>
-			</Row>
-			<Divider />
-		</Container>
-	);
-}
+import { Container, Divider, FormSection, FormSubSection } from '@zextras/carbonio-design-system';
 
 function SectionBody({
 	padding,
 	children
 }: {
-	padding: { all: string };
+	padding?: { all: string };
 	children: React.ReactNode;
 }): React.JSX.Element {
 	return (
-		<Container
-			mainAlignment="flex-start"
-			padding={padding}
-			style={{ overflowY: 'auto' }}
-			height="fit"
-		>
-			{children}
-		</Container>
+		<FormSubSection padding={padding}>
+			<Container mainAlignment="flex-start" style={{ overflowY: 'auto' }} height="fit">
+				{children}
+			</Container>
+		</FormSubSection>
 	);
 }
 
@@ -60,17 +42,11 @@ type SectionProps = {
 	padding?: { all: string };
 };
 
-export function Section({
-	children,
-	title,
-	footer,
-	padding = { all: 'large' }
-}: SectionProps): React.JSX.Element {
+export function Section({ children, title, footer, padding }: SectionProps): React.JSX.Element {
 	return (
-		<Container background="gray6" height="fill" mainAlignment="flex-start">
-			<SectionHeader title={title} />
+		<FormSection label={title} height="fill" mainAlignment="flex-start">
 			<SectionBody padding={padding}>{children}</SectionBody>
 			{footer && <SectionFooter footer={footer} />}
-		</Container>
+		</FormSection>
 	);
 }

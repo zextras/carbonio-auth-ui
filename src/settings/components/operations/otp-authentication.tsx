@@ -463,6 +463,12 @@ export function OTPAuthentication(): React.JSX.Element {
 		}
 	}, [otpLabel]);
 
+	const newOTPDescription = `
+    ${t('setNewOtpLabel.labelPurpose')}
+    ${t('setNewOtpLabel.maxLength', { maxLength: 20 })}
+    ${t('setNewOtpLabel.prohibitedCharacters')}
+    ${t('setNewOtpLabel.allowedCharacters')}`;
+
 	return (
 		<>
 			<Section title={t('setNewOtpLabel.title')}>
@@ -543,10 +549,7 @@ export function OTPAuthentication(): React.JSX.Element {
 							/>
 							{errorLabel && <ErrorMessage error={errorLabel} />}
 							<Padding vertical="medium" style={{ textAlign: 'center' }} />
-							<Text>{t('setNewOtpLabel.labelPurpose')}</Text>
-							<Text>{t('setNewOtpLabel.maxLength', { maxLength: 20 })}</Text>
-							<Text>{t('setNewOtpLabel.prohibitedCharacters')}</Text>
-							<Text>{t('setNewOtpLabel.allowedCharacters')}</Text>
+							<Text overflow="break-word">{newOTPDescription}</Text>
 						</Container>
 					)}
 					{modalStep === stepsNames.generate_otp && qrData && (
