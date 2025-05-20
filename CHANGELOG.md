@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.2...v1.4.3) (2025-05-19)
+
+
+### Bug Fixes
+
+* **auth-view.tsx:** initialize hasZextras state to false ([bb7f30c](https://github.com/zextras/carbonio-auth-ui/commit/bb7f30cd8b76f4504e3ba19d9330d4c9e716ebac))
+* removed trimming from text in new opt description ([893282b](https://github.com/zextras/carbonio-auth-ui/commit/893282b79d2ee3685e4a3852697fac913d1734c5))
+* removed trimming from text in new opt description ([1043cfa](https://github.com/zextras/carbonio-auth-ui/commit/1043cfa3a04ea427ab67fc2e7d3abb3497b371d8))
+
 ### [1.4.2](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.1...v1.4.2) (2025-02-10)
 
 ### [1.4.1](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.0...v1.4.1) (2024-11-15)
