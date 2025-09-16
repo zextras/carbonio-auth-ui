@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { soapFetch } from '@zextras/carbonio-shell-ui';
+import { soapFetch } from '@zextras/carbonio-ui-soap-lib';
 
 export const resetPasswordRequest = ({ password }: { password: string }): Promise<any> =>
 	soapFetch('ResetPassword', {
