@@ -6,6 +6,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
+import styled from '@emotion/styled';
 import {
 	Button,
 	Container,
@@ -17,12 +18,12 @@ import {
 	Text,
 	THeader,
 	Theme,
-	useSnackbar
+	useSnackbar,
+	useTheme
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
 import { QRCodeSVG } from 'qrcode.react';
-import styled, { useTheme } from 'styled-components';
 
 import { EmptyState } from '../../assets/icons/empty-state';
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';

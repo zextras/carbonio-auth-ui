@@ -7,7 +7,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 
 import { Container, Spinner } from '@zextras/carbonio-design-system';
-import { addSettingsView, t } from '@zextras/carbonio-shell-ui';
+import { addSettingsView, t, addRoute } from '@zextras/carbonio-shell-ui';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
@@ -24,6 +24,16 @@ const Auth = (props) => (
 );
 
 export default function App() {
+	useEffect(() => {
+		addRoute({
+			route: 'chats',
+			visible: true,
+			label: 'chats',
+			primaryBar: 'WscOutline',
+			appView: <div>test</div>
+		});
+	}, []);
+
 	useEffect(() => {
 		addSettingsView({
 			route: 'auth',

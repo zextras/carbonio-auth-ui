@@ -6,6 +6,7 @@
 
 import React, { useState, useMemo } from 'react';
 
+import styled from '@emotion/styled';
 import {
 	Button,
 	Container,
@@ -19,7 +20,6 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
-import styled from 'styled-components';
 
 import { EmptyState } from '../../assets/icons/empty-state';
 import { PoweredByZextras } from '../../assets/icons/powered-by-zextras';

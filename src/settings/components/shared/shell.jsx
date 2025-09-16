@@ -6,8 +6,8 @@
 
 import React from 'react';
 
+import styled from '@emotion/styled';
 import { Container, Padding, Row } from '@zextras/carbonio-design-system';
-import styled from 'styled-components';
 
 const HeaderWrapper = styled(Row)`
 	border-bottom: 0.0625rem solid ${({ theme }) => theme.palette.gray2.regular};
