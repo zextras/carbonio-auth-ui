@@ -1,6 +1,6 @@
 {
 	"name": "carbonio-auth-ui",
-	"version": "1.4.4",
+	"version": "1.4.5",
 	"description": "Auth web module",
 	"main": "src/app.jsx",
 	"engines": {
@@ -31,8 +31,8 @@
 		"@commitlint/config-conventional": "^19.1.0",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^16.0.1",
-		"@types/lodash": "^4.17.0",
 		"@types/jest": "^28.1.6",
+		"@types/lodash": "^4.17.0",
 		"@types/styled-components": "^5.1.34",
 		"@zextras/carbonio-ui-configs": "^1.0.0",
 		"@zextras/carbonio-ui-sdk": "^1.7.12",
@@ -50,6 +50,7 @@
 		"@reduxjs/toolkit": "^1.9.7",
 		"@zextras/carbonio-design-system": "^10.0.0",
 		"@zextras/carbonio-shell-ui": "10.0.0-devel.1744805695533",
+		"@zextras/carbonio-ui-soap-lib": "^1.0.3",
 		"buffer": "^6.0.3",
 		"core-js": "^3.36.1",
 		"i18next": "^22.4.12",
@@ -57,9 +58,9 @@
 		"moment": "^2.30.1",
 		"node-fetch": "^2.6.6",
 		"qrcode.react": "^4.0.1",
-		"react-i18next": "^12.1.5",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.0",
+		"react-i18next": "^12.1.5",
 		"react-redux": "^8.1.3",
 		"react-router-dom": "5.3.4",
 		"styled-components": "^6.1.13"
