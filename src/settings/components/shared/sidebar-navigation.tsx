@@ -6,16 +6,8 @@
 
 import React from 'react';
 
-import {
-	Container,
-	Divider,
-	Icon,
-	Padding,
-	Row,
-	Text,
-	Theme
-} from '@zextras/carbonio-design-system';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
+import { Container, Divider, Row, Text } from '@zextras/carbonio-design-system';
 
 import { Tab } from '../../types';
 

@@ -6,14 +6,8 @@
 import fetchMock from 'jest-fetch-mock';
 import '@testing-library/jest-dom';
 
-beforeEach(() => {
-	// Do not useFakeTimers with `whatwg-fetch` if using mocked server
-	// https://github.com/mswjs/msw/issues/448
-	jest.useFakeTimers();
-});
 beforeAll(() => {
 	fetchMock.enableMocks();
-	// server.listen();
 	Object.defineProperty(window, 'matchMedia', {
 		writable: true,
 		value: jest.fn().mockImplementation((query) => ({
@@ -27,10 +21,4 @@ beforeAll(() => {
 			dispatchEvent: jest.fn()
 		}))
 	});
-});
-// afterAll(() => server.close());
-afterEach(() => {
-	// server.resetHandlers();
-	jest.runOnlyPendingTimers();
-	jest.useRealTimers();
 });
