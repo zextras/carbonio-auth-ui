@@ -1,14 +1,14 @@
-// SPDX-FileCopyrightText: 2022 Zextras <https://www.zextras.com>
+// SPDX-FileCopyrightText: 2025 Zextras <https://www.zextras.com>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
 library(
-	identifier: 'zapp-jenkins-lib@github-pipeline-v4',
-	retriever: modernSCM([
-		$class: 'GitSCMSource',
-		remote: 'git@github.com:zextras/jenkins-zapp-lib.git',
-		credentialsId: 'jenkins-integration-with-github-account'
-	])
+    identifier: 'jenkins-lib-ui@1.0.4',
+    retriever: modernSCM([
+        $class: 'GitSCMSource',
+        credentialsId: 'jenkins-integration-with-github-account',
+        remote: 'git@github.com:zextras/jenkins-lib-ui.git',
+    ])
 )
 
 zappPipeline(disableAutoTranslationsSync: true)
