@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.6...v1.4.7) (2025-12-11)
+
+
+### Bug Fixes
+
+* normalize locale code for Intl.DateTimeFormat compatibility ([51fd6bd](https://github.com/zextras/carbonio-auth-ui/commit/51fd6bd61b728ef0a002faf776f2a2a888293db5))
+
 ### [1.4.6](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.5...v1.4.6) (2025-11-18)
 
 ### [1.4.5](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.4...v1.4.5) (2025-09-17)
