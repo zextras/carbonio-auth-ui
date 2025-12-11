@@ -37,12 +37,14 @@ export const formatDate = (date) => {
 export function formatDateUsingLocale(timeInMillis) {
 	if (!timeInMillis) return '/';
 	const dateTime = new Date(timeInMillis);
-	const date = new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
+	const { language } = getI18n('carbonio-auth-ui');
+	const locale = language ? language.replace('_', '-') : 'en';
+	const date = new Intl.DateTimeFormat(locale, {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric'
 	}).format(dateTime);
-	const time = new Intl.DateTimeFormat(getI18n('carbonio-auth-ui').language, {
+	const time = new Intl.DateTimeFormat(locale, {
 		hour: '2-digit',
 		minute: '2-digit',
 		second: 'numeric'
