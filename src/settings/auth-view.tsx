@@ -6,7 +6,16 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Container, Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
+import {
+	Button,
+	Container,
+	Divider,
+	Link,
+	Modal,
+	Padding,
+	Row,
+	Text
+} from '@zextras/carbonio-design-system';
 import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { compact, orderBy } from 'lodash';
 
@@ -58,15 +67,11 @@ function Instruction({
 	);
 }
 
-function SideBar({
-	activeTab,
-	setActiveTab,
-	hasZextras
-}: Readonly<{
-	activeTab: Tab | undefined;
-	setActiveTab: (activeTab: Tab) => void;
-	hasZextras: boolean;
-}>): React.JSX.Element {
+function useAuthTabs(): {
+	links: Tab[];
+	linksWithoutZextras: Tab[];
+	otpAuthenticationItem: Tab | undefined;
+} {
 	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
 		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
@@ -155,6 +160,22 @@ function SideBar({
 		}, */
 	]);
 
+	return { links, linksWithoutZextras, otpAuthenticationItem };
+}
+
+function SideBar({
+	activeTab,
+	setActiveTab,
+	hasZextras,
+	links,
+	linksWithoutZextras
+}: Readonly<{
+	activeTab: Tab | undefined;
+	setActiveTab: (activeTab: Tab) => void;
+	hasZextras: boolean;
+	links: Tab[];
+	linksWithoutZextras: Tab[];
+}>): React.JSX.Element {
 	useEffect(() => {
 		setActiveTab(links[0]);
 		// putting depencency results in first tab to be always active
@@ -214,7 +235,11 @@ function ActiveTab({ activeTab }: Readonly<{ activeTab: Tab }>): React.JSX.Eleme
 export default function App(): React.JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>();
 	const [hasZextras, setHasZextras] = useState(false);
+	const [show2FAModal, setShow2FAModal] = useState(false);
 
+	const { links, linksWithoutZextras, otpAuthenticationItem } = useAuthTabs();
+
+	const carbonioOTPSetupRequired = true; // This flag should be set based on actual user settings
 	const checkHasZextras = useCallback(async () => {
 		const response = await checkSupportedZextras();
 		setHasZextras(response.isSupported);
@@ -224,29 +249,91 @@ export default function App(): React.JSX.Element {
 		checkHasZextras();
 	}, [checkHasZextras]);
 
+	const handleSkip2FA = (): void => {
+		setShow2FAModal(false);
+	};
+
+	const handleConfigure2FA = (): void => {
+		setShow2FAModal(false);
+		// Navigate to OTP Authentication section
+		if (otpAuthenticationItem) {
+			setActiveTab(otpAuthenticationItem);
+		}
+	};
+
 	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
 	return (
-		<Shell>
-			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
-			<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
-				<ColumnLeft
-					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
-					mainAlignment="flex-start"
-					crossAlignment="flex-start"
-				>
-					{activeTab && <ActiveTab activeTab={activeTab} />}
-				</ColumnLeft>
-				{!occupyFull && (
-					<ColumnRight width="calc(40% + 6.25rem)">
-						{activeTab?.instruction && (
-							<Instruction
-								instruction={activeTab && activeTab.instruction}
-								link={activeTab && activeTab.link}
-							/>
-						)}
-					</ColumnRight>
+		<Container orientation="vertical" height="100%" width="100%">
+			<Modal
+				title={t(
+					'modal.2fa.introTitle',
+					'We introduced the Two-Factor Autentication to improve the security of your account.'
 				)}
-			</ColumnFull>
-		</Shell>
+				open={carbonioOTPSetupRequired && show2FAModal}
+				onClose={handleSkip2FA}
+				customFooter={
+					<Row width="100%" mainAlignment="flex-end" gap="0.5rem">
+						<Button
+							label={t('buttons.skipForNow', 'SKIP FOR NOW')}
+							onClick={handleSkip2FA}
+							color="secondary"
+							type="outlined"
+						/>
+						<Button
+							label={t('buttons.configure2FA', 'CONFIGURE THE 2FA')}
+							onClick={handleConfigure2FA}
+							color="primary"
+						/>
+					</Row>
+				}
+			>
+				<Container
+					crossAlignment={'flex-start'}
+					padding={{ horizontal: 'large', vertical: 'medium' }}
+					gap="0.5rem"
+				>
+					<Text overflow="break-word">
+						{t(
+							'modal.2fa.configureTheTwoFactorAuthentication',
+							'Configure the Two-Factor Authentication (2FA) service in the authentication section of the workspace settings.'
+						)}
+					</Text>
+					<Text overflow="break-word">
+						{t(
+							'modal.2fa.youCanSkipThisConfiguration',
+							'If you need to, you can skip this configuration.'
+						)}
+					</Text>
+				</Container>
+			</Modal>
+			<Shell>
+				<SideBar
+					activeTab={activeTab}
+					setActiveTab={setActiveTab}
+					hasZextras={hasZextras}
+					links={links}
+					linksWithoutZextras={linksWithoutZextras}
+				/>
+				<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
+					<ColumnLeft
+						width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
+						mainAlignment="flex-start"
+						crossAlignment="flex-start"
+					>
+						{activeTab && <ActiveTab activeTab={activeTab} />}
+					</ColumnLeft>
+					{!occupyFull && (
+						<ColumnRight width="calc(40% + 6.25rem)">
+							{activeTab?.instruction && (
+								<Instruction
+									instruction={activeTab && activeTab.instruction}
+									link={activeTab && activeTab.link}
+								/>
+							)}
+						</ColumnRight>
+					)}
+				</ColumnFull>
+			</Shell>
+		</Container>
 	);
 }
