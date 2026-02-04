@@ -177,10 +177,21 @@ function SideBar({
 	linksWithoutZextras: Tab[];
 }>): React.JSX.Element {
 	useEffect(() => {
-		setActiveTab(links[0]);
+		const availableLinks = hasZextras ? links : linksWithoutZextras;
+		// Check for section query parameter
+		const urlParams = new URLSearchParams(window.location.search);
+		const section = urlParams.get('section');
+		if (section) {
+			const targetTab = availableLinks.find((link) => link.name === section);
+			if (targetTab) {
+				setActiveTab(targetTab);
+				return;
+			}
+		}
+		setActiveTab(availableLinks[0]);
 		// putting depencency results in first tab to be always active
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [hasZextras]);
 
 	return (
 		<Row
