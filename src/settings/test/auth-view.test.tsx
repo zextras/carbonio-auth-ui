@@ -18,6 +18,10 @@ jest.mock('@zextras/carbonio-shell-ui', () => ({
 	t: (key: string): any => key
 }));
 
+jest.mock('@zextras/carbonio-ui-commons', () => ({
+	useHistoryNavigation: jest.fn(() => ({}))
+}));
+
 jest.mock('../network/checkSupportedZextras', () => ({
 	checkSupportedZextras: jest.fn()
 }));
