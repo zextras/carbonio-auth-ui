@@ -55,7 +55,7 @@ export function TwoFactorAuthModal(): React.JSX.Element | null {
 		<Modal
 			title={t(
 				'modal.2fa.introTitle',
-				'We introduced the Two-Factor Autentication to improve the security of your account.'
+				'We introduced the Two-Factor Authentication to improve the security of your account.'
 			)}
 			open={showModal}
 			onClose={handleSkip}

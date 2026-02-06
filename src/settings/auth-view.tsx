@@ -250,7 +250,6 @@ export default function App(): React.JSX.Element {
 
 	const { links, linksWithoutZextras, otpAuthenticationItem } = useAuthTabs();
 
-	const carbonioOTPSetupRequired = true; // This flag should be set based on actual user settings
 	const checkHasZextras = useCallback(async () => {
 		const response = await checkSupportedZextras();
 		setHasZextras(response.isSupported);
@@ -278,9 +277,9 @@ export default function App(): React.JSX.Element {
 			<Modal
 				title={t(
 					'modal.2fa.introTitle',
-					'We introduced the Two-Factor Autentication to improve the security of your account.'
+					'We introduced the Two-Factor Authentication to improve the security of your account.'
 				)}
-				open={carbonioOTPSetupRequired && show2FAModal}
+				open={show2FAModal}
 				onClose={handleSkip2FA}
 				customFooter={
 					<Row width="100%" mainAlignment="flex-end" gap="0.5rem">
@@ -299,7 +298,7 @@ export default function App(): React.JSX.Element {
 				}
 			>
 				<Container
-					crossAlignment={'flex-start'}
+					crossAlignment="flex-start"
 					padding={{ horizontal: 'large', vertical: 'medium' }}
 					gap="0.5rem"
 				>
