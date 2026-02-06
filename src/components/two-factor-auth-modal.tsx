@@ -4,35 +4,46 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Button, Container, Modal, Row, Text } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { useHistoryNavigation } from '@zextras/carbonio-ui-commons';
 
-const TWO_FA_MODAL_DISMISSED_KEY = 'carbonio-auth-2fa-modal-dismissed';
+interface LoginConfig {
+	carbonioOTPSetupRequired?: boolean;
+}
+
+async function fetchLoginConfig(): Promise<LoginConfig> {
+	try {
+		const response = await fetch('/zx/login/v3/auth/config');
+		if (!response.ok) {
+			return {};
+		}
+		return await response.json();
+	} catch {
+		return {};
+	}
+}
 
 export function TwoFactorAuthModal(): React.JSX.Element | null {
-	const [showModal, setShowModal] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 	const { replaceHistory } = useHistoryNavigation();
 
-	// useEffect(() => {
-	// 	// Check if modal was already dismissed in this session
-	// 	const wasDismissed = sessionStorage.getItem(TWO_FA_MODAL_DISMISSED_KEY);
-	// 	if (!wasDismissed) {
-	// 		setShowModal(true);
-	// 	}
-	// }, []);
+	useEffect(() => {
+		fetchLoginConfig().then((config) => {
+			if (config.carbonioOTPSetupRequired) {
+				setShowModal(true);
+			}
+		});
+	}, []);
 
 	const handleSkip = useCallback((): void => {
 		setShowModal(false);
-		sessionStorage.setItem(TWO_FA_MODAL_DISMISSED_KEY, 'true');
 	}, []);
 
 	const handleConfigure = useCallback((): void => {
 		setShowModal(false);
-		sessionStorage.setItem(TWO_FA_MODAL_DISMISSED_KEY, 'true');
-		// Navigate to Auth settings with OTP tab
 		replaceHistory('/settings/auth?section=otp');
 	}, [replaceHistory]);
 
