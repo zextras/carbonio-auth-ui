@@ -251,35 +251,33 @@ export default function App(): React.JSX.Element {
 
 	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
 	return (
-		<Container orientation="vertical" height="100%" width="100%">
-			<Shell>
-				<SideBar
-					activeTab={activeTab}
-					setActiveTab={setActiveTab}
-					hasZextras={hasZextras}
-					links={links}
-					linksWithoutZextras={linksWithoutZextras}
-				/>
-				<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
-					<ColumnLeft
-						width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
-						mainAlignment="flex-start"
-						crossAlignment="flex-start"
-					>
-						{activeTab && <ActiveTab activeTab={activeTab} />}
-					</ColumnLeft>
-					{!occupyFull && (
-						<ColumnRight width="calc(40% + 6.25rem)">
-							{activeTab?.instruction && (
-								<Instruction
-									instruction={activeTab && activeTab.instruction}
-									link={activeTab && activeTab.link}
-								/>
-							)}
-						</ColumnRight>
-					)}
-				</ColumnFull>
-			</Shell>
-		</Container>
+		<Shell>
+			<SideBar
+				activeTab={activeTab}
+				setActiveTab={setActiveTab}
+				hasZextras={hasZextras}
+				links={links}
+				linksWithoutZextras={linksWithoutZextras}
+			/>
+			<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
+				<ColumnLeft
+					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
+					mainAlignment="flex-start"
+					crossAlignment="flex-start"
+				>
+					{activeTab && <ActiveTab activeTab={activeTab} />}
+				</ColumnLeft>
+				{!occupyFull && (
+					<ColumnRight width="calc(40% + 6.25rem)">
+						{activeTab?.instruction && (
+							<Instruction
+								instruction={activeTab && activeTab.instruction}
+								link={activeTab && activeTab.link}
+							/>
+						)}
+					</ColumnRight>
+				)}
+			</ColumnFull>
+		</Shell>
 	);
 }
