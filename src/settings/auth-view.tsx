@@ -170,7 +170,7 @@ function SideBar({
 	useEffect(() => {
 		const availableLinks = hasZextras ? links : linksWithoutZextras;
 		// Check for section query parameter
-		const urlParams = new URLSearchParams(window.location.search);
+		const urlParams = new URLSearchParams(globalThis.location.search);
 		const section = urlParams.get('section');
 		if (section) {
 			const targetTab = availableLinks.find((link) => link.name === section);
