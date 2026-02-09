@@ -6,16 +6,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import {
-	Button,
-	Container,
-	Divider,
-	Link,
-	Modal,
-	Padding,
-	Row,
-	Text
-} from '@zextras/carbonio-design-system';
+import { Container, Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { compact, orderBy } from 'lodash';
 
@@ -246,9 +237,8 @@ function ActiveTab({ activeTab }: Readonly<{ activeTab: Tab }>): React.JSX.Eleme
 export default function App(): React.JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>();
 	const [hasZextras, setHasZextras] = useState(false);
-	const [show2FAModal, setShow2FAModal] = useState(false);
 
-	const { links, linksWithoutZextras, otpAuthenticationItem } = useAuthTabs();
+	const { links, linksWithoutZextras } = useAuthTabs();
 
 	const checkHasZextras = useCallback(async () => {
 		const response = await checkSupportedZextras();
@@ -259,63 +249,9 @@ export default function App(): React.JSX.Element {
 		checkHasZextras();
 	}, [checkHasZextras]);
 
-	const handleSkip2FA = (): void => {
-		setShow2FAModal(false);
-	};
-
-	const handleConfigure2FA = (): void => {
-		setShow2FAModal(false);
-		// Navigate to OTP Authentication section
-		if (otpAuthenticationItem) {
-			setActiveTab(otpAuthenticationItem);
-		}
-	};
-
 	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
 	return (
 		<Container orientation="vertical" height="100%" width="100%">
-			<Modal
-				title={t(
-					'modal.2fa.introTitle',
-					'We introduced the Two-Factor Authentication to improve the security of your account.'
-				)}
-				open={show2FAModal}
-				onClose={handleSkip2FA}
-				customFooter={
-					<Row width="100%" mainAlignment="flex-end" gap="0.5rem">
-						<Button
-							label={t('buttons.skipForNow', 'SKIP FOR NOW')}
-							onClick={handleSkip2FA}
-							color="secondary"
-							type="outlined"
-						/>
-						<Button
-							label={t('buttons.configure2FA', 'CONFIGURE THE 2FA')}
-							onClick={handleConfigure2FA}
-							color="primary"
-						/>
-					</Row>
-				}
-			>
-				<Container
-					crossAlignment="flex-start"
-					padding={{ horizontal: 'large', vertical: 'medium' }}
-					gap="0.5rem"
-				>
-					<Text overflow="break-word">
-						{t(
-							'modal.2fa.configureTheTwoFactorAuthentication',
-							'Configure the Two-Factor Authentication (2FA) service in the authentication section of the workspace settings.'
-						)}
-					</Text>
-					<Text overflow="break-word">
-						{t(
-							'modal.2fa.youCanSkipThisConfiguration',
-							'If you need to, you can skip this configuration.'
-						)}
-					</Text>
-				</Container>
-			</Modal>
 			<Shell>
 				<SideBar
 					activeTab={activeTab}
