@@ -58,15 +58,11 @@ function Instruction({
 	);
 }
 
-function SideBar({
-	activeTab,
-	setActiveTab,
-	hasZextras
-}: Readonly<{
-	activeTab: Tab | undefined;
-	setActiveTab: (activeTab: Tab) => void;
-	hasZextras: boolean;
-}>): React.JSX.Element {
+function useAuthTabs(): {
+	links: Tab[];
+	linksWithoutZextras: Tab[];
+	otpAuthenticationItem: Tab | undefined;
+} {
 	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
 		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
@@ -155,11 +151,38 @@ function SideBar({
 		}, */
 	]);
 
+	return { links, linksWithoutZextras, otpAuthenticationItem };
+}
+
+function SideBar({
+	activeTab,
+	setActiveTab,
+	hasZextras,
+	links,
+	linksWithoutZextras
+}: Readonly<{
+	activeTab: Tab | undefined;
+	setActiveTab: (activeTab: Tab) => void;
+	hasZextras: boolean;
+	links: Tab[];
+	linksWithoutZextras: Tab[];
+}>): React.JSX.Element {
 	useEffect(() => {
-		setActiveTab(links[0]);
+		const availableLinks = hasZextras ? links : linksWithoutZextras;
+		// Check for section query parameter
+		const urlParams = new URLSearchParams(globalThis.location.search);
+		const section = urlParams.get('section');
+		if (section) {
+			const targetTab = availableLinks.find((link) => link.name === section);
+			if (targetTab) {
+				setActiveTab(targetTab);
+				return;
+			}
+		}
+		setActiveTab(availableLinks[0]);
 		// putting depencency results in first tab to be always active
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [hasZextras]);
 
 	return (
 		<Row
@@ -215,6 +238,8 @@ export default function App(): React.JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>();
 	const [hasZextras, setHasZextras] = useState(false);
 
+	const { links, linksWithoutZextras } = useAuthTabs();
+
 	const checkHasZextras = useCallback(async () => {
 		const response = await checkSupportedZextras();
 		setHasZextras(response.isSupported);
@@ -227,7 +252,13 @@ export default function App(): React.JSX.Element {
 	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
 	return (
 		<Shell>
-			<SideBar activeTab={activeTab} setActiveTab={setActiveTab} hasZextras={hasZextras} />
+			<SideBar
+				activeTab={activeTab}
+				setActiveTab={setActiveTab}
+				hasZextras={hasZextras}
+				links={links}
+				linksWithoutZextras={linksWithoutZextras}
+			/>
 			<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
 				<ColumnLeft
 					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}

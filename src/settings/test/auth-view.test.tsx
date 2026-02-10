@@ -18,6 +18,10 @@ jest.mock('@zextras/carbonio-shell-ui', () => ({
 	t: (key: string): any => key
 }));
 
+jest.mock('@zextras/carbonio-ui-commons', () => ({
+	useHistoryNavigation: jest.fn(() => ({}))
+}));
+
 jest.mock('../network/checkSupportedZextras', () => ({
 	checkSupportedZextras: jest.fn()
 }));
@@ -116,5 +120,81 @@ describe('auth view', () => {
 		expect(screen.queryByText('easAuth.label')).not.toBeInTheDocument();
 		expect(screen.queryByText('appMobile.title')).not.toBeInTheDocument();
 		expect(screen.queryByText('setNewOtpLabel.title')).not.toBeInTheDocument();
+	});
+
+	it('should set OTP tab as active when section=otp query parameter is present', async () => {
+		const originalLocation = globalThis.location;
+		Object.defineProperty(globalThis, 'location', {
+			value: {
+				...originalLocation,
+				search: '?section=otp'
+			},
+			writable: true
+		});
+
+		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
+		(useUserSettings as jest.Mock).mockReturnValue({
+			attrs: {
+				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureResetPasswordStatus: 'disabled'
+			}
+		});
+		// First fetch for ListCredentialsRequest, second fetch for OTP component
+		fetchMock.mockResponse(
+			JSON.stringify({
+				Body: { response: { values: [] } }
+			})
+		);
+
+		await act(async () => {
+			customRender(<App />);
+		});
+
+		// Verify OTP tab is active by checking for its title in the active panel
+		expect(
+			within(screen.getByTestId('active-panel')).getByText('setNewOtpLabel.title')
+		).toBeInTheDocument();
+
+		Object.defineProperty(globalThis, 'location', {
+			value: originalLocation,
+			writable: true
+		});
+	});
+
+	it('should fall back to default tab when section query parameter does not match any tab', async () => {
+		const originalLocation = globalThis.location;
+		Object.defineProperty(globalThis, 'location', {
+			value: {
+				...originalLocation,
+				search: '?section=invalidtab'
+			},
+			writable: true
+		});
+
+		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
+		(useUserSettings as jest.Mock).mockReturnValue({
+			attrs: {
+				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureResetPasswordStatus: 'disabled'
+			}
+		});
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: { response: { values: [] } }
+			})
+		);
+
+		await act(async () => {
+			customRender(<App />);
+		});
+
+		expect(
+			within(screen.getByTestId('active-panel')).getByText('changePassword.instruction')
+		).toBeInTheDocument();
+
+		Object.defineProperty(globalThis, 'location', {
+			value: originalLocation,
+			writable: true
+		});
 	});
 });
