@@ -6,9 +6,16 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 
+import styled from '@emotion/styled';
 import { Button, Container, Modal, Row, Text } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { useHistoryNavigation } from '@zextras/carbonio-ui-commons';
+
+const StyledModal = styled(Modal)`
+	[tabindex='-1'] > div:first-of-type {
+		align-items: flex-start !important;
+	}
+`;
 
 interface LoginConfig {
 	carbonioOTPSetupRequired?: boolean;
@@ -52,11 +59,17 @@ export function TwoFactorAuthModal(): React.JSX.Element | null {
 	}
 
 	return (
-		<Modal
-			title={t(
-				'modal.2fa.introTitle',
-				'We introduced the Two-Factor Authentication to improve the security of your account.'
-			)}
+		<StyledModal
+			title={
+				<Container crossAlignment="flex-start" mainAlignment="flex-start">
+					<Text overflow="break-word" style={{ whiteSpace: 'normal' }} weight="bold">
+						{t(
+							'modal.2fa.introTitle',
+							'We introduced the Two-Factor Authentication to improve the security of your account.'
+						)}
+					</Text>
+				</Container>
+			}
 			size="medium"
 			open={showModal}
 			onClose={handleSkip}
@@ -94,6 +107,6 @@ export function TwoFactorAuthModal(): React.JSX.Element | null {
 					)}
 				</Text>
 			</Container>
-		</Modal>
+		</StyledModal>
 	);
 }
