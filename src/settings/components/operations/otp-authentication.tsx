@@ -205,7 +205,7 @@ export function OTPAuthentication(): React.JSX.Element {
 		if (modalStep === stepsNames.set_label) {
 			return (
 				<Button
-					label={t('common.createPassword')}
+					label={t('buttons.next', 'Next')}
 					disabled={otpLabel === '' || !!errorLabel}
 					onClick={(): void => {
 						handleOnGenerateOTP();
