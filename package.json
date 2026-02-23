@@ -1,6 +1,6 @@
 {
 	"name": "carbonio-auth-ui",
-	"version": "1.4.7",
+	"version": "1.4.8",
 	"description": "Auth web module",
 	"main": "src/app.jsx",
 	"engines": {
