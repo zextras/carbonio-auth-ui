@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import styled from '@emotion/styled';
 import { Container, Divider, Row, Text } from '@zextras/carbonio-design-system';
+import { useHistoryNavigation } from '@zextras/carbonio-ui-commons';
 
 import { Tab } from '../../types';
 
@@ -34,6 +35,16 @@ export function SidebarNavigation({
 	activeTab: Tab;
 	setActiveTab: (activeTab: Tab) => void;
 }>): React.JSX.Element {
+	const { replaceHistory } = useHistoryNavigation();
+
+	const handleTabClick = useCallback(
+		(link: Tab): void => {
+			setActiveTab(link);
+			replaceHistory(`/settings/auth?section=${link.name}`);
+		},
+		[setActiveTab, replaceHistory]
+	);
+
 	return (
 		<Container width="100%" height="100%" mainAlignment="flex-start" crossAlignment="stretch">
 			{links.map((link, index: number) => (
@@ -43,7 +54,7 @@ export function SidebarNavigation({
 						width="100%"
 						padding={{ horizontal: 'large', vertical: 'medium' }}
 						mainAlignment="flex-start"
-						onClick={(): void => setActiveTab(link)}
+						onClick={(): void => handleTabClick(link)}
 						$isActive={activeTab.name === link.name}
 					>
 						<LinkText size="large">{link.label}</LinkText>

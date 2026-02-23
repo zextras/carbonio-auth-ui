@@ -9,6 +9,8 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { Container, Spinner } from '@zextras/carbonio-design-system';
 import { addSettingsView, t } from '@zextras/carbonio-shell-ui';
 
+import { TwoFactorAuthModal } from './components/two-factor-auth-modal';
+
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
 const Auth = (props) => (
@@ -31,5 +33,6 @@ export default function App() {
 			component: Auth
 		});
 	}, []);
-	return null;
+
+	return <TwoFactorAuthModal />;
 }
