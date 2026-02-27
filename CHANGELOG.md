@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.11](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.10...v1.4.11) (2026-02-27)
+
+
+### Bug Fixes
+
+* update jenkins-lib-ui dependency to v1.0.9 ([72a9e20](https://github.com/zextras/carbonio-auth-ui/commit/72a9e20794dc54e08cb5e6904b392cbe51637c21))
+
 ### [1.4.10](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.9...v1.4.10) (2026-02-24)
 
 ### [1.4.9](https://github.com/zextras/carbonio-auth-ui/compare/v1.4.8...v1.4.9) (2026-02-23)
