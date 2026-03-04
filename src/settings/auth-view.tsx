@@ -63,7 +63,7 @@ function useAuthTabs(): {
 	linksWithoutZextras: Tab[];
 	otpAuthenticationItem: Tab | undefined;
 } {
-	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
+	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus, zimbraFeatureMobileSyncEnabled, carbonioFeatureMailsAppEnabled } =
 		useUserSettings().attrs;
 	const isRecoveryAddressFeatureEnabled = useMemo(
 		() => zimbraFeatureResetPasswordStatus && zimbraFeatureResetPasswordStatus === 'enabled',
@@ -122,33 +122,43 @@ function useAuthTabs(): {
 		[carbonioFeatureOTPMgmtEnabled]
 	);
 
+	const hasEas = useMemo(
+		() =>
+			zimbraFeatureMobileSyncEnabled === 'TRUE'
+				? {
+						name: 'activesync',
+						label: t('easAuth.label', 'Exchange ActiveSync'),
+						view: ExchangeActiveSync,
+						instruction: t(
+							'instruction.eas',
+							'Here you can manage your Exchange ActiveSync password.'
+						),
+						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
+					}
+				: undefined,
+		[zimbraFeatureMobileSyncEnabled]
+	);
+
+	const hasMobileApp = useMemo(
+		() =>
+			carbonioFeatureMailsAppEnabled === 'TRUE'
+				? {
+						name: 'mobile',
+						label: t('appMobile.title', 'Mobile Apps'),
+						view: AppMobile,
+						instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
+						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
+					}
+				: undefined,
+		[carbonioFeatureMailsAppEnabled]
+	);
+
 	const links = compact([
 		...linksWithoutZextras,
 		recoveryPasswordItem,
-		{
-			name: 'activesync',
-			label: t('easAuth.label', 'Exchange ActiveSync'),
-			view: ExchangeActiveSync,
-			instruction: t('instruction.eas', 'Here you can manage your Exchange ActiveSync password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
-		},
-		{
-			name: 'mobile',
-			label: t('appMobile.title', 'Mobile Apps'),
-			view: AppMobile,
-			instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-		},
+		hasEas,
+		hasMobileApp,
 		otpAuthenticationItem
-		/* section is hidden cause not officially supported yet
-		ref: AUTH-543
-		{
-			name: 'desktop',
-			label: t('appDesktop.title', 'Desktop Apps'),
-			view: AppDesktop,
-			instruction: t('instruction.desktop', 'Here you can manage Desktop App password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-		}, */
 	]);
 
 	return { links, linksWithoutZextras, otpAuthenticationItem };
