@@ -38,7 +38,7 @@ export default function App() {
 		registerActions({
 			action: () => ({
 				id: 'carbonio-auth-ui',
-				label: t('changePassword.title','Change password'),
+				label: t('changePassword.title', 'Change password'),
 				icon: 'LockOutline',
 				execute: () => navigate(`/settings/auth?section=changepassword`, { replace: true }),
 				disabled: false,
