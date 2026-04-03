@@ -8,6 +8,7 @@ import React, { Suspense, lazy, useEffect } from 'react';
 
 import { Container, Spinner } from '@zextras/carbonio-design-system';
 import { addSettingsView, registerActions, t } from '@zextras/carbonio-shell-ui';
+import { upperFirst } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 import { TwoFactorAuthModal } from './components/two-factor-auth-modal';
@@ -38,7 +39,7 @@ export default function App() {
 		registerActions({
 			action: () => ({
 				id: 'carbonio-auth-ui',
-				label: t('changePassword.title', 'Change password'),
+				label: upperFirst(t('changePassword.title', 'Change password')),
 				icon: 'LockOutline',
 				execute: () => navigate(`/settings/auth?section=changepassword`, { replace: true }),
 				disabled: false,
