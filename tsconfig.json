@@ -4,7 +4,8 @@
 	"compilerOptions": {
 		"skipLibCheck": true,
 		"allowJs": true,
-		"declaration": false
+		"declaration": false,
+		"types": ["vitest/globals"]
 	},
 	"exclude": ["node_modules"]
 }

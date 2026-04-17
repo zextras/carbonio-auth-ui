@@ -6,39 +6,39 @@
 import React from 'react';
 
 import { act, screen, within } from '@testing-library/react';
-import { useUserSettings } from '@zextras/carbonio-shell-ui';
-import fetchMock from 'jest-fetch-mock';
+import { AccountSettings, useUserSettings } from '@zextras/carbonio-shell-ui';
+import fetchMock from '../../test/fetchMock';
 
 import { customRender } from '../../test/test-utils';
 import App from '../auth-view';
 import { checkSupportedZextras } from '../network/checkSupportedZextras';
 
-jest.mock('@zextras/carbonio-shell-ui', () => ({
-	useUserSettings: jest.fn(),
+vi.mock('@zextras/carbonio-shell-ui', () => ({
+	useUserSettings: vi.fn(),
 	t: (key: string): any => key
 }));
 
-jest.mock('@zextras/carbonio-ui-commons', () => ({
-	useHistoryNavigation: jest.fn(() => ({}))
+vi.mock('@zextras/carbonio-ui-commons', () => ({
+	useHistoryNavigation: vi.fn(() => ({}))
 }));
 
-jest.mock('../network/checkSupportedZextras', () => ({
-	checkSupportedZextras: jest.fn()
+vi.mock('../network/checkSupportedZextras', () => ({
+	checkSupportedZextras: vi.fn()
 }));
 
 describe('auth view', () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('should set change password as active by default when zimbraFeatureResetPasswordStatus is NOT enabled', async () => {
-		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
-		(useUserSettings as jest.Mock).mockReturnValue({
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
+		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
-		});
+		} as unknown as AccountSettings);
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				Body: { response: { values: [] } }
@@ -55,13 +55,13 @@ describe('auth view', () => {
 	});
 
 	it('should set reset password as active by default when zimbraFeatureResetPasswordStatus is enabled', async () => {
-		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
-		(useUserSettings as jest.Mock).mockReturnValue({
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
+		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'enabled'
 			}
-		});
+		} as unknown as AccountSettings);
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				Body: { response: { values: [] } }
@@ -78,13 +78,13 @@ describe('auth view', () => {
 	});
 
 	it('should display EAS, OTP and Mobile APP if advanced supported', async () => {
-		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
-		(useUserSettings as jest.Mock).mockReturnValue({
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
+		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
-		});
+		} as unknown as AccountSettings);
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				Body: { response: { values: [] } }
@@ -100,13 +100,13 @@ describe('auth view', () => {
 		expect(screen.getByText('setNewOtpLabel.title')).toBeVisible();
 	});
 	it('should not display EAS, OTP and Mobile APP if advanced not supported', async () => {
-		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: false });
-		(useUserSettings as jest.Mock).mockReturnValue({
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: false });
+		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
-		});
+		} as unknown as AccountSettings);
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				Body: { response: { values: [] } }
@@ -132,13 +132,13 @@ describe('auth view', () => {
 			writable: true
 		});
 
-		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
-		(useUserSettings as jest.Mock).mockReturnValue({
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
+		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
-		});
+		} as unknown as AccountSettings);
 		// First fetch for ListCredentialsRequest, second fetch for OTP component
 		fetchMock.mockResponse(
 			JSON.stringify({
@@ -171,13 +171,13 @@ describe('auth view', () => {
 			writable: true
 		});
 
-		(checkSupportedZextras as jest.Mock).mockResolvedValue({ isSupported: true });
-		(useUserSettings as jest.Mock).mockReturnValue({
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
+		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
-		});
+		} as unknown as AccountSettings);
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				Body: { response: { values: [] } }

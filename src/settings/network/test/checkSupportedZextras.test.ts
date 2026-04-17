@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import fetchMock from 'jest-fetch-mock';
+import fetchMock from '../../../test/fetchMock';
 
 import { checkSupportedZextras } from '../checkSupportedZextras';
 
