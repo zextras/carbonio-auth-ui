@@ -5,6 +5,9 @@
 module.exports = {
 	extends: ['./node_modules/@zextras/carbonio-ui-configs/rules/eslint.js'],
 	plugins: ['unused-imports', 'notice'],
+	globals: {
+		vi: 'readonly'
+	},
 	overrides: [],
 	rules: {
 		'@typescript-eslint/no-explicit-any': 'warn',

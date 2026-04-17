@@ -6,19 +6,19 @@
 import React from 'react';
 
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
-import fetchMock from 'jest-fetch-mock';
+import fetchMock from '../../test/fetchMock';
 
 import { customRender } from '../../test/test-utils';
 import { TwoFactorAuthModal } from '../two-factor-auth-modal';
 
-const mockReplaceHistory = jest.fn();
+const mockReplaceHistory = vi.fn();
 
-jest.mock('@zextras/carbonio-shell-ui', () => ({
+vi.mock('@zextras/carbonio-shell-ui', () => ({
 	t: (key: string, defaultValue: string): string => defaultValue
 }));
 
-jest.mock('@zextras/carbonio-ui-commons', () => ({
-	useHistoryNavigation: jest.fn(() => ({
+vi.mock('@zextras/carbonio-ui-commons', () => ({
+	useHistoryNavigation: vi.fn(() => ({
 		replaceHistory: mockReplaceHistory
 	}))
 }));
@@ -28,7 +28,7 @@ describe('TwoFactorAuthModal', () => {
 		'We introduced the Two-Factor Authentication to improve the security of your account.';
 
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 		fetchMock.resetMocks();
 	});
 
