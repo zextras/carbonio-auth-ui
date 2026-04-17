@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zextras <https://www.zextras.com>
+
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 <div align="center">
   <h1>carbonio-auth-ui</h1>
 </div>
