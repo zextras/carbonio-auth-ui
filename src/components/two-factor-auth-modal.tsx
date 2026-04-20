@@ -37,14 +37,6 @@ export function TwoFactorAuthModal(): React.JSX.Element | null {
 	const [showModal, setShowModal] = useState(false);
 	const { replaceHistory } = useHistoryNavigation();
 
-	useEffect(() => {
-		fetchLoginConfig().then((config) => {
-			if (config.carbonioOTPSetupRequired) {
-				setShowModal(true);
-			}
-		});
-	}, []);
-
 	const handleSkip = useCallback((): void => {
 		setShowModal(false);
 	}, []);
