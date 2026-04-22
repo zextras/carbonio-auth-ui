@@ -12,6 +12,7 @@
 		"build": "sdk build",
 		"start": "sdk watch",
 		"deploy": "sdk deploy",
+		"sdkInstall": "sdk install",
 		"prepare": "is-ci || husky",
 		"type-check": "tsc --noEmit",
 		"type-check:watch": "pnpm run type-check -- --watch",

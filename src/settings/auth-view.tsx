@@ -6,9 +6,11 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import styled from '@emotion/styled';
 import { Container, Divider, Link, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { t, useUserSettings } from '@zextras/carbonio-shell-ui';
 import { compact, orderBy } from 'lodash';
+import { Trans } from 'react-i18next';
 
 import { AuthOutline } from './assets/icons/auth-outline';
 import { AppMobile } from './components/operations/app-mobile';
@@ -17,17 +19,20 @@ import { ExchangeActiveSync } from './components/operations/exchange-active-sync
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
 import { ResetPassword } from './components/operations/reset-password';
-import { ColumnFull, ColumnLeft, ColumnRight, Shell } from './components/shared/shell';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { fetchSoap } from './network/fetchSoap';
 import { Password, Tab } from './types';
 
+const ColumnRight = styled(Row)`
+	width: ${({ theme, width }): string => `calc(${width} - ${theme.sizes.padding.large})`};
+`;
+
 function Instruction({
 	instruction,
 	link
 }: Readonly<{
-	instruction: string;
+	instruction: React.ReactNode;
 	link?: string;
 }>): React.JSX.Element {
 	return (
@@ -74,8 +79,14 @@ function useAuthTabs(): {
 		name: 'changepassword',
 		label: t('changePassword.title', 'Change Password'),
 		view: ChangePassword,
-		instruction: t('instruction.changePassword', 'Here you can change your password.'),
-		link: 'https://docs.zextras.com/suite/html/auth.html#auth-change-pass'
+		instruction: (
+			<Trans
+				t={t}
+				i18nKey="instruction.changePassword"
+				components={{ br: <br /> }}
+				defaults="Here you can change your password.<br>For more information, contact your administrator."
+			/>
+		)
 	};
 
 	const resetPasswordItem = {
@@ -140,15 +151,6 @@ function useAuthTabs(): {
 			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 		},
 		otpAuthenticationItem
-		/* section is hidden cause not officially supported yet
-		ref: AUTH-543
-		{
-			name: 'desktop',
-			label: t('appDesktop.title', 'Desktop Apps'),
-			view: AppDesktop,
-			instruction: t('instruction.desktop', 'Here you can manage Desktop App password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-		}, */
 	]);
 
 	return { links, linksWithoutZextras, otpAuthenticationItem };
@@ -250,8 +252,16 @@ export default function App(): React.JSX.Element {
 	}, [checkHasZextras]);
 
 	const occupyFull = useMemo(() => window.innerWidth <= 1800, []);
+
 	return (
-		<Shell>
+		<Container
+			orientation="horizontal"
+			mainAlignment="flex-start"
+			crossAlignment="flex-start"
+			height="100%"
+			background="gray5"
+			padding={{ all: 'large' }}
+		>
 			<SideBar
 				activeTab={activeTab}
 				setActiveTab={setActiveTab}
@@ -259,25 +269,29 @@ export default function App(): React.JSX.Element {
 				links={links}
 				linksWithoutZextras={linksWithoutZextras}
 			/>
-			<ColumnFull data-testid="active-panel" mainAlignment="space-between" takeAvailableSpace>
-				<ColumnLeft
+			<Row
+				width="100%"
+				height="100%"
+				data-testid="active-panel"
+				mainAlignment="space-between"
+				takeAvailableSpace
+			>
+				<Row
+					height="100%"
 					width={`${occupyFull ? '100%' : 'calc(60% - 6.25rem)'} `}
 					mainAlignment="flex-start"
 					crossAlignment="flex-start"
 				>
 					{activeTab && <ActiveTab activeTab={activeTab} />}
-				</ColumnLeft>
+				</Row>
 				{!occupyFull && (
-					<ColumnRight width="calc(40% + 6.25rem)">
+					<ColumnRight width="calc(40% + 6.25rem)" height="100%">
 						{activeTab?.instruction && (
-							<Instruction
-								instruction={activeTab && activeTab.instruction}
-								link={activeTab && activeTab.link}
-							/>
+							<Instruction instruction={activeTab?.instruction} link={activeTab?.link} />
 						)}
 					</ColumnRight>
 				)}
-			</ColumnFull>
-		</Shell>
+			</Row>
+		</Container>
 	);
 }

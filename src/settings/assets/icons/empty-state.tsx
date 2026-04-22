@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-export function EmptyState() {
+export function EmptyState(): React.JSX.Element {
 	return (
 		<svg
 			width="286"

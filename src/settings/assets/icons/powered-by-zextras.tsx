@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-export function PoweredByZextras() {
+export function PoweredByZextras(): React.JSX.Element {
 	return (
 		<svg
 			width="128"
