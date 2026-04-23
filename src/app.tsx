@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { TwoFactorAuthModal } from './components/two-factor-auth-modal';
 
-const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
+const LazyAuth = lazy(() => import(/* webpackChunkName: "auth-view" */ './settings/auth-view'));
 
 const Auth = (): React.JSX.Element => (
 	<Suspense

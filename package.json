@@ -2,7 +2,7 @@
 	"name": "carbonio-auth-ui",
 	"version": "1.4.11",
 	"description": "Auth web module",
-	"main": "src/app.jsx",
+	"main": "src/app.tsx",
 	"packageManager": "pnpm@10.32.1",
 	"engines": {
 		"node": "v22",
@@ -87,7 +87,6 @@
 		"not dead"
 	],
 	"carbonio": {
-		"translations_repository": "git@github.com:zextras/carbonio-auth-ui-i18n.git",
 		"name": "carbonio-auth-ui",
 		"priority": 10,
 		"display": "Auth",
