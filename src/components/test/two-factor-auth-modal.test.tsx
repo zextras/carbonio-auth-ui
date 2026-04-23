@@ -6,8 +6,8 @@
 import React from 'react';
 
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
-import fetchMock from '../../test/fetchMock';
 
+import fetchMock from '../../test/fetchMock';
 import { customRender } from '../../test/test-utils';
 import { TwoFactorAuthModal } from '../two-factor-auth-modal';
 

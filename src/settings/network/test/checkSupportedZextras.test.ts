@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import fetchMock from '../../../test/fetchMock';
-
 import { checkSupportedZextras } from '../checkSupportedZextras';
 
 describe('checkSupportedZextras', () => {

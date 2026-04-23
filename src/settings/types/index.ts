@@ -47,6 +47,6 @@ export type Tab = {
 	name: string;
 	label: string;
 	view: React.FC<TabViewWithPasswords> | React.FC;
-	instruction: string;
+	instruction: React.ReactNode;
 	link?: string;
 };

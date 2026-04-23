@@ -7,8 +7,8 @@ import React from 'react';
 
 import { act, screen, within } from '@testing-library/react';
 import { AccountSettings, useUserSettings } from '@zextras/carbonio-shell-ui';
-import fetchMock from '../../test/fetchMock';
 
+import fetchMock from '../../test/fetchMock';
 import { customRender } from '../../test/test-utils';
 import App from '../auth-view';
 import { checkSupportedZextras } from '../network/checkSupportedZextras';

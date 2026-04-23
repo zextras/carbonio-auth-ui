@@ -15,7 +15,7 @@ import { TwoFactorAuthModal } from './components/two-factor-auth-modal';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "settings-view" */ './settings/auth-view'));
 
-const Auth = (props) => (
+const Auth = (): React.JSX.Element => (
 	<Suspense
 		fallback={
 			<Container>
@@ -23,11 +23,11 @@ const Auth = (props) => (
 			</Container>
 		}
 	>
-		<LazyAuth {...props} />
+		<LazyAuth />
 	</Suspense>
 );
 
-export default function App() {
+export default function App(): React.JSX.Element {
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ export default function App() {
 				id: 'carbonio-auth-ui',
 				label: capitalize(t('changePassword.title', 'Change password')),
 				icon: 'LockOutline',
-				execute: () => navigate(`/settings/auth?section=changepassword`, { replace: true }),
+				execute: (): void => navigate(`/settings/auth?section=changepassword`, { replace: true }),
 				disabled: false,
 				group: 'carbonio-auth-ui',
 				primary: true
