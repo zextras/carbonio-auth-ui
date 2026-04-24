@@ -19,7 +19,7 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: 'jsdom',
-		setupFiles: ['./src/vitest-env-setup.ts'],
+		setupFiles: ['vitest-env-setup.ts'],
 		clearMocks: true,
 		restoreMocks: true,
 		reporters: ['default'],
