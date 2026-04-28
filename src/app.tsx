@@ -12,6 +12,7 @@ import { capitalize } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 import { TwoFactorAuthModal } from './components/two-factor-auth-modal';
+import { usePasswordPolicy } from './settings/components/shared/password-policy';
 
 const LazyAuth = lazy(() => import(/* webpackChunkName: "auth-view" */ './settings/auth-view'));
 
@@ -29,6 +30,7 @@ const Auth = (): React.JSX.Element => (
 
 export default function App(): React.JSX.Element {
 	const navigate = useNavigate();
+	const { resetEnabled } = usePasswordPolicy();
 
 	useEffect(() => {
 		addSettingsView({
@@ -36,12 +38,18 @@ export default function App(): React.JSX.Element {
 			label: t('label.app_name', 'Auth'),
 			component: Auth
 		});
+		const label = resetEnabled
+			? capitalize(t('settingsAuth.Option.ResetPassword', 'Reset password'))
+			: capitalize(t('changePassword.title', 'Change password'));
+
+		const section = resetEnabled ? 'resetpassword' : 'changepassword';
+
 		registerActions({
 			action: () => ({
 				id: 'carbonio-auth-ui',
-				label: capitalize(t('changePassword.title', 'Change password')),
+				label,
 				icon: 'LockOutline',
-				execute: (): void => navigate(`/settings/auth?section=changepassword`, { replace: true }),
+				execute: (): void => navigate(`/settings/auth?section=${section}`, { replace: true }),
 				disabled: false,
 				group: 'carbonio-auth-ui',
 				primary: true
@@ -49,7 +57,7 @@ export default function App(): React.JSX.Element {
 			id: 'carbonio-auth-ui',
 			type: 'account_menu'
 		});
-	}, [navigate]);
+	}, [navigate, resetEnabled]);
 
 	return <TwoFactorAuthModal />;
 }

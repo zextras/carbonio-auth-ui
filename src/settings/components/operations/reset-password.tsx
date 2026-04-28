@@ -15,13 +15,16 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 
+import { ExternalPasswordLink } from './external-password-link';
 import { useGenericErrorSnackbar } from '../../hooks/use-generic-error-snackbar';
 import { resetPasswordRequest } from '../../network/reset-password-request';
+import { usePasswordPolicy } from '../shared/password-policy';
 import { Section } from '../shared/section';
 
 export function ResetPassword(): JSX.Element {
 	const createSnackbar = useSnackbar();
 	const errorSnackbar = useGenericErrorSnackbar();
+	const { externalUrl } = usePasswordPolicy();
 
 	const [newPasswordValue, setNewPasswordValue] = useState('');
 	const [confirmPasswordValue, setConfirmPasswordValue] = useState('');
@@ -57,6 +60,10 @@ export function ResetPassword(): JSX.Element {
 		[confirmPasswordValue, newPasswordValue]
 	);
 
+	if (externalUrl) {
+		return <ExternalPasswordLink url={externalUrl} variant="reset" />;
+	}
+
 	return (
 		<Section title={t('settingsAuth.Displayer.ResetPassword', 'Reset Password')}>
 			<Row mainAlignment="flex-start" width="fill">
@@ -67,6 +74,7 @@ export function ResetPassword(): JSX.Element {
 							'Create a new password to reset it.'
 						)}
 					</Text>
+					<Padding top="medium" />
 					<Text overflow="break-word">
 						{t(
 							'settingsAuth.Displayer.WarningSessionRefresh',
@@ -79,7 +87,7 @@ export function ResetPassword(): JSX.Element {
 				<Row mainAlignment="flex-start" width="50%">
 					<PasswordInput
 						label={t('settingsAuth.displayerInputField.NewPassword', 'New password')}
-						backgroundColor="gray5"
+						background="gray5"
 						onChange={(e): void => setNewPasswordValue(e.target.value)}
 						value={newPasswordValue}
 						width="fill"
@@ -91,7 +99,7 @@ export function ResetPassword(): JSX.Element {
 				<Row mainAlignment="flex-start" width="50%">
 					<PasswordInput
 						label={t('settingsAuth.displayerInputField.ConfirmPassword', 'Confirm password')}
-						backgroundColor="gray5"
+						background="gray5"
 						onChange={(e): void => setConfirmPasswordValue(e.target.value)}
 						value={confirmPasswordValue}
 						hasError={hasMatchError}

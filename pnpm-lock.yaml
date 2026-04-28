@@ -18,14 +18,14 @@ importers:
         specifier: 11.0.2
         version: 11.0.2(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(date-fns@4.1.0)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@zextras/carbonio-shell-ui':
-        specifier: 13.0.0-devel.1766140356030
-        version: 13.0.0-devel.1766140356030(fa02479999c97497bf6b4196f7e1fa05)
+        specifier: file:zextras-carbonio-shell-ui-14.1.1.tgz
+        version: file:zextras-carbonio-shell-ui-14.1.1.tgz(fa02479999c97497bf6b4196f7e1fa05)
       '@zextras/carbonio-ui-commons':
         specifier: 2.0.0
         version: 2.0.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(date-fns@4.1.0)(use-sync-external-store@1.6.0(react@18.3.1))
       '@zextras/carbonio-ui-soap-lib':
-        specifier: 1.0.4
-        version: 1.0.4
+        specifier: file:zextras-carbonio-ui-soap-lib-0.0.0-semantically-released.tgz
+        version: file:zextras-carbonio-ui-soap-lib-0.0.0-semantically-released.tgz
       buffer:
         specifier: 6.0.3
         version: 6.0.3
@@ -2443,16 +2443,17 @@ packages:
       react-router-dom:
         optional: true
 
-  '@zextras/carbonio-shell-ui@13.0.0-devel.1766140356030':
-    resolution: {integrity: sha512-edYI+Yuj4Zkqtz5rxhHwN1xdQSPILE7HZQlOuvx0sqIZR8WvXgRAAGmLb0pU3m+wh2vWucZ05niQNvi3Ta5a3A==}
-    engines: {node: v22, npm: v10}
+  '@zextras/carbonio-shell-ui@file:zextras-carbonio-shell-ui-14.1.1.tgz':
+    resolution: {integrity: sha512-jjo27YOadYSs/Sjnrkp94tMSjXYtZgzjOjuomX5AAS/C1O41LvzCPVAHB6CRKHrSH54OSTAF34wu07jreBEYLg==, tarball: file:zextras-carbonio-shell-ui-14.1.1.tgz}
+    version: 14.1.1
+    engines: {node: v22, pnpm: '>=10'}
     peerDependencies:
       '@emotion/react': ^11.14.0
       '@emotion/styled': ^11.14.1
-      '@zextras/carbonio-design-system': ^11.0.0
-      '@zextras/carbonio-ui-preview': ^4.0.0
+      '@zextras/carbonio-design-system': ^12.0.0
+      '@zextras/carbonio-ui-preview': ^5.0.0
       core-js: ^3.39.0
-      lodash: ^4.17.21
+      lodash: ^4.17.23
       react: ^18.3.1
       react-dom: ^18.3.1
       react-i18next: ^12.3.1
@@ -2504,6 +2505,13 @@ packages:
 
   '@zextras/carbonio-ui-soap-lib@1.0.4':
     resolution: {integrity: sha512-vRaizwsMPC4fODiBXiNwVnKH9b9IlKWNhAu3uYzb+BvB+HMTzxb6OGLtgLqgW+PVvBb56x+ITIbdONBsVV69OQ==}
+
+  '@zextras/carbonio-ui-soap-lib@1.2.0':
+    resolution: {integrity: sha512-Z8pBHJFUuYWYq/t9Mbnbc0MB5I8dMcQMPnwnA77Tc+/Rt7bvBZik8oiEVb6GlS7fUxOY1Vyye2PCeEv55U/HNw==}
+
+  '@zextras/carbonio-ui-soap-lib@file:zextras-carbonio-ui-soap-lib-0.0.0-semantically-released.tgz':
+    resolution: {integrity: sha512-CZD6RdvOECFB7MFv7+1XqABEBd13TaPMNC8StTlGL2JrZzzIsH065I5ULPbthbe53ZBC75iQ4mGcC2g2a8CpWg==, tarball: file:zextras-carbonio-ui-soap-lib-0.0.0-semantically-released.tgz}
+    version: 0.0.0-semantically-released
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -9182,10 +9190,10 @@ snapshots:
       - encoding
       - use-sync-external-store
 
-  '@zextras/carbonio-shell-ui@13.0.0-devel.1766140356030(fa02479999c97497bf6b4196f7e1fa05)':
+  '@zextras/carbonio-shell-ui@file:zextras-carbonio-shell-ui-14.1.1.tgz(fa02479999c97497bf6b4196f7e1fa05)':
     dependencies:
       '@fontsource/roboto': 5.2.10
-      '@zextras/carbonio-ui-soap-lib': 1.0.4
+      '@zextras/carbonio-ui-soap-lib': 1.2.0
       core-js: 3.45.1
       darkreader: 4.9.120
       date-fns: 4.1.0
@@ -9327,6 +9335,16 @@ snapshots:
       ua-parser-js: 1.0.41
 
   '@zextras/carbonio-ui-soap-lib@1.0.4':
+    dependencies:
+      '@types/ua-parser-js': 0.7.39
+      ua-parser-js: 1.0.41
+
+  '@zextras/carbonio-ui-soap-lib@1.2.0':
+    dependencies:
+      '@types/ua-parser-js': 0.7.39
+      ua-parser-js: 1.0.41
+
+  '@zextras/carbonio-ui-soap-lib@file:zextras-carbonio-ui-soap-lib-0.0.0-semantically-released.tgz':
     dependencies:
       '@types/ua-parser-js': 0.7.39
       ua-parser-js: 1.0.41
