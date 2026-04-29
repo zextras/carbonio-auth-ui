@@ -1,3 +1,15 @@
+## 1.5.0 (2026-04-27)
+
+* build(release): migrate to semantic-release (#164) ([4bf5fe7](https://github.com/zextras/carbonio-auth-ui/commit/4bf5fe7)), closes [#164](https://github.com/zextras/carbonio-auth-ui/issues/164)
+* chore: Version bumper/v1.4.11 1 ([f82bb74](https://github.com/zextras/carbonio-auth-ui/commit/f82bb74))
+* chore(deps): update dependency @types/lodash to v4.17.24 (#132) ([c395ff3](https://github.com/zextras/carbonio-auth-ui/commit/c395ff3)), closes [#132](https://github.com/zextras/carbonio-auth-ui/issues/132)
+* chore(deps): update dependency @types/styled-components to v5.1.36 (#133) ([08d8fe2](https://github.com/zextras/carbonio-auth-ui/commit/08d8fe2)), closes [#133](https://github.com/zextras/carbonio-auth-ui/issues/133)
+* chore(release): 1.4.10 ([d9732db](https://github.com/zextras/carbonio-auth-ui/commit/d9732db))
+* fix: remove link (#163) ([4baa3a8](https://github.com/zextras/carbonio-auth-ui/commit/4baa3a8)), closes [#163](https://github.com/zextras/carbonio-auth-ui/issues/163)
+* refactor: migrate from npm to pnpm (#158) ([390dcb8](https://github.com/zextras/carbonio-auth-ui/commit/390dcb8)), closes [#158](https://github.com/zextras/carbonio-auth-ui/issues/158)
+* refactor(tests): migrate from Jest to Vitest and update test setup (#159) ([fb4740e](https://github.com/zextras/carbonio-auth-ui/commit/fb4740e)), closes [#159](https://github.com/zextras/carbonio-auth-ui/issues/159)
+* feat: change password option on account menu ([693fe1b](https://github.com/zextras/carbonio-auth-ui/commit/693fe1b))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
