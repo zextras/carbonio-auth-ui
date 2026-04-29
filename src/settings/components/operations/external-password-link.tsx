@@ -10,14 +10,14 @@ import { Button, Container, Divider, Padding, Row, Text } from '@zextras/carboni
 import { t } from '@zextras/carbonio-shell-ui';
 
 type ExternalPasswordLinkProps = {
-	url: string;
-	variant: 'change' | 'reset';
+	readonly url: string;
+	readonly variant: 'change' | 'reset';
 };
 
 export function ExternalPasswordLink({
 	url,
 	variant
-}: ExternalPasswordLinkProps): React.JSX.Element {
+}: Readonly<ExternalPasswordLinkProps>): React.JSX.Element {
 	const title =
 		variant === 'change'
 			? t('changePassword.title', 'Change Password')
