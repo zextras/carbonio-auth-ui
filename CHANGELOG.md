@@ -1,3 +1,10 @@
+## <small>1.5.1 (2026-05-05)</small>
+
+* build(deps): update dependencies (#170) ([60ead73](https://github.com/zextras/carbonio-auth-ui/commit/60ead73)), closes [#170](https://github.com/zextras/carbonio-auth-ui/issues/170)
+* chore(deps): update dependency @types/react to v18.3.28 (#161) ([0f2c47f](https://github.com/zextras/carbonio-auth-ui/commit/0f2c47f)), closes [#161](https://github.com/zextras/carbonio-auth-ui/issues/161)
+* chore(deps): update dependency @zextras/carbonio-ui-sdk to v2.2.6 (#162) ([63c62b5](https://github.com/zextras/carbonio-auth-ui/commit/63c62b5)), closes [#162](https://github.com/zextras/carbonio-auth-ui/issues/162)
+* chore(deps): update dependency sonarqube-scanner to v4.3.6 (#165) ([8ca8c7d](https://github.com/zextras/carbonio-auth-ui/commit/8ca8c7d)), closes [#165](https://github.com/zextras/carbonio-auth-ui/issues/165)
+
 ## 1.5.0 (2026-04-27)
 
 * build(release): migrate to semantic-release (#164) ([4bf5fe7](https://github.com/zextras/carbonio-auth-ui/commit/4bf5fe7)), closes [#164](https://github.com/zextras/carbonio-auth-ui/issues/164)
