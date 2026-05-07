@@ -1,6 +1,6 @@
 {
 	"name": "carbonio-auth-ui",
-	"version": "1.5.0",
+	"version": "1.5.1",
 	"description": "Auth web module",
 	"main": "src/app.tsx",
 	"packageManager": "pnpm@10.32.1",
@@ -64,9 +64,9 @@
 	"dependencies": {
 		"@emotion/react": "11.14.0",
 		"@emotion/styled": "11.14.1",
-		"@zextras/carbonio-design-system": "11.0.2",
-		"@zextras/carbonio-shell-ui": "14.2.0",
-		"@zextras/carbonio-ui-commons": "2.0.0",
+		"@zextras/carbonio-design-system": "12.0.4",
+		"@zextras/carbonio-shell-ui": "14.2.2",
+		"@zextras/carbonio-ui-commons": "2.2.0",
 		"@zextras/carbonio-ui-soap-lib": "1.2.0",
 		"buffer": "6.0.3",
 		"core-js": "3.45.1",
@@ -76,7 +76,6 @@
 		"react": "18.3.1",
 		"react-i18next": "12.3.1",
 		"react-dom": "18.3.1",
-		"react-i18next": "12.3.1",
 		"react-router-dom": "6.30.3"
 	},
 	"pnpm": {
