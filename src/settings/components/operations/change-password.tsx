@@ -149,7 +149,7 @@ export function ChangePassword(): React.JSX.Element {
 				>
 					<Row>
 						<Row width="5%">
-							<Icon icon="AlertCircleOutline" size="large" color="#2196d3" />
+							<Icon icon="AlertCircleOutline" size="large" color="info" />
 						</Row>
 
 						<Row takeAvailableSpace>

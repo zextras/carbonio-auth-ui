@@ -52,30 +52,20 @@ export function ExternalPasswordLink({
 				</Text>
 			</Padding>
 			<Divider />
-			<Container
-				padding={{ all: 'large' }}
-				crossAlignment="center"
-				gap="1rem"
-				width="fill"
-				height="fill"
-			>
+			<Container padding={'2rem'} gap="1rem" width="fill" height="fill">
 				<Container
 					maxWidth="30rem"
 					height="100%"
-					mainAlignment="center"
+					mainAlignment="flex-start"
 					crossAlignment="center"
 					padding={{ vertical: 'large' }}
 				>
-					<Row padding={{ bottom: 'large' }}>
+					<Row>
 						<Text overflow="break-word" style={{ textAlign: 'center' }}>
 							{description}
 						</Text>
 					</Row>
-					<Row
-						width="100%"
-						mainAlignment="flex-start"
-						padding={{ top: 'medium', bottom: 'extralarge' }}
-					>
+					<Row width="100%" mainAlignment="flex-start" padding={{ top: '1rem', bottom: '2rem' }}>
 						<Divider color="gray3" />
 					</Row>
 					<Row width="fill">
