@@ -60,6 +60,18 @@ export function ChangePassword(): React.JSX.Element {
 
 	function formatPasswordCode(code: string): void {
 		switch (code) {
+			case 'account.PASSWORD_LOCKED':
+				createSnackbar({
+					key: '2',
+					severity: 'error',
+					disableAutoHide: true,
+					label: t(
+						'error.passwordLocked',
+						'Change password is currently disabled. Please try contacting your administrator'
+					),
+					actionLabel: t('buttons.ok', 'ok')
+				});
+				break;
 			case 'account.AUTH_FAILED':
 				setErrorLabelOldPassword(t('changePassword.incorrectPassword'));
 				break;
