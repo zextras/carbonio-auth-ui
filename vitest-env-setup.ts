@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import '@testing-library/jest-dom';
-import fetchMock from './test/fetchMock';
+import '@testing-library/jest-dom/vitest';
+import fetchMock from './src/test/fetchMock';
 
 fetchMock.enableMocks();

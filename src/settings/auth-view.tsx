@@ -19,6 +19,7 @@ import { ExchangeActiveSync } from './components/operations/exchange-active-sync
 import { OTPAuthentication } from './components/operations/otp-authentication';
 import { RecoveryPassword } from './components/operations/recovery-password';
 import { ResetPassword } from './components/operations/reset-password';
+import { usePasswordPolicy } from './components/shared/password-policy';
 import { SidebarNavigation } from './components/shared/sidebar-navigation';
 import { checkSupportedZextras } from './network/checkSupportedZextras';
 import { fetchSoap } from './network/fetchSoap';
@@ -68,12 +69,10 @@ function useAuthTabs(): {
 	linksWithoutZextras: Tab[];
 	otpAuthenticationItem: Tab | undefined;
 } {
-	const { carbonioFeatureOTPMgmtEnabled, zimbraFeatureResetPasswordStatus } =
-		useUserSettings().attrs;
-	const isRecoveryAddressFeatureEnabled = useMemo(
-		() => zimbraFeatureResetPasswordStatus && zimbraFeatureResetPasswordStatus === 'enabled',
-		[zimbraFeatureResetPasswordStatus]
-	);
+	const { attrs } = useUserSettings();
+	const { carbonioFeatureOTPMgmtEnabled } = attrs;
+	const { canChangePassword, resetEnabled } = usePasswordPolicy();
+	const isRecoveryAddressFeatureEnabled = resetEnabled;
 
 	const changePasswordItem = {
 		name: 'changepassword',
@@ -133,23 +132,31 @@ function useAuthTabs(): {
 		[carbonioFeatureOTPMgmtEnabled]
 	);
 
+	const easItem = canChangePassword
+		? {
+				name: 'activesync',
+				label: t('easAuth.label', 'Exchange ActiveSync'),
+				view: ExchangeActiveSync,
+				instruction: t('instruction.eas', 'Here you can manage your Exchange ActiveSync password.'),
+				link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
+			}
+		: undefined;
+
+	const mobileItem = canChangePassword
+		? {
+				name: 'mobile',
+				label: t('appMobile.title', 'Mobile Apps'),
+				view: AppMobile,
+				instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
+				link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
+			}
+		: undefined;
+
 	const links = compact([
 		...linksWithoutZextras,
 		recoveryPasswordItem,
-		{
-			name: 'activesync',
-			label: t('easAuth.label', 'Exchange ActiveSync'),
-			view: ExchangeActiveSync,
-			instruction: t('instruction.eas', 'Here you can manage your Exchange ActiveSync password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
-		},
-		{
-			name: 'mobile',
-			label: t('appMobile.title', 'Mobile Apps'),
-			view: AppMobile,
-			instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
-			link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-		},
+		easItem,
+		mobileItem,
 		otpAuthenticationItem
 	]);
 

@@ -1,6 +1,6 @@
 {
 	"extends": "@zextras/carbonio-ui-configs/rules/typescript.json",
-	"include": ["src/**/*"],
+	"include": ["src/**/*", "vitest-env-setup.ts"],
 	"compilerOptions": {
 		"skipLibCheck": true,
 		"allowJs": true,

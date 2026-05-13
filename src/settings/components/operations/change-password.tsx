@@ -17,10 +17,12 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { getUserAccount, t, useUserSettings } from '@zextras/carbonio-shell-ui';
+import { getUserAccount, t } from '@zextras/carbonio-shell-ui';
 
+import { ExternalPasswordLink } from './external-password-link';
 import { fetchSoap } from '../../network/fetchSoap';
 import { ErrorMessage } from '../shared/error-message';
+import { usePasswordPolicy } from '../shared/password-policy';
 import { Section } from '../shared/section';
 
 export function ChangePassword(): React.JSX.Element {
@@ -31,13 +33,9 @@ export function ChangePassword(): React.JSX.Element {
 	const [errorLabelNewPassword, setErrorLabelNewPassword] = useState('');
 	const [errorLabelConfirmPassword, setErrorLabelConfirmPassword] = useState('');
 	const [correctOldPassword, setCorrectOldPassword] = useState('');
-	const [isLocked, setIsLocked] = useState<boolean>();
-	const settings = useUserSettings();
+	const { canChangePassword, externalUrl } = usePasswordPolicy();
 
-	useEffect(() => {
-		if (settings?.attrs?.zimbraFeatureChangePasswordEnabled === 'TRUE') setIsLocked(false);
-		else setIsLocked(true);
-	}, [settings?.attrs?.zimbraFeatureChangePasswordEnabled]);
+	const isLocked = !canChangePassword;
 
 	const createSnackbar = useSnackbar();
 
@@ -115,7 +113,6 @@ export function ChangePassword(): React.JSX.Element {
 	};
 
 	useEffect(() => {
-		/* eslint-disable react-hooks/exhaustive-deps */
 		setErrorLabelOldPassword('');
 	}, [oldPassword]);
 
@@ -125,7 +122,7 @@ export function ChangePassword(): React.JSX.Element {
 		} else {
 			setErrorLabelNewPassword('');
 		}
-	}, [newPassword]);
+	}, [correctOldPassword, newPassword]);
 
 	useEffect(() => {
 		if (confirmPassword !== newPassword && confirmPassword !== '') {
@@ -135,6 +132,10 @@ export function ChangePassword(): React.JSX.Element {
 		}
 	}, [confirmPassword, newPassword]);
 
+	if (!isLocked && externalUrl) {
+		return <ExternalPasswordLink url={externalUrl} variant="change" />;
+	}
+
 	return (
 		<Section title={t('changePassword.title')}>
 			{isLocked && (
@@ -142,17 +143,17 @@ export function ChangePassword(): React.JSX.Element {
 					padding={{ vertical: 'medium', horizontal: 'small' }}
 					background="highlight"
 					height="20%"
-					width="fill"
+					width="80%"
 					mainAlignment="flex-start"
 					crossAlignment="flex-start"
 				>
 					<Row>
-						<Row width="10%">
-							<Icon icon="AlertCircleOutline" size="large" color="#2196d3" />
+						<Row width="5%">
+							<Icon icon="AlertCircleOutline" size="large" color="info" />
 						</Row>
 
 						<Row takeAvailableSpace>
-							<Text overflow="break-word" size="large" style={{ textAlign: 'center' }}>
+							<Text overflow="break-word" size="large">
 								{t('changePassword.zimbraPasswordLocked')}
 							</Text>
 						</Row>
@@ -160,7 +161,7 @@ export function ChangePassword(): React.JSX.Element {
 				</Container>
 			)}
 			<Container maxWidth="30rem">
-				<Row padding="4rem 0 2rem">
+				<Row padding="2rem 0 1rem">
 					<Text
 						overflow="break-word"
 						size="large"
