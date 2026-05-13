@@ -1,3 +1,7 @@
+## 1.6.0 (2026-05-13)
+
+* feat(CO-3472): add support for external change password custom endpoint  (#169) ([ed01846](https://github.com/zextras/carbonio-auth-ui/commit/ed01846)), closes [#169](https://github.com/zextras/carbonio-auth-ui/issues/169)
+
 ## <small>1.5.2 (2026-05-12)</small>
 
 * Merge pull request #171 from zextras/IN-1095-jfrog-cost-optimization-usage-analysis-and-mitigation-s ([2cc54d4](https://github.com/zextras/carbonio-auth-ui/commit/2cc54d4)), closes [#171](https://github.com/zextras/carbonio-auth-ui/issues/171)
