@@ -33,9 +33,9 @@ export function ChangePassword(): React.JSX.Element {
 	const [errorLabelNewPassword, setErrorLabelNewPassword] = useState('');
 	const [errorLabelConfirmPassword, setErrorLabelConfirmPassword] = useState('');
 	const [correctOldPassword, setCorrectOldPassword] = useState('');
-	const { canChangePassword, externalUrl } = usePasswordPolicy();
+	const { canChangePassword, externalUrl, isPasswordLocked } = usePasswordPolicy();
 
-	const isLocked = !canChangePassword;
+	const isLocked = !canChangePassword || isPasswordLocked;
 
 	const createSnackbar = useSnackbar();
 
