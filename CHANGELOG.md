@@ -1,3 +1,7 @@
+## <small>1.6.1 (2026-05-14)</small>
+
+* fix(ci): migrate Jenkinsfile to jenkins-lib-common (#173) ([b742615](https://github.com/zextras/carbonio-auth-ui/commit/b742615)), closes [#173](https://github.com/zextras/carbonio-auth-ui/issues/173)
+
 ## 1.6.0 (2026-05-13)
 
 * feat(CO-3472): add support for external change password custom endpoint  (#169) ([ed01846](https://github.com/zextras/carbonio-auth-ui/commit/ed01846)), closes [#169](https://github.com/zextras/carbonio-auth-ui/issues/169)
