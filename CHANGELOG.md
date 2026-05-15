@@ -1,3 +1,7 @@
+## <small>1.6.2 (2026-05-15)</small>
+
+* fix: blocking user from chaning password when prevented by admin ([e1f0ff0](https://github.com/zextras/carbonio-auth-ui/commit/e1f0ff0))
+
 ## <small>1.6.1 (2026-05-14)</small>
 
 * fix(ci): migrate Jenkinsfile to jenkins-lib-common (#173) ([b742615](https://github.com/zextras/carbonio-auth-ui/commit/b742615)), closes [#173](https://github.com/zextras/carbonio-auth-ui/issues/173)
