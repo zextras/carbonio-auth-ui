@@ -7,6 +7,7 @@
 import { useChangePasswordURL, useUserSettings } from '@zextras/carbonio-shell-ui';
 
 export type PasswordPolicy = {
+	isPasswordLocked: boolean;
 	canChangePassword: boolean;
 	externalUrl: string | undefined;
 	resetEnabled: boolean;
@@ -20,6 +21,7 @@ export function usePasswordPolicy(): PasswordPolicy {
 		typeof rawUrl === 'string' && rawUrl.trim().length > 0 ? rawUrl.trim() : undefined;
 
 	return {
+		isPasswordLocked: attrs?.zimbraPasswordLocked === 'TRUE',
 		canChangePassword: attrs?.zimbraFeatureChangePasswordEnabled === 'TRUE',
 		externalUrl,
 		resetEnabled: attrs?.zimbraFeatureResetPasswordStatus === 'enabled'
