@@ -1,6 +1,6 @@
 {
 	"name": "carbonio-auth-ui",
-	"version": "1.6.2",
+	"version": "1.6.3",
 	"description": "Auth web module",
 	"main": "src/app.tsx",
 	"packageManager": "pnpm@10.32.1",
