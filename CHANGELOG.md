@@ -1,3 +1,9 @@
+## <small>1.6.3 (2026-05-20)</small>
+
+* fix(deps): update dependency lodash to v4.18.1 [security] (#143) ([c11b489](https://github.com/zextras/carbonio-auth-ui/commit/c11b489)), closes [#143](https://github.com/zextras/carbonio-auth-ui/issues/143)
+* chore(deps): update babel (#168) ([68f04ac](https://github.com/zextras/carbonio-auth-ui/commit/68f04ac)), closes [#168](https://github.com/zextras/carbonio-auth-ui/issues/168)
+* chore(deps): update vitest to v3.2.4 (#166) ([1437a53](https://github.com/zextras/carbonio-auth-ui/commit/1437a53)), closes [#166](https://github.com/zextras/carbonio-auth-ui/issues/166)
+
 ## <small>1.6.2 (2026-05-15)</small>
 
 * fix: blocking user from chaning password when prevented by admin ([e1f0ff0](https://github.com/zextras/carbonio-auth-ui/commit/e1f0ff0))
