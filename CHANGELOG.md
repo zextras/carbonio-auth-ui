@@ -1,3 +1,11 @@
+## <small>1.6.4 (2026-05-27)</small>
+
+* fix: set fixed white background for OTP authentication QRCode ([3866557](https://github.com/zextras/carbonio-auth-ui/commit/3866557))
+* chore(deps): lock file maintenance (#135) ([70b47cf](https://github.com/zextras/carbonio-auth-ui/commit/70b47cf)), closes [#135](https://github.com/zextras/carbonio-auth-ui/issues/135)
+* chore(deps): lock file maintenance (#174) ([ce8d1ca](https://github.com/zextras/carbonio-auth-ui/commit/ce8d1ca)), closes [#174](https://github.com/zextras/carbonio-auth-ui/issues/174)
+* chore(deps): update dependency @babel/runtime to v7.26.10 [security] (#160) ([3d4e3d5](https://github.com/zextras/carbonio-auth-ui/commit/3d4e3d5)), closes [#160](https://github.com/zextras/carbonio-auth-ui/issues/160)
+* chore(deps): update testing library (#144) ([de46bb3](https://github.com/zextras/carbonio-auth-ui/commit/de46bb3)), closes [#144](https://github.com/zextras/carbonio-auth-ui/issues/144)
+
 ## <small>1.6.3 (2026-05-20)</small>
 
 * fix(deps): update dependency lodash to v4.18.1 [security] (#143) ([c11b489](https://github.com/zextras/carbonio-auth-ui/commit/c11b489)), closes [#143](https://github.com/zextras/carbonio-auth-ui/issues/143)
