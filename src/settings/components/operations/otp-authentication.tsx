@@ -17,9 +17,7 @@ import {
 	Table,
 	Text,
 	THeader,
-	Theme,
-	useSnackbar,
-	useTheme
+	useSnackbar
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, map, orderBy, reduce } from 'lodash';
@@ -81,8 +79,6 @@ type LabelsObj = {
 };
 
 export function OTPAuthentication(): React.JSX.Element {
-	const theme = useTheme() as Theme;
-
 	const [otpList, setOTPList] = useState<Otp[]>([]);
 	const [selectedOTP, setSelectedOTP] = useState<OtpId>();
 	const [showModal, setShowModal] = useState(false);
@@ -559,17 +555,19 @@ export function OTPAuthentication(): React.JSX.Element {
 							<Padding vertical="large">
 								<QRCodeRow
 									width="fit"
-									background={theme.palette.gray5.regular}
+									background="gray5"
 									orientation="vertical"
 									padding={{ all: 'large' }}
 								>
-									<QRCodeSVG
-										includeMargin
-										data-testid="qrcode-password"
-										size={150}
-										bgColor={theme.palette.gray5.regular}
-										value={qrData}
-									/>
+									<div className="force-white-bg">
+										<QRCodeSVG
+											includeMargin
+											data-testid="qrcode-password"
+											size={150}
+											bgColor="transparent"
+											value={qrData}
+										/>
+									</div>
 									<Padding top="large">
 										<Button
 											label={t('common.copyQrCode')}
