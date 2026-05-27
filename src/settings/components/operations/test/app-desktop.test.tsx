@@ -6,8 +6,9 @@
 
 import React from 'react';
 
-import { fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
+import fetchMock from '../../../../test/fetchMock';
 import { customRender } from '../../../../test/test-utils';
 import { type Password } from '../../../types';
 import { AppDesktop } from '../app-desktop';
@@ -34,6 +35,10 @@ const mobilePassword: Password = {
 };
 
 describe('AppDesktop', () => {
+	beforeEach(() => {
+		fetchMock.resetMocks();
+	});
+
 	it('should render DesktopApp credentials in the table', () => {
 		customRender(<AppDesktop passwords={[desktopPassword]} setPasswords={vi.fn()} />);
 		expect(screen.getByText('My Desktop Sync')).toBeInTheDocument();
@@ -70,5 +75,66 @@ describe('AppDesktop', () => {
 	it('should have the Delete button disabled when no row is selected', () => {
 		customRender(<AppDesktop passwords={[desktopPassword]} setPasswords={vi.fn()} />);
 		expect(screen.getByRole('button', { name: 'common.delete' })).toBeDisabled();
+	});
+
+	it('should show the generated token after creating a new desktop authentication', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: {
+					response: {
+						ok: true,
+						value: {
+							qrcode_data: {
+								auth_method: 'token',
+								auth_payload: { password: 'secrettoken', user: 'test@example.com' },
+								auth_endpoint: [{ url: 'https://example.com' }]
+							}
+						}
+					}
+				}
+			})
+		);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppDesktop passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewToken.authenticationDescription'), {
+			target: { value: 'My Desktop Sync App' }
+		});
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', { name: 'common.createToken' }));
+		});
+		expect(screen.getByText('setNewToken.successfully')).toBeInTheDocument();
+	});
+
+	it('should open the delete confirmation modal after selecting a row and clicking Delete', async () => {
+		customRender(<AppDesktop passwords={[desktopPassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('My Desktop Sync'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+		expect(screen.getByText('deletePassword.title')).toBeInTheDocument();
+	});
+
+	it('should call RemoveCredentialRequest when delete is confirmed', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppDesktop passwords={[desktopPassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('My Desktop Sync'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', { name: 'buttons.yes' }));
+		});
+		expect(fetchMock).toHaveBeenCalledWith(
+			'/service/soap/RemoveCredentialRequest',
+			expect.any(Object)
+		);
 	});
 });

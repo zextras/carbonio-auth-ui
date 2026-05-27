@@ -6,8 +6,9 @@
 
 import React from 'react';
 
-import { fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
+import fetchMock from '../../../../test/fetchMock';
 import { customRender } from '../../../../test/test-utils';
 import { type Password } from '../../../types';
 import { ExchangeActiveSync } from '../exchange-active-sync';
@@ -34,6 +35,10 @@ const mobilePassword: Password = {
 };
 
 describe('ExchangeActiveSync', () => {
+	beforeEach(() => {
+		fetchMock.resetMocks();
+	});
+
 	it('should render EAS credentials in the table', () => {
 		customRender(<ExchangeActiveSync passwords={[easPassword]} setPasswords={vi.fn()} />);
 		expect(screen.getByText('Work EAS Auth')).toBeInTheDocument();
@@ -70,5 +75,57 @@ describe('ExchangeActiveSync', () => {
 	it('should have the Delete button disabled when no row is selected', () => {
 		customRender(<ExchangeActiveSync passwords={[easPassword]} setPasswords={vi.fn()} />);
 		expect(screen.getByRole('button', { name: 'common.delete' })).toBeDisabled();
+	});
+
+	it('should show the generated password step after creating a new EAS authentication', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: {
+					response: { ok: true, value: { text_data: { password: 'eas-secret-123' } } }
+				}
+			})
+		);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<ExchangeActiveSync passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'Work EAS' }
+		});
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+		});
+		expect(screen.getByText('setNewPassword.successfully')).toBeInTheDocument();
+	});
+
+	it('should open the delete confirmation modal after selecting a row and clicking Delete', async () => {
+		customRender(<ExchangeActiveSync passwords={[easPassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('Work EAS Auth'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+		expect(screen.getByText('deletePassword.title')).toBeInTheDocument();
+	});
+
+	it('should call RemoveCredentialRequest when delete is confirmed', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<ExchangeActiveSync passwords={[easPassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('Work EAS Auth'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', { name: 'buttons.yes' }));
+		});
+		expect(fetchMock).toHaveBeenCalledWith(
+			'/service/soap/RemoveCredentialRequest',
+			expect.any(Object)
+		);
 	});
 });

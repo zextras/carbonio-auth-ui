@@ -6,8 +6,9 @@
 
 import React from 'react';
 
-import { fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
+import fetchMock from '../../../../test/fetchMock';
 import { customRender } from '../../../../test/test-utils';
 import { type Password } from '../../../types';
 import { AppMobile } from '../app-mobile';
@@ -34,6 +35,10 @@ const easPassword: Password = {
 };
 
 describe('AppMobile', () => {
+	beforeEach(() => {
+		fetchMock.resetMocks();
+	});
+
 	it('should render MobileApp credentials in the table', () => {
 		customRender(<AppMobile passwords={[mobilePassword]} setPasswords={vi.fn()} />);
 		expect(screen.getByText('My Mobile App')).toBeInTheDocument();
@@ -68,5 +73,66 @@ describe('AppMobile', () => {
 	it('should have the Delete button disabled when no row is selected', () => {
 		customRender(<AppMobile passwords={[mobilePassword]} setPasswords={vi.fn()} />);
 		expect(screen.getByRole('button', { name: 'common.delete' })).toBeDisabled();
+	});
+
+	it('should show the QR code after creating a new mobile authentication', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: {
+					response: {
+						ok: true,
+						value: {
+							qrcode_data: {
+								auth_method: 'qr',
+								auth_payload: { password: 'mobiletoken', user: 'test@example.com' },
+								auth_endpoint: [{ url: 'https://example.com' }]
+							}
+						}
+					}
+				}
+			})
+		);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'My Phone' }
+		});
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+		});
+		expect(screen.getByTestId('qrcode-password')).toBeInTheDocument();
+	});
+
+	it('should open the delete confirmation modal after selecting a row and clicking Delete', async () => {
+		customRender(<AppMobile passwords={[mobilePassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('My Mobile App'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+		expect(screen.getByText('deletePassword.title')).toBeInTheDocument();
+	});
+
+	it('should call RemoveCredentialRequest when delete is confirmed', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppMobile passwords={[mobilePassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('My Mobile App'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', { name: 'buttons.yes' }));
+		});
+		expect(fetchMock).toHaveBeenCalledWith(
+			'/service/soap/RemoveCredentialRequest',
+			expect.any(Object)
+		);
 	});
 });
