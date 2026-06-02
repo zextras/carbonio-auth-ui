@@ -1,3 +1,9 @@
+## <small>1.6.5 (2026-06-02)</small>
+
+* build: migrate to buildah (FQDN images + jenkins-lib-common@2.10.0) (#180) ([64dd3b9](https://github.com/zextras/carbonio-auth-ui/commit/64dd3b9)), closes [#180](https://github.com/zextras/carbonio-auth-ui/issues/180)
+* chore(deps): lock file maintenance (#178) ([b55184c](https://github.com/zextras/carbonio-auth-ui/commit/b55184c)), closes [#178](https://github.com/zextras/carbonio-auth-ui/issues/178)
+* chore(deps): update dependency zextras/jenkins-lib-common to v2.9.2 (#175) ([68ee35d](https://github.com/zextras/carbonio-auth-ui/commit/68ee35d)), closes [#175](https://github.com/zextras/carbonio-auth-ui/issues/175)
+
 ## <small>1.6.4 (2026-05-27)</small>
 
 * fix: set fixed white background for OTP authentication QRCode ([3866557](https://github.com/zextras/carbonio-auth-ui/commit/3866557))
