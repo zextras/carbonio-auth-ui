@@ -70,7 +70,11 @@ function useAuthTabs(): {
 	otpAuthenticationItem: Tab | undefined;
 } {
 	const { attrs } = useUserSettings();
-	const { carbonioFeatureOTPMgmtEnabled } = attrs;
+	const {
+		carbonioFeatureOTPMgmtEnabled,
+		zimbraFeatureMobileSyncEnabled,
+		carbonioFeatureMailsAppEnabled
+	} = attrs;
 	const { canChangePassword, resetEnabled } = usePasswordPolicy();
 	const isRecoveryAddressFeatureEnabled = resetEnabled;
 
@@ -132,25 +136,36 @@ function useAuthTabs(): {
 		[carbonioFeatureOTPMgmtEnabled]
 	);
 
-	const easItem = canChangePassword
-		? {
-				name: 'activesync',
-				label: t('easAuth.label', 'Exchange ActiveSync'),
-				view: ExchangeActiveSync,
-				instruction: t('instruction.eas', 'Here you can manage your Exchange ActiveSync password.'),
-				link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
-			}
-		: undefined;
+	const easItem = useMemo(
+		() =>
+			canChangePassword && zimbraFeatureMobileSyncEnabled === 'enabled'
+				? {
+						name: 'activesync',
+						label: t('easAuth.label', 'Exchange ActiveSync'),
+						view: ExchangeActiveSync,
+						instruction: t(
+							'instruction.eas',
+							'Here you can manage your Exchange ActiveSync password.'
+						),
+						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
+					}
+				: undefined,
+		[canChangePassword, zimbraFeatureMobileSyncEnabled]
+	);
 
-	const mobileItem = canChangePassword
-		? {
-				name: 'mobile',
-				label: t('appMobile.title', 'Mobile Apps'),
-				view: AppMobile,
-				instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
-				link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
-			}
-		: undefined;
+	const mobileItem = useMemo(
+		() =>
+			canChangePassword && carbonioFeatureMailsAppEnabled === 'TRUE'
+				? {
+						name: 'mobile',
+						label: t('appMobile.title', 'Mobile Apps'),
+						view: AppMobile,
+						instruction: t('instruction.mobile', 'Here you can manage Mobile App password.'),
+						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
+					}
+				: undefined,
+		[canChangePassword, carbonioFeatureMailsAppEnabled]
+	);
 
 	const links = compact([
 		...linksWithoutZextras,

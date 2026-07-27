@@ -81,11 +81,13 @@ describe('auth view', () => {
 		).toBeInTheDocument();
 	});
 
-	it('should display EAS, OTP and Mobile APP if advanced supported', async () => {
+	it('should display EAS, OTP and Mobile APP when advanced features are enabled', async () => {
 		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
@@ -104,11 +106,39 @@ describe('auth view', () => {
 		expect(screen.getByText('appMobile.title')).toBeVisible();
 		expect(screen.getByText('setNewOtpLabel.title')).toBeVisible();
 	});
+
+	it('should hide EAS and Mobile APP when their feature flags are disabled', async () => {
+		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: true });
+		vi.mocked(useUserSettings).mockReturnValue({
+			attrs: {
+				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'disabled',
+				carbonioFeatureMailsAppEnabled: 'FALSE',
+				zimbraFeatureChangePasswordEnabled: 'TRUE',
+				zimbraFeatureResetPasswordStatus: 'disabled'
+			}
+		} as unknown as AccountSettings);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: { response: { values: [] } }
+			})
+		);
+
+		await act(async () => {
+			customRender(<App />);
+		});
+
+		expect(screen.queryByText('easAuth.label')).not.toBeInTheDocument();
+		expect(screen.queryByText('appMobile.title')).not.toBeInTheDocument();
+		expect(screen.getByText('setNewOtpLabel.title')).toBeVisible();
+	});
 	it('should not display EAS, OTP and Mobile APP if advanced not supported', async () => {
 		vi.mocked(checkSupportedZextras).mockResolvedValue({ isSupported: false });
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
@@ -133,6 +163,8 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'FALSE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
@@ -158,6 +190,8 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
@@ -186,6 +220,8 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'enabled'
 			}
@@ -219,6 +255,8 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
@@ -259,6 +297,8 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
+				zimbraFeatureMobileSyncEnabled: 'enabled',
+				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
 			}
