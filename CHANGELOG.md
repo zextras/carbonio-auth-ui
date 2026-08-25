@@ -1,3 +1,26 @@
+## <small>1.6.6 (2026-08-25)</small>
+
+* fix(ci): run Docker build stages as root ([dc0f4cd](https://github.com/zextras/carbonio-auth-ui/commit/dc0f4cd))
+* chore: enable EAS and Mobile Apps based on feature flags (#218) ([9ff59b3](https://github.com/zextras/carbonio-auth-ui/commit/9ff59b3)), closes [#218](https://github.com/zextras/carbonio-auth-ui/issues/218)
+* chore(deps): lock file maintenance (#183) ([b8f56b1](https://github.com/zextras/carbonio-auth-ui/commit/b8f56b1)), closes [#183](https://github.com/zextras/carbonio-auth-ui/issues/183)
+* chore(deps): lock file maintenance (#212) ([0c3e1a8](https://github.com/zextras/carbonio-auth-ui/commit/0c3e1a8)), closes [#212](https://github.com/zextras/carbonio-auth-ui/issues/212)
+* chore(deps): lock file maintenance (#213) ([f914eae](https://github.com/zextras/carbonio-auth-ui/commit/f914eae)), closes [#213](https://github.com/zextras/carbonio-auth-ui/issues/213)
+* chore(deps): update babel to v7.29.7 (#181) ([0ab8f68](https://github.com/zextras/carbonio-auth-ui/commit/0ab8f68)), closes [#181](https://github.com/zextras/carbonio-auth-ui/issues/181)
+* chore(deps): update commitlint to v19.8.1 (#188) ([c41e9b6](https://github.com/zextras/carbonio-auth-ui/commit/c41e9b6)), closes [#188](https://github.com/zextras/carbonio-auth-ui/issues/188)
+* chore(deps): update dependency @vitest/coverage-v8 to v3.2.7 (#214) ([62c56a1](https://github.com/zextras/carbonio-auth-ui/commit/62c56a1)), closes [#214](https://github.com/zextras/carbonio-auth-ui/issues/214)
+* chore(deps): update dependency @zextras/carbonio-ui-sdk to v2.3.12 (#215) ([14b7578](https://github.com/zextras/carbonio-auth-ui/commit/14b7578)), closes [#215](https://github.com/zextras/carbonio-auth-ui/issues/215)
+* chore(deps): update dependency @zextras/carbonio-ui-sdk to v2.3.6 (#189) ([36dfedb](https://github.com/zextras/carbonio-auth-ui/commit/36dfedb)), closes [#189](https://github.com/zextras/carbonio-auth-ui/issues/189)
+* chore(deps): update dependency sonarqube-scanner to v4.3.8 (#211) ([f42be59](https://github.com/zextras/carbonio-auth-ui/commit/f42be59)), closes [#211](https://github.com/zextras/carbonio-auth-ui/issues/211)
+* chore(deps): update dependency zextras/jenkins-lib-common to v2.11.3 (#190) ([2f0a13e](https://github.com/zextras/carbonio-auth-ui/commit/2f0a13e)), closes [#190](https://github.com/zextras/carbonio-auth-ui/issues/190)
+* chore(deps): update dependency zextras/jenkins-lib-common to v4.1.4 (#220) ([3308e81](https://github.com/zextras/carbonio-auth-ui/commit/3308e81)), closes [#220](https://github.com/zextras/carbonio-auth-ui/issues/220)
+* chore(deps): update react to v18.3.30 (#182) ([2b4cfc5](https://github.com/zextras/carbonio-auth-ui/commit/2b4cfc5)), closes [#182](https://github.com/zextras/carbonio-auth-ui/issues/182)
+* chore(deps): update react to v18.3.31 (#184) ([448f232](https://github.com/zextras/carbonio-auth-ui/commit/448f232)), closes [#184](https://github.com/zextras/carbonio-auth-ui/issues/184)
+* chore(deps): update semantic-release monorepo (#216) ([ad9127a](https://github.com/zextras/carbonio-auth-ui/commit/ad9127a)), closes [#216](https://github.com/zextras/carbonio-auth-ui/issues/216)
+* chore(deps): update semantic-release monorepo to v25.0.5 (#185) ([fd4418e](https://github.com/zextras/carbonio-auth-ui/commit/fd4418e)), closes [#185](https://github.com/zextras/carbonio-auth-ui/issues/185)
+* chore(deps): update typescript to v5.9.3 (#193) ([e4c11e8](https://github.com/zextras/carbonio-auth-ui/commit/e4c11e8)), closes [#193](https://github.com/zextras/carbonio-auth-ui/issues/193)
+* chore(deps): update vitest to v3.2.6 (#186) ([f25604f](https://github.com/zextras/carbonio-auth-ui/commit/f25604f)), closes [#186](https://github.com/zextras/carbonio-auth-ui/issues/186)
+* test: add unit and component tests across auth UI modules (#177) ([8786848](https://github.com/zextras/carbonio-auth-ui/commit/8786848)), closes [#177](https://github.com/zextras/carbonio-auth-ui/issues/177)
+
 ## <small>1.6.5 (2026-06-02)</small>
 
 * build: migrate to buildah (FQDN images + jenkins-lib-common@2.10.0) (#180) ([64dd3b9](https://github.com/zextras/carbonio-auth-ui/commit/64dd3b9)), closes [#180](https://github.com/zextras/carbonio-auth-ui/issues/180)
