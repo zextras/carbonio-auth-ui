@@ -22,10 +22,10 @@ importers:
         version: 14.2.2(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(@zextras/carbonio-design-system@12.0.4(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(date-fns@4.1.0)(lodash@4.18.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(core-js@3.45.1)(lodash@4.18.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@12.3.1(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.30.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.7.0(react@18.3.1))
       '@zextras/carbonio-ui-commons':
         specifier: 2.2.0
-        version: 2.2.0(76e35a1bd27b983bb136ac0e71f8339b)
+        version: 2.2.0(b266aa028ce3a2ebe9b70ece09dd17c7)
       '@zextras/carbonio-ui-soap-lib':
-        specifier: 1.2.0
-        version: 1.2.0
+        specifier: 1.3.3
+        version: 1.3.3
       buffer:
         specifier: 6.0.3
         version: 6.0.3
@@ -2470,6 +2470,9 @@ packages:
 
   '@zextras/carbonio-ui-soap-lib@1.2.0':
     resolution: {integrity: sha512-Z8pBHJFUuYWYq/t9Mbnbc0MB5I8dMcQMPnwnA77Tc+/Rt7bvBZik8oiEVb6GlS7fUxOY1Vyye2PCeEv55U/HNw==}
+
+  '@zextras/carbonio-ui-soap-lib@1.3.3':
+    resolution: {integrity: sha512-o/ijfdP0ka2M28ZRrH/cbwNB0AYMDHCNazv1Y1anR8U1/bqzD6xQ/GT1Ynwb/mMmzfMPhv7KuiZSSPxC8QJfBA==}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -9483,7 +9486,7 @@ snapshots:
       - preact-render-to-string
       - use-sync-external-store
 
-  '@zextras/carbonio-ui-commons@2.2.0(76e35a1bd27b983bb136ac0e71f8339b)':
+  '@zextras/carbonio-ui-commons@2.2.0(b266aa028ce3a2ebe9b70ece09dd17c7)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.31)(react@18.3.1)
       '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1)
@@ -9491,7 +9494,7 @@ snapshots:
       '@mui/material': 5.18.0(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@zextras/carbonio-design-system': 12.0.4(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(date-fns@4.1.0)(lodash@4.18.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@zextras/carbonio-shell-ui': 14.2.2(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(@zextras/carbonio-design-system@12.0.4(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(date-fns@4.1.0)(lodash@4.18.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(core-js@3.45.1)(lodash@4.18.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@12.3.1(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@6.30.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.7.0(react@18.3.1))
-      '@zextras/carbonio-ui-soap-lib': 1.2.0
+      '@zextras/carbonio-ui-soap-lib': 1.3.3
       core-js: 3.45.1
       i18next: 22.5.1
       immer: 9.0.21
@@ -9584,6 +9587,11 @@ snapshots:
       - webpack-cli
 
   '@zextras/carbonio-ui-soap-lib@1.2.0':
+    dependencies:
+      '@types/ua-parser-js': 0.7.39
+      ua-parser-js: 1.0.41
+
+  '@zextras/carbonio-ui-soap-lib@1.3.3':
     dependencies:
       '@types/ua-parser-js': 0.7.39
       ua-parser-js: 1.0.41
