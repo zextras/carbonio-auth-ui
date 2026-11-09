@@ -15,6 +15,7 @@ import { AppMobile } from '../app-mobile';
 
 vi.mock('@zextras/carbonio-shell-ui', () => ({
 	getI18n: vi.fn(() => ({ language: 'en_US' })),
+	getUserAccount: vi.fn(() => ({ name: 'user@example.com' })),
 	t: (key: string): string => key
 }));
 
