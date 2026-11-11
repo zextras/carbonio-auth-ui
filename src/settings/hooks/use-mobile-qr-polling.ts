@@ -12,7 +12,7 @@ import {
 	mobileQrTokenCheckRequest
 } from '../network/mobile-qr-credential';
 
-export const MOBILE_QR_TIMEOUT_SECONDS = 180;
+export const MOBILE_QR_TIMEOUT_SECONDS = 30;
 const POLLING_INTERVAL_MS = 1000;
 
 export type UseMobileQrPollingParams = {

@@ -9,8 +9,6 @@ import React, { ReactElement, useCallback, useMemo, useState } from 'react';
 import {
 	Button,
 	Container,
-	Input,
-	Modal,
 	Padding,
 	Row,
 	Table,
@@ -19,60 +17,21 @@ import {
 } from '@zextras/carbonio-design-system';
 import { getUserAccount, t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
-import { QRCodeSVG } from 'qrcode.react';
 
+import { MobileQrDeleteModal } from './mobile-qr-delete-modal';
+import { MobileQrModal } from './mobile-qr-modal';
 import { EmptyState } from '../../assets/icons/empty-state';
-import { formatCountdown, useCountdown } from '../../hooks/use-countdown';
+import { useCountdown } from '../../hooks/use-countdown';
 import { MOBILE_QR_TIMEOUT_SECONDS, useMobileQrPolling } from '../../hooks/use-mobile-qr-polling';
 import { fetchSoap } from '../../network/fetchSoap';
 import { MobileQrMobileResponseValue } from '../../network/mobile-qr-credential';
 import { ViewProps } from '../../types';
-import { BigIcon } from '../shared/big-icon';
-import { ErrorMessage } from '../shared/error-message';
 import { Section } from '../shared/section';
-import { copyToClipboard, formatDateUsingLocale, objToBase64 } from '../utils';
+import { formatDateUsingLocale } from '../utils';
 import { MobileQrValidationModal } from './mobile-qr-validation-modal';
-
-const stepsNames = {
-	set_label: 'set_label',
-	generate_qrcode: 'generate_qrcode',
-	delete_password: 'delete_password'
-} as const;
-
-type StepName = (typeof stepsNames)[keyof typeof stepsNames];
-
-type ActionButtonProps = {
-	step: StepName;
-	createDisabled: boolean;
-	onCreate: () => void;
-	onDelete: () => void;
-	onDone: () => void;
-};
-
-function ActionButton({
-	step,
-	createDisabled,
-	onCreate,
-	onDelete,
-	onDone
-}: Readonly<ActionButtonProps>): ReactElement {
-	if (step === stepsNames.set_label) {
-		return (
-			<Button
-				label={t('common.createPassword', 'Create password')}
-				disabled={createDisabled}
-				onClick={onCreate}
-			/>
-		);
-	}
-	if (step === stepsNames.delete_password) {
-		return <Button label={t('buttons.yes', 'Yes')} color="error" onClick={onDelete} />;
-	}
-	return <Button label={t('buttons.done', 'Done')} onClick={onDone} />;
-}
+import { stepsNames, type StepName, type QrStepName } from '../shared/steps-names';
 
 const QR_CODE_VERSION_V2 = 'V2';
-const COUNTDOWN_WARNING_THRESHOLD_SECONDS = 30;
 type QrCodeProps = {
 	qrcode_data: {
 		version?: string;
@@ -106,6 +65,7 @@ type QrCodeProps = {
 
 export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [step, setStep] = useState<StepName>(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
 	const [newQrCodeResp, setnewQrCodeResp] = useState<QrCodeProps | undefined>();
@@ -205,7 +165,8 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 
 	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
-		setStep(stepsNames.set_label);
+		setShowDeleteModal(false);
+		setStep('set_label');
 		setAuthDescription('');
 		setQrToken('');
 		showSnackbar &&
@@ -213,10 +174,27 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 				key: '1',
 				severity: 'success',
 				label: t(
-					'appMobile.success',
-					'New Mobile App password enabled successfully. Passwords list has been updated.'
+					'appMobile.create.success',
+					'New Mobile App Authentication enabled successfully. Authentication list has been updated.'
 				)
 			});
+	};
+
+	const handleOnCloseDelete = (): void => {
+		handleOnClose();
+	};
+
+	const handleOnDelete = (): void => {
+		handleOnDeletePassword();
+		handleOnClose();
+		createSnackbar({
+			key: '1',
+			severity: 'success',
+			label: t(
+				'appMobile.delete.success',
+				'Mobile App Authentication deleted successfully. Authentication list has been updated.'
+			)
+		});
 	};
 
 	const isQrCodeV2 = newQrCodeResp?.qrcode_data?.version === QR_CODE_VERSION_V2;
@@ -226,12 +204,9 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	// The countdown runs purely off the QR code being displayed, so it never depends on the
 	// shape of the credential payload.
 	const remainingSeconds = useCountdown(MOBILE_QR_TIMEOUT_SECONDS, isShowingV2QrCode);
-	const isQrCodeExpired = isQrCodeV2 && remainingSeconds === 0;
-	const isCountdownWarning = remainingSeconds <= COUNTDOWN_WARNING_THRESHOLD_SECONDS;
-
 	const handleOnMobileResponse = useCallback((value: MobileQrMobileResponseValue): void => {
 		setShowModal(false);
-		setStep(stepsNames.set_label);
+		setStep('set_label');
 		setMobileQrDetails(value);
 	}, []);
 
@@ -262,8 +237,8 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 			key: 'mobile-qr-validated',
 			severity: 'success',
 			label: t(
-				'appMobile.success',
-				'New Mobile App password enabled successfully. Passwords list has been updated.'
+				'appMobile.create.success',
+				'New Mobile App Authentication enabled successfully. Authentication list has been updated.'
 			)
 		});
 	};
@@ -288,8 +263,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 							icon="CloseOutline"
 							disabled={!selectedPassword || tableRows.length === 0}
 							onClick={(): void => {
-								setStep(stepsNames.delete_password);
-								setShowModal(true);
+								setShowDeleteModal(true);
 							}}
 						/>
 						<Padding left="large">
@@ -322,178 +296,22 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 					</Padding>
 				</Container>
 			</Section>
-			<Modal
-				title={t('appMobile.new', 'Mobile Apps | New Authentication')}
+			<MobileQrModal
 				open={showModal}
-				onClose={(): void => handleOnClose(false)}
-				customFooter={
-					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
-						{step === stepsNames.generate_qrcode && newQrCodeResp ? (
-							<Padding left="small">
-								<Button
-									label={t('buttons.close', 'Close')}
-									onClick={(): void => handleOnClose()}
-									color="secondary"
-								/>
-							</Padding>
-						) : (
-							<>
-								<Button
-									label={
-										step === stepsNames.delete_password
-											? t('buttons.cancel', 'Cancel')
-											: t('buttons.close', 'Close')
-									}
-									onClick={(): void => handleOnClose()}
-									color="secondary"
-								/>
-								<Padding left="small">
-									<ActionButton
-										step={step}
-										createDisabled={authDescription === '' || formatError !== ''}
-										onCreate={(): void => {
-											setStep(stepsNames.generate_qrcode);
-											handleOnGenerateQrcode();
-										}}
-										onDelete={(): void => {
-											handleOnDeletePassword();
-											handleOnClose();
-										}}
-										onDone={(): void => handleOnClose(true)}
-									/>
-								</Padding>
-							</>
-						)}
-					</Row>
-				}
-			>
-				<Container padding="2rem">
-					{step === stepsNames.set_label && (
-						<Container padding="2rem 0 0">
-							<Input
-								label={t('setNewPassword.authenticationDescription', 'Authentication description')}
-								value={authDescription}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-									setAuthDescription(e.target.value)
-								}
-								backgroundColor="gray5"
-							/>
-							{formatError && <ErrorMessage error={formatError} />}
-							<Padding vertical="medium">
-								<Text style={{ textAlign: 'center' }} overflow="break-word">
-									{t(
-										'appMobile.descriptionHelp',
-										'Description will help you remember where this Mobile Apps Authentication is used.'
-									)}
-								</Text>
-							</Padding>
-						</Container>
-					)}
-					{step === stepsNames.generate_qrcode && newQrCodeResp && (
-						<Container>
-							<Text style={{ whiteSpace: 'pre-line', textAlign: 'center' }}>
-								{isQrCodeV2 ? (
-									<>
-										{isQrCodeExpired
-											? t(
-													'mobileQr.expired',
-													'The request expired. Generate a new QR code to try again.'
-												)
-											: `${t('appMobile.openAndScan', 'Open the Mobile app\nScan QR code to pair your device.')}`}
-									</>
-								) : (
-									<>{t('setNewQRCode.successfully', 'QR Authentication generated successfully')}</>
-								)}
-							</Text>
-							{!isQrCodeExpired && (
-								<>
-									<Padding vertical="large">
-										<Row
-											width="fit"
-											orientation="vertical"
-											background="gray5"
-											padding={{ all: 'large' }}
-										>
-											<div className="force-white-bg">
-												<QRCodeSVG
-													data-testid="qrcode-password"
-													size={143}
-													bgColor="transparent"
-													value={JSON.stringify(newQrCodeResp.qrcode_data)}
-												/>
-											</div>
-											<Padding top="large">
-												<Button
-													label={t('common.copyQrCode', 'Copy QR Code')}
-													type="outlined"
-													onClick={(): void => {
-														copyToClipboard(objToBase64(newQrCodeResp.qrcode_data));
-														createSnackbar({
-															key: '2',
-															label: t('common.codeCopied', 'Code copied successfully')
-														});
-													}}
-												/>
-											</Padding>
-										</Row>
-									</Padding>
-									{!isQrCodeV2 ? (
-										<Text weight="bold">
-											{t('newOtp.warning', "Warning: you'll be able to copy this token just once.")}
-										</Text>
-									) : (
-										<Text style={{ textAlign: 'center', whiteSpace: 'pre-line' }}>
-											{t(
-												'appMobile.waitingForScan',
-												'Waiting for the app to scan the code\nThen a 6 digit code will be shown.'
-											)}
-										</Text>
-									)}
-								</>
-							)}
-							{isQrCodeExpired && (
-								<Padding vertical="large">
-									<BigIcon icon="ClockOutline" color="error" />
-								</Padding>
-							)}
-							{isQrCodeV2 && (
-								<Padding top="medium">
-									<Text
-										size="small"
-										color={isCountdownWarning ? 'error' : 'secondary'}
-										style={{ textAlign: 'center' }}
-										overflow="break-word"
-										data-testid="qrcode-countdown"
-									>
-										{isQrCodeExpired
-											? t(
-													'mobileQr.expired',
-													'The request expired. Generate a new QR code to try again.'
-												)
-											: `${t('mobileQr.qrIsValidFor', 'This QR code is valid for')} ${formatCountdown(remainingSeconds)}`}
-									</Text>
-								</Padding>
-							)}
-						</Container>
-					)}
-					{step === stepsNames.delete_password && (
-						<Container>
-							<Text overflow="break-word">
-								{t('deletePassword.title', 'Are you sure you want to delete this password?')}
-							</Text>
-							<Padding vertical="large">
-								<BigIcon icon="AlertTriangleOutline" />
-							</Padding>
-							<Text style={{ textAlign: 'center' }} weight="bold" overflow="break-word">
-								{t(
-									'deleteOtp.description',
-									'All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set.'
-								)}
-							</Text>
-						</Container>
-					)}
-				</Container>
-			</Modal>
+				step={step as QrStepName}
+				authDescription={authDescription}
+				setAuthDescription={setAuthDescription}
+				newQrCodeResp={newQrCodeResp}
+				formatError={formatError}
+				setStep={setStep as (value: QrStepName) => void}
+				onClose={handleOnClose}
+				onCreate={handleOnGenerateQrcode}
+			/>
+			<MobileQrDeleteModal
+				open={showDeleteModal}
+				onClose={handleOnCloseDelete}
+				onDelete={handleOnDelete}
+			/>
 			{mobileQrDetails && (
 				<MobileQrValidationModal
 					open
@@ -502,7 +320,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 					onValidated={handleValidated}
 					onGenerateNewQr={() => {
 						handleValidationClose();
-						setStep(stepsNames.set_label);
+						setStep('set_label');
 					}}
 				/>
 			)}

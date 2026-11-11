@@ -19,7 +19,7 @@ import { BigIcon } from '../shared/big-icon';
 import { DigitCodeInput } from '../shared/digit-code-input';
 import { formatDateUsingLocale } from '../utils';
 
-export const MOBILE_QR_VALIDATION_TIMEOUT_SECONDS = 180;
+export const MOBILE_QR_VALIDATION_TIMEOUT_SECONDS = 30;
 const COUNTDOWN_WARNING_THRESHOLD_SECONDS = 30;
 const CODE_LENGTH = 6;
 const MAX_ATTEMPTS = 3;
@@ -145,11 +145,7 @@ export function MobileQrValidationModal({
 	return (
 		<>
 			<Modal
-				title={
-					failed
-						? t('appMobile.new', 'Mobile Apps | New Authentication')
-						: t('mobileQr.validation.title', 'Confirm the mobile authentication request')
-				}
+				title={t('appMobile.new', 'Mobile Apps | New Authentication')}
 				open={open && !showSuccessModal}
 				onClose={onClose}
 				customFooter={
