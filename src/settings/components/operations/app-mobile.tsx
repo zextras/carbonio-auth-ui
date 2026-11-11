@@ -19,7 +19,8 @@ import { getUserAccount, t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 
 import { MobileQrDeleteModal } from './mobile-qr-delete-modal';
-import { MobileQrModal, MobileQrValidationModal } from './mobile-qr-modal';
+import { MobileQrModal } from './mobile-qr-modal';
+import { MobileQrValidationModal } from './mobile-qr-validation-modal';
 import { EmptyState } from '../../assets/icons/empty-state';
 import { useCountdown } from '../../hooks/use-countdown';
 import { MOBILE_QR_TIMEOUT_SECONDS, useMobileQrPolling } from '../../hooks/use-mobile-qr-polling';

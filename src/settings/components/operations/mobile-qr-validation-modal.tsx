@@ -4,17 +4,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { Button, Container, Modal, Padding, Row, Text } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 
 import { MobileQrSuccessModal } from './mobile-qr-success-modal';
 import { formatCountdown, useCountdown } from '../../hooks/use-countdown';
-import {
-	MobileQrMobileResponseValue,
-	mobileQrValidateNumberRequest
-} from '../../network/mobile-qr-credential';
+import { mobileQrValidateNumberRequest } from '../../network/mobile-qr-credential';
+import { type MobileQrMobileResponseValue } from '../../network/mobile-qr-credential';
 import { BigIcon } from '../shared/big-icon';
 import { DigitCodeInput } from '../shared/digit-code-input';
 import { formatDateUsingLocale } from '../utils';
@@ -40,21 +38,19 @@ function DetailRow({
 	);
 }
 
-export type MobileQrValidationModalProps = {
-	open: boolean;
-	details: MobileQrMobileResponseValue;
-	onClose: () => void;
-	onValidated: () => void;
-	onGenerateNewQr?: () => void;
-};
-
 export function MobileQrValidationModal({
 	open,
 	details,
 	onClose,
 	onValidated,
 	onGenerateNewQr
-}: Readonly<MobileQrValidationModalProps>): React.JSX.Element {
+}: Readonly<{
+	open: boolean;
+	details: MobileQrMobileResponseValue;
+	onClose: () => void;
+	onValidated: () => void;
+	onGenerateNewQr?: () => void;
+}>): React.JSX.Element {
 	const [code, setCode] = useState('');
 	const [error, setError] = useState('');
 	const [failed, setFailed] = useState(false);
@@ -62,10 +58,10 @@ export function MobileQrValidationModal({
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 	const remainingSeconds = useCountdown(MOBILE_QR_VALIDATION_TIMEOUT_SECONDS, open);
 	const expired = remainingSeconds === 0;
-	const attemptsRef = useRef(0);
-	const submittedCodeRef = useRef('');
+	const attemptsRef = React.useRef(0);
+	const submittedCodeRef = React.useRef('');
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (open) {
 			setCode('');
 			setError('');
@@ -127,7 +123,7 @@ export function MobileQrValidationModal({
 		onValidated();
 	}, [onValidated]);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (
 			open &&
 			!expired &&
