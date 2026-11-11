@@ -157,6 +157,23 @@ describe('useMobileQrPolling', () => {
 		}
 	);
 
+	it('should retry fetching mobile details after a transient failure', async () => {
+		const onMobileResponse = vi.fn();
+		vi.mocked(mobileQrTokenCheckRequest).mockResolvedValue({
+			response: { ok: true, value: { tokenExists: false } }
+		});
+		vi.mocked(mobileQrMobileResponseRequest)
+			.mockRejectedValueOnce(new Error('Network error'))
+			.mockResolvedValue({ response: { ok: true, value: details } });
+		renderHook(() => useMobileQrPolling({ ...defaultProps, onMobileResponse }));
+
+		await advancePollingTimer(2000);
+
+		expect(mobileQrTokenCheckRequest).toHaveBeenCalledTimes(2);
+		expect(mobileQrMobileResponseRequest).toHaveBeenCalledTimes(2);
+		expect(onMobileResponse).toHaveBeenCalledWith(details);
+	});
+
 	it('should stop processing a token check after unmounting', async () => {
 		const tokenCheck = deferred<Awaited<ReturnType<typeof mobileQrTokenCheckRequest>>>();
 		vi.mocked(mobileQrTokenCheckRequest).mockReturnValue(tokenCheck.promise);

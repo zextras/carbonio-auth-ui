@@ -215,9 +215,9 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	const qrData = newQrCodeResp?.qrcode_data;
 
 	useMobileQrPolling({
-		active: isShowingV2QrCode && remainingSeconds > 0,
+		active: isShowingV2QrCode && remainingSeconds > 0 && qrToken !== '',
 		token: qrToken,
-		user: qrData?.auth_payload?.user ?? qrData?.auth_payload?.user ?? getUserAccount()?.name ?? '',
+		user: qrData?.auth_payload?.user ?? getUserAccount()?.name ?? '',
 		label: authDescription,
 		onMobileResponse: handleOnMobileResponse
 	});

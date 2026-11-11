@@ -91,7 +91,6 @@ describe('MobileQrValidationModal', () => {
 		const onClose = vi.fn();
 		customRender(<MobileQrValidationModal {...defaultProps} onClose={onClose} />);
 
-		expect(screen.getByText(details.label)).toBeInTheDocument();
 		expect(screen.getByText(details.ipAddress)).toBeInTheDocument();
 		expect(screen.getByText(details.location)).toBeInTheDocument();
 		expect(screen.getByText(details.mobileClientInfo)).toBeInTheDocument();

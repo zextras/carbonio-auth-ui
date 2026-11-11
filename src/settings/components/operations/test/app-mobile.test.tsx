@@ -372,6 +372,38 @@ describe('AppMobile', () => {
 		expect(pollingMock.params?.user).toBe('user@example.com');
 	});
 
+	it('should not poll before a version two QR token is available', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: {
+					response: {
+						ok: true,
+						value: {
+							qrcode_data: {
+								version: 'V2',
+								auth_method: 'qr',
+								auth_payload: { password: 'mobiletoken', user: 'user@example.com' },
+								auth_endpoint: [{ url: 'https://example.com' }]
+							}
+						}
+					}
+				}
+			})
+		);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'My Phone' }
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+
+		await screen.findByTestId('qrcode-password');
+		expect(pollingMock.params).toEqual(expect.objectContaining({ active: false, token: '' }));
+	});
+
 	it('should poll without an account when neither QR nor session provides a user', async () => {
 		vi.mocked(getUserAccount).mockReturnValue(undefined);
 		fetchMock.mockResponseOnce(

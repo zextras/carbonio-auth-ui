@@ -40,6 +40,16 @@ describe('DigitCodeInput', () => {
 		expect(screen.getByTestId('digit-input-5')).toHaveValue('6');
 	});
 
+	it('should enable one-time-code autocomplete only on the first box', () => {
+		customRender(<DigitCodeInput value="" onChange={vi.fn()} />);
+
+		expect(screen.getByTestId('digit-input-0')).toHaveAttribute('autocomplete', 'one-time-code');
+		screen
+			.getAllByLabelText(/^digit-\d$/)
+			.slice(1)
+			.forEach((input) => expect(input).toHaveAttribute('autocomplete', 'off'));
+	});
+
 	it('should append the typed digit and move focus to the next box', () => {
 		customRender(<ControlledDigitCodeInput />);
 		fireEvent.change(screen.getByTestId('digit-input-0'), { target: { value: '7' } });

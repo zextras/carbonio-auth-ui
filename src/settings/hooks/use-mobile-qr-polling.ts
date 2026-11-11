@@ -66,9 +66,9 @@ export function useMobileQrPolling({
 					if (cancelled || !res?.response?.ok || res.response.value?.tokenExists !== false) {
 						return undefined;
 					}
-					clearInterval(intervalId);
 					return mobileQrMobileResponseRequest(label, user).then((mobileRes) => {
 						if (!cancelled && mobileRes?.response?.ok && mobileRes.response.value) {
+							clearInterval(intervalId);
 							onMobileResponseRef.current(mobileRes.response.value);
 						}
 					});

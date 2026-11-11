@@ -108,7 +108,7 @@ export function DigitCodeInput({
 					data-testid={`digit-input-${index}`}
 					aria-label={`digit-${index + 1}`}
 					inputMode="numeric"
-					autoComplete="one-time-code"
+					autoComplete={index === 0 ? 'one-time-code' : 'off'}
 					maxLength={length}
 					disabled={disabled}
 					value={value[index] ?? ''}
