@@ -21,7 +21,7 @@ describe('MobileQrSuccessModal', () => {
 		customRender(
 			<MobileQrSuccessModal open details={{ mobileClientInfo: 'iPhone 14' }} onClose={vi.fn()} />
 		);
-		expect(screen.getByText('mobileQr.success.title')).toBeInTheDocument();
+		expect(screen.getByText('appMobile.new')).toBeInTheDocument();
 		expect(screen.getByText('mobileQr.success.devicePaired')).toBeInTheDocument();
 		expect(screen.getByText('mobileQr.success.pairedDescription')).toBeInTheDocument();
 		expect(screen.getByText('iPhone 14')).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('MobileQrSuccessModal', () => {
 		customRender(
 			<MobileQrSuccessModal open details={{ mobileClientInfo: 'iPhone 14' }} onClose={vi.fn()} />
 		);
-		expect(screen.getByTestId('icon: CheckCircleOutline')).toBeInTheDocument();
+		expect(screen.getByTestId('icon: CheckmarkCircleOutline')).toBeInTheDocument();
 	});
 
 	it('should show device info', () => {

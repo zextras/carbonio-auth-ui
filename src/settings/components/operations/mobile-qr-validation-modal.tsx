@@ -181,7 +181,13 @@ export function MobileQrValidationModal({
 						</Container>
 					) : (
 						<>
-							<Text overflow="break-word">
+							<Text overflow="break-word" textAlign={'center'} weight={'bold'}>
+								{t(
+									'mobileQr.validation.descriptionHeader',
+									'Enter the code shown in the mobile application'
+								)}
+							</Text>
+							<Text overflow="break-word" textAlign={'center'}>
 								{t(
 									'mobileQr.validation.description',
 									'A device requested access with this QR code. Check the details below and type the code shown on the device.'

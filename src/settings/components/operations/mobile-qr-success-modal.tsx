@@ -26,7 +26,7 @@ export function MobileQrSuccessModal({
 }: Readonly<MobileQrSuccessModalProps>): React.JSX.Element {
 	return (
 		<Modal
-			title={t('mobileQr.success.title', 'Device Paired')}
+			title={t('appMobile.new', 'Mobile Apps | New Authentication')}
 			open={open}
 			onClose={onClose}
 			customFooter={
@@ -37,7 +37,7 @@ export function MobileQrSuccessModal({
 		>
 			<Container padding="1rem" crossAlignment="flex-start" gap="0.5rem">
 				<Container crossAlignment="center" gap="1rem" padding="2rem 0">
-					<BigIcon icon="CheckCircleOutline" color="success" />
+					<BigIcon icon="CheckmarkCircleOutline" color="success" />
 					<Text size="large" weight="bold" style={{ textAlign: 'center' }}>
 						{t('mobileQr.success.devicePaired', 'Device Paired')}
 					</Text>
