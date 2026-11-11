@@ -19,7 +19,7 @@ import { getUserAccount, t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 
 import { MobileQrDeleteModal } from './mobile-qr-delete-modal';
-import { MobileQrModal } from './mobile-qr-modal';
+import { MobileQrModal, MobileQrValidationModal } from './mobile-qr-modal';
 import { EmptyState } from '../../assets/icons/empty-state';
 import { useCountdown } from '../../hooks/use-countdown';
 import { MOBILE_QR_TIMEOUT_SECONDS, useMobileQrPolling } from '../../hooks/use-mobile-qr-polling';
@@ -27,9 +27,8 @@ import { fetchSoap } from '../../network/fetchSoap';
 import { MobileQrMobileResponseValue } from '../../network/mobile-qr-credential';
 import { ViewProps } from '../../types';
 import { Section } from '../shared/section';
-import { formatDateUsingLocale } from '../utils';
-import { MobileQrValidationModal } from './mobile-qr-validation-modal';
 import { stepsNames, type StepName, type QrStepName } from '../shared/steps-names';
+import { formatDateUsingLocale } from '../utils';
 
 const QR_CODE_VERSION_V2 = 'V2';
 type QrCodeProps = {
