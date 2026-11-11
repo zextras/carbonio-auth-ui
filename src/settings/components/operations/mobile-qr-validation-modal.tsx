@@ -147,9 +147,9 @@ export function MobileQrValidationModal({
 				open={open && !showSuccessModal}
 				onClose={onClose}
 				customFooter={
-					failed ? (
-						<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
-							<Button label={t('buttons.close', 'Close')} color="secondary" onClick={onClose} />
+					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
+						<Button label={t('buttons.close', 'Close')} color="secondary" onClick={onClose} />
+						{(failed || expired) && (
 							<Padding left="small">
 								<Button
 									label={t('mobileQr.generateNewQrCode', 'Generate a new QR code')}
@@ -157,12 +157,8 @@ export function MobileQrValidationModal({
 									onClick={onGenerateNewQr || onClose}
 								/>
 							</Padding>
-						</Row>
-					) : (
-						<Row width="100%" mainAlignment="flex-end">
-							<Button label={t('buttons.close', 'Close')} color="secondary" onClick={onClose} />
-						</Row>
-					)
+						)}
+					</Row>
 				}
 			>
 				<Container padding="1rem" crossAlignment="flex-start" gap="0.5rem">
