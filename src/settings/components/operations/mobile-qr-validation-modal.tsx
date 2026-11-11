@@ -6,7 +6,15 @@
 
 import React, { useCallback, useState } from 'react';
 
-import { Button, Container, Modal, Padding, Row, Text } from '@zextras/carbonio-design-system';
+import {
+	Button,
+	Container,
+	Divider,
+	Modal,
+	Padding,
+	Row,
+	Text
+} from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 
 import { MobileQrSuccessModal } from './mobile-qr-success-modal';
@@ -24,19 +32,17 @@ import { formatDateUsingLocale } from '../utils';
 const CODE_LENGTH = 6;
 const MAX_ATTEMPTS = 3;
 
-function DetailRow({
+function DetailCell({
 	label,
 	value
 }: Readonly<{ label: string; value: string }>): React.JSX.Element {
 	return (
-		<Row width="100%" mainAlignment="space-between" padding={{ vertical: 'extrasmall' }}>
-			<Text size="small" color="secondary">
+		<Container width="50%" crossAlignment="flex-start" gap="0.25rem">
+			<Text size="small" color="secondary" style={{ textTransform: 'uppercase' }}>
 				{label}
 			</Text>
-			<Text size="small" weight="bold" overflow="break-word">
-				{value}
-			</Text>
-		</Row>
+			<Text overflow="break-word">{value}</Text>
+		</Container>
 	);
 }
 
@@ -190,31 +196,60 @@ export function MobileQrValidationModal({
 								)}
 							</Text>
 							<Padding vertical="small" width="100%">
-								<Container background="gray5" padding="0.75rem" crossAlignment="flex-start">
-									<DetailRow
-										label={t('mobileQr.validation.label', 'Description')}
-										value={details.label}
-									/>
-									<DetailRow
-										label={t('mobileQr.validation.user', 'Account')}
-										value={details.user}
-									/>
-									<DetailRow
-										label={t('mobileQr.validation.requestedAt', 'Requested at')}
-										value={formatDateUsingLocale(details.requestedAt)}
-									/>
-									<DetailRow
-										label={t('mobileQr.validation.ipAddress', 'IP address')}
-										value={details.ipAddress}
-									/>
-									<DetailRow
-										label={t('mobileQr.validation.location', 'Location')}
-										value={details.location}
-									/>
-									<DetailRow
-										label={t('mobileQr.validation.clientInfo', 'Device')}
-										value={details.mobileClientInfo}
-									/>
+								<Container background="gray5" padding="1rem" crossAlignment="flex-start" gap="1rem">
+									<Row width="100%" mainAlignment="space-between">
+										<Row gap="0.75rem">
+											<Container crossAlignment="flex-start" gap="0.25rem">
+												<BigIcon icon="SmartphoneOutline" />
+												<Text size="medium" color="primary" overflow="break-word" weight={'bold'}>
+													{details.mobileClientInfo}
+												</Text>
+											</Container>
+										</Row>
+										<Row
+											gap="0.5rem"
+											padding={{ vertical: 'extrasmall', horizontal: 'small' }}
+											borderColor="gray3"
+											style={{ borderRadius: '1rem' }}
+										>
+											<Container
+												width="0.5rem"
+												height="0.5rem"
+												background="success"
+												style={{ borderRadius: '50%' }}
+											/>
+											<Text size="small">
+												{t('mobileQr.validation.requestReceived', 'Request received')}
+											</Text>
+										</Row>
+									</Row>
+									<Row width="100%" crossAlignment="flex-start">
+										<DetailCell
+											label={t('mobileQr.validation.ipAddress', 'IP address')}
+											value={details.ipAddress}
+										/>
+										<DetailCell
+											label={t('mobileQr.validation.location', 'Location')}
+											value={details.location}
+										/>
+									</Row>
+									<Row width="100%" crossAlignment="flex-start">
+										<DetailCell
+											label={t('mobileQr.validation.requestedAt', 'Requested at')}
+											value={formatDateUsingLocale(details.requestedAt)}
+										/>
+										<DetailCell
+											label={t('mobileQr.validation.deviceToken', 'Device token')}
+											value={details.mobileGeneratedToken}
+										/>
+									</Row>
+									<Divider />
+									<Text size="small" color="secondary" overflow="break-word">
+										{t(
+											'mobileQr.validation.detailsWarning',
+											'If these details are not yours, close this dialog — the pairing request will be discarded.'
+										)}
+									</Text>
 								</Container>
 							</Padding>
 							<Container crossAlignment="center" gap="0.5rem">

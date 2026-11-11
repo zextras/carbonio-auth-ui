@@ -92,10 +92,13 @@ describe('MobileQrValidationModal', () => {
 		customRender(<MobileQrValidationModal {...defaultProps} onClose={onClose} />);
 
 		expect(screen.getByText(details.label)).toBeInTheDocument();
-		expect(screen.getByText(details.user)).toBeInTheDocument();
 		expect(screen.getByText(details.ipAddress)).toBeInTheDocument();
 		expect(screen.getByText(details.location)).toBeInTheDocument();
 		expect(screen.getByText(details.mobileClientInfo)).toBeInTheDocument();
+		expect(screen.getByText(details.mobileGeneratedToken)).toBeInTheDocument();
+		expect(screen.getByText('mobileQr.validation.requestReceived')).toBeInTheDocument();
+		expect(screen.getByText('mobileQr.validation.detailsWarning')).toBeInTheDocument();
+		expect(screen.getByTestId('icon: SmartphoneOutline')).toBeInTheDocument();
 		expect(screen.getByTestId('validation-countdown')).toHaveTextContent('0:05');
 
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
