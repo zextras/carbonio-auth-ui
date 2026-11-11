@@ -256,6 +256,7 @@ describe('AppMobile', () => {
 			'/service/soap/RemoveCredentialRequest',
 			expect.any(Object)
 		);
+		expect(screen.getByRole('button', { name: 'common.delete' })).toBeDisabled();
 	});
 
 	it('should copy a legacy QR code and close it with a success notification', async () => {

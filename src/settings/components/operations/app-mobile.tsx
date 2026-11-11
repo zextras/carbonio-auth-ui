@@ -71,7 +71,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	const [authDescription, setAuthDescription] = useState('');
 	const [newQrCodeResp, setnewQrCodeResp] = useState<QrCodeProps | undefined>();
 	const [mobileQrDetails, setMobileQrDetails] = useState<MobileQrMobileResponseValue | undefined>();
-	const [selectedPassword, setSelectedPassword] = useState();
+	const [selectedPassword, setSelectedPassword] = useState<string>();
 	const [qrToken, setQrToken] = useState('');
 	const createSnackbar = useSnackbar();
 
@@ -187,6 +187,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 
 	const handleOnDelete = (): void => {
 		handleOnDeletePassword();
+		setSelectedPassword(undefined);
 		handleOnClose();
 		createSnackbar({
 			key: '1',
@@ -282,7 +283,8 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 							headers={tableHeaders}
 							showCheckbox={false}
 							multiSelect={false}
-							onSelectionChange={(selected: any): void => setSelectedPassword(selected[0])}
+							selectedRows={selectedPassword ? [selectedPassword] : []}
+							onSelectionChange={(selected): void => setSelectedPassword(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
 							<Container padding="4rem 0 0">
