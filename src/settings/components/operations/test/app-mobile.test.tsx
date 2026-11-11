@@ -10,14 +10,38 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import fetchMock from '../../../../test/fetchMock';
 import { customRender } from '../../../../test/test-utils';
+import { UseMobileQrPollingParams } from '../../../hooks/use-mobile-qr-polling';
 import { type Password } from '../../../types';
 import { AppMobile } from '../app-mobile';
+
+const pollingMock = vi.hoisted(() => ({
+	params: undefined as UseMobileQrPollingParams | undefined
+}));
+const countdownMock = vi.hoisted(() => ({ remainingSeconds: 180 }));
 
 vi.mock('@zextras/carbonio-shell-ui', () => ({
 	getI18n: vi.fn(() => ({ language: 'en_US' })),
 	getUserAccount: vi.fn(() => ({ name: 'user@example.com' })),
 	t: (key: string): string => key
 }));
+
+vi.mock('../../../hooks/use-mobile-qr-polling', async (importOriginal) => {
+	const original = await importOriginal<typeof import('../../../hooks/use-mobile-qr-polling')>();
+	return {
+		...original,
+		useMobileQrPolling: (params: UseMobileQrPollingParams): void => {
+			pollingMock.params = params;
+		}
+	};
+});
+
+vi.mock('../../../hooks/use-countdown', async (importOriginal) => {
+	const original = await importOriginal<typeof import('../../../hooks/use-countdown')>();
+	return {
+		...original,
+		useCountdown: (): number => countdownMock.remainingSeconds
+	};
+});
 
 const mobilePassword: Password = {
 	id: 'mobile-1',
@@ -35,9 +59,88 @@ const easPassword: Password = {
 	created: 1700000000001
 };
 
+const mobileQrDetails = {
+	requestedAt: 1794000861348,
+	mobileGeneratedToken: '1234-123123',
+	ipAddress: '1.2.3.4',
+	mobileClientInfo: 'client info',
+	location: 'Turkey',
+	label: 'My Phone',
+	user: 'user@example.com'
+};
+
+function qrCodeResponse(version?: string): string {
+	return JSON.stringify({
+		Body: {
+			response: {
+				ok: true,
+				response: {
+					qrcode_data: {
+						version,
+						token: 'qr-token',
+						auth_method: 'qr',
+						auth_payload: { password: 'mobiletoken', user: 'user@example.com' },
+						auth_endpoint: [{ url: 'https://example.com' }]
+					}
+				}
+			}
+		}
+	});
+}
+
+async function openGeneratedQrCode(version?: string): Promise<void> {
+	fetchMock.mockResponseOnce(qrCodeResponse(version));
+	fetchMock.mockResponseOnce(
+		JSON.stringify({ Body: { response: { ok: true, values: [{ created: 1 }] } } })
+	);
+	fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+	fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+		target: { value: 'My Phone' }
+	});
+	fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+	await screen.findByTestId('qrcode-password');
+}
+
+function typeValidationCode(code: string): void {
+	code.split('').forEach((digit, index) => {
+		fireEvent.change(screen.getByTestId(`digit-input-${index}`), { target: { value: digit } });
+	});
+}
+
+function RerenderableAppMobile(): React.JSX.Element {
+	const [, setRenderCount] = React.useState(0);
+	return (
+		<>
+			<button
+				data-testid="rerender-app-mobile"
+				onClick={(): void => setRenderCount((count) => count + 1)}
+				type="button"
+			/>
+			<AppMobile passwords={[]} setPasswords={vi.fn()} />
+		</>
+	);
+}
+
+async function submitRejectedValidationCode(): Promise<void> {
+	await act(async () => {
+		typeValidationCode('123456');
+	});
+	await screen.findByText('mobileQr.validation.attemptsRemaining');
+}
+
 describe('AppMobile', () => {
 	beforeEach(() => {
 		fetchMock.resetMocks();
+		pollingMock.params = undefined;
+		countdownMock.remainingSeconds = 180;
+		Object.defineProperty(document, 'execCommand', {
+			configurable: true,
+			value: vi.fn()
+		});
+	});
+
+	afterEach(() => {
+		vi.useRealTimers();
 	});
 
 	it('should render MobileApp credentials in the table', () => {
@@ -135,5 +238,118 @@ describe('AppMobile', () => {
 			'/service/soap/RemoveCredentialRequest',
 			expect.any(Object)
 		);
+	});
+
+	it('should copy a legacy QR code and close it with a success notification', async () => {
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		await openGeneratedQrCode();
+
+		fireEvent.click(screen.getByRole('button', { name: 'common.copyQrCode' }));
+		expect(screen.getByText('setNewQRCode.successfully')).toBeInTheDocument();
+		expect(screen.getByText('newOtp.warning')).toBeInTheDocument();
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+
+		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+	});
+
+	it('should allow closing while QR code generation is pending', () => {
+		fetchMock.mockImplementationOnce(
+			() =>
+				new Promise(() => {
+					// Keep the request pending.
+				})
+		);
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'My Phone' }
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.done' }));
+		expect(
+			screen.queryByLabelText('setNewPassword.authenticationDescription')
+		).not.toBeInTheDocument();
+	});
+
+	it('should display and expire a version two QR code', async () => {
+		customRender(<RerenderableAppMobile />);
+		await openGeneratedQrCode('V2');
+
+		expect(screen.getByText('appMobile.waitingForScan')).toBeInTheDocument();
+		expect(screen.getByTestId('qrcode-countdown')).toHaveTextContent('3:00');
+		expect(pollingMock.params).toEqual(
+			expect.objectContaining({
+				active: true,
+				token: 'qr-token',
+				user: 'user@example.com',
+				label: 'My Phone'
+			})
+		);
+
+		countdownMock.remainingSeconds = 0;
+		fireEvent.click(screen.getByTestId('rerender-app-mobile'));
+		expect(screen.getAllByText('mobileQr.expired')).toHaveLength(2);
+		expect(screen.getByTestId('icon: ClockOutline')).toBeInTheDocument();
+		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+	});
+
+	it('should open and close validation when the mobile app consumes the QR code', async () => {
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		await openGeneratedQrCode('V2');
+
+		act(() => {
+			pollingMock.params?.onMobileResponse(mobileQrDetails);
+		});
+		expect(screen.getByText('mobileQr.validation.title')).toBeInTheDocument();
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+
+		expect(screen.queryByText('mobileQr.validation.title')).not.toBeInTheDocument();
+	});
+
+	it('should refresh credentials and show success after mobile validation', async () => {
+		const setPasswords = vi.fn();
+		customRender(<AppMobile passwords={[]} setPasswords={setPasswords} />);
+		await openGeneratedQrCode('V2');
+		act(() => {
+			pollingMock.params?.onMobileResponse(mobileQrDetails);
+		});
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: { response: { ok: true, value: { list: [{ created: 2 }, { created: 1 }] } } }
+			})
+		);
+
+		await act(async () => {
+			typeValidationCode('123456');
+		});
+		fireEvent.click(await screen.findByRole('button', { name: 'buttons.ok' }));
+
+		await waitFor(() => expect(setPasswords).toHaveBeenCalled());
+	});
+
+	it('should return to authentication setup when a new QR code is requested', async () => {
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		await openGeneratedQrCode('V2');
+		act(() => {
+			pollingMock.params?.onMobileResponse(mobileQrDetails);
+		});
+		fetchMock
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }));
+
+		await submitRejectedValidationCode();
+		await submitRejectedValidationCode();
+		await act(async () => {
+			typeValidationCode('123456');
+		});
+		const generateButtons = await screen.findAllByRole('button', {
+			name: 'common.newAuthentication'
+		});
+		generateButtons.forEach((button) => fireEvent.click(button));
+
+		expect(screen.getByLabelText('setNewPassword.authenticationDescription')).toBeInTheDocument();
 	});
 });

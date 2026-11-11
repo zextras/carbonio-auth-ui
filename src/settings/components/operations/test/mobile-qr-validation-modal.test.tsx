@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 
 import fetchMock from '../../../../test/fetchMock';
 import { customRender } from '../../../../test/test-utils';
@@ -31,6 +31,12 @@ const details: MobileQrMobileResponseValue = {
 function typeCode(code: string): void {
 	code.split('').forEach((digit, index) => {
 		fireEvent.change(screen.getByTestId(`digit-input-${index}`), { target: { value: digit } });
+	});
+}
+
+async function submitCode(code = '123456'): Promise<void> {
+	await act(async () => {
+		typeCode(code);
 	});
 }
 
@@ -185,6 +191,86 @@ describe('MobileQrValidationModal', () => {
 		expect(screen.getByTestId('digit-input-0')).toHaveValue('');
 	});
 
+	it('should show the failure state after three rejected codes', async () => {
+		fetchMock.mockResponses(
+			JSON.stringify({ Body: { response: { ok: false } } }),
+			JSON.stringify({ Body: { response: { ok: false } } }),
+			JSON.stringify({ Body: { response: { ok: false } } })
+		);
+		const onClose = vi.fn();
+		const onGenerateNewQr = vi.fn();
+		customRender(
+			<MobileQrValidationModal
+				open
+				details={details}
+				onClose={onClose}
+				onValidated={vi.fn()}
+				onGenerateNewQr={onGenerateNewQr}
+			/>
+		);
+
+		await submitCode();
+		await screen.findByText('mobileQr.validation.attemptsRemaining');
+		await submitCode();
+		await screen.findByText('mobileQr.validation.attemptsRemaining');
+		await submitCode();
+
+		expect(await screen.findByText('mobileQr.validation.failed')).toBeInTheDocument();
+		expect(screen.getByText('mobileQr.validation.tooManyAttempts')).toBeInTheDocument();
+		expect(screen.getByTestId('icon: AlertTriangleOutline')).toBeInTheDocument();
+
+		fireEvent.click(screen.getByText('common.newAuthentication'));
+		fireEvent.click(screen.getByText('buttons.close'));
+		expect(onGenerateNewQr).toHaveBeenCalledOnce();
+		expect(onClose).toHaveBeenCalledOnce();
+	});
+
+	it('should show the failure state after three validation request errors', async () => {
+		fetchMock
+			.mockRejectOnce(new Error('Network error'))
+			.mockRejectOnce(new Error('Network error'))
+			.mockRejectOnce(new Error('Network error'));
+		customRender(
+			<MobileQrValidationModal
+				open
+				details={details}
+				onClose={vi.fn()}
+				onValidated={vi.fn()}
+				onGenerateNewQr={vi.fn()}
+			/>
+		);
+
+		await submitCode();
+		expect(await screen.findByText('error.somethingWrong')).toBeInTheDocument();
+		await submitCode();
+		expect(await screen.findByText('error.somethingWrong')).toBeInTheDocument();
+		await submitCode();
+
+		expect(await screen.findByText('mobileQr.validation.failed')).toBeInTheDocument();
+	});
+
+	it('should close when generating a new QR code without a dedicated callback', async () => {
+		fetchMock.mockResponses(
+			JSON.stringify({ Body: { response: { ok: false } } }),
+			JSON.stringify({ Body: { response: { ok: false } } }),
+			JSON.stringify({ Body: { response: { ok: false } } })
+		);
+		const onClose = vi.fn();
+		customRender(
+			<MobileQrValidationModal open details={details} onClose={onClose} onValidated={vi.fn()} />
+		);
+
+		await submitCode();
+		await screen.findByText('mobileQr.validation.attemptsRemaining');
+		await submitCode();
+		await screen.findByText('mobileQr.validation.attemptsRemaining');
+		await submitCode();
+		await screen.findByText('mobileQr.validation.failed');
+		fireEvent.click(screen.getByText('common.newAuthentication'));
+
+		expect(onClose).toHaveBeenCalledOnce();
+	});
+
 	it('should not send the request before six digits are entered', async () => {
 		customRender(
 			<MobileQrValidationModal
@@ -218,6 +304,28 @@ describe('MobileQrValidationModal', () => {
 			});
 			expect(screen.getByText('mobileQr.validation.expired')).toBeInTheDocument();
 			expect(screen.getByTestId('digit-input-0')).toBeDisabled();
+		} finally {
+			vi.useRealTimers();
+		}
+	});
+
+	it('should show the warning countdown during the last thirty seconds', () => {
+		vi.useFakeTimers();
+		try {
+			customRender(
+				<MobileQrValidationModal
+					open
+					details={details}
+					onClose={vi.fn()}
+					onValidated={vi.fn()}
+					onGenerateNewQr={vi.fn()}
+				/>
+			);
+			act(() => {
+				vi.advanceTimersByTime(150 * 1000);
+			});
+
+			expect(screen.getByTestId('validation-countdown')).toHaveTextContent('0:30');
 		} finally {
 			vi.useRealTimers();
 		}

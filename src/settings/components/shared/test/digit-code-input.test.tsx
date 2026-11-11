@@ -47,6 +47,16 @@ describe('DigitCodeInput', () => {
 		expect(screen.getByTestId('digit-input-1')).toHaveFocus();
 	});
 
+	it('should focus the first box on mount when enabled', () => {
+		customRender(<DigitCodeInput value="" focusOnMount onChange={vi.fn()} />);
+		expect(screen.getByTestId('digit-input-0')).toHaveFocus();
+	});
+
+	it('should not focus the first box on mount when disabled', () => {
+		customRender(<DigitCodeInput value="" focusOnMount disabled onChange={vi.fn()} />);
+		expect(screen.getByTestId('digit-input-0')).not.toHaveFocus();
+	});
+
 	it.each([
 		['non-numeric characters', 'a', ''],
 		['a pasted code', '123456', '123456'],
@@ -63,6 +73,19 @@ describe('DigitCodeInput', () => {
 		customRender(<DigitCodeInput value="12" onChange={onChange} />);
 		fireEvent.keyDown(screen.getByTestId('digit-input-2'), { key: 'Backspace' });
 		expect(onChange).toHaveBeenCalledWith('1');
+		expect(screen.getByTestId('digit-input-1')).toHaveFocus();
+	});
+
+	it('should move focus between boxes with the arrow keys', () => {
+		customRender(<DigitCodeInput value="123" onChange={vi.fn()} />);
+		const secondInput = screen.getByTestId('digit-input-1');
+		secondInput.focus();
+
+		fireEvent.keyDown(secondInput, { key: 'ArrowLeft' });
+		expect(screen.getByTestId('digit-input-0')).toHaveFocus();
+
+		fireEvent.keyDown(screen.getByTestId('digit-input-0'), { key: 'ArrowRight' });
+		expect(secondInput).toHaveFocus();
 	});
 
 	it('should disable every box when disabled', () => {

@@ -37,7 +37,39 @@ const stepsNames = {
 	set_label: 'set_label',
 	generate_qrcode: 'generate_qrcode',
 	delete_password: 'delete_password'
+} as const;
+
+type StepName = (typeof stepsNames)[keyof typeof stepsNames];
+
+type ActionButtonProps = {
+	step: StepName;
+	createDisabled: boolean;
+	onCreate: () => void;
+	onDelete: () => void;
+	onDone: () => void;
 };
+
+function ActionButton({
+	step,
+	createDisabled,
+	onCreate,
+	onDelete,
+	onDone
+}: Readonly<ActionButtonProps>): ReactElement {
+	if (step === stepsNames.set_label) {
+		return (
+			<Button
+				label={t('common.createPassword', 'Create password')}
+				disabled={createDisabled}
+				onClick={onCreate}
+			/>
+		);
+	}
+	if (step === stepsNames.delete_password) {
+		return <Button label={t('buttons.yes', 'Yes')} color="error" onClick={onDelete} />;
+	}
+	return <Button label={t('buttons.done', 'Done')} onClick={onDone} />;
+}
 
 const QR_CODE_VERSION_V2 = 'V2';
 const COUNTDOWN_WARNING_THRESHOLD_SECONDS = 30;
@@ -74,7 +106,7 @@ type QrCodeProps = {
 
 export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
-	const [step, setStep] = useState(stepsNames.set_label);
+	const [step, setStep] = useState<StepName>(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
 	const [newQrCodeResp, setnewQrCodeResp] = useState<QrCodeProps | undefined>();
 	const [mobileQrDetails, setMobileQrDetails] = useState<MobileQrMobileResponseValue | undefined>();
@@ -114,9 +146,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 						columns: [
 							p.label,
 							p.enabled ? t('common.enabled', 'Enabled') : t('common.disabled', 'Disabled'),
-							p.services[0].service === 'EAS'
-								? t('easAuth.label', 'Exchange ActiveSync')
-								: t('appMobile.label', 'Mobile Applications'),
+							t('appMobile.label', 'Mobile Applications'),
 							formatDateUsingLocale(p.created)
 						],
 						clickable: true
@@ -246,47 +276,6 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 		return '';
 	}, [authDescription]);
 
-	function ActionButton(): ReactElement | null {
-		if (step === stepsNames.set_label) {
-			return (
-				<Button
-					label={t('common.createPassword', 'Create password')}
-					disabled={authDescription === '' || formatError !== ''}
-					onClick={(): void => {
-						setStep(stepsNames.generate_qrcode);
-						handleOnGenerateQrcode();
-					}}
-				/>
-			);
-		}
-		if (step === stepsNames.generate_qrcode) {
-			if (isQrCodeV2) {
-				return null;
-			}
-			return (
-				<Button
-					label={t('buttons.done', 'Done')}
-					onClick={(): void => {
-						handleOnClose(true);
-					}}
-				/>
-			);
-		}
-		if (step === stepsNames.delete_password) {
-			return (
-				<Button
-					label={t('buttons.yes', 'Yes')}
-					color="error"
-					onClick={(): void => {
-						handleOnDeletePassword();
-						handleOnClose();
-					}}
-				/>
-			);
-		}
-		return null;
-	}
-
 	return (
 		<>
 			<Section title={t('appMobile.title', 'Mobile Apps')}>
@@ -359,7 +348,19 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 									color="secondary"
 								/>
 								<Padding left="small">
-									<ActionButton />
+									<ActionButton
+										step={step}
+										createDisabled={authDescription === '' || formatError !== ''}
+										onCreate={(): void => {
+											setStep(stepsNames.generate_qrcode);
+											handleOnGenerateQrcode();
+										}}
+										onDelete={(): void => {
+											handleOnDeletePassword();
+											handleOnClose();
+										}}
+										onDone={(): void => handleOnClose(true)}
+									/>
 								</Padding>
 							</>
 						)}

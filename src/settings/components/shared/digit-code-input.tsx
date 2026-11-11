@@ -54,7 +54,7 @@ export function DigitCodeInput({
 	const setDigitAt = useCallback(
 		(index: number, digit: string): string => {
 			const digits = value.padEnd(length, ' ').slice(0, length).split('');
-			digits[index] = digit === '' ? ' ' : digit;
+			digits[index] = digit;
 			return digits.join('').replaceAll(' ', '');
 		},
 		[value, length]
