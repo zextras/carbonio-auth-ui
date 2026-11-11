@@ -15,10 +15,12 @@ import { mobileQrValidateNumberRequest } from '../../network/mobile-qr-credentia
 import { type MobileQrMobileResponseValue } from '../../network/mobile-qr-credential';
 import { BigIcon } from '../shared/big-icon';
 import { DigitCodeInput } from '../shared/digit-code-input';
+import {
+	COUNTDOWN_WARNING_THRESHOLD_SECONDS,
+	MOBILE_QR_TIMEOUT_SECONDS
+} from '../shared/mobile-qr-constants';
 import { formatDateUsingLocale } from '../utils';
 
-export const MOBILE_QR_VALIDATION_TIMEOUT_SECONDS = 30;
-const COUNTDOWN_WARNING_THRESHOLD_SECONDS = 30;
 const CODE_LENGTH = 6;
 const MAX_ATTEMPTS = 3;
 
@@ -56,7 +58,7 @@ export function MobileQrValidationModal({
 	const [failed, setFailed] = useState(false);
 	const [validating, setValidating] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
-	const remainingSeconds = useCountdown(MOBILE_QR_VALIDATION_TIMEOUT_SECONDS, open);
+	const remainingSeconds = useCountdown(MOBILE_QR_TIMEOUT_SECONDS, open);
 	const expired = remainingSeconds === 0;
 	const attemptsRef = React.useRef(0);
 	const submittedCodeRef = React.useRef('');
@@ -150,7 +152,7 @@ export function MobileQrValidationModal({
 							<Button label={t('buttons.close', 'Close')} color="secondary" onClick={onClose} />
 							<Padding left="small">
 								<Button
-									label={t('common.newAuthentication', 'Generate a new QR code')}
+									label={t('mobileQr.generateNewQrCode', 'Generate a new QR code')}
 									type="outlined"
 									onClick={onGenerateNewQr || onClose}
 								/>

@@ -23,10 +23,11 @@ import { MobileQrModal } from './mobile-qr-modal';
 import { MobileQrValidationModal } from './mobile-qr-validation-modal';
 import { EmptyState } from '../../assets/icons/empty-state';
 import { useCountdown } from '../../hooks/use-countdown';
-import { MOBILE_QR_TIMEOUT_SECONDS, useMobileQrPolling } from '../../hooks/use-mobile-qr-polling';
+import { useMobileQrPolling } from '../../hooks/use-mobile-qr-polling';
 import { fetchSoap } from '../../network/fetchSoap';
 import { MobileQrMobileResponseValue } from '../../network/mobile-qr-credential';
 import { ViewProps } from '../../types';
+import { MOBILE_QR_TIMEOUT_SECONDS } from '../shared/mobile-qr-constants';
 import { Section } from '../shared/section';
 import { stepsNames, type StepName, type QrStepName } from '../shared/steps-names';
 import { formatDateUsingLocale } from '../utils';
@@ -306,6 +307,11 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 				setStep={setStep as (value: QrStepName) => void}
 				onClose={handleOnClose}
 				onCreate={handleOnGenerateQrcode}
+				onGenerateNewQr={() => {
+					handleOnClose();
+					setShowModal(true);
+					setStep('set_label');
+				}}
 			/>
 			<MobileQrDeleteModal
 				open={showDeleteModal}

@@ -6,13 +6,13 @@
 
 import { useEffect, useRef } from 'react';
 
+import { MOBILE_QR_TIMEOUT_SECONDS } from '../components/shared/mobile-qr-constants';
 import {
 	MobileQrMobileResponseValue,
 	mobileQrMobileResponseRequest,
 	mobileQrTokenCheckRequest
 } from '../network/mobile-qr-credential';
 
-export const MOBILE_QR_TIMEOUT_SECONDS = 30;
 const POLLING_INTERVAL_MS = 1000;
 
 export type UseMobileQrPollingParams = {

@@ -7,6 +7,7 @@
 import React from 'react';
 
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { getUserAccount } from '@zextras/carbonio-shell-ui';
 
 import fetchMock from '../../../../test/fetchMock';
 import { customRender } from '../../../../test/test-utils';
@@ -133,6 +134,9 @@ describe('AppMobile', () => {
 		fetchMock.resetMocks();
 		pollingMock.params = undefined;
 		countdownMock.remainingSeconds = 180;
+		vi.mocked(getUserAccount).mockReturnValue({
+			name: 'user@example.com'
+		} as ReturnType<typeof getUserAccount>);
 		Object.defineProperty(document, 'execCommand', {
 			configurable: true,
 			value: vi.fn()
@@ -217,7 +221,21 @@ describe('AppMobile', () => {
 			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
 		});
 		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
-		expect(screen.getByText('deletePassword.title')).toBeInTheDocument();
+		expect(screen.getByText('mobileQr.delete.title')).toBeInTheDocument();
+	});
+
+	it('should close the delete confirmation without deleting', async () => {
+		customRender(<AppMobile passwords={[mobilePassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('My Mobile App'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.cancel' }));
+
+		expect(screen.queryByText('mobileQr.delete.title')).not.toBeInTheDocument();
+		expect(fetchMock).not.toHaveBeenCalled();
 	});
 
 	it('should call RemoveCredentialRequest when delete is confirmed', async () => {
@@ -250,6 +268,20 @@ describe('AppMobile', () => {
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
 
 		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+	});
+
+	it('should replace passwords with an empty list when refresh has no credentials', async () => {
+		const setPasswords = vi.fn();
+		fetchMock.mockResponseOnce(qrCodeResponse());
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		customRender(<AppMobile passwords={[]} setPasswords={setPasswords} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'My Phone' }
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+
+		await waitFor(() => expect(setPasswords).toHaveBeenCalledWith([]));
 	});
 
 	it('should allow closing while QR code generation is pending', () => {
@@ -294,6 +326,85 @@ describe('AppMobile', () => {
 		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
 	});
 
+	it('should reopen authentication setup when an expired QR code is regenerated', async () => {
+		customRender(<RerenderableAppMobile />);
+		await openGeneratedQrCode('V2');
+		countdownMock.remainingSeconds = 0;
+		fireEvent.click(screen.getByTestId('rerender-app-mobile'));
+
+		fireEvent.click(screen.getByRole('button', { name: 'mobileQr.generateNewQrCode' }));
+
+		expect(screen.getByLabelText('setNewPassword.authenticationDescription')).toBeInTheDocument();
+		expect(screen.queryByText('mobileQr.expired')).not.toBeInTheDocument();
+	});
+
+	it('should use the signed-in account when the QR payload omits the user', async () => {
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: {
+					response: {
+						ok: true,
+						value: {
+							qrcode_data: {
+								version: 'V2',
+								token: 'qr-token',
+								auth_method: 'qr',
+								auth_payload: { password: 'mobiletoken' },
+								auth_endpoint: [{ url: 'https://example.com' }]
+							}
+						}
+					}
+				}
+			})
+		);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'My Phone' }
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+
+		await screen.findByTestId('qrcode-password');
+		expect(pollingMock.params?.user).toBe('user@example.com');
+	});
+
+	it('should poll without an account when neither QR nor session provides a user', async () => {
+		vi.mocked(getUserAccount).mockReturnValue(undefined);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({
+				Body: {
+					response: {
+						ok: true,
+						value: {
+							qrcode_data: {
+								version: 'V2',
+								token: 'qr-token',
+								auth_method: 'qr',
+								auth_payload: { password: 'mobiletoken' },
+								auth_endpoint: [{ url: 'https://example.com' }]
+							}
+						}
+					}
+				}
+			})
+		);
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+		fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+			target: { value: 'My Phone' }
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+
+		await screen.findByTestId('qrcode-password');
+		expect(pollingMock.params?.user).toBe('');
+	});
+
 	it('should open and close validation when the mobile app consumes the QR code', async () => {
 		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
 		await openGeneratedQrCode('V2');
@@ -301,10 +412,10 @@ describe('AppMobile', () => {
 		act(() => {
 			pollingMock.params?.onMobileResponse(mobileQrDetails);
 		});
-		expect(screen.getByText('mobileQr.validation.title')).toBeInTheDocument();
+		expect(screen.getByText('1.2.3.4')).toBeInTheDocument();
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
 
-		expect(screen.queryByText('mobileQr.validation.title')).not.toBeInTheDocument();
+		expect(screen.queryByText('1.2.3.4')).not.toBeInTheDocument();
 	});
 
 	it('should refresh credentials and show success after mobile validation', async () => {
@@ -350,6 +461,28 @@ describe('AppMobile', () => {
 		});
 		generateButtons.forEach((button) => fireEvent.click(button));
 
+		expect(screen.getByLabelText('setNewPassword.authenticationDescription')).toBeInTheDocument();
+	});
+
+	it('should reopen setup from the validation failure action', async () => {
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		await openGeneratedQrCode('V2');
+		act(() => {
+			pollingMock.params?.onMobileResponse(mobileQrDetails);
+		});
+		fetchMock
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }));
+
+		await submitRejectedValidationCode();
+		await submitRejectedValidationCode();
+		await act(async () => {
+			typeValidationCode('123456');
+		});
+		fireEvent.click(await screen.findByRole('button', { name: 'mobileQr.generateNewQrCode' }));
+
+		expect(screen.queryByText('mobileQr.validation.failed')).not.toBeInTheDocument();
 		expect(screen.getByLabelText('setNewPassword.authenticationDescription')).toBeInTheDocument();
 	});
 });

@@ -6,12 +6,13 @@
 
 import { act, renderHook } from '@testing-library/react';
 
+import { MOBILE_QR_TIMEOUT_SECONDS } from '../../components/shared/mobile-qr-constants';
 import {
 	MobileQrMobileResponseValue,
 	mobileQrMobileResponseRequest,
 	mobileQrTokenCheckRequest
 } from '../../network/mobile-qr-credential';
-import { MOBILE_QR_TIMEOUT_SECONDS, useMobileQrPolling } from '../use-mobile-qr-polling';
+import { useMobileQrPolling } from '../use-mobile-qr-polling';
 
 vi.mock('../../network/mobile-qr-credential', () => ({
 	mobileQrMobileResponseRequest: vi.fn(),

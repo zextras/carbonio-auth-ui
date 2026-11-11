@@ -19,14 +19,16 @@ import { t } from '@zextras/carbonio-shell-ui';
 import { QRCodeSVG } from 'qrcode.react';
 
 import { formatCountdown, useCountdown } from '../../hooks/use-countdown';
-import { MOBILE_QR_TIMEOUT_SECONDS } from '../../hooks/use-mobile-qr-polling';
 import { ActionButton, type QrStepName } from '../shared/action-button';
 import { BigIcon } from '../shared/big-icon';
 import { CopyQrCodeButton } from '../shared/copy-qr-code-button';
 import { ErrorMessage } from '../shared/error-message';
+import {
+	COUNTDOWN_WARNING_THRESHOLD_SECONDS,
+	MOBILE_QR_TIMEOUT_SECONDS
+} from '../shared/mobile-qr-constants';
 
 const QR_CODE_VERSION_V2 = 'V2';
-const COUNTDOWN_WARNING_THRESHOLD_SECONDS = 30;
 
 type QrCodeProps = {
 	qrcode_data: {
@@ -55,6 +57,7 @@ type MobileQrModalProps = {
 	setStep: (value: QrStepName) => void;
 	onClose: (showSnackbar?: boolean) => void;
 	onCreate: () => void;
+	onGenerateNewQr?: () => void;
 };
 
 export function MobileQrModal({
@@ -66,7 +69,8 @@ export function MobileQrModal({
 	formatError,
 	setStep,
 	onClose,
-	onCreate
+	onCreate,
+	onGenerateNewQr
 }: Readonly<MobileQrModalProps>): ReactElement {
 	const isQrCodeV2 = newQrCodeResp?.qrcode_data?.version === QR_CODE_VERSION_V2;
 	const isShowingV2QrCode = open && step === 'generate_qrcode' && isQrCodeV2;
@@ -76,6 +80,7 @@ export function MobileQrModal({
 	const remainingSeconds = useCountdown(MOBILE_QR_TIMEOUT_SECONDS, isShowingV2QrCode);
 	const isQrCodeExpired = isQrCodeV2 && remainingSeconds === 0;
 	const isCountdownWarning = remainingSeconds <= COUNTDOWN_WARNING_THRESHOLD_SECONDS;
+	const hasGeneratedQrCode = step === 'generate_qrcode' && newQrCodeResp;
 
 	const handleOnGenerateQrcode = useCallback((): void => {
 		setStep('generate_qrcode');
@@ -89,31 +94,30 @@ export function MobileQrModal({
 			onClose={(): void => onClose(false)}
 			customFooter={
 				<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
-					{step === 'generate_qrcode' && newQrCodeResp ? (
+					<Button
+						label={t('buttons.close', 'Close')}
+						onClick={(): void => onClose()}
+						color="secondary"
+					/>
+					{hasGeneratedQrCode && isQrCodeExpired && (
 						<Padding left="small">
 							<Button
-								label={t('buttons.close', 'Close')}
-								onClick={(): void => onClose()}
-								color="secondary"
+								label={t('mobileQr.generateNewQrCode', 'Generate a new QR code')}
+								type="outlined"
+								onClick={(): void => (onGenerateNewQr || onClose)()}
 							/>
 						</Padding>
-					) : (
-						<>
-							<Button
-								label={t('buttons.close', 'Close')}
-								onClick={(): void => onClose()}
-								color="secondary"
+					)}
+					{!hasGeneratedQrCode && (
+						<Padding left="small">
+							<ActionButton
+								step={step}
+								createDisabled={authDescription === '' || formatError !== ''}
+								onCreate={handleOnGenerateQrcode}
+								onDelete={(): void => {}}
+								onDone={(): void => onClose(true)}
 							/>
-							<Padding left="small">
-								<ActionButton
-									step={step}
-									createDisabled={authDescription === '' || formatError !== ''}
-									onCreate={handleOnGenerateQrcode}
-									onDelete={(): void => {}}
-									onDone={(): void => onClose(true)}
-								/>
-							</Padding>
-						</>
+						</Padding>
 					)}
 				</Row>
 			}
