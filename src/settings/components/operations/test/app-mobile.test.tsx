@@ -19,6 +19,15 @@ const pollingMock = vi.hoisted(() => ({
 	params: undefined as UseMobileQrPollingParams | undefined
 }));
 const countdownMock = vi.hoisted(() => ({ remainingSeconds: 180 }));
+const createSnackbarMock = vi.hoisted(() => vi.fn());
+
+vi.mock('@zextras/carbonio-design-system', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@zextras/carbonio-design-system')>();
+	return {
+		...original,
+		useSnackbar: (): typeof createSnackbarMock => createSnackbarMock
+	};
+});
 
 vi.mock('@zextras/carbonio-shell-ui', () => ({
 	getI18n: vi.fn(() => ({ language: 'en_US' })),
@@ -132,6 +141,7 @@ async function submitRejectedValidationCode(): Promise<void> {
 describe('AppMobile', () => {
 	beforeEach(() => {
 		fetchMock.resetMocks();
+		createSnackbarMock.mockReset();
 		pollingMock.params = undefined;
 		countdownMock.remainingSeconds = 180;
 		vi.mocked(getUserAccount).mockReturnValue({
@@ -256,7 +266,45 @@ describe('AppMobile', () => {
 			'/service/soap/RemoveCredentialRequest',
 			expect.any(Object)
 		);
-		expect(screen.getByRole('button', { name: 'common.delete' })).toBeDisabled();
+		await waitFor(() =>
+			expect(screen.getByRole('button', { name: 'common.delete' })).toBeDisabled()
+		);
+		expect(createSnackbarMock).toHaveBeenCalledWith(
+			expect.objectContaining({ severity: 'success' })
+		);
+	});
+
+	it.each([
+		[
+			'an unsuccessful response',
+			(): void => {
+				fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }));
+			}
+		],
+		[
+			'a network error',
+			(): void => {
+				fetchMock.mockRejectOnce(new Error('Network error'));
+			}
+		]
+	])('should keep delete confirmation open after %s', async (_description, arrangeFailure) => {
+		arrangeFailure();
+		customRender(<AppMobile passwords={[mobilePassword]} setPasswords={vi.fn()} />);
+		fireEvent.click(screen.getByText('My Mobile App'));
+		await waitFor(() => {
+			expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
+		});
+		fireEvent.click(screen.getByRole('button', { name: 'common.delete' }));
+
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.yes' }));
+
+		await waitFor(() =>
+			expect(createSnackbarMock).toHaveBeenCalledWith(
+				expect.objectContaining({ severity: 'error', label: 'error.somethingWrong' })
+			)
+		);
+		expect(screen.getByText('mobileQr.delete.title')).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'common.delete' })).not.toBeDisabled();
 	});
 
 	it('should copy a legacy QR code and close it with a success notification', async () => {

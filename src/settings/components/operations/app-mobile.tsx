@@ -156,13 +156,17 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 			}
 		});
 
-	const handleOnDeletePassword = (): Promise<void> =>
-		fetchSoap('RemoveCredentialRequest', {
+	const handleOnDeletePassword = async (): Promise<boolean> => {
+		const res: { response: { ok: boolean } } = await fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
-		}).then((res: { response: { ok: string } }) => {
-			res.response.ok && updatePasswords();
 		});
+		if (!res.response.ok) {
+			return false;
+		}
+		await updatePasswords();
+		return true;
+	};
 
 	const handleOnClose = (showSnackbar = false): void => {
 		setShowModal(false);
@@ -185,18 +189,34 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 		handleOnClose();
 	};
 
-	const handleOnDelete = (): void => {
-		handleOnDeletePassword();
-		setSelectedPassword(undefined);
-		handleOnClose();
-		createSnackbar({
-			key: '1',
-			severity: 'success',
-			label: t(
-				'appMobile.delete.success',
-				'Mobile App Authentication deleted successfully. Authentication list has been updated.'
-			)
-		});
+	const handleOnDelete = async (): Promise<void> => {
+		try {
+			const deleted = await handleOnDeletePassword();
+			if (!deleted) {
+				createSnackbar({
+					key: 'mobile-app-delete-error',
+					severity: 'error',
+					label: t('error.somethingWrong', 'Something went wrong.')
+				});
+				return;
+			}
+			setSelectedPassword(undefined);
+			handleOnClose();
+			createSnackbar({
+				key: '1',
+				severity: 'success',
+				label: t(
+					'appMobile.delete.success',
+					'Mobile App Authentication deleted successfully. Authentication list has been updated.'
+				)
+			});
+		} catch {
+			createSnackbar({
+				key: 'mobile-app-delete-error',
+				severity: 'error',
+				label: t('error.somethingWrong', 'Something went wrong.')
+			});
+		}
 	};
 
 	const isQrCodeV2 = newQrCodeResp?.qrcode_data?.version === QR_CODE_VERSION_V2;

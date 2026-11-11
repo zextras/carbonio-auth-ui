@@ -81,6 +81,18 @@ function ReopenHarness(): React.JSX.Element {
 	);
 }
 
+function ExpiryHarness(): React.JSX.Element {
+	const [, setRenderCount] = React.useState(0);
+	return (
+		<>
+			<button type="button" onClick={(): void => setRenderCount((count) => count + 1)}>
+				expire
+			</button>
+			<MobileQrValidationModal {...defaultProps} />
+		</>
+	);
+}
+
 describe('MobileQrValidationModal', () => {
 	beforeEach(() => {
 		countdownMock.remainingSeconds = 5;
@@ -208,6 +220,20 @@ describe('MobileQrValidationModal', () => {
 		expect(screen.getByText('mobileQr.validation.expired')).toBeInTheDocument();
 		expect(screen.getByTestId('digit-input-0')).toBeDisabled();
 		expect(screen.queryByTestId('validation-countdown')).not.toBeInTheDocument();
+	});
+
+	it('should clear validation errors when the request expires', async () => {
+		vi.mocked(mobileQrValidateNumberRequest).mockResolvedValue({
+			response: { ok: false }
+		});
+		customRender(<ExpiryHarness />);
+		await submitRejectedCode();
+
+		countdownMock.remainingSeconds = 0;
+		fireEvent.click(screen.getByRole('button', { name: 'expire' }));
+
+		expect(screen.queryByTestId('validation-error')).not.toBeInTheDocument();
+		expect(screen.getByText('mobileQr.validation.expired')).toBeInTheDocument();
 	});
 
 	it('should show a regular countdown before the warning threshold', () => {

@@ -81,6 +81,12 @@ export function MobileQrValidationModal({
 		}
 	}, [open]);
 
+	React.useEffect(() => {
+		if (expired) {
+			setError('');
+		}
+	}, [expired]);
+
 	const handleValidate = useCallback(
 		(enteredCode: string): void => {
 			setValidating(true);
