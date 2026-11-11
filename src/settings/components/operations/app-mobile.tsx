@@ -319,6 +319,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 					onValidated={handleValidated}
 					onGenerateNewQr={() => {
 						handleValidationClose();
+						setShowModal(true);
 						setStep('set_label');
 					}}
 				/>
