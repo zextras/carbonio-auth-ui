@@ -38,7 +38,7 @@ export function CopyQrCodeButton({ qrCodeData }: Readonly<CopyQrCodeButtonProps>
 			onClick={(): void => {
 				copyToClipboard(objToBase64(qrCodeData));
 				createSnackbar({
-					key: '2',
+					key: 'mobile-qr-code-copied',
 					label: t('common.codeCopied', 'Code copied successfully')
 				});
 			}}
