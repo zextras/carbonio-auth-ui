@@ -86,7 +86,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
@@ -112,7 +112,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'disabled',
+				zimbraFeatureMobileSyncEnabled: 'FALSE',
 				carbonioFeatureMailsAppEnabled: 'FALSE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
@@ -137,7 +137,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
@@ -163,7 +163,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'FALSE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
@@ -190,7 +190,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
@@ -220,7 +220,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'enabled'
@@ -255,7 +255,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
@@ -297,7 +297,7 @@ describe('auth view', () => {
 		vi.mocked(useUserSettings).mockReturnValue({
 			attrs: {
 				carbonioFeatureOTPMgmtEnabled: 'TRUE',
-				zimbraFeatureMobileSyncEnabled: 'enabled',
+				zimbraFeatureMobileSyncEnabled: 'TRUE',
 				carbonioFeatureMailsAppEnabled: 'TRUE',
 				zimbraFeatureChangePasswordEnabled: 'TRUE',
 				zimbraFeatureResetPasswordStatus: 'disabled'
