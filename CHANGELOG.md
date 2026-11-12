@@ -1,3 +1,8 @@
+## <small>1.6.8 (2026-11-12)</small>
+
+* fix(settings/auth-view): check zimbraFeatureMobileSyncEnabled against 'TRUE' (#258) ([b5c9121](https://github.com/zextras/carbonio-auth-ui/commit/b5c9121)), closes [#258](https://github.com/zextras/carbonio-auth-ui/issues/258)
+* chore(deps): lock file maintenance (#257) ([8e7c6b8](https://github.com/zextras/carbonio-auth-ui/commit/8e7c6b8)), closes [#257](https://github.com/zextras/carbonio-auth-ui/issues/257)
+
 ## <small>1.6.7 (2026-11-03)</small>
 
 * fix(deps): update dependency @zextras/carbonio-ui-soap-lib to v1.3.3 (#255) ([d54100a](https://github.com/zextras/carbonio-auth-ui/commit/d54100a)), closes [#255](https://github.com/zextras/carbonio-auth-ui/issues/255)
