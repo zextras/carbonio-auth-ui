@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ReactElement, useCallback, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react';
 
 import {
 	Button,
@@ -73,6 +73,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	const [mobileQrDetails, setMobileQrDetails] = useState<MobileQrMobileResponseValue | undefined>();
 	const [selectedPassword, setSelectedPassword] = useState<string>();
 	const [qrToken, setQrToken] = useState('');
+	const qrGenerationAttempt = useRef(0);
 	const createSnackbar = useSnackbar();
 
 	const tableHeaders = [
@@ -139,22 +140,43 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 			}
 		);
 
-	const handleOnGenerateQrcode = (): Promise<void> =>
-		fetchSoap('AddCredentialRequest', {
+	const handleOnGenerateQrcode = (): Promise<void> => {
+		qrGenerationAttempt.current += 1;
+		const attempt = qrGenerationAttempt.current;
+		setnewQrCodeResp(undefined);
+		setQrToken('');
+		return fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: true
-		}).then((res: { response: { ok: boolean; response?: QrCodeProps; value?: QrCodeProps } }) => {
-			if (res.response.ok) {
+		})
+			.then((res: { response: { ok: boolean; response?: QrCodeProps; value?: QrCodeProps } }) => {
+				if (attempt !== qrGenerationAttempt.current) {
+					return;
+				}
 				const qrCodeData = res.response.value || res.response.response;
+				if (!res.response.ok || !qrCodeData?.qrcode_data) {
+					throw new Error('Failed to generate mobile QR code');
+				}
 				setnewQrCodeResp(qrCodeData);
 				// Store the token from AddCredentialRequest for polling
 				if (qrCodeData?.qrcode_data?.token) {
 					setQrToken(qrCodeData.qrcode_data.token);
 				}
 				updatePasswords();
-			}
-		});
+			})
+			.catch(() => {
+				if (attempt !== qrGenerationAttempt.current) {
+					return;
+				}
+				setStep('set_label');
+				createSnackbar({
+					key: 'mobile-app-create-error',
+					severity: 'error',
+					label: t('error.somethingWrong', 'Something went wrong.')
+				});
+			});
+	};
 
 	const handleOnDeletePassword = async (): Promise<boolean> => {
 		const res: { response: { ok: boolean } } = await fetchSoap('RemoveCredentialRequest', {
@@ -169,10 +191,13 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	};
 
 	const handleOnClose = (showSnackbar = false): void => {
+		// Ignore responses from a creation request closed before it finished.
+		qrGenerationAttempt.current += 1;
 		setShowModal(false);
 		setShowDeleteModal(false);
 		setStep('set_label');
 		setAuthDescription('');
+		setnewQrCodeResp(undefined);
 		setQrToken('');
 		showSnackbar &&
 			createSnackbar({

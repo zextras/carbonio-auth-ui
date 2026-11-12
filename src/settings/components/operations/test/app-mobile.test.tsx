@@ -18,7 +18,6 @@ import { AppMobile } from '../app-mobile';
 const pollingMock = vi.hoisted(() => ({
 	params: undefined as UseMobileQrPollingParams | undefined
 }));
-const countdownMock = vi.hoisted(() => ({ remainingSeconds: 180 }));
 const createSnackbarMock = vi.hoisted(() => vi.fn());
 
 vi.mock('@zextras/carbonio-design-system', async (importOriginal) => {
@@ -42,14 +41,6 @@ vi.mock('../../../hooks/use-mobile-qr-polling', async (importOriginal) => {
 		useMobileQrPolling: (params: UseMobileQrPollingParams): void => {
 			pollingMock.params = params;
 		}
-	};
-});
-
-vi.mock('../../../hooks/use-countdown', async (importOriginal) => {
-	const original = await importOriginal<typeof import('../../../hooks/use-countdown')>();
-	return {
-		...original,
-		useCountdown: (): number => countdownMock.remainingSeconds
 	};
 });
 
@@ -79,7 +70,7 @@ const mobileQrDetails = {
 	user: 'user@example.com'
 };
 
-function qrCodeResponse(version?: string): string {
+function qrCodeResponse(version?: string, token = 'qr-token'): string {
 	return JSON.stringify({
 		Body: {
 			response: {
@@ -87,7 +78,7 @@ function qrCodeResponse(version?: string): string {
 				response: {
 					qrcode_data: {
 						version,
-						token: 'qr-token',
+						token,
 						auth_method: 'qr',
 						auth_payload: { password: 'mobiletoken', user: 'user@example.com' },
 						auth_endpoint: [{ url: 'https://example.com' }]
@@ -108,27 +99,14 @@ async function openGeneratedQrCode(version?: string): Promise<void> {
 		target: { value: 'My Phone' }
 	});
 	fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
-	await screen.findByTestId('qrcode-password');
+	await act(async () => {});
+	expect(screen.getByTestId('qrcode-password')).toBeInTheDocument();
 }
 
 function typeValidationCode(code: string): void {
 	code.split('').forEach((digit, index) => {
 		fireEvent.change(screen.getByTestId(`digit-input-${index}`), { target: { value: digit } });
 	});
-}
-
-function RerenderableAppMobile(): React.JSX.Element {
-	const [, setRenderCount] = React.useState(0);
-	return (
-		<>
-			<button
-				data-testid="rerender-app-mobile"
-				onClick={(): void => setRenderCount((count) => count + 1)}
-				type="button"
-			/>
-			<AppMobile passwords={[]} setPasswords={vi.fn()} />
-		</>
-	);
 }
 
 async function submitRejectedValidationCode(): Promise<void> {
@@ -143,7 +121,6 @@ describe('AppMobile', () => {
 		fetchMock.resetMocks();
 		createSnackbarMock.mockReset();
 		pollingMock.params = undefined;
-		countdownMock.remainingSeconds = 180;
 		vi.mocked(getUserAccount).mockReturnValue({
 			name: 'user@example.com'
 		} as ReturnType<typeof getUserAccount>);
@@ -314,9 +291,12 @@ describe('AppMobile', () => {
 		fireEvent.click(screen.getByRole('button', { name: 'common.copyQrCode' }));
 		expect(screen.getByText('setNewQRCode.successfully')).toBeInTheDocument();
 		expect(screen.getByText('newOtp.warning')).toBeInTheDocument();
-		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.done' }));
 
 		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+		expect(createSnackbarMock).toHaveBeenCalledWith(
+			expect.objectContaining({ severity: 'success', label: 'appMobile.create.success' })
+		);
 	});
 
 	it('should replace passwords with an empty list when refresh has no credentials', async () => {
@@ -347,14 +327,17 @@ describe('AppMobile', () => {
 		});
 		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
 
-		fireEvent.click(screen.getByRole('button', { name: 'buttons.done' }));
+		expect(screen.queryByRole('button', { name: 'buttons.done' })).not.toBeInTheDocument();
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
 		expect(
 			screen.queryByLabelText('setNewPassword.authenticationDescription')
 		).not.toBeInTheDocument();
+		expect(createSnackbarMock).not.toHaveBeenCalled();
 	});
 
 	it('should display and expire a version two QR code', async () => {
-		customRender(<RerenderableAppMobile />);
+		vi.useFakeTimers();
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
 		await openGeneratedQrCode('V2');
 
 		expect(screen.getByText('appMobile.waitingForScan')).toBeInTheDocument();
@@ -368,24 +351,134 @@ describe('AppMobile', () => {
 			})
 		);
 
-		countdownMock.remainingSeconds = 0;
-		fireEvent.click(screen.getByTestId('rerender-app-mobile'));
+		act(() => vi.advanceTimersByTime(180_000));
 		expect(screen.getAllByText('mobileQr.expired')).toHaveLength(2);
 		expect(screen.getByTestId('icon: ClockOutline')).toBeInTheDocument();
 		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
 	});
 
 	it('should reopen authentication setup when an expired QR code is regenerated', async () => {
-		customRender(<RerenderableAppMobile />);
+		vi.useFakeTimers();
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
 		await openGeneratedQrCode('V2');
-		countdownMock.remainingSeconds = 0;
-		fireEvent.click(screen.getByTestId('rerender-app-mobile'));
+		act(() => vi.advanceTimersByTime(180_000));
 
 		fireEvent.click(screen.getByRole('button', { name: 'mobileQr.generateNewQrCode' }));
 
 		expect(screen.getByLabelText('setNewPassword.authenticationDescription')).toBeInTheDocument();
 		expect(screen.queryByText('mobileQr.expired')).not.toBeInTheDocument();
 	});
+
+	describe.each(['closing', 'regenerating'])('after %s a QR code', (reopenAction) => {
+		it.each(['success', 'unsuccessful response', 'network error'])(
+			'should not reuse the previous QR while creation ends in %s',
+			async (outcome) => {
+				vi.useFakeTimers();
+				customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+				await openGeneratedQrCode('V2');
+
+				if (reopenAction === 'regenerating') {
+					act(() => vi.advanceTimersByTime(180_000));
+					fireEvent.click(screen.getByRole('button', { name: 'mobileQr.generateNewQrCode' }));
+				} else {
+					fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+					fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+				}
+
+				let resolveResponse: (response: string) => void = vi.fn();
+				let rejectResponse: (error: Error) => void = vi.fn();
+				fetchMock.mockResponseOnce(
+					() =>
+						new Promise<string>((resolve, reject) => {
+							resolveResponse = resolve;
+							rejectResponse = reject;
+						})
+				);
+				fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+					target: { value: 'New Phone' }
+				});
+				fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+
+				expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+				expect(screen.queryByTestId('qrcode-countdown')).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'common.copyQrCode' })).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'buttons.done' })).not.toBeInTheDocument();
+				expect(pollingMock.params).toEqual(expect.objectContaining({ active: false, token: '' }));
+
+				await act(async () => {
+					if (outcome === 'success') {
+						fetchMock.mockResponseOnce(
+							JSON.stringify({ Body: { response: { ok: true, values: [] } } })
+						);
+						resolveResponse(qrCodeResponse('V2', 'new-qr-token'));
+					} else if (outcome === 'network error') {
+						rejectResponse(new Error('Network error'));
+					} else {
+						resolveResponse(JSON.stringify({ Body: { response: { ok: false } } }));
+					}
+				});
+
+				if (outcome === 'success') {
+					expect(screen.getByTestId('qrcode-password')).toBeInTheDocument();
+					expect(screen.getByTestId('qrcode-countdown')).toHaveTextContent('3:00');
+					expect(pollingMock.params).toEqual(
+						expect.objectContaining({ active: true, token: 'new-qr-token', label: 'New Phone' })
+					);
+				} else {
+					expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+					expect(screen.getByLabelText('setNewPassword.authenticationDescription')).toHaveValue(
+						'New Phone'
+					);
+					expect(screen.getByRole('button', { name: 'common.createPassword' })).toBeEnabled();
+					expect(createSnackbarMock).toHaveBeenCalledWith(
+						expect.objectContaining({ severity: 'error', label: 'error.somethingWrong' })
+					);
+					expect(pollingMock.params?.active).toBe(false);
+				}
+				expect(createSnackbarMock).not.toHaveBeenCalledWith(
+					expect.objectContaining({ severity: 'success' })
+				);
+			}
+		);
+	});
+
+	it.each(['success', 'failure'])(
+		'should ignore a late %s from a closed creation attempt',
+		async (outcome) => {
+			let resolveResponse: (response: string) => void = vi.fn();
+			let rejectResponse: (error: Error) => void = vi.fn();
+			fetchMock.mockResponseOnce(
+				() =>
+					new Promise<string>((resolve, reject) => {
+						resolveResponse = resolve;
+						rejectResponse = reject;
+					})
+			);
+			customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+			fireEvent.click(screen.getByRole('button', { name: 'common.newAuthentication' }));
+			fireEvent.change(screen.getByLabelText('setNewPassword.authenticationDescription'), {
+				target: { value: 'Old Phone' }
+			});
+			fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
+			fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+			await openGeneratedQrCode('V2');
+
+			await act(async () => {
+				if (outcome === 'success') {
+					resolveResponse(qrCodeResponse('V2', 'old-qr-token'));
+				} else {
+					rejectResponse(new Error('Network error'));
+				}
+			});
+
+			expect(screen.getByTestId('qrcode-password')).toBeInTheDocument();
+			expect(pollingMock.params).toEqual(
+				expect.objectContaining({ active: true, token: 'qr-token', label: 'My Phone' })
+			);
+			expect(createSnackbarMock).not.toHaveBeenCalled();
+			expect(fetchMock).toHaveBeenCalledTimes(3);
+		}
+	);
 
 	it('should use the signed-in account when the QR payload omits the user', async () => {
 		fetchMock.mockResponseOnce(

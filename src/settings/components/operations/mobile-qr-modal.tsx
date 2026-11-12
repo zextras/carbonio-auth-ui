@@ -108,7 +108,7 @@ export function MobileQrModal({
 							/>
 						</Padding>
 					)}
-					{!hasGeneratedQrCode && (
+					{(step === 'set_label' || (hasGeneratedQrCode && !isQrCodeV2)) && (
 						<Padding left="small">
 							<ActionButton
 								step={step}

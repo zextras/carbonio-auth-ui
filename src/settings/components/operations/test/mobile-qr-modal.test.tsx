@@ -91,7 +91,7 @@ describe('MobileQrModal', () => {
 		expect(screen.getByRole('button', { name: 'common.createPassword' })).toBeDisabled();
 	});
 
-	it('should close from the footer and finish pending generation', () => {
+	it('should allow closing but not completing pending generation', () => {
 		const onClose = vi.fn();
 		customRender(
 			<MobileQrModal
@@ -102,19 +102,20 @@ describe('MobileQrModal', () => {
 			/>
 		);
 
-		fireEvent.click(screen.getByRole('button', { name: 'buttons.done' }));
+		expect(screen.queryByRole('button', { name: 'buttons.done' })).not.toBeInTheDocument();
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
 
-		expect(onClose).toHaveBeenNthCalledWith(1, true);
-		expect(onClose).toHaveBeenNthCalledWith(2);
+		expect(onClose).toHaveBeenCalledExactlyOnceWith();
 	});
 
 	it('should render a legacy QR code', () => {
+		const onClose = vi.fn();
 		customRender(
 			<MobileQrModal
 				{...defaultProps}
 				step="generate_qrcode"
 				newQrCodeResp={{ qrcode_data: qrCodeData }}
+				onClose={onClose}
 			/>
 		);
 
@@ -123,6 +124,8 @@ describe('MobileQrModal', () => {
 		expect(screen.getByTestId('qrcode-password')).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'copy QR' })).toBeInTheDocument();
 		expect(screen.queryByTestId('qrcode-countdown')).not.toBeInTheDocument();
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.done' }));
+		expect(onClose).toHaveBeenCalledExactlyOnceWith(true);
 	});
 
 	it('should render an active version two QR code before the warning threshold', () => {
@@ -138,6 +141,7 @@ describe('MobileQrModal', () => {
 		expect(screen.getByText('appMobile.openAndScan')).toBeInTheDocument();
 		expect(screen.getByText('appMobile.waitingForScan')).toBeInTheDocument();
 		expect(screen.getByTestId('qrcode-countdown')).toHaveTextContent('0:31');
+		expect(screen.queryByRole('button', { name: 'buttons.done' })).not.toBeInTheDocument();
 		expect(
 			screen.queryByRole('button', { name: 'mobileQr.generateNewQrCode' })
 		).not.toBeInTheDocument();
