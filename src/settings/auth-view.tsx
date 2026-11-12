@@ -138,7 +138,7 @@ function useAuthTabs(): {
 
 	const easItem = useMemo(
 		() =>
-			canChangePassword && zimbraFeatureMobileSyncEnabled === 'enabled'
+			canChangePassword && zimbraFeatureMobileSyncEnabled === 'TRUE'
 				? {
 						name: 'activesync',
 						label: t('easAuth.label', 'Exchange ActiveSync'),
