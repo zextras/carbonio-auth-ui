@@ -82,7 +82,8 @@ function qrCodeResponse(version?: string, token = 'qr-token'): string {
 						auth_method: 'qr',
 						auth_payload: { password: 'mobiletoken', user: 'user@example.com' },
 						auth_endpoint: [{ url: 'https://example.com' }]
-					}
+					},
+					list: { id: 'generated-mobile-id' }
 				}
 			}
 		}
@@ -339,6 +340,10 @@ describe('AppMobile', () => {
 		vi.useFakeTimers();
 		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
 		await openGeneratedQrCode('V2');
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
 
 		expect(screen.getByText('appMobile.waitingForScan')).toBeInTheDocument();
 		expect(screen.getByTestId('qrcode-countdown')).toHaveTextContent('3:00');
@@ -351,10 +356,36 @@ describe('AppMobile', () => {
 			})
 		);
 
-		act(() => vi.advanceTimersByTime(180_000));
+		await act(async () => vi.advanceTimersByTime(180_000));
 		expect(screen.getAllByText('mobileQr.expired')).toHaveLength(2);
 		expect(screen.getByTestId('icon: ClockOutline')).toBeInTheDocument();
 		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();
+		expect(fetchMock).toHaveBeenCalledWith(
+			'/service/soap/RemoveCredentialRequest',
+			expect.objectContaining({
+				body: expect.stringContaining('generated-mobile-id')
+			})
+		);
+	});
+
+	it('should remove an active version two QR credential when closed', async () => {
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		await openGeneratedQrCode('V2');
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+
+		await waitFor(() =>
+			expect(fetchMock).toHaveBeenCalledWith(
+				'/service/soap/RemoveCredentialRequest',
+				expect.objectContaining({
+					body: expect.stringContaining('generated-mobile-id')
+				})
+			)
+		);
 	});
 
 	it('should reopen authentication setup when an expired QR code is regenerated', async () => {
@@ -545,7 +576,7 @@ describe('AppMobile', () => {
 		expect(pollingMock.params).toEqual(expect.objectContaining({ active: false, token: '' }));
 	});
 
-	it('should poll without an account when neither QR nor session provides a user', async () => {
+	it('should not poll and should show an error when neither QR nor session provides a user', async () => {
 		vi.mocked(getUserAccount).mockReturnValue(undefined);
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
@@ -576,7 +607,14 @@ describe('AppMobile', () => {
 		fireEvent.click(screen.getByRole('button', { name: 'common.createPassword' }));
 
 		await screen.findByTestId('qrcode-password');
-		expect(pollingMock.params?.user).toBe('');
+		expect(pollingMock.params).toEqual(expect.objectContaining({ active: false, user: '' }));
+		expect(createSnackbarMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				key: 'mobile-qr-missing-user',
+				severity: 'error',
+				label: 'error.userMissing'
+			})
+		);
 	});
 
 	it('should open and close validation when the mobile app consumes the QR code', async () => {
@@ -586,10 +624,45 @@ describe('AppMobile', () => {
 		act(() => {
 			pollingMock.params?.onMobileResponse(mobileQrDetails);
 		});
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
 		expect(screen.getByText('1.2.3.4')).toBeInTheDocument();
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
 
 		expect(screen.queryByText('1.2.3.4')).not.toBeInTheDocument();
+		await waitFor(() =>
+			expect(fetchMock).toHaveBeenCalledWith(
+				'/service/soap/RemoveCredentialRequest',
+				expect.objectContaining({
+					body: expect.stringContaining('generated-mobile-id')
+				})
+			)
+		);
+	});
+
+	it('should remove the credential when mobile QR validation expires', async () => {
+		vi.useFakeTimers();
+		customRender(<AppMobile passwords={[]} setPasswords={vi.fn()} />);
+		await openGeneratedQrCode('V2');
+		act(() => {
+			pollingMock.params?.onMobileResponse(mobileQrDetails);
+		});
+		fetchMock.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }));
+		fetchMock.mockResponseOnce(
+			JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } })
+		);
+
+		await act(async () => vi.advanceTimersByTime(180_000));
+
+		expect(screen.getByText('mobileQr.validation.expired')).toBeInTheDocument();
+		expect(fetchMock).toHaveBeenCalledWith(
+			'/service/soap/RemoveCredentialRequest',
+			expect.objectContaining({
+				body: expect.stringContaining('generated-mobile-id')
+			})
+		);
 	});
 
 	it('should refresh credentials and show success after mobile validation', async () => {
@@ -623,7 +696,9 @@ describe('AppMobile', () => {
 		fetchMock
 			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
 			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
-			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }));
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } }));
 
 		await submitRejectedValidationCode();
 		await submitRejectedValidationCode();
@@ -647,13 +722,23 @@ describe('AppMobile', () => {
 		fetchMock
 			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
 			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
-			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }));
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: false } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true } } }))
+			.mockResponseOnce(JSON.stringify({ Body: { response: { ok: true, value: { list: [] } } } }));
 
 		await submitRejectedValidationCode();
 		await submitRejectedValidationCode();
 		await act(async () => {
 			typeValidationCode('123456');
 		});
+		await waitFor(() =>
+			expect(fetchMock).toHaveBeenCalledWith(
+				'/service/soap/RemoveCredentialRequest',
+				expect.objectContaining({
+					body: expect.stringContaining('generated-mobile-id')
+				})
+			)
+		);
 		fireEvent.click(await screen.findByRole('button', { name: 'mobileQr.generateNewQrCode' }));
 
 		expect(screen.queryByText('mobileQr.validation.failed')).not.toBeInTheDocument();

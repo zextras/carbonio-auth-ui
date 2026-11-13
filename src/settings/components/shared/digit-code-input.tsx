@@ -52,41 +52,64 @@ export function DigitCodeInput({
 	}, [focusOnMount, disabled]);
 
 	const setDigitAt = useCallback(
-		(index: number, digit: string): string => {
-			const digits = value.padEnd(length, ' ').slice(0, length).split('');
-			digits[index] = digit;
-			return digits.join('').replaceAll(' ', '');
-		},
+		(index: number, digit: string): string =>
+			(value.slice(0, index) + digit + value.slice(index + 1)).slice(0, length),
 		[value, length]
+	);
+
+	const setDigitsFrom = useCallback(
+		(index: number, digits: string): void => {
+			const targetIndex = Math.min(index, value.length);
+			const next = (value.slice(0, targetIndex) + digits).slice(0, length);
+			onChange(next);
+			inputsRef.current[Math.min(targetIndex + digits.length, length - 1)]?.focus();
+		},
+		[length, onChange, value]
 	);
 
 	const handleChange = useCallback(
 		(index: number, rawValue: string): void => {
-			const onlyDigits = rawValue.replace(/\D/g, '');
+			const isTypingOverExistingDigit = rawValue.length === 2 && value[index] !== undefined;
+			const inputValue = isTypingOverExistingDigit ? rawValue.slice(-1) : rawValue;
+			const onlyDigits = inputValue.replace(/\D/g, '');
 			if (onlyDigits === '') {
-				onChange(value.slice(0, index));
+				if (rawValue === '' && index < value.length) {
+					onChange(value.slice(0, index) + value.slice(index + 1));
+				}
 				return;
 			}
 			if (onlyDigits.length > 1) {
-				// Handles paste or fast typing: fill from the current box onwards.
-				const next = (value.slice(0, index) + onlyDigits).slice(0, length);
-				onChange(next);
-				inputsRef.current[Math.min(next.length, length - 1)]?.focus();
+				setDigitsFrom(index, onlyDigits);
 				return;
 			}
-			const next = setDigitAt(index, onlyDigits).slice(0, length);
+			const targetIndex = Math.min(index, value.length);
+			const next = setDigitAt(targetIndex, onlyDigits);
 			onChange(next);
-			inputsRef.current[Math.min(index + 1, length - 1)]?.focus();
+			inputsRef.current[Math.min(targetIndex + 1, length - 1)]?.focus();
 		},
-		[onChange, setDigitAt, value, length]
+		[onChange, setDigitAt, setDigitsFrom, value, length]
+	);
+
+	const handlePaste = useCallback(
+		(index: number, event: React.ClipboardEvent<HTMLInputElement>): void => {
+			event.preventDefault();
+			const digits = event.clipboardData.getData('text').replace(/\D/g, '');
+			if (digits !== '') {
+				setDigitsFrom(index, digits);
+			}
+		},
+		[setDigitsFrom]
 	);
 
 	const handleKeyDown = useCallback(
 		(index: number, event: React.KeyboardEvent<HTMLInputElement>): void => {
 			if (event.key === 'Backspace' && !value[index] && index > 0) {
 				event.preventDefault();
-				onChange(value.slice(0, index - 1));
-				inputsRef.current[index - 1]?.focus();
+				const previousIndex = Math.min(index - 1, value.length - 1);
+				if (previousIndex >= 0) {
+					onChange(value.slice(0, previousIndex) + value.slice(previousIndex + 1));
+					inputsRef.current[previousIndex]?.focus();
+				}
 			}
 			if (event.key === 'ArrowLeft' && index > 0) {
 				event.preventDefault();
@@ -108,6 +131,7 @@ export function DigitCodeInput({
 					data-testid={`digit-input-${index}`}
 					aria-label={`digit-${index + 1}`}
 					inputMode="numeric"
+					pattern="[0-9]*"
 					autoComplete={index === 0 ? 'one-time-code' : 'off'}
 					maxLength={length}
 					disabled={disabled}
@@ -120,6 +144,9 @@ export function DigitCodeInput({
 					}
 					onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>): void =>
 						handleKeyDown(index, event)
+					}
+					onPaste={(event: React.ClipboardEvent<HTMLInputElement>): void =>
+						handlePaste(index, event)
 					}
 					onFocus={(event: React.FocusEvent<HTMLInputElement>): void => event.target.select()}
 				/>

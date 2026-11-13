@@ -51,13 +51,17 @@ export function MobileQrValidationModal({
 	details,
 	onClose,
 	onValidated,
-	onGenerateNewQr
+	onGenerateNewQr,
+	onQrCodeInvalidated,
+	onQrCodeClosed
 }: Readonly<{
 	open: boolean;
 	details: MobileQrMobileResponseValue;
 	onClose: () => void;
 	onValidated: () => void;
 	onGenerateNewQr?: () => void;
+	onQrCodeInvalidated?: () => void;
+	onQrCodeClosed?: () => void;
 }>): React.JSX.Element {
 	const [code, setCode] = useState('');
 	const [error, setError] = useState('');
@@ -68,6 +72,7 @@ export function MobileQrValidationModal({
 	const expired = remainingSeconds === 0;
 	const attemptsRef = React.useRef(0);
 	const submittedCodeRef = React.useRef('');
+	const invalidationHandledRef = React.useRef(false);
 
 	React.useEffect(() => {
 		if (open) {
@@ -82,10 +87,18 @@ export function MobileQrValidationModal({
 	}, [open]);
 
 	React.useEffect(() => {
+		if (!expired && !failed) {
+			invalidationHandledRef.current = false;
+			return;
+		}
 		if (expired) {
 			setError('');
 		}
-	}, [expired]);
+		if (!invalidationHandledRef.current) {
+			invalidationHandledRef.current = true;
+			onQrCodeInvalidated?.();
+		}
+	}, [expired, failed, onQrCodeInvalidated]);
 
 	const handleValidate = useCallback(
 		(enteredCode: string): void => {
@@ -137,6 +150,11 @@ export function MobileQrValidationModal({
 		onValidated();
 	}, [onValidated]);
 
+	const handleClose = useCallback((): void => {
+		onQrCodeClosed?.();
+		onClose();
+	}, [onClose, onQrCodeClosed]);
+
 	React.useEffect(() => {
 		if (
 			open &&
@@ -157,10 +175,10 @@ export function MobileQrValidationModal({
 			<Modal
 				title={t('appMobile.new', 'Mobile Apps | New Authentication')}
 				open={open && !showSuccessModal}
-				onClose={onClose}
+				onClose={handleClose}
 				customFooter={
 					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
-						<Button label={t('buttons.close', 'Close')} color="secondary" onClick={onClose} />
+						<Button label={t('buttons.close', 'Close')} color="secondary" onClick={handleClose} />
 						{(failed || expired) && (
 							<Padding left="small">
 								<Button

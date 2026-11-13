@@ -159,18 +159,40 @@ describe('MobileQrModal', () => {
 		expect(screen.getByTestId('qrcode-countdown')).toHaveTextContent('0:30');
 	});
 
+	it('should delete an active version two QR code when closed', () => {
+		const onClose = vi.fn();
+		const onQrCodeClosed = vi.fn();
+		customRender(
+			<MobileQrModal
+				{...defaultProps}
+				step="generate_qrcode"
+				newQrCodeResp={{ qrcode_data: { ...qrCodeData, version: 'V2' } }}
+				onClose={onClose}
+				onQrCodeClosed={onQrCodeClosed}
+			/>
+		);
+
+		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+
+		expect(onQrCodeClosed).toHaveBeenCalledOnce();
+		expect(onClose).toHaveBeenCalledOnce();
+	});
+
 	it('should render expiry and generate a new QR code', () => {
 		countdownMock.remainingSeconds = 0;
 		const onGenerateNewQr = vi.fn();
+		const onQrCodeExpired = vi.fn();
 		customRender(
 			<MobileQrModal
 				{...defaultProps}
 				step="generate_qrcode"
 				newQrCodeResp={{ qrcode_data: { ...qrCodeData, version: 'V2' } }}
 				onGenerateNewQr={onGenerateNewQr}
+				onQrCodeExpired={onQrCodeExpired}
 			/>
 		);
 
+		expect(onQrCodeExpired).toHaveBeenCalledOnce();
 		expect(screen.getAllByText('mobileQr.expired')).toHaveLength(2);
 		expect(screen.getByTestId('icon: ClockOutline')).toBeInTheDocument();
 		expect(screen.queryByTestId('qrcode-password')).not.toBeInTheDocument();

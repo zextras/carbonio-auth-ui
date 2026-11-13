@@ -15,7 +15,7 @@ import {
 	Text,
 	useSnackbar
 } from '@zextras/carbonio-design-system';
-import { getUserAccount, t } from '@zextras/carbonio-shell-ui';
+import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
 
 import { MobileQrDeleteModal } from './mobile-qr-delete-modal';
@@ -36,6 +36,7 @@ const QR_CODE_VERSION_V2 = 'V2';
 type QrCodeProps = {
 	qrcode_data: {
 		version?: string;
+		user?: string;
 		auth_method: string;
 		auth_payload: {
 			password: string;
@@ -74,6 +75,8 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	const [selectedPassword, setSelectedPassword] = useState<string>();
 	const [qrToken, setQrToken] = useState('');
 	const qrGenerationAttempt = useRef(0);
+	const removedQrCredentialIdsRef = useRef(new Set<string>());
+	const missingPollingUserNotifiedRef = useRef(false);
 	const createSnackbar = useSnackbar();
 
 	const tableHeaders = [
@@ -190,6 +193,31 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 		return true;
 	};
 
+	const handleQrCodeExpired = async (): Promise<void> => {
+		const passwordId = newQrCodeResp?.list.id;
+		if (!passwordId || removedQrCredentialIdsRef.current.has(passwordId)) {
+			return;
+		}
+		removedQrCredentialIdsRef.current.add(passwordId);
+		try {
+			const res: { response: { ok: boolean } } = await fetchSoap('RemoveCredentialRequest', {
+				_jsns: 'urn:zextrasClient',
+				password_id: passwordId
+			});
+			if (!res.response.ok) {
+				throw new Error('Failed to remove expired QR credential');
+			}
+			await updatePasswords();
+		} catch {
+			removedQrCredentialIdsRef.current.delete(passwordId);
+			createSnackbar({
+				key: 'mobile-qr-expired-delete-error',
+				severity: 'error',
+				label: t('error.somethingWrong', 'Something went wrong.')
+			});
+		}
+	};
+
 	const handleOnClose = (showSnackbar = false): void => {
 		// Ignore responses from a creation request closed before it finished.
 		qrGenerationAttempt.current += 1;
@@ -258,11 +286,28 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 	}, []);
 
 	const qrData = newQrCodeResp?.qrcode_data;
+	const pollingUser = qrData?.user ?? '';
+	const isPollingUserMissing = isShowingV2QrCode && qrToken !== '' && pollingUser === '';
+
+	React.useEffect(() => {
+		if (!isPollingUserMissing) {
+			missingPollingUserNotifiedRef.current = false;
+			return;
+		}
+		if (!missingPollingUserNotifiedRef.current) {
+			missingPollingUserNotifiedRef.current = true;
+			createSnackbar({
+				key: 'mobile-qr-missing-user',
+				severity: 'error',
+				label: t('error.userMissing', 'user missing in qr')
+			});
+		}
+	}, [createSnackbar, isPollingUserMissing]);
 
 	useMobileQrPolling({
-		active: isShowingV2QrCode && remainingSeconds > 0 && qrToken !== '',
+		active: isShowingV2QrCode && remainingSeconds > 0 && qrToken !== '' && pollingUser !== '',
 		token: qrToken,
-		user: qrData?.auth_payload?.user ?? getUserAccount()?.name ?? '',
+		user: pollingUser,
 		label: authDescription,
 		onMobileResponse: handleOnMobileResponse
 	});
@@ -354,6 +399,14 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 				setStep={setStep as (value: QrStepName) => void}
 				onClose={handleOnClose}
 				onCreate={handleOnGenerateQrcode}
+				onQrCodeExpired={(): void => {
+					// eslint-disable-next-line no-void
+					void handleQrCodeExpired();
+				}}
+				onQrCodeClosed={(): void => {
+					// eslint-disable-next-line no-void
+					void handleQrCodeExpired();
+				}}
 				onGenerateNewQr={() => {
 					handleOnClose();
 					setShowModal(true);
@@ -371,6 +424,14 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 					details={mobileQrDetails}
 					onClose={handleValidationClose}
 					onValidated={handleValidated}
+					onQrCodeInvalidated={(): void => {
+						// eslint-disable-next-line no-void
+						void handleQrCodeExpired();
+					}}
+					onQrCodeClosed={(): void => {
+						// eslint-disable-next-line no-void
+						void handleQrCodeExpired();
+					}}
 					onGenerateNewQr={() => {
 						handleValidationClose();
 						setShowModal(true);

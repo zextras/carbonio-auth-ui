@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ReactElement, useCallback } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef } from 'react';
 
 import {
 	Button,
@@ -58,6 +58,8 @@ type MobileQrModalProps = {
 	onClose: (showSnackbar?: boolean) => void;
 	onCreate: () => void;
 	onGenerateNewQr?: () => void;
+	onQrCodeExpired?: () => void;
+	onQrCodeClosed?: () => void;
 };
 
 export function MobileQrModal({
@@ -70,8 +72,11 @@ export function MobileQrModal({
 	setStep,
 	onClose,
 	onCreate,
-	onGenerateNewQr
+	onGenerateNewQr,
+	onQrCodeExpired,
+	onQrCodeClosed
 }: Readonly<MobileQrModalProps>): ReactElement {
+	const expirationHandledRef = useRef(false);
 	const isQrCodeV2 = newQrCodeResp?.qrcode_data?.version === QR_CODE_VERSION_V2;
 	const isShowingV2QrCode = open && step === 'generate_qrcode' && isQrCodeV2;
 
@@ -87,16 +92,41 @@ export function MobileQrModal({
 		onCreate();
 	}, [setStep, onCreate]);
 
+	const handleClose = useCallback(
+		(showSnackbar?: boolean): void => {
+			if (isQrCodeV2) {
+				onQrCodeClosed?.();
+			}
+			if (showSnackbar === undefined) {
+				onClose();
+			} else {
+				onClose(showSnackbar);
+			}
+		},
+		[isQrCodeV2, onClose, onQrCodeClosed]
+	);
+
+	useEffect(() => {
+		if (!isQrCodeExpired) {
+			expirationHandledRef.current = false;
+			return;
+		}
+		if (!expirationHandledRef.current) {
+			expirationHandledRef.current = true;
+			onQrCodeExpired?.();
+		}
+	}, [isQrCodeExpired, onQrCodeExpired]);
+
 	return (
 		<Modal
 			title={t('appMobile.new', 'Mobile Apps | New Authentication')}
 			open={open}
-			onClose={(): void => onClose(false)}
+			onClose={(): void => handleClose(false)}
 			customFooter={
 				<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
 					<Button
 						label={t('buttons.close', 'Close')}
-						onClick={(): void => onClose()}
+						onClick={(): void => handleClose()}
 						color="secondary"
 					/>
 					{hasGeneratedQrCode && isQrCodeExpired && (

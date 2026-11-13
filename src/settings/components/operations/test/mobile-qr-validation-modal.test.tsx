@@ -101,7 +101,14 @@ describe('MobileQrValidationModal', () => {
 
 	it('should render device details, countdown, and close action', () => {
 		const onClose = vi.fn();
-		customRender(<MobileQrValidationModal {...defaultProps} onClose={onClose} />);
+		const onQrCodeClosed = vi.fn();
+		customRender(
+			<MobileQrValidationModal
+				{...defaultProps}
+				onClose={onClose}
+				onQrCodeClosed={onQrCodeClosed}
+			/>
+		);
 
 		expect(screen.getByText(details.ipAddress)).toBeInTheDocument();
 		expect(screen.getByText(details.location)).toBeInTheDocument();
@@ -113,6 +120,7 @@ describe('MobileQrValidationModal', () => {
 		expect(screen.getByTestId('validation-countdown')).toHaveTextContent('0:05');
 
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
+		expect(onQrCodeClosed).toHaveBeenCalledOnce();
 		expect(onClose).toHaveBeenCalledOnce();
 	});
 
@@ -175,11 +183,13 @@ describe('MobileQrValidationModal', () => {
 		vi.mocked(mobileQrValidateNumberRequest).mockImplementation(responseFactory);
 		const onClose = vi.fn();
 		const onGenerateNewQr = vi.fn();
+		const onQrCodeInvalidated = vi.fn();
 		customRender(
 			<MobileQrValidationModal
 				{...defaultProps}
 				onClose={onClose}
 				onGenerateNewQr={onGenerateNewQr}
+				onQrCodeInvalidated={onQrCodeInvalidated}
 			/>
 		);
 
@@ -190,6 +200,7 @@ describe('MobileQrValidationModal', () => {
 		expect(await screen.findByText('mobileQr.validation.failed')).toBeInTheDocument();
 		expect(screen.getByText('mobileQr.validation.tooManyAttempts')).toBeInTheDocument();
 		expect(screen.getByTestId('icon: AlertTriangleOutline')).toBeInTheDocument();
+		expect(onQrCodeInvalidated).toHaveBeenCalledOnce();
 		fireEvent.click(screen.getByRole('button', { name: 'mobileQr.generateNewQrCode' }));
 		fireEvent.click(screen.getByRole('button', { name: 'buttons.close' }));
 		expect(onGenerateNewQr).toHaveBeenCalledOnce();
@@ -215,8 +226,12 @@ describe('MobileQrValidationModal', () => {
 
 	it('should disable input and show expiry when the countdown reaches zero', () => {
 		countdownMock.remainingSeconds = 0;
-		customRender(<MobileQrValidationModal {...defaultProps} />);
+		const onQrCodeInvalidated = vi.fn();
+		customRender(
+			<MobileQrValidationModal {...defaultProps} onQrCodeInvalidated={onQrCodeInvalidated} />
+		);
 
+		expect(onQrCodeInvalidated).toHaveBeenCalledOnce();
 		expect(screen.getByText('mobileQr.validation.expired')).toBeInTheDocument();
 		expect(screen.getByTestId('digit-input-0')).toBeDisabled();
 		expect(screen.queryByTestId('validation-countdown')).not.toBeInTheDocument();
