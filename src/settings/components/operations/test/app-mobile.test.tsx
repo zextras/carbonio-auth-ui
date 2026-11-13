@@ -79,6 +79,7 @@ function qrCodeResponse(version?: string, token = 'qr-token'): string {
 					qrcode_data: {
 						version,
 						token,
+						user: 'user@example.com',
 						auth_method: 'qr',
 						auth_payload: { password: 'mobiletoken', user: 'user@example.com' },
 						auth_endpoint: [{ url: 'https://example.com' }]
@@ -511,7 +512,7 @@ describe('AppMobile', () => {
 		}
 	);
 
-	it('should use the signed-in account when the QR payload omits the user', async () => {
+	it('should use the top-level QR user for polling', async () => {
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				Body: {
@@ -521,6 +522,7 @@ describe('AppMobile', () => {
 							qrcode_data: {
 								version: 'V2',
 								token: 'qr-token',
+								user: 'user@example.com',
 								auth_method: 'qr',
 								auth_payload: { password: 'mobiletoken' },
 								auth_endpoint: [{ url: 'https://example.com' }]
@@ -553,6 +555,7 @@ describe('AppMobile', () => {
 						value: {
 							qrcode_data: {
 								version: 'V2',
+								user: 'user@example.com',
 								auth_method: 'qr',
 								auth_payload: { password: 'mobiletoken', user: 'user@example.com' },
 								auth_endpoint: [{ url: 'https://example.com' }]
