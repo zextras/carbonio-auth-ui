@@ -4,13 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import React, { ReactElement, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react';
 
 import {
 	Button,
 	Container,
-	Input,
-	Modal,
 	Padding,
 	Row,
 	Table,
@@ -19,39 +17,26 @@ import {
 } from '@zextras/carbonio-design-system';
 import { t } from '@zextras/carbonio-shell-ui';
 import { isEmpty, orderBy } from 'lodash';
-import { QRCodeSVG } from 'qrcode.react';
 
+import { MobileQrDeleteModal } from './mobile-qr-delete-modal';
+import { MobileQrModal } from './mobile-qr-modal';
+import { MobileQrValidationModal } from './mobile-qr-validation-modal';
 import { EmptyState } from '../../assets/icons/empty-state';
+import { useCountdown } from '../../hooks/use-countdown';
+import { useMobileQrPolling } from '../../hooks/use-mobile-qr-polling';
 import { fetchSoap } from '../../network/fetchSoap';
+import { MobileQrMobileResponseValue } from '../../network/mobile-qr-credential';
 import { ViewProps } from '../../types';
-import { BigIcon } from '../shared/big-icon';
-import { ErrorMessage } from '../shared/error-message';
+import { MOBILE_QR_TIMEOUT_SECONDS } from '../shared/mobile-qr-constants';
 import { Section } from '../shared/section';
-import { copyToClipboard, formatDateUsingLocale, objToBase64 } from '../utils';
+import { stepsNames, type StepName, type QrStepName } from '../shared/steps-names';
+import { formatDateUsingLocale } from '../utils';
 
-const stepsNames = {
-	set_label: 'set_label',
-	generate_qrcode: 'generate_qrcode',
-	delete_password: 'delete_password'
-};
-
-type PasswordProps = {
-	generated: number;
-	created: Date;
-	label: string;
-	id: string;
-	services: [
-		{
-			service: string;
-		}
-	];
-	hash: string;
-	enabled: boolean;
-	algorithm: string;
-};
-
+const QR_CODE_VERSION_V2 = 'V2';
 type QrCodeProps = {
 	qrcode_data: {
+		version?: string;
+		user?: string;
 		auth_method: string;
 		auth_payload: {
 			password: string;
@@ -62,6 +47,7 @@ type QrCodeProps = {
 				url: string;
 			}
 		];
+		token?: string;
 	};
 	list: {
 		generated: string;
@@ -81,10 +67,16 @@ type QrCodeProps = {
 
 export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
-	const [step, setStep] = useState(stepsNames.set_label);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [step, setStep] = useState<StepName>(stepsNames.set_label);
 	const [authDescription, setAuthDescription] = useState('');
 	const [newQrCodeResp, setnewQrCodeResp] = useState<QrCodeProps | undefined>();
-	const [selectedPassword, setSelectedPassword] = useState();
+	const [mobileQrDetails, setMobileQrDetails] = useState<MobileQrMobileResponseValue | undefined>();
+	const [selectedPassword, setSelectedPassword] = useState<string>();
+	const [qrToken, setQrToken] = useState('');
+	const qrGenerationAttempt = useRef(0);
+	const removedQrCredentialIdsRef = useRef(new Set<string>());
+	const missingPollingUserNotifiedRef = useRef(false);
 	const createSnackbar = useSnackbar();
 
 	const tableHeaders = [
@@ -119,9 +111,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 						columns: [
 							p.label,
 							p.enabled ? t('common.enabled', 'Enabled') : t('common.disabled', 'Disabled'),
-							p.services[0].service === 'EAS'
-								? t('easAuth.label', 'Exchange ActiveSync')
-								: t('appMobile.label', 'Mobile Applications'),
+							t('appMobile.label', 'Mobile Applications'),
 							formatDateUsingLocale(p.created)
 						],
 						clickable: true
@@ -153,39 +143,196 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 			}
 		);
 
-	const handleOnGenerateQrcode = (): Promise<void> =>
-		fetchSoap('AddCredentialRequest', {
+	const handleOnGenerateQrcode = (): Promise<void> => {
+		qrGenerationAttempt.current += 1;
+		const attempt = qrGenerationAttempt.current;
+		setnewQrCodeResp(undefined);
+		setQrToken('');
+		return fetchSoap('AddCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			label: authDescription,
 			qrcode: true
-		}).then((res: { response: { ok: boolean; response?: QrCodeProps; value?: QrCodeProps } }) => {
-			if (res.response.ok) {
-				setnewQrCodeResp(res.response.value || res.response.response);
+		})
+			.then((res: { response: { ok: boolean; response?: QrCodeProps; value?: QrCodeProps } }) => {
+				if (attempt !== qrGenerationAttempt.current) {
+					return;
+				}
+				const qrCodeData = res.response.value || res.response.response;
+				if (!res.response.ok || !qrCodeData?.qrcode_data) {
+					throw new Error('Failed to generate mobile QR code');
+				}
+				setnewQrCodeResp(qrCodeData);
+				// Store the token from AddCredentialRequest for polling
+				if (qrCodeData?.qrcode_data?.token) {
+					setQrToken(qrCodeData.qrcode_data.token);
+				}
 				updatePasswords();
-			}
-		});
+			})
+			.catch(() => {
+				if (attempt !== qrGenerationAttempt.current) {
+					return;
+				}
+				setStep('set_label');
+				createSnackbar({
+					key: 'mobile-app-create-error',
+					severity: 'error',
+					label: t('error.somethingWrong', 'Something went wrong.')
+				});
+			});
+	};
 
-	const handleOnDeletePassword = (): Promise<void> =>
-		fetchSoap('RemoveCredentialRequest', {
+	const handleOnDeletePassword = async (): Promise<boolean> => {
+		const res: { response: { ok: boolean } } = await fetchSoap('RemoveCredentialRequest', {
 			_jsns: 'urn:zextrasClient',
 			password_id: selectedPassword
-		}).then((res: { response: { ok: string } }) => {
-			res.response.ok && updatePasswords();
 		});
+		if (!res.response.ok) {
+			return false;
+		}
+		await updatePasswords();
+		return true;
+	};
+
+	const handleQrCodeExpired = async (): Promise<void> => {
+		const passwordId = newQrCodeResp?.list.id;
+		if (!passwordId || removedQrCredentialIdsRef.current.has(passwordId)) {
+			return;
+		}
+		removedQrCredentialIdsRef.current.add(passwordId);
+		try {
+			const res: { response: { ok: boolean } } = await fetchSoap('RemoveCredentialRequest', {
+				_jsns: 'urn:zextrasClient',
+				password_id: passwordId
+			});
+			if (!res.response.ok) {
+				throw new Error('Failed to remove expired QR credential');
+			}
+			await updatePasswords();
+		} catch {
+			removedQrCredentialIdsRef.current.delete(passwordId);
+			createSnackbar({
+				key: 'mobile-qr-expired-delete-error',
+				severity: 'error',
+				label: t('error.somethingWrong', 'Something went wrong.')
+			});
+		}
+	};
 
 	const handleOnClose = (showSnackbar = false): void => {
+		// Ignore responses from a creation request closed before it finished.
+		qrGenerationAttempt.current += 1;
 		setShowModal(false);
-		setStep(stepsNames.set_label);
+		setShowDeleteModal(false);
+		setStep('set_label');
 		setAuthDescription('');
+		setnewQrCodeResp(undefined);
+		setQrToken('');
 		showSnackbar &&
 			createSnackbar({
 				key: '1',
 				severity: 'success',
 				label: t(
-					'appMobile.success',
-					'New Mobile App password enabled successfully. Passwords list has been updated.'
+					'appMobile.create.success',
+					'New Mobile App Authentication enabled successfully. Authentication list has been updated.'
 				)
 			});
+	};
+
+	const handleOnCloseDelete = (): void => {
+		handleOnClose();
+	};
+
+	const handleOnDelete = async (): Promise<void> => {
+		try {
+			const deleted = await handleOnDeletePassword();
+			if (!deleted) {
+				createSnackbar({
+					key: 'mobile-app-delete-error',
+					severity: 'error',
+					label: t('error.somethingWrong', 'Something went wrong.')
+				});
+				return;
+			}
+			setSelectedPassword(undefined);
+			handleOnClose();
+			createSnackbar({
+				key: '1',
+				severity: 'success',
+				label: t(
+					'appMobile.delete.success',
+					'Mobile App Authentication deleted successfully. Authentication list has been updated.'
+				)
+			});
+		} catch {
+			createSnackbar({
+				key: 'mobile-app-delete-error',
+				severity: 'error',
+				label: t('error.somethingWrong', 'Something went wrong.')
+			});
+		}
+	};
+
+	const isQrCodeV2 = newQrCodeResp?.qrcode_data?.version === QR_CODE_VERSION_V2;
+	const isShowingV2QrCode =
+		showModal && step === stepsNames.generate_qrcode && isQrCodeV2 && !mobileQrDetails;
+
+	// The countdown runs purely off the QR code being displayed, so it never depends on the
+	// shape of the credential payload.
+	const remainingSeconds = useCountdown(MOBILE_QR_TIMEOUT_SECONDS, isShowingV2QrCode);
+	const handleOnMobileResponse = useCallback((value: MobileQrMobileResponseValue): void => {
+		setShowModal(false);
+		setStep('set_label');
+		setMobileQrDetails(value);
+	}, []);
+
+	const qrData = newQrCodeResp?.qrcode_data;
+	const pollingUser = qrData?.user ?? '';
+	const isPollingUserMissing = isShowingV2QrCode && qrToken !== '' && pollingUser === '';
+
+	React.useEffect(() => {
+		if (!isPollingUserMissing) {
+			missingPollingUserNotifiedRef.current = false;
+			return;
+		}
+		if (!missingPollingUserNotifiedRef.current) {
+			missingPollingUserNotifiedRef.current = true;
+			createSnackbar({
+				key: 'mobile-qr-missing-user',
+				severity: 'error',
+				label: t('error.userMissing', 'user missing in qr')
+			});
+		}
+	}, [createSnackbar, isPollingUserMissing]);
+
+	useMobileQrPolling({
+		active: isShowingV2QrCode && remainingSeconds > 0 && qrToken !== '' && pollingUser !== '',
+		token: qrToken,
+		user: pollingUser,
+		label: authDescription,
+		onMobileResponse: handleOnMobileResponse
+	});
+
+	const handleValidationClose = useCallback((): void => {
+		setMobileQrDetails(undefined);
+		setAuthDescription('');
+		setnewQrCodeResp(undefined);
+		setQrToken('');
+	}, []);
+
+	const handleValidated = (): void => {
+		setMobileQrDetails(undefined);
+		setAuthDescription('');
+		setnewQrCodeResp(undefined);
+		setQrToken('');
+		updatePasswords();
+		createSnackbar({
+			key: 'mobile-qr-validated',
+			severity: 'success',
+			label: t(
+				'appMobile.create.success',
+				'New Mobile App Authentication enabled successfully. Authentication list has been updated.'
+			)
+		});
 	};
 
 	const formatError = useMemo(() => {
@@ -195,44 +342,6 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 		}
 		return '';
 	}, [authDescription]);
-
-	function ActionButton(): ReactElement | null {
-		if (step === stepsNames.set_label) {
-			return (
-				<Button
-					label={t('common.createPassword', 'Create password')}
-					disabled={authDescription === ''}
-					onClick={(): void => {
-						setStep(stepsNames.generate_qrcode);
-						handleOnGenerateQrcode();
-					}}
-				/>
-			);
-		}
-		if (step === stepsNames.generate_qrcode) {
-			return (
-				<Button
-					label={t('buttons.done', 'Done')}
-					onClick={(): void => {
-						handleOnClose(true);
-					}}
-				/>
-			);
-		}
-		if (step === stepsNames.delete_password) {
-			return (
-				<Button
-					label={t('buttons.yes', 'Yes')}
-					color="error"
-					onClick={(): void => {
-						handleOnDeletePassword();
-						handleOnClose();
-					}}
-				/>
-			);
-		}
-		return null;
-	}
 
 	return (
 		<>
@@ -246,8 +355,7 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 							icon="CloseOutline"
 							disabled={!selectedPassword || tableRows.length === 0}
 							onClick={(): void => {
-								setStep(stepsNames.delete_password);
-								setShowModal(true);
+								setShowDeleteModal(true);
 							}}
 						/>
 						<Padding left="large">
@@ -265,7 +373,8 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 							headers={tableHeaders}
 							showCheckbox={false}
 							multiSelect={false}
-							onSelectionChange={(selected: any): void => setSelectedPassword(selected[0])}
+							selectedRows={selectedPassword ? [selectedPassword] : []}
+							onSelectionChange={(selected): void => setSelectedPassword(selected[0])}
 						/>
 						{isEmpty(tableRows) && (
 							<Container padding="4rem 0 0">
@@ -280,110 +389,56 @@ export function AppMobile({ passwords, setPasswords }: ViewProps): ReactElement 
 					</Padding>
 				</Container>
 			</Section>
-			<Modal
-				title={t('appMobile.new', 'Mobile Apps | New Authentication')}
+			<MobileQrModal
 				open={showModal}
-				onClose={(): void => handleOnClose(false)}
-				customFooter={
-					<Row width="100%" mainAlignment="flex-end" crossAlignment="flex-end">
-						<Button
-							label={
-								step === stepsNames.delete_password
-									? t('buttons.cancel', 'Cancel')
-									: t('buttons.close', 'Close')
-							}
-							onClick={(): void => handleOnClose()}
-							color="secondary"
-						/>
-						<Padding left="small">
-							<ActionButton />
-						</Padding>
-					</Row>
-				}
-			>
-				<Container padding="2rem">
-					{step === stepsNames.set_label && (
-						<Container padding="2rem 0 0">
-							<Input
-								label={t('setNewPassword.authenticationDescription', 'Authentication description')}
-								value={authDescription}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-									setAuthDescription(e.target.value)
-								}
-								backgroundColor="gray5"
-							/>
-							{formatError && <ErrorMessage error={formatError} />}
-							<Padding vertical="medium">
-								<Text style={{ textAlign: 'center' }} overflow="break-word">
-									{t(
-										'appMobile.descriptionHelp',
-										'Description will help you remember where this Mobile Apps Authentication is used.'
-									)}
-								</Text>
-							</Padding>
-						</Container>
-					)}
-					{step === stepsNames.generate_qrcode && newQrCodeResp && (
-						<Container>
-							<Text>
-								{t('setNewQRCode.successfully', 'QR Authentication generated successfully')}
-							</Text>
-							<Padding vertical="large">
-								<Row
-									width="fit"
-									orientation="vertical"
-									background="gray5"
-									padding={{ all: 'large' }}
-								>
-									<div className="force-white-bg">
-										<QRCodeSVG
-											data-testid="qrcode-password"
-											size={143}
-											bgColor="transparent"
-											value={JSON.stringify(newQrCodeResp.qrcode_data)}
-										/>
-									</div>
-									<Padding top="large">
-										<Button
-											label={t('common.copyQrCode', 'Copy QR Code')}
-											type="outlined"
-											onClick={(): void => {
-												copyToClipboard(objToBase64(newQrCodeResp.qrcode_data));
-												createSnackbar({
-													key: '2',
-													label: t('common.codeCopied', 'Code copied successfully')
-												});
-											}}
-										/>
-									</Padding>
-								</Row>
-							</Padding>
-							<Text weight="bold">
-								{t('newOtp.warning', "Warning: you'll be able to copy this token just once.")}
-							</Text>
-							<Text>
-								{t('newOtp.scan_qr', 'Scan this QR code through one of the supported apps.')}
-							</Text>
-						</Container>
-					)}
-					{step === stepsNames.delete_password && (
-						<Container>
-							<Text overflow="break-word">
-								{t('deletePassword.title', 'Are you sure you want to delete this password?')}
-							</Text>
-							<Padding vertical="large">
-								<BigIcon icon="AlertTriangleOutline" />
-							</Padding>
-							<Text style={{ textAlign: 'center' }} weight="bold" overflow="break-word">
-								{t(
-									'deleteOtp.description',
-									'All the devices that are using this password are going to be disconnected and they will not be able to authenticate until you provide a new credential set.'
-								)}
-							</Text>
-						</Container>
-					)}
-				</Container>
-			</Modal>
+				step={step as QrStepName}
+				authDescription={authDescription}
+				setAuthDescription={setAuthDescription}
+				newQrCodeResp={newQrCodeResp}
+				formatError={formatError}
+				setStep={setStep as (value: QrStepName) => void}
+				onClose={handleOnClose}
+				onCreate={handleOnGenerateQrcode}
+				onQrCodeExpired={(): void => {
+					// eslint-disable-next-line no-void
+					void handleQrCodeExpired();
+				}}
+				onQrCodeClosed={(): void => {
+					// eslint-disable-next-line no-void
+					void handleQrCodeExpired();
+				}}
+				onGenerateNewQr={() => {
+					handleOnClose();
+					setShowModal(true);
+					setStep('set_label');
+				}}
+			/>
+			<MobileQrDeleteModal
+				open={showDeleteModal}
+				onClose={handleOnCloseDelete}
+				onDelete={handleOnDelete}
+			/>
+			{mobileQrDetails && (
+				<MobileQrValidationModal
+					open
+					details={mobileQrDetails}
+					onClose={handleValidationClose}
+					onValidated={handleValidated}
+					onQrCodeInvalidated={(): void => {
+						// eslint-disable-next-line no-void
+						void handleQrCodeExpired();
+					}}
+					onQrCodeClosed={(): void => {
+						// eslint-disable-next-line no-void
+						void handleQrCodeExpired();
+					}}
+					onGenerateNewQr={() => {
+						handleValidationClose();
+						setShowModal(true);
+						setStep('set_label');
+					}}
+				/>
+			)}
 		</>
 	);
 }

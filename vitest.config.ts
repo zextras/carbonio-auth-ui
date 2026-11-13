@@ -24,7 +24,7 @@ export default defineConfig({
 		restoreMocks: true,
 		reporters: ['default'],
 		coverage: {
-			enabled: false,
+			enabled: true,
 			provider: 'v8',
 			reporter: ['lcov', 'html'],
 			reportsDirectory: 'coverage',
