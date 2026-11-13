@@ -1,3 +1,7 @@
+## 1.7.0 (2026-11-13)
+
+* feat: [CO-3702] new QR code for mobile (#259) ([e636fb5](https://github.com/zextras/carbonio-auth-ui/commit/e636fb5)), closes [#259](https://github.com/zextras/carbonio-auth-ui/issues/259)
+
 ## <small>1.6.8 (2026-11-12)</small>
 
 * fix(settings/auth-view): check zimbraFeatureMobileSyncEnabled against 'TRUE' (#258) ([b5c9121](https://github.com/zextras/carbonio-auth-ui/commit/b5c9121)), closes [#258](https://github.com/zextras/carbonio-auth-ui/issues/258)
