@@ -75,7 +75,7 @@ function useAuthTabs(): {
 		zimbraFeatureMobileSyncEnabled,
 		carbonioFeatureMailsAppEnabled
 	} = attrs;
-	const { canChangePassword, resetEnabled } = usePasswordPolicy();
+	const { resetEnabled } = usePasswordPolicy();
 	const isRecoveryAddressFeatureEnabled = resetEnabled;
 
 	const changePasswordItem = {
@@ -138,7 +138,7 @@ function useAuthTabs(): {
 
 	const easItem = useMemo(
 		() =>
-			canChangePassword && zimbraFeatureMobileSyncEnabled === 'TRUE'
+			zimbraFeatureMobileSyncEnabled === 'TRUE'
 				? {
 						name: 'activesync',
 						label: t('easAuth.label', 'Exchange ActiveSync'),
@@ -150,12 +150,12 @@ function useAuthTabs(): {
 						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-eas'
 					}
 				: undefined,
-		[canChangePassword, zimbraFeatureMobileSyncEnabled]
+		[zimbraFeatureMobileSyncEnabled]
 	);
 
 	const mobileItem = useMemo(
 		() =>
-			canChangePassword && carbonioFeatureMailsAppEnabled === 'TRUE'
+			carbonioFeatureMailsAppEnabled === 'TRUE'
 				? {
 						name: 'mobile',
 						label: t('appMobile.title', 'Mobile Apps'),
@@ -164,7 +164,7 @@ function useAuthTabs(): {
 						link: 'https://docs.zextras.com/suite/html/auth.html#create-new-credentials-mobile-apps'
 					}
 				: undefined,
-		[canChangePassword, carbonioFeatureMailsAppEnabled]
+		[carbonioFeatureMailsAppEnabled]
 	);
 
 	const links = compact([
